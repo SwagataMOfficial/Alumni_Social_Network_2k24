@@ -155,13 +155,20 @@ class ProfileController extends Controller {
         return redirect(route('profile.edit'));
     }
 
-    public function toggleVisibility(Request $request) {
-        // echo "<pre>";
-        // print_r($request->all());
-        // echo "</pre>";
+    public function toggleVisibility(Request $request)
+    {
+        $studentId =  session()->get('user_id');
+        $visibility = $request->input('profile_visibility');
 
-        // PLAN: toggle the visibility and return back to the page
 
-        return response()->json(["message" => "visibility changed successfully", "data" => $request->all()], 200);
+        $user = User::where('student_id', $studentId)->first();
+
+        if ($user) {
+            $user->profile_visibility = $visibility;
+            $user->save();
+            return response()->json(['success' => true,'message' => 'Privacy Update']);//thi sis shobhan
+        } else {
+            return response()->json(['success' => false, 'message' => 'User not found'], 404);//this is altab
+        }
     }
 }
