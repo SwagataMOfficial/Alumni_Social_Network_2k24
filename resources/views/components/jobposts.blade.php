@@ -1,0 +1,1 @@
+<p class="text-3xl font-bold text-blue-800 text-center">{{ $details['name'] }} job posts will appear here</p>
