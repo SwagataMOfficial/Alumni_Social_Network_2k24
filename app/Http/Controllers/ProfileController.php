@@ -166,7 +166,7 @@ class ProfileController extends Controller {
         if ($user) {
             $user->profile_visibility = $visibility;
             $user->save();
-            return response()->json(['success' => true,'message' => 'Privacy Update']);
+            return response()->json(['success' => true,'message' => 'Privacy Update']);//thi sis shobhan
         } else {
             return response()->json(['success' => false, 'message' => 'User not found'], 404);
         }
