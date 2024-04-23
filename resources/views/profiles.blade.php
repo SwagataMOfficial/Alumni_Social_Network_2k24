@@ -115,33 +115,55 @@
         </div>
     </div>
 @endsection
-
-{{-- @push('script')
-<script>
-    $(document).ready(function() {
-        $("#visibility_input").change(() => {
-            // alert("Visibility Changed");
-            $("#visibility_form").submit();
-        });
-
-        $("#visibility_form").submit((e)=>{
-            e.preventDefault();
-            $("#visibility_input").prop("disabled");
-            // alert('submitting form');
-            // Submitting the form through ajax
-            $.ajax({
-                url: "{{ route('profile.visibility') }}",
-                method: "POST",
-                data: $(this).serialize(),
-                success: function(response) {
-                    $("#visibility_input").removeAttr("disabled");
-                    alert("Data=", response.json());
-                },
-                error: function(xhr, status, error) {
-                    alert('error:', error);
-                }
+@push('script')
+    <script>
+        $(document).ready(function() {
+            $('#visibility_input').change(function() {
+                var visibility = $(this).prop('checked') ? 1 : 0;
+                $.ajax({
+                    url: "{{ route('profile.visibility') }}",
+                    method: "POST",
+                    data: {
+                        _token: "{{ csrf_token() }}",
+                        profile_visibility: visibility
+                    },
+                    success: function(response) {
+                        console.log(response.message);
+                        location.reload();
+                        
+                    },
+                    error: function(xhr, status, error) {
+                        console.error(xhr.responseText);
+                        
+                    }
+                });
             });
         });
-    });
-</script>
-@endpush --}}
+        // $(document).ready(function() {
+        // $("#visibility_input").change(() => {
+        // // alert("Visibility Changed");
+        // $("#visibility_form").submit();
+        // });
+
+        // $("#visibility_form").submit((e)=>{
+        // e.preventDefault();
+        // $("#visibility_input").prop("disabled");
+        // // alert('submitting form');
+        // // Submitting the form through ajax
+        // $.ajax({
+        // url: "{{ route('profile.visibility') }}",
+        // method: "POST",
+        // data: $(this).serialize(),
+        // success: function(response) {
+        // $("#visibility_input").removeAttr("disabled");
+        // alert("Data=", response.json());
+        // },
+        // error: function(xhr, status, error) {
+        // alert('error:', error);
+        // }
+        // });
+        // });
+        // });
+    </script>
+@endpush
+
