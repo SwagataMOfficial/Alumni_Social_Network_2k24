@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('comments', function (Blueprint $table) {
             $table->id('comment_id');
-            $table->bigInteger('post_id');
+            $table->bigInteger('post_id')->unsigned();
             $table->foreign('post_id')->references('post_id')->on('user_posts')->onDelete('cascade');
             $table->text('comment');
             $table->timestamps();
