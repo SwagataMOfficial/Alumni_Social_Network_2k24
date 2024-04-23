@@ -168,7 +168,7 @@ class ProfileController extends Controller {
             $user->save();
             return response()->json(['success' => true,'message' => 'Privacy Update']);//thi sis shobhan
         } else {
-            return response()->json(['success' => false, 'message' => 'User not found'], 404);
+            return response()->json(['success' => false, 'message' => 'User not found'], 404);//this is altab
         }
     }
 }
