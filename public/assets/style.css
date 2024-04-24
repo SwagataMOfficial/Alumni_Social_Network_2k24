@@ -1,0 +1,405 @@
+*{
+    margin:0;
+    padding:0;
+    font-family:'poppings','sans-serief'; 
+    box-sizing:border-box;
+}
+body{
+    background-color: #f0f2f57e;
+    color:hsl(0, 0%, 37%);
+}
+/* Add this to your existing CSS code */
+
+/* Navbar styling */
+.navbar {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+}
+
+.navbar-nav .nav-item.active a{
+    border-bottom: 2px solid #0c0c0c;
+}
+
+/* Adjust content padding to prevent overlap with the fixed navbar */
+.container-first {
+    padding-top: 56px; /* Adjust this value based on your navbar height */
+}
+
+/* Existing styles ... */
+
+
+a{
+    text-decoration: none;
+    color:#5f5f5f;
+}
+.logo{
+
+    color:gray;
+    border-radius: 30%;
+    background-color: black;
+    margin-left: 20px; 
+}
+.profile-image {
+    width: 20px; 
+    height: 20px;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+  .navbar-nav a {
+    color: #000; 
+    text-decoration: none; 
+    
+  }
+  
+ 
+  .navbar-nav a:hover {
+    text-decoration:bold; 
+    border-bottom: 2px solid #000; 
+  }
+  
+  .searchbox {
+    display: flex;
+    align-items: center;
+    margin-left: 10px;
+    padding-right: 1rem;
+    background-color: #f0f2f5;
+}
+
+.search-icon {
+    margin-right: 0.5rem;
+}
+
+.searchbox input {
+  
+    border-radius: 5px;
+    padding: 0.5rem 15px; /* Add padding to top and bottom */
+    width: 100%; /* Take up all available width */
+    box-sizing: border-box; /* Include padding and border in total width */
+}
+  /* nav end */
+
+  /* main part */
+.container-second{
+    padding:20px 6%;
+    display:flex;
+    flex-wrap: wrap; /*three div with a div*/
+    justify-content: space-between;
+    background-color: #d6d3d3;
+    padding-top: 50px ;
+}
+/* left sidebar */
+.left-sidebar{
+    flex-basis:25%;/*width */
+    align-self: flex-start;
+   
+}
+.sidebar-profilebox{
+    border:5px grey;
+    
+}
+.sidebar-profilebox {
+    background-color: #fff;
+   
+}
+
+.self-profileimg{
+    padding:0 25px;
+}
+
+.self-profileimg img{
+    width:80px;
+    height: 30%;
+    border-radius: 50%;
+    background: #fff;
+    padding: 1px;
+    margin-top: -45px;
+    margin-left:40px ;
+
+
+}
+
+.self-profileimg h1{
+  padding-top: 6%;
+    font-size: 18px;
+    color: black;
+    margin-bottom:0 ;
+    font-weight: 600 ;
+    font-family: sans-serif;
+}
+.self-profileimg span{
+     margin-top: 0;
+     font-size: 13px;
+     font-family: sans-serif;
+}
+.self-profileimg ul{
+    font-size: 20px;
+   list-style: none;
+    font-weight: 200;
+    border-top:1px solid #ccc;
+    font-family: sans-serif;
+    font-family: sans-serif;
+   
+}
+.self-profileimg ul li{
+    width: 100px;
+    margin: 5px 0;
+    font-size: 16px;
+    color: rgb(0, 0, 0);
+    font-weight: bold ;
+    font-family: sans-serif;
+   
+}
+.self-profileimg ul li span{
+ 
+    float:right;
+    font-size:18px;
+    color: rgb(33, 119, 218);
+    font-weight: bold ;
+    cursor: pointer;
+    font-family: sans-serif;
+}
+.sider-profile-link{
+    display:flex;
+    align-items: center;
+    border-top:1px solid #ccc;
+    padding-bottom: 5%;
+}
+.sider-profile-link a{
+   padding-left: 4%;
+   font-weight: bold ;
+   color: #000;
+   font-family: sans-serif;
+}
+.sider-profile-link img{
+    margin-left:9px;
+    margin-top: 4%;
+    padding: 1%;
+    width:28px; 
+    border:2px solid #5f5f5f;
+    
+}
+.divlist{
+ margin-top: 9%;
+ background-color: #fff;
+}
+.divlist button{
+    outline: none;
+    border: none;
+}
+.list{
+    height: auto;
+    
+    list-style: none;
+    font-size:15px;
+    color: rgb(33, 119, 218);
+    font-weight: bold ;
+    padding: 2%;
+    font-family: sans-serif;
+}
+.more{
+    
+    border-top: 2px solid #ccc;
+    color: #000;
+    font-family: sans-serif;
+    padding-left: 8%;
+}
+
+/* right sidebar */
+.rightt-sidebar{
+     flex-basis:25%;/*width */
+    align-self: flex-start;
+
+}
+.sidebar-news{
+   
+ background-color: #fff;
+ height:min-content;
+}
+.sidebar-news ul li a{
+    font-size:13px;
+    font-weight: bold;
+    color: #000;
+   
+}
+.sidebar-news ul{
+    font-size:9px;
+    font-weight: bold;
+}
+.sidebar-news ul  p{
+    font-size:16px;
+    font-weight: bold;
+}
+.jobalerts{
+    padding-left:14%;
+   
+    padding-top: 4%;
+    padding-right: 5%;
+  
+}
+.viewall{
+    padding:4%;
+    color:#000;
+    font-weight: bold;
+}
+.viewall button{
+    border: none;
+    outline: none;
+}
+/* main part */
+.main-bar{
+    flex-basis:47%;
+}
+.create-post{
+    background: #fff;
+
+}
+.create-post-input{
+    padding: 3%;
+    display: flex;
+    align-items: flex-start;
+}
+.create-post-input img{
+    width:35px;
+    height:35px;
+    border-radius: 50%;
+    margin-right: 12px;
+    margin-top: 7px;
+}
+.create-post-input textarea{
+    width:50%;
+   
+    border: 3px solid #cccccca1;
+    outline: none;
+    background: transparent;
+    margin-top: 7px;
+    height: 40px;
+    border: 2% black;
+  
+   border-radius:5px;
+  
+  padding:  4px;
+}
+.create-post-input-links{
+    padding-left: 4%;
+    display:flex;
+    align-items: flex-start;
+}
+
+.create-post-input-links ul li{
+    
+   list-style: none;
+   display: inline-block;
+
+
+}
+ul li .custom-btn {
+    background-color: #000000a1;
+    border: 2px solid black;
+    margin-right:9px;
+    margin-top: 12px;
+    padding: 3px 6px; /* Adjust the padding as needed */
+    font-size: 10px; /* Adjust the font size as needed */
+}
+ul li .custom-btn:hover{
+    background-color: #000;
+}
+.division{
+    border-top: 2px solid black;
+    margin-top: 8px;
+}
+.post{
+    background: #fff;
+    padding:20px 25px 5px;
+    margin:5px 0 15px;
+}
+.more-dot button{
+    border: none;
+    outline: none;
+    margin-left:90px ;
+}
+.more-dot .share-mode i{
+    
+    margin-right: 1500px;
+   
+}
+.post-author{
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 20px;
+}
+.post-author img{
+    border-radius: 50%;
+    width:40px;
+    height:40px;
+    margin-right:10px;
+    margin-top: 2px;
+}
+.post-author h1{
+    padding-top: 6%;
+    font-size: 18px;
+    color: #333;
+    margin-bottom:0 ;
+    font-weight: 600 ;
+    font-family: sans-serif;
+}
+.post-author small{
+    display: block;
+    margin-bottom: -2px;
+}
+.post p{
+    font-size: 16px;
+    margin-bottom: 15px;
+    margin-top: 3%;
+    color: #000;
+
+}
+.post img{
+    margin-bottom: 15px;
+}
+.post-stars button{
+    outline: none;
+    border: none;
+    padding-right:7%;
+    margin-left: 13px;
+    
+    
+}
+.calculate{
+    border-bottom:1px solid rgb(107, 106, 106) ;
+}
+.red-heart {
+    color: red;
+}
+.like{
+    color: rgb(61, 61, 247);
+}
+.command{
+    color: rgb(61, 61, 247);;
+}
+.report{
+    color: #0400ff;
+}
+ /* ------------responsive------------- */
+  /* Add responsive styles here */
+@media (max-width: 768px) {
+    .container-second {
+        flex-direction: column;
+    }
+    .left-sidebar, .main-bar, .right-sidebar {
+        width: 100%;
+    }
+}
+/* Existing styles ... */
+
+
+
+/* Existing styles ... */
+.left-sidebar {
+    flex-basis: 25%;
+    align-self: flex-start;
+    position: sticky;
+    top:90px; /* Adjust this value based on your layout */
+    z-index: 100;
+}
