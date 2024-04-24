@@ -37,7 +37,7 @@ class ViewsController extends Controller {
         $user = User::where("email", "=", session()->get('loggedInUser'))->first();
 
         // getting suggested people data
-        $s_peoples = User::where("graduation_year", "=", $user->graduation_year)->where('student_id', '!=', $user->student_id)->limit(20)->get();
+        $s_peoples = User::where("graduation_year", "=", $user->graduation_year)->where('student_id', '!=', se)->limit(20)->get();
         return view("friends")->with(compact('s_peoples', 'p_requests', 'user'));
     }
     public function messages() {
@@ -57,7 +57,7 @@ class ViewsController extends Controller {
         $notifications = Notification::where('notified_to', '=', session()->get('user_id'))->get()->toArray();
         return view("notifications")->with(compact('notifications'));
     }
-    public function settings() {
-        return view("settings");
+    public function view_settings($any, $id) {   // $any is nothing but the variable to allow app use the any routing
+        return view('settings');
     }
 }

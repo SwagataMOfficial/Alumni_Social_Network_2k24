@@ -1,9 +1,9 @@
   <!-- Navbar -->
-  <nav class="bg-blue-600 p-4 flex justify-between items-center sticky top-0 left-0 w-full z-20">
+  <nav class="bg-blue-600 p-4 flex justify-between items-center sticky top-0 left-0 w-full z-50">
       <!-- Left side: Brand logo and searchbar -->
       <div class="flex items-center gap-4">
           <!-- Brand logo -->
-          <a href="/" class="text-white text-xl font-bold">
+          <a href="/feed" class="text-white text-xl font-bold">
               <img src="{{ asset('images/reg_brand_logo.png') }}" class="h-12" alt="Logo">
           </a>
           <!-- Searchbar -->

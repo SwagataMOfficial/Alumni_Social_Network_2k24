@@ -7,16 +7,12 @@ use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
 class People extends Component {
-    public $username;
-    public $about;
-    public $imageLink;
+    public $people;
     /**
      * Create a new component instance.
      */
-    public function __construct($username = "", $about = "", $imageLink = "") {
-        $this->username = $username;
-        $this->about = $about;
-        $this->imageLink = $imageLink;
+    public function __construct($people) {
+        $this->people = $people;
     }
 
     /**

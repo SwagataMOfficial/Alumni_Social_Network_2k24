@@ -15,15 +15,15 @@ class ProfileController extends Controller {
         // getting all the user data from users table
         $user = User::where("remember_token", "=", $id)->first();
 
+        // getting suggested people data
+        $suggested_people = User::where("graduation_year", "=", $user->graduation_year)->where('student_id', '!=', session()->get('user_id'))->limit(4)->get();
+
         // getting all the images posted by the user from the user_posts table and also filtering the non image posts
         $postedImages = Userpost::select('attachment')->where('posted_by', '=', $user->student_id)->where('attachment', '!=', null)->get()->toArray();
 
         // getting all the posts of the user to display it in the profile page
 
-        $posts = Userpost::with('getUser')->with("getLikedUser")->where('posted_by', '!=', session()->get('user_id'))->where('visibility', '!=', '0')->orderBy('created_at', 'desc')->get()->toArray();
-        // echo "<pre>";
-        // print_r($posts);
-        // die;
+        $posts = Userpost::with('getUser')->with("getLikedUser")->where('posted_by', '=', $user->student_id)->orderBy('created_at', 'desc')->get()->toArray();
 
         // generating an array for the images only
         $imgArr = [];
@@ -41,12 +41,8 @@ class ProfileController extends Controller {
             }
         }
 
-        $data = compact("user", "imgArr", "posts");
+        $data = compact("user", "imgArr", "posts", "suggested_people");
         return view('profiles')->with($data);
-    }
-
-    public function view_settings($any, $id) {   // $any is nothing but the variable to allow app use the any routing
-        return view('settings');
     }
 
     public function view_search(Request $request) {
@@ -117,6 +113,11 @@ class ProfileController extends Controller {
             $filename = session()->get('user_id') . "/profile/avatar" . '.' . $request->file('profile_picture')->getClientOriginalExtension();
             $request->file('profile_picture')->storeAs('/', $filename, 'public');
             $updateArr['profile_picture'] = $filename;
+            session()->put('user_profile_img', $filename);
+        }
+
+        if(array_key_exists('name', $updateArr)){
+            session()->put('user_name', $updateArr['name']);
         }
 
         // verification document update handling

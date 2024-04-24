@@ -13,8 +13,7 @@
                         alt="background image" id="profile-cover">
 
                     <img class="absolute top-16 left-8 z-10 w-32 aspect-square rounded-[50%] object-cover outline outline-white"
-                    src="{{ asset('/storage/' . $user['profile_picture']) }}" alt="profile picture"
-                        id="profile-picture">
+                        src="{{ asset('/storage/' . $user['profile_picture']) }}" alt="profile picture" id="profile-picture">
 
                     <x-profilesection :details="$user" />
                 </div>
@@ -74,7 +73,7 @@
                         @endif
 
                         @if (Request::is('profile/posts/*'))
-                            <x-posts :details="$user" :posts="$posts"/>
+                            <x-posts :details="$user" :posts="$posts" />
                         @endif
 
                         @if (Request::is('profile/images/*'))
@@ -89,14 +88,17 @@
                     @endif
                 </div>
             </div>
-            {{-- comment --}}
+
+            {{-- more peoples to follow section --}}
             <div class="w-1/4 rounded-xl h-fit bg-white px-4 py-3">
                 <h3 class="font-bold text-stone-700">More Peoples for You</h3>
                 <div class="flex flex-col gap-3 items-center justify-center mt-2">
-                    @for ($i = 1; $i <= 4; $i++)
-                        <x-people username="Swagata Mukherjee" about="Student at Techno India Hooghly"
-                            imageLink="default/avatar.jpg" />
-                    @endfor
+
+                    {{-- getting all the suggested people from the system --}}
+
+                    @foreach ($suggested_people as $people)
+                        <x-people :people="$people" />
+                    @endforeach
                 </div>
                 <div class="pt-3 px-4">
                     <a class="flex text-stone-600 hover:text-stone-900 text-sm" href="#">
@@ -127,11 +129,11 @@
                     success: function(response) {
                         console.log(response.message);
                         location.reload();
-                        
+
                     },
                     error: function(xhr, status, error) {
                         console.error(xhr.responseText);
-                        
+
                     }
                 });
             });
@@ -163,4 +165,3 @@
         // });
     </script>
 @endpush
-

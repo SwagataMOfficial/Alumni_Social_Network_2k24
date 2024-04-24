@@ -117,14 +117,13 @@
     </div>
 
     <!-- Options -->
-    <p class="text-blue-700 font-bold px-2">{{$posts['likes']}} {{$posts['likes'] <= 1 ? "Like" : "Likes"}}</p>
+    <p class="text-blue-700 font-bold px-2">{{ $posts['likes'] }} {{ $posts['likes'] <= 1 ? 'Like' : 'Likes' }}</p>
     <div class="p-4 flex justify-between items-center">
         <form action="{{ route('post.like') }}" method="post" class="hidden" id="{{ $key }}">
             @csrf
             <input type="hidden" name="post_id" value="{{ $posts['post_id'] }}">
         </form>
-        <button type="submit" form="{{ $key }}"
-            {{-- @isset($likeduser['liked_by'])
+        <button type="submit" form="{{ $key }}" {{-- @isset($likeduser['liked_by'])
                 @if ($likeduser['liked_by'] == session()->get('user_id'))
                     {{ 'disabled' }}
                 @endif
@@ -141,6 +140,8 @@
                 @isset($likeduser['liked_by'])
                     @if ($likeduser['liked_by'] == session()->get('user_id'))
                         {{ 'Liked' }}
+                    @else
+                        {{ 'Like' }}
                     @endif
                 @else
                     {{ 'Like' }}
