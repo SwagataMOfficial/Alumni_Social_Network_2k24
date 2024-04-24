@@ -28,6 +28,7 @@ Route::middleware(['LoginCheck'])->group(function () {
     Route::get("/feed", [ViewsController::class, "index"])->name('feed');
     Route::get('/logout', [UserController::class, 'logout'])->name('auth.logout');
     Route::post('/addpost', [PostController::class, 'addpost'])->name('post.add');
+    Route::post('/like', [PostController::class, 'likepost'])->name('post.like');
 });
 
 Route::get('/register', [UserController::class, 'register'])->name('register');

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Userpost;
 use Illuminate\Http\Request;
 
 class ProfileController extends Controller {
@@ -10,8 +11,37 @@ class ProfileController extends Controller {
      * Display a listing of the resource.
      */
     public function view_page($any, $id) {   // $any is nothing but the variable to allow app use the any routing
+
+        // getting all the user data from users table
         $user = User::where("remember_token", "=", $id)->first();
-        $data = compact("user");
+
+        // getting all the images posted by the user from the user_posts table and also filtering the non image posts
+        $postedImages = Userpost::select('attachment')->where('posted_by', '=', $user->student_id)->where('attachment', '!=', null)->get()->toArray();
+
+        // getting all the posts of the user to display it in the profile page
+
+        $posts = Userpost::with('getUser')->with("getLikedUser")->where('posted_by', '!=', session()->get('user_id'))->where('visibility', '!=', '0')->orderBy('created_at', 'desc')->get()->toArray();
+        // echo "<pre>";
+        // print_r($posts);
+        // die;
+
+        // generating an array for the images only
+        $imgArr = [];
+
+        foreach ($postedImages as $img) {
+
+            // if multi post found then the below if-else block will run and prepare the array
+            if(strpos($img['attachment'], "||") != false){
+                foreach (explode("||", $img['attachment']) as $item) {
+                    array_push($imgArr, $item);
+                }
+            }
+            else{   
+                array_push($imgArr, $img['attachment']);
+            }
+        }
+
+        $data = compact("user", "imgArr", "posts");
         return view('profiles')->with($data);
     }
 

@@ -9,15 +9,12 @@
             <div class="w-3/4">
                 <div class="rounded-xl overflow-hidden relative mb-3">
 
-
                     <img class="w-full h-40 object-cover" src="{{ asset('/storage/' . $user['cover_picture']) }}"
                         alt="background image" id="profile-cover">
 
                     <img class="absolute top-16 left-8 z-10 w-32 aspect-square rounded-[50%] object-cover outline outline-white"
                     src="{{ asset('/storage/' . $user['profile_picture']) }}" alt="profile picture"
                         id="profile-picture">
-
-
 
                     <x-profilesection :details="$user" />
                 </div>
@@ -31,42 +28,42 @@
                     </h3>
                     <nav class="pl-12 mt-4 flex gap-4">
                         @if (Request::is('profile/home/*'))
-                            <a href="{{ url('/') }}/profile/home/{{ Session::get('token') }}"
+                            <a href="{{ url('/') }}/profile/home/{{ $user['remember_token'] }}"
                                 class="bg-sky-200 border-2 border-cyan-500 px-6 py-1 rounded-3xl hover:bg-lime-200 hover:border-green-500 font-semibold"
                                 data-active="true">About</a>
                         @else
-                            <a href="{{ url('/') }}/profile/home/{{ Session::get('token') }}"
+                            <a href="{{ url('/') }}/profile/home/{{ $user['remember_token'] }}"
                                 class="bg-lime-200 border-2 border-green-500 px-6 py-1 rounded-3xl hover:bg-sky-200 hover:border-cyan-500 font-semibold">About</a>
                         @endif
 
                         @if (Request::is('profile/posts/*'))
-                            <a href="{{ url('/') }}/profile/posts/{{ Session::get('token') }}"
+                            <a href="{{ url('/') }}/profile/posts/{{ $user['remember_token'] }}"
                                 class="bg-sky-200 border-2 border-cyan-500 px-6 py-1 rounded-3xl hover:bg-lime-200 hover:border-green-500 font-semibold"
                                 data-active="true">Posts</a>
                         @else
-                            <a href="{{ url('/') }}/profile/posts/{{ Session::get('token') }}"
+                            <a href="{{ url('/') }}/profile/posts/{{ $user['remember_token'] }}"
                                 class="bg-lime-200 border-2 border-green-500 px-6 py-1 rounded-3xl hover:bg-sky-200 hover:border-cyan-500 font-semibold">Posts</a>
                         @endif
 
                         @if (Request::is('profile/images/*'))
                             {{--  --}}
-                            <a href="{{ url('/') }}/profile/images/{{ Session::get('token') }}"
+                            <a href="{{ url('/') }}/profile/images/{{ $user['remember_token'] }}"
                                 class="bg-sky-200 border-2 border-cyan-500 px-6 py-1 rounded-3xl hover:bg-lime-200 hover:border-green-500 font-semibold"
                                 data-active="true">Images</a>
                         @else
                             {{--  --}}
-                            <a href="{{ url('/') }}/profile/images/{{ Session::get('token') }}"
+                            <a href="{{ url('/') }}/profile/images/{{ $user['remember_token'] }}"
                                 class="bg-lime-200 border-2 border-green-500 px-6 py-1 rounded-3xl hover:bg-sky-200 hover:border-cyan-500 font-semibold">Images</a>
                         @endif
 
                         @if (Request::is('profile/jobs/*'))
                             {{--  --}}
-                            <a href="{{ url('/') }}/profile/jobs/{{ Session::get('token') }}"
+                            <a href="{{ url('/') }}/profile/jobs/{{ $user['remember_token'] }}"
                                 class="bg-sky-200 border-2 border-cyan-500 px-6 py-1 rounded-3xl hover:bg-lime-200 hover:border-green-500 font-semibold"
                                 data-active="true">Jobs</a>
                         @else
                             {{--  --}}
-                            <a href="{{ url('/') }}/profile/jobs/{{ Session::get('token') }}"
+                            <a href="{{ url('/') }}/profile/jobs/{{ $user['remember_token'] }}"
                                 class="bg-lime-200 border-2 border-green-500 px-6 py-1 rounded-3xl hover:bg-sky-200 hover:border-cyan-500 font-semibold">Jobs</a>
                         @endif
                     </nav>
@@ -77,11 +74,11 @@
                         @endif
 
                         @if (Request::is('profile/posts/*'))
-                            <x-posts :details="$user" />
+                            <x-posts :details="$user" :posts="$posts"/>
                         @endif
 
                         @if (Request::is('profile/images/*'))
-                            <x-postgallery :details="$user" />
+                            <x-postgallery :details="$imgArr" />
                         @endif
 
                         @if (Request::is('profile/jobs/*'))

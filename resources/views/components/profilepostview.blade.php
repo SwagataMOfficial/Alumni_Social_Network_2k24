@@ -1,8 +1,8 @@
-<div class="relative bg-white shadow-lg rounded-lg overflow-hidden max-w-lg mx-auto mb-4">
+<div class="relative bg-white rounded-lg overflow-hidden mx-8 shadow mb-2">
 
     <!-- Three-dot button -->
     <button id="btn_{{ $key }}" data-dropdown-toggle="dropdown_{{ $key }}"
-        data-dropdown-placement="bottom-start"
+        data-dropdown-placement="right"
         class="absolute top-2 right-2 text-gray-500 hover:text-gray-700 focus:outline-none" type="button">
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
             class="w-6 h-6">
@@ -11,7 +11,7 @@
         </svg>
     </button>
 
-    <div id="dropdown_{{ $key }}" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-40">
+    <div id="dropdown_{{ $key }}" class="z-10 shadow-lg hidden bg-white divide-y divide-gray-100 rounded-lg w-40">
         <ul class="py-2 text-sm text-gray-700" aria-labelledby="btn_{{ $key }}">
             <li>
                 <a href="/profile/home/{{ $details['remember_token'] }}" class="block px-4 py-2 hover:bg-gray-100">View
@@ -29,10 +29,10 @@
     </div>
 
     <!-- Header -->
-    <div class="flex items-center space-x-4 p-4">
+    <div class="flex items-center space-x-4 pr-4 pl-2">
         <a href="/profile/home/{{ $details['remember_token'] }}">
             <img src="{{ asset('/storage/' . $details['profile_picture']) }}" alt="Profile Picture"
-                class="h-10 w-10 rounded-full object-cover">
+                class="h-16 aspect-square rounded-full object-cover">
         </a>
 
         @php
@@ -47,15 +47,15 @@
             $timeAgo = $givenDate->diffForHumans($currentDate);
         @endphp
 
-        <div>
-            <h3 class="font-semibold text-gray-700">{{ $details['name'] }}</h3>
-            <p class="text-sm text-gray-500">Posted {{ $timeAgo }}</p>
+        <div class="px-2">
+            <h3 class="font-semibold text-gray-700 text-3xl">{{ $details['name'] }}</h3>
+            <p class="text-gray-500 text-lg">Posted {{ $timeAgo }}</p>
         </div>
     </div>
 
     <!-- Content -->
     <div class="p-2">
-        <p class="text-gray-800">{{ $posts['post_description'] }}</p>
+        <p class="text-gray-800 text-xl">{{ $posts['post_description'] }}</p>
 
         {{-- checking if the post contains any image or not --}}
         @if ($posts['attachment'] != null)
@@ -70,7 +70,7 @@
                 {{-- carousel --}}
                 <div id="indicators-carousel" class="relative w-full mt-4" data-carousel="static">
                     <!-- Carousel wrapper -->
-                    <div class="relative h-56 overflow-hidden rounded-lg md:h-80">
+                    <div class="relative h-56 overflow-hidden rounded-lg md:h-[36rem]">
                         <!-- Item 1 -->
                         @foreach ($imgArr as $index => $img)
                             <div class="hidden duration-700 ease-in-out" data-carousel-item="active">
@@ -111,20 +111,19 @@
             @else
                 {{-- not carousel --}}
                 <img src="{{ asset('/storage/' . $posts['attachment']) }}" alt="Posted Picture"
-                    class="mt-4 rounded-lg">
+                    class="mt-4 rounded-lg h-[36rem] w-full">
             @endif
         @endif
     </div>
 
     <!-- Options -->
-    <p class="text-blue-700 font-bold px-2">{{$posts['likes']}} {{$posts['likes'] <= 1 ? "Like" : "Likes"}}</p>
+    <p class="text-blue-700 font-bold px-2">{{ $posts['likes'] }} {{ $posts['likes'] <= 1 ? 'Like' : 'Likes' }}</p>
     <div class="p-4 flex justify-between items-center">
         <form action="{{ route('post.like') }}" method="post" class="hidden" id="{{ $key }}">
             @csrf
             <input type="hidden" name="post_id" value="{{ $posts['post_id'] }}">
         </form>
-        <button type="submit" form="{{ $key }}"
-            {{-- @isset($likeduser['liked_by'])
+        <button type="submit" form="{{ $key }}" {{-- @isset($likeduser['liked_by'])
                 @if ($likeduser['liked_by'] == session()->get('user_id'))
                     {{ 'disabled' }}
                 @endif

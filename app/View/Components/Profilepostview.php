@@ -6,7 +6,7 @@ use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
-class Userpost extends Component
+class Profilepostview extends Component
 {
     public $details;
     public $posts;
@@ -28,6 +28,6 @@ class Userpost extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('components.userpost');
+        return view('components.profilepostview');
     }
 }

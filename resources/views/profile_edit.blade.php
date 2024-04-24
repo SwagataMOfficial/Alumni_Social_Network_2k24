@@ -4,7 +4,10 @@
 @endpush
 @section('main-section')
     <div class="flex justify-center">
-        <div class="fixed z-20 mt-2 w-1/2" id="alertArea"></div>
+        <div class="fixed z-20 mt-2 w-1/2" id="alertArea">
+            {{-- TODO: make this alert using ajax --}}
+            {{-- <x-alert message="Profile Updated Successfully" color="green" /> --}}
+        </div>
     </div>
     <div class="container">
         {{-- max-width container with left,right space --}}
@@ -519,7 +522,6 @@
             </div>
         </div>
     </div>
-    {{-- <x-alert message="Profile Updated Successfully" color="green" /> --}}
 @endsection
 
 {{-- @push('script')
@@ -528,6 +530,10 @@
         $(document).ready(()=>{
             Array.from($('button[type=submit]')).forEach( (e) => {
                 $(e).text("Saving...");
+                $("#alertArea").child('<x-alert message="Profile Updated Successfully" color="green" />');
+                setTimeout(() => {
+                    $("#alertArea").removeChild();
+                }, 1500);
             });
         });
     </script>

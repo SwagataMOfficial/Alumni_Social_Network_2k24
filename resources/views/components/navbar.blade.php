@@ -75,7 +75,7 @@
               <div class="md:flex md:flex-col md:items-center" type="button">
                   <div class="md:flex md:flex-col md:items-center">
                       <!-- Image  -->
-                      <img src="/storage/default/avatar.jpg" alt="Profile Picture"
+                      <img src="/storage/{{session()->get('user_id')}}/profile/avatar.jpg" alt="Profile Picture"
                           class="rounded-full h-2 md:w-6 md:h-6">
                       <span
                           class="block text-white hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-100 md:p-0">Profile</span>
@@ -106,8 +106,7 @@
               </ul>
               <div class="py-2">
                   <a href="{{ route('auth.logout') }}"
-                      class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Sign
-                      out</a>
+                      class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Logout</a>
               </div>
           </div>
 

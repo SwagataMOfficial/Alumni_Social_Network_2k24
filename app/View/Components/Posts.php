@@ -9,12 +9,14 @@ use Illuminate\View\Component;
 class Posts extends Component
 {
     public $details;
+    public $posts;
     /**
      * Create a new component instance.
      */
-    public function __construct($details=0)
+    public function __construct($details, $posts)
     {
         $this->details = $details;
+        $this->posts = $posts;
     }
 
     /**
