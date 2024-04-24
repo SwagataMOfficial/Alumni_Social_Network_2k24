@@ -48,14 +48,12 @@ class PostController extends Controller {
     }
 
     public function likepost(Request $request) {
-        // echo "<pre>";
-        // print_r($request->all());
 
-        $like = Like::where('post_id', '=', $request->input('post_id'))->first();
+        // fetching data from the like table if data not exists then like the post otherwise unlike the post
+        $like = Like::where('post_id', '=', $request->input('post_id'))->where('liked_by', '=', session()->get('user_id'))->get()->toArray();
 
         // if the above query is null that means user is trying to like a post otherwise user want to unlike the post
-        if (is_null($like)) {
-
+        if (count($like) == 0) {
             // incrementing like count in user_posts table
             $post = Userpost::find($request->input('post_id'));
             $post->likes += 1;
@@ -68,13 +66,18 @@ class PostController extends Controller {
             ]);
         }
         else {
+
+            // decrementing the like count
             $post = Userpost::find($request->input('post_id'));
             $post->likes -= 1;
             $post->save();
 
             // removing the liked data in the liked table
-            $likedPost = Like::where('post_id', '=', $request->input('post_id'))->where('liked_by', '=', session()->get('user_id'))->first();
-            $likedPost->delete();
+            $id = $request->input('like_id');
+            if(isset($id)){
+                $likedPost = Like::find($id);
+                $likedPost->delete();
+            }
         }
 
         return redirect(route('feed'));

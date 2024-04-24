@@ -32,7 +32,7 @@ class Userpost extends Model
         return $this->hasOne('App\Models\User','student_id','posted_by');
     }
     function getLikedUser(){
-        return $this->hasOne('App\Models\Like','post_id','post_id');
+        return $this->hasMany('App\Models\Like','post_id','post_id');
     }
     
 }

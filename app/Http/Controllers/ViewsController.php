@@ -37,7 +37,7 @@ class ViewsController extends Controller {
         $user = User::where("email", "=", session()->get('loggedInUser'))->first();
 
         // getting suggested people data
-        $s_peoples = User::where("graduation_year", "=", $user->graduation_year)->where('student_id', '!=', se)->limit(20)->get();
+        $s_peoples = User::where("graduation_year", "=", $user->graduation_year)->where('student_id', '!=', session()->get('user_id'))->limit(20)->get();
         return view("friends")->with(compact('s_peoples', 'p_requests', 'user'));
     }
     public function messages() {
