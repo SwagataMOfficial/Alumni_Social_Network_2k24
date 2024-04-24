@@ -81,7 +81,7 @@
                         @endif
 
                         @if (Request::is('profile/jobs/*'))
-                            <x-jobposts :details="$user" />
+                            <x-jobposts :details="$user" :posts="$jobs" />
                         @endif
                     @else
                         <x-privacy />

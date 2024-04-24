@@ -52,8 +52,8 @@
                     <div action="#" method="POST" id="default-styled-tab-content">
 
                         {{-- only text post --}}
-                        <form action="{{ route('post.add') }}" method="POST" class="hidden rounded-lg bg-gray-50" id="styled-profile"
-                            role="tabpanel" aria-labelledby="profile-tab">
+                        <form action="{{ route('post.add') }}" method="POST" class="hidden rounded-lg bg-gray-50"
+                            id="styled-profile" role="tabpanel" aria-labelledby="profile-tab">
                             @csrf
                             <div class="mt-2">
                                 <label for="message" class="block mb-2 text-sm font-medium text-gray-900">Share your
@@ -63,8 +63,8 @@
                                     placeholder="Write your thoughts here..."></textarea>
                             </div>
                             <div class="flex items-center mt-4">
-                                <input id="private_text" type="radio" value="0" name="visibility"
-                                    class="w-4 h-4 text-orange-500 bg-gray-100 border-gray-300 focus:ring-orange-500">
+                                <input id="private_text" type="checkbox" value="0" name="visibility"
+                                    class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 focus:ring-2">
                                 <label for="private_text" class="ms-2 text-sm font-medium text-gray-900">Private ?</label>
                             </div>
                             <button type="submit"
@@ -74,8 +74,8 @@
                         </form>
 
                         {{-- jop post area --}}
-                        <form action="{{ route('post.addjob') }}" method="POST" class="hidden rounded-lg bg-gray-50" id="styled-dashboard"
-                            role="tabpanel" aria-labelledby="dashboard-tab">
+                        <form action="{{ route('post.addjob') }}" method="POST" class="hidden rounded-lg bg-gray-50"
+                            id="styled-dashboard" role="tabpanel" aria-labelledby="dashboard-tab">
                             @csrf
                             <input type="hidden" name="post_type" value="job">
                             <div>
@@ -84,7 +84,9 @@
                                 <textarea id="description" rows="4" name="post_description"
                                     class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500"
                                     placeholder="Write Job Description Here...." required></textarea>
-                                <p class="mt-2 text-xs text-gray-400"><span class="font-bold">Note: </span>Please do not enter the registration link in the description field. Enter the registration link in the link field.</p>
+                                <p class="mt-2 text-xs text-gray-400"><span class="font-bold">Note: </span>Please do not
+                                    enter the registration link in the description field. Enter the registration link in the
+                                    link field.</p>
                             </div>
                             <div class="mt-3">
                                 <label for="website" class="block mb-2 text-sm font-medium text-gray-900">Registration
@@ -94,8 +96,8 @@
                                     placeholder="Enter Registration Link" required />
                             </div>
                             <div class="flex items-center mt-4">
-                                <input id="private_job" type="radio" value="0" name="visibility"
-                                    class="w-4 h-4 text-orange-500 bg-gray-100 border-gray-300 focus:ring-orange-500">
+                                <input id="private_job" type="checkbox" value="0" name="visibility"
+                                    class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 focus:ring-2">
                                 <label for="private_job" class="ms-2 text-sm font-medium text-gray-900">Private ?</label>
                             </div>
                             <button type="submit"
@@ -165,8 +167,8 @@
                                 placeholder="Write product description here"></textarea>
                         </div>
                         <div class="flex items-center me-4">
-                            <input id="private_post" type="radio" value="0" name="visibility"
-                                class="w-4 h-4 text-orange-500 bg-gray-100 border-gray-300 focus:ring-orange-500">
+                            <input id="private_post" type="checkbox" value="0" name="visibility"
+                                class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 focus:ring-2">
                             <label for="private_post" class="ms-2 text-sm font-medium text-gray-900">Private ?</label>
                         </div>
                     </div>
@@ -265,7 +267,8 @@
                         <!-- three icons -->
 
                         <!-- text_job_modal toggle -->
-                        <button data-modal-target="text_job_modal" data-modal-toggle="text_job_modal" type="button" id="text_or_job_post_btn">
+                        <button data-modal-target="text_job_modal" data-modal-toggle="text_job_modal" type="button"
+                            id="text_or_job_post_btn">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                 stroke-width="1.5" stroke="currentColor"
                                 class="w-6 h-6 cursor-pointer hover:text-stone-600">
@@ -377,8 +380,8 @@
         document.getElementById("menu-toggle").addEventListener("click", function() {
             document.getElementById("menu").classList.toggle("hidden");
         });
-        
-        $("#post_modal_opener").click(()=>{
+
+        $("#post_modal_opener").click(() => {
             $("#post_modal_opener").blur();
             $("#text_or_job_post_btn").click();
         });

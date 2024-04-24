@@ -134,7 +134,7 @@
               </p>
             </a>
             <li class="nav-item">
-            <a href="#" class="nav-link">
+            <a href="{{route('analytics')}}" class="nav-link">
               <i class="nav-icon fas fa-table"></i>
               <p>
                Analytics

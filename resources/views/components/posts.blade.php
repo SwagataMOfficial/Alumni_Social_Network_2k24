@@ -1,5 +1,3 @@
-{{-- <p class="text-3xl font-bold text-blue-800 text-center">{{$details['name']}} post will appear here</p> --}}
-
 <div class="container mx-auto mt-4 lg:w-full">
     @if (count($posts) != 0)
         @foreach ($posts as $index => $post)

@@ -25,6 +25,8 @@ class ProfileController extends Controller {
 
         $posts = Userpost::with('getUser')->with("getLikedUser")->where('posted_by', '=', $user->student_id)->where('post_type', '!=', 'job')->orderBy('created_at', 'desc')->get()->toArray();
 
+        $jobs = Userpost::with('getUser')->with("getLikedUser")->where('posted_by', '=', $user->student_id)->where('post_type', '=', 'job')->orderBy('created_at', 'desc')->get()->toArray();
+
         // generating an array for the images only
         $imgArr = [];
 
@@ -41,7 +43,7 @@ class ProfileController extends Controller {
             }
         }
 
-        $data = compact("user", "imgArr", "posts", "suggested_people");
+        $data = compact("user", "imgArr", "posts", "suggested_people", "jobs");
         return view('profiles')->with($data);
     }
 
