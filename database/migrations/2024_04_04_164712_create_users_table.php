@@ -50,6 +50,10 @@ return new class extends Migration {
             $table->timestamps();
             $table->timestamp('verified_at')->nullable()->default(null);
             $table->timestamp('deleted_at')->nullable()->default(null);
+            //new column add for forget password -altab
+            $table->string('forget_token')->nullable(); // New column for temp_token
+            $table->timestamp('forget_token_expire')->nullable();
+
         });
     }
 

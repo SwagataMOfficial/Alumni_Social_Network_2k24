@@ -50,5 +50,7 @@ class User extends Model {
         'updated_at',
         'deleted_at',
         'verified_at',
+        'forget_token',
+        'forget_token_expire',
     ];
 }

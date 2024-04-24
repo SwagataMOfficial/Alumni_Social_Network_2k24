@@ -190,8 +190,8 @@ class UserController extends Controller
 
             // Save the token and expiration time in the database for the user
             $user->update([
-                'remember_token' => $token,
-                'token_expire' => $expiration,
+                'forget_token' => $token,
+                'forget_token_expire' => $expiration,
             ], ['student_id' => $user->student_id]);
 
 
@@ -223,14 +223,14 @@ class UserController extends Controller
         ]);
 
         // Find the user by email and verify the token
-        $user = User::where('email', $request->email)->where('token', $request->token)->first();
+        $user = User::where('email', $request->email)->where('forget_token', $request->token)->first();
 
         if ($user) {
             // Update the user's password
             $user->update([
                 'password' => Hash::make($request->re_password),
-                'remember_token' => null, // Clear the token after password reset
-                'token_expire' => null, // Clear the token expiration
+                'forget_token' => null, // Clear the token after password reset
+                'forget_token_expire' => null, // Clear the token expiration
             ]);
 
             // Redirect the user to a success page or login page
