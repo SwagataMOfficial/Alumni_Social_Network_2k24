@@ -5,6 +5,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ViewsController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
+use App\Http\Middleware\LoginCheck;// remove login check middleware from globally to locally for other middleware should work properly eg. admin and sub admin middle ware otherwise it will conflict
 
 
 // common navigation views
@@ -23,7 +24,7 @@ Route::group(['prefix' => '/profile'], function () {
     Route::get('/search', [ProfileController::class, 'view_search'])->name('profile.search');
 });
 
-Route::middleware(['LoginCheck'])->group(function () {
+Route::middleware([LoginCheck::class])->group(function () {
     Route::get('/', [UserController::class, 'index']);
     Route::get("/feed", [ViewsController::class, "index"])->name('feed');
     Route::get('/logout', [UserController::class, 'logout'])->name('auth.logout');
