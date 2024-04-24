@@ -158,11 +158,12 @@ class UserController extends Controller
 
         // Check if the user exists and the provided password matches
         if ($user && Hash::check($request->password, $user->password)) {
-            session()->put("loggedInUser",$user->email); // You might want to change this
+            session()->put("loggedInUser",$user->email);
             session()->put("loggedin", true);
             session()->put("token", $user->remember_token);
             session()->put("user_id", $user->student_id);
             session()->put("user_name", $user->name);
+            session()->put("user_profile_img", $user->profile_picture);
             return response()->json(['message' => 'Login successful'], 200);
         } else {
             // Authentication failed

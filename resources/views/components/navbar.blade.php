@@ -75,7 +75,7 @@
               <div class="md:flex md:flex-col md:items-center" type="button">
                   <div class="md:flex md:flex-col md:items-center">
                       <!-- Image  -->
-                      <img src="/storage/{{session()->get('user_id')}}/profile/avatar.jpg" alt="Profile Picture"
+                      <img src="{{asset('/storage/' . session()->get('user_profile_img'))}}" alt="Profile Picture"
                           class="rounded-full h-2 md:w-6 md:h-6">
                       <span
                           class="block text-white hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-100 md:p-0">Profile</span>
@@ -85,9 +85,8 @@
           <!-- Dropdown menu -->
           <div id="dropdownOptions" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow">
               <div class="px-4 py-3 text-sm text-gray-900 flex gap-2 items-center">
-                  <img src="/storage/default/avatar.jpg" alt="Profile Picture" class="rounded-full h-2 md:w-8 md:h-8">
+                  <img src="{{asset('/storage/' . session()->get('user_profile_img'))}}" alt="Profile Picture" class="rounded-full h-2 md:w-8 md:h-8">
                   <div>{{ Session::get('user_name') }}</div>
-                  {{-- <div class="font-medium truncate">name@flowbite.com</div> --}}
               </div>
               <ul class="py-2 text-sm text-gray-700" aria-labelledby="dropdownInformationButton">
                   <li>
