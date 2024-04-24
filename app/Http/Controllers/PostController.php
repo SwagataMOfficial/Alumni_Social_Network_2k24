@@ -42,7 +42,20 @@ class PostController extends Controller {
 
         $createArr['posted_by'] = session()->get('user_id');
 
-        // TODO: save the filename into database and the file into the desired folder
+        Userpost::create($createArr);
+        return redirect(route('feed'));
+    }
+
+    public function addjobpost(Request $request) {
+        $createArr = $request->all();
+
+        if (array_key_exists('_token', $createArr)) {
+            // Removing the resume from the associative array as it is not necessary in case of creating new post
+            unset($createArr['_token']);
+        }
+
+        $createArr['posted_by'] = session()->get('user_id');
+
         Userpost::create($createArr);
         return redirect(route('feed'));
     }
@@ -80,7 +93,9 @@ class PostController extends Controller {
             }
         }
 
-        return redirect(route('feed'));
+        // TODO: return response instead of return to an url;
+        // return redirect(route('feed'));
+        return redirect()->back();
     }
 
 }

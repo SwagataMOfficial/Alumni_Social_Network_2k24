@@ -17,6 +17,7 @@ return new class extends Migration
             $table->foreign('posted_by')->references('student_id')->on('users')->onDelete('cascade');
             $table->text('post_description')->nullable()->default(null);
             $table->text('attachment')->nullable()->default(null);
+            $table->text('registration_link')->nullable()->default(null);
             $table->bigInteger('likes')->default(0);
             $table->bigInteger('comment_count')->default(0);
             $table->text('comments')->nullable();

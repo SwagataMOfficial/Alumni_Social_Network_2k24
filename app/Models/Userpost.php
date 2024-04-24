@@ -16,6 +16,7 @@ class Userpost extends Model
         'post_id',
         'posted_by',
         'post_description',
+        'registration_link',
         'attachment',
         'likes',
         'comment_count',

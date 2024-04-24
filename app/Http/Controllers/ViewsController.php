@@ -10,13 +10,9 @@ use Illuminate\Http\Request;
 class ViewsController extends Controller {
     public function index() {
         $user = User::where("student_id", "=", session()->get('user_id'))->first();
-        $posts = Userpost::with('getUser')->with("getLikedUser")->where('posted_by', '!=', session()->get('user_id'))->where('visibility', '!=', '0')->orderBy('created_at', 'desc')->limit(20)->get()->toArray();
+        $posts = Userpost::with('getUser')->with("getLikedUser")->where('posted_by', '!=', session()->get('user_id'))->where('visibility', '!=', '0')->where('post_type', '!=', 'job')->orderBy('created_at', 'desc')->limit(20)->get()->toArray();
         $data = compact("user", "posts");
 
-        // echo "<pre>";
-        // echo "Posts: ";
-        // print_r($posts);
-        // echo "</pre>";
         return view("feed")->with($data);
     }
     public function friends() {
@@ -44,16 +40,6 @@ class ViewsController extends Controller {
         return view("messages");
     }
     public function notifications() {
-        // $notifications = [];
-
-        // // temporary code for generating notification
-        // for ($i = 1; $i <= 15; $i++) {
-        //     array_push($notifications, [
-        //         "title" => "notification-" . $i,
-        //         "link" => "#"
-        //     ]);
-        // }
-
         $notifications = Notification::where('notified_to', '=', session()->get('user_id'))->get()->toArray();
         return view("notifications")->with(compact('notifications'));
     }

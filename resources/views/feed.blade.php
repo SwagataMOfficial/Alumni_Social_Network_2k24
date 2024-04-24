@@ -4,7 +4,112 @@
 @endpush
 
 @section('main-section')
-    <!-- Main modal -->
+
+    <!-- only text or job post modal -->
+    <div id="text_job_modal" tabindex="-1" aria-hidden="true"
+        class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+        <div class="relative p-4 w-full max-w-md max-h-full">
+            <!-- Modal content -->
+            <div class="relative bg-white rounded-lg shadow">
+                <!-- Modal header -->
+                <div class="flex items-center justify-between px-4 py-2 md:px-5 md:py-3 border-b rounded-t">
+                    <h3 class="text-xl font-semibold text-gray-900">
+                        Create New Post
+                    </h3>
+                    <button type="button"
+                        class="end-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center"
+                        data-modal-hide="text_job_modal">
+                        <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                            viewBox="0 0 14 14">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+                        </svg>
+                        <span class="sr-only">Close modal</span>
+                    </button>
+                </div>
+                <!-- Modal tabs -->
+                <div class="flex items-center justify-center border-b rounded-t">
+                    <ul class="flex flex-wrap -mb-px text-sm font-medium text-center" id="default-styled-tab"
+                        data-tabs-toggle="#default-styled-tab-content"
+                        data-tabs-active-classes="text-purple-600 hover:text-purple-600"
+                        data-tabs-inactive-classes="border-transparent text-gray-500 hover:text-gray-600 text-gray-400 border-gray-100 hover:border-gray-300 border-gray-700 hover:text-gray-300"
+                        role="tablist">
+                        <li class="me-2" role="presentation">
+                            <button class="text-base inline-block p-4 border-b-2 rounded-t-lg" id="profile-styled-tab"
+                                data-tabs-target="#styled-profile" type="button" role="tab" aria-controls="profile"
+                                aria-selected="false">Post</button>
+                        </li>
+                        <li class="me-2" role="presentation">
+                            <button
+                                class="text-base inline-block p-4 border-b-2 rounded-t-lg hover:text-gray-600 hover:border-gray-300"
+                                id="dashboard-styled-tab" data-tabs-target="#styled-dashboard" type="button" role="tab"
+                                aria-controls="dashboard" aria-selected="false">Job</button>
+                        </li>
+                    </ul>
+                </div>
+                <!-- Modal body -->
+                <div class="px-4 md:px-5 md:py-3">
+                    <div action="#" method="POST" id="default-styled-tab-content">
+
+                        {{-- only text post --}}
+                        <form action="{{ route('post.add') }}" method="POST" class="hidden rounded-lg bg-gray-50" id="styled-profile"
+                            role="tabpanel" aria-labelledby="profile-tab">
+                            @csrf
+                            <div class="mt-2">
+                                <label for="message" class="block mb-2 text-sm font-medium text-gray-900">Share your
+                                    thoughts</label>
+                                <textarea id="message" rows="4" name="post_description"
+                                    class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500"
+                                    placeholder="Write your thoughts here..."></textarea>
+                            </div>
+                            <div class="flex items-center mt-4">
+                                <input id="private_text" type="radio" value="0" name="visibility"
+                                    class="w-4 h-4 text-orange-500 bg-gray-100 border-gray-300 focus:ring-orange-500">
+                                <label for="private_text" class="ms-2 text-sm font-medium text-gray-900">Private ?</label>
+                            </div>
+                            <button type="submit"
+                                class="mt-6 w-full text-white text-md bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg px-5 py-2.5 text-center">
+                                Post
+                            </button>
+                        </form>
+
+                        {{-- jop post area --}}
+                        <form action="{{ route('post.addjob') }}" method="POST" class="hidden rounded-lg bg-gray-50" id="styled-dashboard"
+                            role="tabpanel" aria-labelledby="dashboard-tab">
+                            @csrf
+                            <input type="hidden" name="post_type" value="job">
+                            <div>
+                                <label for="description" class="block mb-2 text-sm font-medium text-gray-900">Post a
+                                    job</label>
+                                <textarea id="description" rows="4" name="post_description"
+                                    class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500"
+                                    placeholder="Write Job Description Here...." required></textarea>
+                                <p class="mt-2 text-xs text-gray-400"><span class="font-bold">Note: </span>Please do not enter the registration link in the description field. Enter the registration link in the link field.</p>
+                            </div>
+                            <div class="mt-3">
+                                <label for="website" class="block mb-2 text-sm font-medium text-gray-900">Registration
+                                    Link</label>
+                                <input type="url" id="website" name="registration_link"
+                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                                    placeholder="Enter Registration Link" required />
+                            </div>
+                            <div class="flex items-center mt-4">
+                                <input id="private_job" type="radio" value="0" name="visibility"
+                                    class="w-4 h-4 text-orange-500 bg-gray-100 border-gray-300 focus:ring-orange-500">
+                                <label for="private_job" class="ms-2 text-sm font-medium text-gray-900">Private ?</label>
+                            </div>
+                            <button type="submit"
+                                class="mt-6 w-full text-white text-md bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg px-5 py-2.5 text-center">
+                                Post
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- image post modal modal -->
     <div id="post_modal" tabindex="-1" aria-hidden="true"
         class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
         <div class="relative p-4 w-full max-w-md max-h-full">
@@ -41,7 +146,8 @@
                                             stroke-width="2"
                                             d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2" />
                                     </svg>
-                                    <p class="mb-2 text-sm text-gray-500"><span class="font-semibold">Click to upload</span>
+                                    <p class="mb-2 text-sm text-gray-500"><span class="font-semibold">Click to
+                                            upload</span>
                                         or drag and drop</p>
                                     <p class="mb-2 text-xs text-gray-500 ">SVG, PNG, JPG or GIF (MAX.
                                         800x400px)</p>
@@ -61,7 +167,7 @@
                         <div class="flex items-center me-4">
                             <input id="private_post" type="radio" value="0" name="visibility"
                                 class="w-4 h-4 text-orange-500 bg-gray-100 border-gray-300 focus:ring-orange-500">
-                            <label for="private_post" class="ms-2 text-sm font-medium text-gray-900">Private</label>
+                            <label for="private_post" class="ms-2 text-sm font-medium text-gray-900">Private ?</label>
                         </div>
                     </div>
                     <button type="submit"
@@ -77,7 +183,6 @@
         </div>
     </div>
 
-    {{-- main modal --}}
     <div class="flex flex-wrap justify-center mt-4">
         <!-- Left Side Profile Section  -->
         <!-- First Div -->
@@ -108,7 +213,8 @@
                     <p class="mt-2 ml-5 text-gray-400">All Friends</p>
                     <div class="flex ml-5 justify-between mt-3">
                         <div class="flex items-center gap-2">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
+                                class="w-5 h-5">
                                 <path
                                     d="M7 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6ZM14.5 9a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5ZM1.615 16.428a1.224 1.224 0 0 1-.569-1.175 6.002 6.002 0 0 1 11.908 0c.058.467-.172.92-.57 1.174A9.953 9.953 0 0 1 7 18a9.953 9.953 0 0 1-5.385-1.572ZM14.5 16h-.106c.07-.297.088-.611.048-.933a7.47 7.47 0 0 0-1.588-3.755 4.502 4.502 0 0 1 5.874 2.636.818.818 0 0 1-.36.98A7.465 7.465 0 0 1 14.5 16Z" />
                             </svg>
@@ -149,20 +255,17 @@
                     </a>
 
                     <!-- Input box -->
-                    <form action="{{ route('post.add') }}" method="post" id="post_form">
-                        @csrf
-                        <input type="text" name="post_description"
-                            class="rounded-full border-gray-500 border h-12 pl-6 pr-14 ml-4 mr-10 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                            placeholder="Add a post" required>
-                    </form>
+                    <input type="text" name="post_description"
+                        class="rounded-full border-gray-500 border h-12 pl-6 pr-14 ml-4 mr-10 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        placeholder="Add a post" id="post_modal_opener">
 
                     <!-- Icons -->
                     <div class="ml-4 flex items-center space-x-14 mr-4">
 
                         <!-- three icons -->
 
-                        {{-- pen icon --}}
-                        <button type="submit" form="post_form" id="no_image_form_btn">
+                        <!-- text_job_modal toggle -->
+                        <button data-modal-target="text_job_modal" data-modal-toggle="text_job_modal" type="button" id="text_or_job_post_btn">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                 stroke-width="1.5" stroke="currentColor"
                                 class="w-6 h-6 cursor-pointer hover:text-stone-600">
@@ -274,14 +377,10 @@
         document.getElementById("menu-toggle").addEventListener("click", function() {
             document.getElementById("menu").classList.toggle("hidden");
         });
-    </script>
-
-    <script>
-        Array.from(document.querySelectorAll('like_btns')).forEach((e) => {
-            id = e.id;
-            e.addEventListener("click", function() {
-                console.log('like btn clicked with ' + id);
-            });
+        
+        $("#post_modal_opener").click(()=>{
+            $("#post_modal_opener").blur();
+            $("#text_or_job_post_btn").click();
         });
     </script>
 @endpush

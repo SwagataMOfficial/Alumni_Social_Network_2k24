@@ -23,7 +23,7 @@ class ProfileController extends Controller {
 
         // getting all the posts of the user to display it in the profile page
 
-        $posts = Userpost::with('getUser')->with("getLikedUser")->where('posted_by', '=', $user->student_id)->orderBy('created_at', 'desc')->get()->toArray();
+        $posts = Userpost::with('getUser')->with("getLikedUser")->where('posted_by', '=', $user->student_id)->where('post_type', '!=', 'job')->orderBy('created_at', 'desc')->get()->toArray();
 
         // generating an array for the images only
         $imgArr = [];
@@ -165,11 +165,6 @@ class ProfileController extends Controller {
             }
             $updateArr['certificates'] = $filename;
         }
-
-        // temp code to verify
-        // echo "<pre>";
-        // print_r($updateArr);
-        // echo "</pre>";
 
         // this code below automatically updates the user data according to the form that is submitted
         $result = User::find(session()->get('user_id'))->update($updateArr);
