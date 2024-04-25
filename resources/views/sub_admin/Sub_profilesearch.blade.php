@@ -1,4 +1,5 @@
-@include('sub_admin.Sub_sidenavbar')
+@include('sub_admin.sub_sidenavbar')
+
 <style>
   .team-members {
     display: flex;
@@ -12,117 +13,87 @@
       align-items: flex-start;
     }
   }
-  .all{
-    
-  background-color: rgba(255, 255, 255, 0.5); /* white color with 50% opacity */
-}
-
-  .text-red {
-    color: red;
+  .all {
+    background-color: rgba(255, 255, 255, 0.5); /* white color with 50% opacity */
   }
+  .online-dot {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 15px;
+    height: 15px;
+    background-color: green;
+    border-radius: 50%;
+    border: 2px solid white;
+  }
+
+
+
 </style>
-  
 
 <div class="content-wrapper all">
-
-    <div class="content-header">
-      <div class="container-fluid">
-        <div class="row mb-2">
-          <div class="col-sm-6">
-            <h1 class="m-0"><b>view Profile</b></h1>
-</div>
-          
-        </div>
-      </div>
-    </div>
-
-    <div class="page-content page-container" id="page-content">
-    <div class="padding">
-        <div class="row container d-flex justify-content-center">
-
-<div class="col-lg-12 grid-margin stretch-card">
-              <div class="card">
-                <div class="card-body">
-                <div class="team-members">
-   
-  </div>
-     
-           
-                  <div class="table-responsive">
-                    <table class="table">
-                      <thead>
-                        <tr style="color:red">
-                           <th>Student_id</th>
-                            <th>Name</th>
-                            <th>Email</th>
-                      
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr>
-                             <td>132</td>
-                            <td>Sayantani Bhar</td>
-                            <td>samarpita@gmail.com</td>
-                        
-                       <td><button type="button" class="btn btn-success">
-                        <a href="Sub_profile_view" style="color:white">View</button></td>
-                      
-                        </tr>
-                        <tr>
-                            <td>22</td>
-                           
-                            <td>Rita Devi</td>
-                            <td>samarpita@gmail.com</td>
-                            
-                           <td><button type="button" class="btn btn-success">
-                               <a href="Sub_profile_view" style="color:white">View</button></td>
-                   
-                        </tr>
-                        <tr> <td>129</td>
-                           
-                            <td>Sumana Mukherjee</td>
-                            <td>samarpita@gmail.com</td>
-           
-                            <td><button type="button" class="btn btn-success">
-                            <a href="Sub_profile_view" style="color:white">View</button></td>
-                       
-                        </tr>
-
-                        <tr>
-                            <td>54</td>
-                            <td>Aradhyo Mukherjee</td>
-                            <td>samarpita@gmail.com</td>
-           
-                        
-                            <td><button type="button" class="btn btn-success">  <a href="Sub_profile_view" style="color:white">View</button></td>
-                     
-                        </tr>
-                        <tr>
-                           <td>84</td>
-                            <td>Koyel Mukherjee</td>
-                            <td>samarpita@gmail.com</td>
-           
-                         
-                            <td><button type="button" class="btn btn-success"> <a href="Sub_profile_view" style="color:white">View</button></td>
-                     
-                        </tr>
-                        <tr>
-                            <td>144</td>
-                            <td>Sujan Mukherjee</td>
-                            <td>samarpita@gmail.com</td>
-           
-                          
-                            <td><button type="button" class="btn btn-success">
-                                <a href="Sub_profile_view" style="color:white">View</button></td>
-                        </tr>
-
-                      </tbody>
-                    </table>
+  <div class="page-content page-container" id="page-content">
+ <div class="padding">
+ <div class="row container d-flex justify-content-center">
+ <div class="col-lg-12 grid-margin stretch-card">
+          <div class="card">
+    <div class="card-body">
+              <div class="team-members">
+          <div class="container mt-2">
+            <h2>All Posts</h2>
+          <!--First-->
+          <div class="col-md-12 mb-4">
+        <div class="card">
+             <div class="card-body">
+                  <div class="d-flex align-items-center mb-3">
+            <div class="position-relative">
+                            <img src="\assets\img\image.jpg" alt="Profile Pic" class="rounded-circle mr-1" width="50">
+                            <span class="online-dot"></span>
                   </div>
-                </div>
-              </div>
-            </div>
-            
-            </div>
-              </div>
-            </div>
+                          <!-- contents written-->
+       <span class="card-text" style="font-size: 25px">Glad to announce that I have successfully completed C++ course</span>
+             </div>
+                        <!-- contents img posts-->
+             <div style="display: flex; justify-content: center; align-items: center; height: 100%;">
+               <img src="\assets\img\post.png" alt="Post Image" style="width: 90%; height: auto;">
+                        </div>
+                        <!-- Post buttons -->
+                        <div class="post-buttons d-flex justify-content-center">
+    <button class="btn btn-danger mt-3"><b>Delete</b></button>
+</div>
+
+
+             </div>
+              <!-- Post Second -->
+             <div class="col-md-12 mb-4">
+        <div class="card">
+             <div class="card-body">
+                  <div class="d-flex align-items-center mb-3">
+            <div class="position-relative">
+                            <img src="\assets\img\image.jpg" alt="Profile Pic" class="rounded-circle mr-1" width="50">
+                            <span class="online-dot"></span>
+                  </div>
+                          <!-- contents written-->
+       <span class="card-text" style="font-size: 25px">Glad to announce that I have successfully completed C++ course</span>
+             </div>
+                        <!-- contents img posts-->
+             <div style="display: flex; justify-content: center; align-items: center; height: 100%;">
+               <img src="\assets\img\post.png" alt="Post Image" style="width: 90%; height: auto;">
+                        </div>
+                        <!-- Post buttons -->
+                        <div class="post-buttons d-flex justify-content-center">
+    <button class="btn btn-danger mt-3"><b>Delete</b></button>
+</div>
+
+             </div>
+             </div>
+  </div>
+  </div>
+  </div>
+  </div>
+    </div>
+     </div>
+ </div>
+ </div>
+  </div>
+</div>

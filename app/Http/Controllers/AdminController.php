@@ -130,6 +130,16 @@ class AdminController extends Controller
          return view('sub_admin.Sub_profilesearch');
      }
  
+     public function sub_admin_verification()
+     {
+         return view('sub_admin.sub_userverification');
+     }
+ 
+     public function sub_admin_verification_view()
+     {
+         return view('sub_admin.sub_userverification_view');
+     }
+ 
      public function subadmin_profileview()
      {
          return view('sub_admin.Sub_profile_view');

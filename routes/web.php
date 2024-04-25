@@ -1,14 +1,14 @@
 <?php
 
-use App\Http\Controllers\PostController;
-use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\ViewsController;
+use App\Http\Middleware\AdminAuth;
+use App\Http\Middleware\LoginCheck;
 use App\Http\Middleware\SubAdminAuth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\PostController;
 use App\Http\Controllers\UserController;
-use App\Http\Middleware\LoginCheck;// remove login check middleware from globally to locally for other middleware should work properly eg. admin and sub admin middle ware otherwise it will conflict
-use App\Http\Controllers\AdminController;
-use App\Http\Middleware\AdminAuth;
+use App\Http\Controllers\AdminController;// remove login check middleware from globally to locally for other middleware should work properly eg. admin and sub admin middle ware otherwise it will conflict
+use App\Http\Controllers\ViewsController;
+use App\Http\Controllers\ProfileController;
 
 Route::middleware([LoginCheck::class])->group(function () {
     Route::get('/', [UserController::class, 'index']);
@@ -75,6 +75,8 @@ Route::post("/admin/login", [AdminController::class, 'loginUser'])->name('admin.
 Route::middleware([SubAdminAuth::class])->group(function () {
     Route::get('/subadmin', [AdminController::class, 'sub_admin_login']);
     Route::get('/subadmin/dashboard', [AdminController::class, 'sub_admin_dashboard'])->name('sub.admin.dashboard');
+    Route::get('/subadmin/userverification', [AdminController::class, 'sub_admin_verification'])->name('subadmin.verification');
+    Route::get('/subadmin/userverification_view', [AdminController::class, 'sub_admin_verification_view'])->name('subadmin.verification_view');
     Route::get('/subadmin/team', [AdminController::class, 'subadmin_team'])->name('subadmin.team');
     Route::get('/subadmin/teamadd', [AdminController::class, 'subadmin_teamadd'])->name('subadmin.teamadd');
     Route::get('/subadmin/usermanagement', [AdminController::class, 'subadmin_usermanagement'])->name('subadmin.usermanagement');
