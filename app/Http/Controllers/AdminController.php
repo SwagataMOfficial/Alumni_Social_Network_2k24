@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Session;
 
 class AdminController extends Controller
 {
@@ -26,16 +26,6 @@ class AdminController extends Controller
         return redirect('/admin');
 
     }
-    public function admin_team()
-    {
-               // Redirect the user to the login page or any other page
-        return view('super_admin.team');
-
-    }
-    public function teamadd()
-    {
-        return view('super_admin.teamadd');
-    }
 
     public function usermanagement()
     {
@@ -45,11 +35,6 @@ class AdminController extends Controller
     public function content()
     {
         return view('super_admin.Contentmoderation');
-    }
-
-    public function analytics()
-    {
-        return view('super_admin.analytics');
     }
 
     public function viewcontent()
