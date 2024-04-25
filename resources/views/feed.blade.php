@@ -193,7 +193,7 @@
                 <div class="absolute inset-x-0 top-10 flex justify-center pt-4">
                     <div class="bg-white rounded-full border-4 border-white">
                         <!-- Profile Image  -->
-                        <a href="/profile/home/{{ $user['remember_token'] }}"
+                        <a href="/profile/{{ $user['remember_token'] }}"
                             class="block overflow-hidden md:h-16 md:w-16 lg:h-28 lg:w-28 rounded-full aspect-square">
                             <img src="{{ asset('/storage/' . $user['profile_picture']) }}" alt="Profile Picture"
                                 class="w-full h-full rounded-[50%] object-cover">
@@ -250,7 +250,7 @@
             <div class="flex justify-center">
                 <div class="inline-flex items-center justify-center p-4 bg-white rounded-full">
                     <!-- Profile picture -->
-                    <a href="/profile/home/{{ $user['remember_token'] }}"
+                    <a href="/profile/{{ $user['remember_token'] }}"
                         class="rounded-full bg-gray-300 h-12 w-12 flex items-center justify-center overflow-hidden">
                         <img src="{{ asset('/storage/' . $user['profile_picture']) }}" alt="image"
                             class="w-full h-full object-cover">

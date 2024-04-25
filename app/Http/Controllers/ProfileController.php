@@ -10,7 +10,7 @@ class ProfileController extends Controller {
     /**
      * Display a listing of the resource.
      */
-    public function view_page($any, $id) {   // $any is nothing but the variable to allow app use the any routing
+    public function view_page($id) {
 
         // getting all the user data from users table
         $user = User::where("remember_token", "=", $id)->first();
@@ -200,5 +200,10 @@ class ProfileController extends Controller {
         }
     }
 
+    public function changePassword(Request $request){
+        // TODO: implement change password system
 
+        echo "<pre>";
+        print_r($request->all());
+    }
 }

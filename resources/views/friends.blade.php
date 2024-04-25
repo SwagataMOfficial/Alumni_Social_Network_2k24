@@ -71,7 +71,7 @@
                                 {{-- pending request peoples will appear here --}}
                                 <div class="flex items-center justify-between mb-3 px-4">
                                     <div class="flex justify-center items-center gap-4">
-                                        <a href="/profile/home/{{ $user['remember_token'] }}" class="">
+                                        <a href="/profile/{{ $user['remember_token'] }}" class="">
                                             <img src="/storage/default/avatar.jpg" alt="profile image"
                                                 class="w-14 object-cover aspect-square rounded-[50%] border-2 border-slate-800">
                                         </a>
@@ -122,7 +122,7 @@
                                     class="rounded-xl bg-slate-200 overflow-hidden relative flex flex-col justify-start items-center">
                                     <img src="/storage/default/cover.png" alt="cover photo"
                                         class="object-cover max-h-16 w-full">
-                                    <a href="/profile/home/{{ $people['remember_token'] }}"
+                                    <a href="/profile/{{ $people['remember_token'] }}"
                                         class="absolute top-7 w-20 aspect-square object-cover rounded-[50%] border-2 border-slate-600 overflow-hidden">
                                         <img src="/storage/default/avatar.jpg" alt="profile photo" class="w-full h-full">
                                     </a>

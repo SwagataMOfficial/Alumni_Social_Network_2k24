@@ -1,6 +1,6 @@
 <div class="flex justify-between items-center gap-4 w-full">
     <div class="flex gap-4">
-        <a href="/profile/home/{{ $people['remember_token'] }}" class="w-12 border-2 border-stone-500 aspect-square rounded-[50%] overflow-hidden">
+        <a href="/profile/{{ $people['remember_token'] }}" class="w-12 border-2 border-stone-500 aspect-square rounded-[50%] overflow-hidden">
             <img class="w-full h-full object-cover"
                 src="{{ asset('/storage/' . $people['profile_picture']) }}" alt="profile image">
         </a>

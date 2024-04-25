@@ -3,8 +3,6 @@
     <title>Settings | Alumni Junction</title>
 @endpush
 @section('main-section')
-    {{-- background gray container --}}
-    {{-- <div class="container bg-gray-200 min-h-[calc(100vh-67px)]"> --}}
     <div class="container">
         {{-- max-width container with left,right space --}}
         <div class="px-8 mx-auto pt-3 flex justify-center gap-10">
@@ -13,11 +11,15 @@
             <div class="w-1/4 rounded-xl h-fit bg-white pb-3">
                 <h1 class="text-stone-600 font-bold text-2xl mx-5 my-2">Settings</h1>
                 <div class="border-t border-t-black">
-                    <div class="flex flex-col items-center justify-center gap-2 mt-2">
+                    <nav class="flex flex-col items-center justify-center gap-2 mt-2" id="default-styled-tab"
+                        data-tabs-toggle="#default-styled-tab-content"
+                        data-tabs-active-classes="bg-stone-200 border-l-[3px] border-l-sky-600"
+                        data-tabs-inactive-classes="text-stone-600" role="tablist">
 
                         {{-- tab-1 --}}
-                        <a href="/settings/general/{{ Session::get('token') }}"
-                            class="flex items-center justify-start gap-3 w-full py-2 pl-6 hover:bg-slate-200 {{ Request::is('settings/general/*') ? 'bg-stone-200 border-l-[3px] border-l-sky-600' : '' }} ">
+                        <button class="flex items-center justify-start gap-3 w-full py-2 pl-6 hover:bg-slate-200 "
+                            id="profile-styled-tab" data-tabs-target="#styled-profile" type="button" role="tab"
+                            aria-controls="profile" aria-selected="false">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
                                 class="w-7 aspect-square text-stone-700">
                                 <path
@@ -27,14 +29,15 @@
                                     clip-rule="evenodd" />
                             </svg>
                             <span
-                                class="text-lg font-semibold {{ Request::is('settings/general/*') ? '' : 'text-stone-700' }} ">
+                                class="text-lg font-semibold">
                                 General
                             </span>
-                        </a>
+                        </button>
 
                         {{-- tab-2 --}}
-                        <a href="/settings/account/{{ Session::get('token') }}"
-                            class="flex items-center justify-start gap-3 w-full py-2 pl-6 hover:bg-slate-200 {{ Request::is('settings/account/*') ? 'bg-stone-200 border-l-[3px] border-l-sky-600' : '' }} ">
+                        <button class="flex items-center justify-start gap-3 w-full py-2 pl-6 hover:bg-slate-200 "
+                            id="dashboard-styled-tab" data-tabs-target="#styled-dashboard" type="button" role="tab"
+                            aria-controls="dashboard" aria-selected="false">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
                                 class="w-7 aspect-square text-stone-700">
                                 <path fill-rule="evenodd"
@@ -42,14 +45,15 @@
                                     clip-rule="evenodd" />
                             </svg>
                             <span
-                                class="text-lg font-semibold {{ Request::is('settings/account/*') ? '' : 'text-stone-700' }} ">
+                                class="text-lg font-semibold">
                                 Account
                             </span>
-                        </a>
+                        </button>
 
                         {{-- tab-3 --}}
-                        <a href="/settings/security-and-privacy/{{ Session::get('token') }}"
-                            class="flex items-center justify-start gap-3 w-full py-2 pl-6 hover:bg-slate-200 {{ Request::is('settings/security-and-privacy/*') ? 'bg-stone-200 border-l-[3px] border-l-sky-600' : '' }} ">
+                        <button class="flex items-center justify-start gap-3 w-full py-2 pl-6 hover:bg-slate-200 "
+                            id="settings-styled-tab" data-tabs-target="#styled-settings" type="button" role="tab"
+                            aria-controls="settings" aria-selected="false">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
                                 class="w-7 aspect-square text-stone-700">
                                 <path fill-rule="evenodd"
@@ -57,14 +61,15 @@
                                     clip-rule="evenodd" />
                             </svg>
                             <span
-                                class="text-lg font-semibold {{ Request::is('settings/security-and-privacy/*') ? '' : 'text-stone-700' }} ">
+                                class="text-lg font-semibold">
                                 Security & Privacy
                             </span>
-                        </a>
+                        </button>
 
                         {{-- tab-4 --}}
-                        <a href="/settings/social-links/{{ Session::get('token') }}"
-                            class="flex items-center justify-start gap-3 w-full py-2 pl-6 hover:bg-slate-200 {{ Request::is('settings/social-links/*') ? 'bg-stone-200 border-l-[3px] border-l-sky-600' : '' }} ">
+                        <button class="flex items-center justify-start gap-3 w-full py-2 pl-6 hover:bg-slate-200 "
+                            id="contacts-styled-tab" data-tabs-target="#styled-contacts" type="button" role="tab"
+                            aria-controls="contacts" aria-selected="false">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
                                 class="w-7 aspect-square text-stone-700">
                                 <path
@@ -73,14 +78,15 @@
                                     d="M11.603 7.963a.75.75 0 0 0-.977 1.138 2.5 2.5 0 0 1 .142 3.667l-3 3a2.5 2.5 0 0 1-3.536-3.536l1.225-1.224a.75.75 0 0 0-1.061-1.06l-1.224 1.224a4 4 0 1 0 5.656 5.656l3-3a4 4 0 0 0-.225-5.865Z" />
                             </svg>
                             <span
-                                class="text-lg font-semibold {{ Request::is('settings/social-links/*') ? '' : 'text-stone-700' }} ">
+                                class="text-lg font-semibold">
                                 Social Links
                             </span>
-                        </a>
+                        </button>
 
                         {{-- tab-5 --}}
-                        <a href="/settings/change-password/{{ Session::get('token') }}"
-                            class="flex items-center justify-start gap-3 w-full py-2 pl-6 hover:bg-slate-200 {{ Request::is('settings/change-password/*') ? 'bg-stone-200 border-l-[3px] border-l-sky-600' : '' }} ">
+                        <button class="flex items-center justify-start gap-3 w-full py-2 pl-6 hover:bg-slate-200 "
+                            id="new-styled-tab" data-tabs-target="#new-item" type="button" role="tab"
+                            aria-controls="new" aria-selected="false">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
                                 class="w-7 aspect-square text-stone-700">
                                 <path fill-rule="evenodd"
@@ -88,37 +94,39 @@
                                     clip-rule="evenodd" />
                             </svg>
                             <span
-                                class="text-lg font-semibold {{ Request::is('settings/change-password/*') ? '' : 'text-stone-700' }} ">
+                                class="text-lg font-semibold">
                                 Change Password
                             </span>
-                        </a>
+                        </button>
 
                         {{-- tab-6 --}}
-                        <a href="/settings/notifications/{{ Session::get('token') }}"
-                            class="flex items-center justify-start gap-3 w-full py-2 pl-6 hover:bg-slate-200 {{ Request::is('settings/notifications/*') ? 'bg-stone-200 border-l-[3px] border-l-sky-600' : '' }} ">
+                        <button class="flex items-center justify-start gap-3 w-full py-2 pl-6 hover:bg-slate-200 "
+                            id="new1-styled-tab" data-tabs-target="#new-item1" type="button" role="tab"
+                            aria-controls="new" aria-selected="false">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
-                                class="w-7 aspect-square text-stone-700">
-                                <path
-                                    d="M4.214 3.227a.75.75 0 0 0-1.156-.955 8.97 8.97 0 0 0-1.856 3.825.75.75 0 0 0 1.466.316 7.47 7.47 0 0 1 1.546-3.186ZM16.942 2.272a.75.75 0 0 0-1.157.955 7.47 7.47 0 0 1 1.547 3.186.75.75 0 0 0 1.466-.316 8.971 8.971 0 0 0-1.856-3.825Z" />
-                                <path fill-rule="evenodd"
-                                    d="M10 2a6 6 0 0 0-6 6c0 1.887-.454 3.665-1.257 5.234a.75.75 0 0 0 .515 1.076 32.91 32.91 0 0 0 3.256.508 3.5 3.5 0 0 0 6.972 0 32.903 32.903 0 0 0 3.256-.508.75.75 0 0 0 .515-1.076A11.448 11.448 0 0 1 16 8a6 6 0 0 0-6-6Zm0 14.5a2 2 0 0 1-1.95-1.557 33.54 33.54 0 0 0 3.9 0A2 2 0 0 1 10 16.5Z"
-                                    clip-rule="evenodd" />
+                            class="w-7 aspect-square text-stone-700">
+                            <path
+                                d="M4.214 3.227a.75.75 0 0 0-1.156-.955 8.97 8.97 0 0 0-1.856 3.825.75.75 0 0 0 1.466.316 7.47 7.47 0 0 1 1.546-3.186ZM16.942 2.272a.75.75 0 0 0-1.157.955 7.47 7.47 0 0 1 1.547 3.186.75.75 0 0 0 1.466-.316 8.971 8.971 0 0 0-1.856-3.825Z" />
+                            <path fill-rule="evenodd"
+                                d="M10 2a6 6 0 0 0-6 6c0 1.887-.454 3.665-1.257 5.234a.75.75 0 0 0 .515 1.076 32.91 32.91 0 0 0 3.256.508 3.5 3.5 0 0 0 6.972 0 32.903 32.903 0 0 0 3.256-.508.75.75 0 0 0 .515-1.076A11.448 11.448 0 0 1 16 8a6 6 0 0 0-6-6Zm0 14.5a2 2 0 0 1-1.95-1.557 33.54 33.54 0 0 0 3.9 0A2 2 0 0 1 10 16.5Z"
+                                clip-rule="evenodd" />
                             </svg>
                             <span
-                                class="text-lg font-semibold {{ Request::is('settings/notifications/*') ? '' : 'text-stone-700' }} ">
+                                class="text-lg font-semibold">
                                 Notifications
                             </span>
-                        </a>
-                    </div>
+                        </button>
+                    </nav>
                 </div>
             </div>
 
             {{-- right main settings option --}}
-            <div class="w-3/4 flex flex-col gap-3 mb-3">
+            <div id="default-styled-tab-content" class="w-3/4 flex flex-col gap-3 mb-3">
+
                 {{-- general settings starts here --}}
-                @if (Request::is('settings/general/*'))
+                <div class="hidden" id="styled-profile" role="tabpanel" aria-labelledby="profile-tab">
                     {{-- settings section here --}}
-                    <section class="rounded-xl overflow-hidden bg-white px-6 py-2">
+                    <section class="rounded-xl overflow-hidden bg-white px-6 py-2 mb-3">
                         <h3 class="text-stone-600 font-bold text-xl mb-2">Preferences</h3>
                         <div class="flex flex-col">
                             <a href="#"
@@ -181,13 +189,13 @@
                             </a>
                         </div>
                     </section>
-                @endif
+                </div>
                 {{-- general settings ends here --}}
 
                 {{-- account settings starts here --}}
-                @if (Request::is('settings/account/*'))
+                <div class="hidden" id="styled-dashboard" role="tabpanel" aria-labelledby="dashboard-tab">
                     {{-- settings section here --}}
-                    <section class="rounded-xl overflow-hidden bg-white px-6 py-2">
+                    <section class="rounded-xl overflow-hidden bg-white px-6 py-2 mb-3">
                         <h3 class="text-stone-600 font-bold text-xl mb-2">Personal Information</h3>
                         <div class="flex flex-col">
                             <a href="#"
@@ -233,7 +241,7 @@
                     </section>
 
                     {{-- settings section here --}}
-                    <section class="rounded-xl overflow-hidden bg-white px-6 py-2">
+                    <section class="rounded-xl overflow-hidden bg-white px-6 py-2 mb-3">
                         <h3 class="text-stone-600 font-bold text-xl mb-2">Highlights</h3>
                         <div class="flex flex-col">
                             <a href="#"
@@ -323,12 +331,12 @@
                             </a>
                         </div>
                     </section>
-                @endif
+                </div>
                 {{-- account settings ends here --}}
 
                 {{-- security and privacy settings starts here --}}
-                @if (Request::is('settings/security-and-privacy/*'))
-                    <section class="rounded-xl overflow-hidden bg-white px-6 py-2">
+                <div class="hidden" id="styled-settings" role="tabpanel" aria-labelledby="settings-tab">
+                    <section class="rounded-xl overflow-hidden bg-white px-6 py-2 mb-3">
                         <h3 class="text-stone-600 font-bold text-xl mb-2">Account Security</h3>
                         <div class="flex flex-col">
                             <a href="#"
@@ -360,7 +368,7 @@
                         </div>
                     </section>
 
-                    <section class="rounded-xl overflow-hidden bg-white px-6 py-2">
+                    <section class="rounded-xl overflow-hidden bg-white px-6 py-2 mb-3">
                         <h3 class="text-stone-600 font-bold text-xl mb-2">Credential manager</h3>
                         <div class="flex flex-col">
                             <a href="#"
@@ -449,11 +457,11 @@
                             </a>
                         </div>
                     </section>
-                @endif
+                </div>
                 {{-- security and privacy settings ends here --}}
 
                 {{-- social links settings starts here --}}
-                @if (Request::is('settings/social-links/*'))
+                <div class="hidden" id="styled-contacts" role="tabpanel" aria-labelledby="contacts-tab">
                     <section class="rounded-xl overflow-hidden bg-white px-6 py-2">
                         <h3 class="text-stone-600 font-bold text-xl mb-2">Social links</h3>
                         <div class="flex flex-col">
@@ -511,44 +519,41 @@
                             </a>
                         </div>
                     </section>
-                @endif
-                {{-- security and privacy settings ends here --}}
+                </div>
+                {{-- social links settings ends here --}}
 
                 {{-- change password settings starts here --}}
-                @if (Request::is('settings/change-password/*'))
+                <div class="hidden" id="new-item" role="tabpanel" aria-labelledby="new-tab">
                     <section class="rounded-xl overflow-hidden bg-white px-6 py-3">
                         <h3 class="text-stone-600 font-bold text-xl mb-4">Change Your Password</h3>
-                        <form action="" method="post"
+                        <form action="{{route('profile.changePassword')}}" method="post"
                             class="w-full px-4 flex flex-col justify-between items-center py-2">
                             @csrf
                             <div class="mb-4 w-3/4">
-                                <label for="" class=""></label>
-                                <input type="password" name="" id=""
+                                <input type="password" name="c_old_password" id="c_old_password"
                                     class="p-2 border-2 border-stone-500 rounded-xl w-full"
                                     placeholder="Enter Your Old Password">
                             </div>
                             <div class="mb-4 w-3/4">
-                                <label for="" class=""></label>
-                                <input type="password" name="" id=""
+                                <input type="password" name="c_new_password" id="c_c_new_password"
                                     class="p-2 border-2 border-stone-500 rounded-xl w-full"
                                     placeholder="Enter Your New Password">
                             </div>
                             <div class="mb-5 w-3/4">
-                                <label for="" class=""></label>
-                                <input type="password" name="" id=""
+                                <input type="password" name="c_new_cpassword" id="c_c_new_cpassword"
                                     class="p-2 border-2 border-stone-500 rounded-xl w-full"
                                     placeholder="Confirm Your Password">
                             </div>
                             <button type="submit"
-                                class="px-4 py-2 bg-green-300 rounded-xl border-[3px] border-green-700 hover:bg-green-500 hover:text-white font-medium">Change
+                                class="px-4 py-2 bg-sky-300 rounded-xl border-[3px] border-sky-700 hover:bg-sky-500 hover:text-white font-medium">Change
                                 Password</button>
                         </form>
                     </section>
-                @endif
-                {{-- security and privacy settings ends here --}}
+                </div>
+                {{-- change password settings ends here --}}
 
                 {{-- notification settings starts here --}}
-                @if (Request::is('settings/notifications/*'))
+                <div class="hidden" id="new-item1" role="tabpanel" aria-labelledby="new-tab">
                     <section class="rounded-xl overflow-hidden bg-white px-6 py-2">
                         <h3 class="text-stone-600 font-bold text-xl mb-2">Notifications</h3>
                         <div class="flex flex-col">
@@ -567,8 +572,8 @@
                             </a>
                         </div>
                     </section>
-                @endif
-                {{-- security and privacy settings ends here --}}
+                </div>
+                {{-- notification settings ends here --}}
             </div>
         </div>
     </div>
