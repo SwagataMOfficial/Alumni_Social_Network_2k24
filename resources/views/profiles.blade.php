@@ -17,72 +17,57 @@
 
                     <x-profilesection :details="$user" />
                 </div>
-                <div class="rounded-xl overflow-hidden bg-white pb-4">
-                    <h3 class="text-black font-bold text-2xl pl-8 pt-3">
-                        @if (Request::is('profile/home/*'))
-                            {{ 'About me' }}
-                        @else
-                            {{ 'Activity' }}
-                        @endif
-                    </h3>
-                    <nav class="pl-12 mt-4 flex gap-4">
-                        @if (Request::is('profile/home/*'))
-                            <a href="{{ url('/') }}/profile/home/{{ $user['remember_token'] }}"
-                                class="bg-sky-200 border-2 border-cyan-500 px-6 py-1 rounded-3xl hover:bg-lime-200 hover:border-green-500 font-semibold"
-                                data-active="true">About</a>
-                        @else
-                            <a href="{{ url('/') }}/profile/home/{{ $user['remember_token'] }}"
-                                class="bg-lime-200 border-2 border-green-500 px-6 py-1 rounded-3xl hover:bg-sky-200 hover:border-cyan-500 font-semibold">About</a>
-                        @endif
+                <div class="rounded-xl overflow-hidden bg-white pb-4 pt-2">
+                    <nav class="pl-12 mt-4 flex gap-4" id="default-styled-tab"
+                        data-tabs-toggle="#default-styled-tab-content"
+                        data-tabs-active-classes="bg-sky-200 hover:bg-lime-200 hover:border-green-500 border-cyan-500"
+                        data-tabs-inactive-classes="bg-lime-200 border-green-500 hover:bg-sky-200 hover:border-cyan-500"
+                        role="tablist">
 
-                        @if (Request::is('profile/posts/*'))
-                            <a href="{{ url('/') }}/profile/posts/{{ $user['remember_token'] }}"
-                                class="bg-sky-200 border-2 border-cyan-500 px-6 py-1 rounded-3xl hover:bg-lime-200 hover:border-green-500 font-semibold"
-                                data-active="true">Posts</a>
-                        @else
-                            <a href="{{ url('/') }}/profile/posts/{{ $user['remember_token'] }}"
-                                class="bg-lime-200 border-2 border-green-500 px-6 py-1 rounded-3xl hover:bg-sky-200 hover:border-cyan-500 font-semibold">Posts</a>
-                        @endif
+                        <button class="rounded-3xl border-2 font-semibold px-6 py-1" id="profile-styled-tab"
+                            data-tabs-target="#styled-profile" type="button" role="tab" aria-controls="profile"
+                            aria-selected="false">About</button>
 
-                        @if (Request::is('profile/images/*'))
-                            {{--  --}}
-                            <a href="{{ url('/') }}/profile/images/{{ $user['remember_token'] }}"
-                                class="bg-sky-200 border-2 border-cyan-500 px-6 py-1 rounded-3xl hover:bg-lime-200 hover:border-green-500 font-semibold"
-                                data-active="true">Images</a>
-                        @else
-                            {{--  --}}
-                            <a href="{{ url('/') }}/profile/images/{{ $user['remember_token'] }}"
-                                class="bg-lime-200 border-2 border-green-500 px-6 py-1 rounded-3xl hover:bg-sky-200 hover:border-cyan-500 font-semibold">Images</a>
-                        @endif
 
-                        @if (Request::is('profile/jobs/*'))
-                            {{--  --}}
-                            <a href="{{ url('/') }}/profile/jobs/{{ $user['remember_token'] }}"
-                                class="bg-sky-200 border-2 border-cyan-500 px-6 py-1 rounded-3xl hover:bg-lime-200 hover:border-green-500 font-semibold"
-                                data-active="true">Jobs</a>
-                        @else
-                            {{--  --}}
-                            <a href="{{ url('/') }}/profile/jobs/{{ $user['remember_token'] }}"
-                                class="bg-lime-200 border-2 border-green-500 px-6 py-1 rounded-3xl hover:bg-sky-200 hover:border-cyan-500 font-semibold">Jobs</a>
-                        @endif
+                        <button class="rounded-3xl border-2 font-semibold px-6 py-1" id="dashboard-styled-tab"
+                            data-tabs-target="#styled-dashboard" type="button" role="tab" aria-controls="dashboard"
+                            aria-selected="false">Posts</button>
+
+
+                        <button class="rounded-3xl border-2 font-semibold px-6 py-1" id="settings-styled-tab"
+                            data-tabs-target="#styled-settings" type="button" role="tab" aria-controls="settings"
+                            aria-selected="false">Images</button>
+
+
+                        <button class="rounded-3xl border-2 font-semibold px-6 py-1" id="contacts-styled-tab"
+                            data-tabs-target="#styled-contacts" type="button" role="tab" aria-controls="contacts"
+                            aria-selected="false">Jobs</button>
+
                     </nav>
+
                     @if ($user['profile_visibility'] || $user['student_id'] == session()->get('user_id'))
-                        {{-- true means it will show actual profile content otherwise the else part --}}
-                        @if (Request::is('profile/home/*'))
-                            <x-aboutprofile :details="$user" />
-                        @endif
-
-                        @if (Request::is('profile/posts/*'))
-                            <x-posts :details="$user" :posts="$posts" />
-                        @endif
-
-                        @if (Request::is('profile/images/*'))
-                            <x-postgallery :details="$imgArr" />
-                        @endif
-
-                        @if (Request::is('profile/jobs/*'))
-                            <x-jobposts :details="$user" :posts="$jobs" />
-                        @endif
+                        <div id="default-styled-tab-content">
+                            <div class="hidden" id="styled-profile" role="tabpanel" aria-labelledby="profile-tab">
+                                <p class="text-sm text-gray-500 dark:text-gray-400">
+                                    <x-aboutprofile :details="$user" />
+                                </p>
+                            </div>
+                            <div class="hidden" id="styled-dashboard" role="tabpanel" aria-labelledby="dashboard-tab">
+                                <p class="text-sm text-gray-500 dark:text-gray-400">
+                                    <x-posts :details="$user" :posts="$posts" />
+                                </p>
+                            </div>
+                            <div class="hidden" id="styled-settings" role="tabpanel" aria-labelledby="settings-tab">
+                                <p class="text-sm text-gray-500 dark:text-gray-400">
+                                    <x-postgallery :details="$imgArr" />
+                                </p>
+                            </div>
+                            <div class="hidden" id="styled-contacts" role="tabpanel" aria-labelledby="contacts-tab">
+                                <p class="text-sm text-gray-500 dark:text-gray-400">
+                                    <x-jobposts :details="$user" :posts="$jobs" />
+                                </p>
+                            </div>
+                        </div>
                     @else
                         <x-privacy />
                     @endif

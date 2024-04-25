@@ -23,7 +23,7 @@ Route::middleware([LoginCheck::class])->group(function () {
     Route::get("/friends", [ViewsController::class, "friends"]);
     Route::get("/messages", [ViewsController::class, "messages"]);
     Route::get("/notifications", [ViewsController::class, "notifications"]);
-    Route::get("/settings/{any}/{user_token}", [ViewsController::class, "view_settings"])->middleware('settings_guard');
+    Route::get("/settings", [ViewsController::class, "view_settings"]);
     Route::get("/results", [ProfileController::class, 'view_search']);
 
     // grouped routes [ the url should start with /profile]
@@ -31,9 +31,9 @@ Route::middleware([LoginCheck::class])->group(function () {
         Route::get("/edit", [ProfileController::class, 'view_edit'])->name('profile.edit');
         Route::post("/edit", [ProfileController::class, 'save_changes'])->name('profile.savechanges');
         Route::post("/togglevisibility", [ProfileController::class, 'toggleVisibility'])->name('profile.visibility');
-        // {any} means after /profile there can be any routing names and {user_token} means the id of the user
-        Route::get("/{any}/{user_token}", [ProfileController::class, "view_page"])->middleware('profile_guard');
+        Route::get("/{user_token}", [ProfileController::class, "view_page"]);
         Route::get('/search', [ProfileController::class, 'view_search'])->name('profile.search');
+        Route::post('/change-password', [ProfileController::class, 'changePassword'])->name('profile.changePassword');
     });
 });
 
@@ -94,3 +94,4 @@ Route::post("/subadmin/login", [AdminController::class, 'subloginUser'])->name('
 
 
 
+Route::view('/testing', 'test');

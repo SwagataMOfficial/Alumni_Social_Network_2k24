@@ -90,11 +90,11 @@
               </div>
               <ul class="py-2 text-sm text-gray-700" aria-labelledby="dropdownInformationButton">
                   <li>
-                      <a href="/profile/home/{{ Session::get('token') }}" class="block px-4 py-2 hover:bg-gray-100">Your
+                      <a href="/profile/{{ Session::get('token') }}" class="block px-4 py-2 hover:bg-gray-100">Your
                           Profile</a>
                   </li>
                   <li>
-                      <a href="/settings/security-and-privacy/{{ Session::get('token') }}"
+                      <a href="/settings"
                           class="block px-4 py-2 hover:bg-gray-100">Settings
                           & Privacy</a>
                   </li>
@@ -110,7 +110,7 @@
           </div>
 
           <!-- Settings section -->
-          <a href="/settings/general/{{ Session::get('token') }}" class="text-white hover:text-gray-300">
+          <a href="/settings" class="text-white hover:text-gray-300">
               <span
                   class="flex flex-col items-center justify-center py-2 px-3 text-white rounded md:bg-transparent md:p-0 hover:text-blue-100"
                   aria-current="page">

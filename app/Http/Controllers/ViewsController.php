@@ -43,7 +43,7 @@ class ViewsController extends Controller {
         $notifications = Notification::where('notified_to', '=', session()->get('user_id'))->get()->toArray();
         return view("notifications")->with(compact('notifications'));
     }
-    public function view_settings($any, $id) {   // $any is nothing but the variable to allow app use the any routing
+    public function view_settings() {
         return view('settings');
     }
 }

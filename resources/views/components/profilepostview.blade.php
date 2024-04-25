@@ -14,7 +14,7 @@
     <div id="dropdown_{{ $key }}" class="z-10 shadow-lg hidden bg-white divide-y divide-gray-100 rounded-lg w-40">
         <ul class="py-2 text-sm text-gray-700" aria-labelledby="btn_{{ $key }}">
             <li>
-                <a href="/profile/home/{{ $details['remember_token'] }}" class="block px-4 py-2 hover:bg-gray-100">View
+                <a href="/profile/{{ $details['remember_token'] }}" class="block px-4 py-2 hover:bg-gray-100">View
                     Profile</a>
             </li>
             <li>
@@ -30,7 +30,7 @@
 
     <!-- Header -->
     <div class="flex items-center space-x-4 pr-4 pl-2">
-        <a href="/profile/home/{{ $details['remember_token'] }}">
+        <a href="/profile/{{ $details['remember_token'] }}">
             <img src="{{ asset('/storage/' . $details['profile_picture']) }}" alt="Profile Picture"
                 class="h-16 aspect-square rounded-full object-cover">
         </a>
