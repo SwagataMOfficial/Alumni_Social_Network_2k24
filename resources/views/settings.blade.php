@@ -526,8 +526,7 @@
                 <div class="hidden" id="new-item" role="tabpanel" aria-labelledby="new-tab">
                     <section class="rounded-xl overflow-hidden bg-white px-6 py-3">
                         <h3 class="text-stone-600 font-bold text-xl mb-4">Change Your Password</h3>
-                        <form action="{{route('profile.changePassword')}}" method="post"
-                            class="w-full px-4 flex flex-col justify-between items-center py-2">
+                        <form id="changePasswordForm" class="w-full px-4 flex flex-col justify-between items-center py-2">
                             @csrf
                             <div class="mb-4 w-3/4">
                                 <input type="password" name="c_old_password" id="c_old_password"
@@ -540,7 +539,7 @@
                                     placeholder="Enter Your New Password">
                             </div>
                             <div class="mb-5 w-3/4">
-                                <input type="password" name="c_new_cpassword" id="c_c_new_cpassword"
+                                <input type="password" name="c_new_cpassword_again" id="c_c_new_cpassword_again"
                                     class="p-2 border-2 border-stone-500 rounded-xl w-full"
                                     placeholder="Confirm Your Password">
                             </div>
@@ -578,3 +577,25 @@
         </div>
     </div>
 @endsection
+@push('script')
+    <script>
+        //ajax request for change password
+       $(document).ready(function () {
+        $('#changePasswordForm').submit(function (e) {
+            e.preventDefault();
+            $.ajax({
+                url: "{{ route('profile.changePassword') }}",
+                type: "POST",
+                data: $(this).serialize(),
+                success: function (response) {
+                    swal("Success", response.message, "success");
+                    $('#changePasswordForm')[0].reset();
+                },
+                error: function (xhr) {
+                    swal("Error", xhr.responseJSON.message, "error");
+                }
+            });
+        });
+    });
+    </script>
+@endpush
