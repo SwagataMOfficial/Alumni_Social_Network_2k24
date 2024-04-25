@@ -17,11 +17,7 @@
 
                     <x-profilesection :details="$user" />
                 </div>
-                <div class="rounded-xl overflow-hidden bg-white pb-4">
-                    <h3 class="text-black font-bold text-2xl pl-8 pt-3">
-                        More about me
-                    </h3>
-
+                <div class="rounded-xl overflow-hidden bg-white pb-4 pt-2">
                     <nav class="pl-12 mt-4 flex gap-4" id="default-styled-tab"
                         data-tabs-toggle="#default-styled-tab-content"
                         data-tabs-active-classes="bg-sky-200 hover:bg-lime-200 hover:border-green-500 border-cyan-500"
