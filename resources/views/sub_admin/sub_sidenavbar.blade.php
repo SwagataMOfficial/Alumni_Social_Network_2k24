@@ -144,7 +144,7 @@
 
                         <li class="nav-item  mb-3">
                             <a href="{{ route('sub.admin.logout') }}" class="nav-link">
-                                <i class="bi bi-power"></i>
+                                <i class="fas fa-sign-out-alt"></i>
                                 <p>Log Out</p>
                             </a>
                         </li>

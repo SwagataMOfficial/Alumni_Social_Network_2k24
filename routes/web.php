@@ -58,10 +58,9 @@ Route::middleware([AdminAuth::class])->group(function () {
     Route::get('/admin/admin_team', [AdminController::class, 'admin_team'])->name('Team');
     Route::get('/admin/dashboard', [AdminController::class, 'super_admin_dashboard'])->name('sup.admin.dashboard');
     Route::get('/admin', [AdminController::class, 'admin_login']);
-    Route::get('/admin/teamadd', [AdminController::class, 'teamadd']);
+    Route::get('/admin/teamadd', [AdminController::class, 'teamadd'])->name('teamadd');
     Route::get('/admin/usermanagement', [AdminController::class, 'usermanagement'])->name('usermanagement');
-    Route::get('/admin/content', [AdminController::class, 'content'])->name('contentmoderation');
-    Route::get('/admin/analytics', [AdminController::class, 'analytics'])->name('analytics');
+    Route::get('/admin/usermanagementview', [AdminController::class, 'usermanagementview'])->name('usermanagement.view');
     Route::get('/admin/viewcontent', [AdminController::class, 'viewcontent'])->name('viewcontent');
     Route::get('/admin/ban', [AdminController::class, 'userban'])->name('userban');
     Route::get('/admin/support', [AdminController::class, 'support'])->name('support');

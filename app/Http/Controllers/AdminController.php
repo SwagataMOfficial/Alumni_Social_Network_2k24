@@ -31,12 +31,23 @@ class AdminController extends Controller
     {
         return view('super_admin.Usermanagement');
     }
-
+    public function usermanagementview()
+    {
+        return view('super_admin.usermanagement_view');
+    }
     public function content()
     {
         return view('super_admin.Contentmoderation');
     }
+    public function admin_team()
+    {
+        return view('super_admin.team');
+    }
 
+    public function teamadd()
+    {
+        return view('super_admin.teamadd');
+    }
     public function viewcontent()
     {
         return view('super_admin.viewcontent');

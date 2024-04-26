@@ -1,4 +1,5 @@
 @include('super_admin.sidenavbar')
+
 <style>
   .team-members {
     display: flex;
@@ -61,10 +62,9 @@
                             <td>Samarpita Mukherjee</td>
                             <td>samarpita@gmail.com</td>
                           <td>3923451674</td>
-                        <td><button type="button" class="btn btn-primary">View</button>
-                        <button type="button" class="btn btn-danger">Block</button>
-<button type="button" class="btn btn-success">Disable</button>
-<button type="button" class="btn btn-warning">Suspend</button>
+                        <td><a href="{{route('usermanagement.view')}}"><button type="button" class="btn btn-primary">View</button></a>
+                        <button type="button" class="btn btn-danger">Suspend</button>
+
 </td>
                         </tr>
                         <tr>
@@ -72,10 +72,8 @@
                             <td>Samarpita Mukherjee</td>
                             <td>samarpita@gmail.com</td>
                           <td>3923451674</td>
-                          <td><button type="button" class="btn btn-primary">View</button>
-                        <button type="button" class="btn btn-danger">Block</button>
-<button type="button" class="btn btn-success">Disable</button>
-<button type="button" class="btn btn-warning">Suspend</button>
+                          <td><a href="{{route('usermanagement.view')}}"><button type="button" class="btn btn-primary">View</button></a>
+                          <button type="button" class="btn btn-danger">Suspend</button>
 </td>
                         </tr>
                         <tr>
@@ -83,10 +81,8 @@
                             <td>Samarpita Mukherjee</td>
                             <td>samarpita@gmail.com</td>
                           <td>3923451674</td>
-                          <td><button type="button" class="btn btn-primary">View</button>
-                        <button type="button" class="btn btn-danger">Block</button>
-<button type="button" class="btn btn-success">Disable</button>
-<button type="button" class="btn btn-warning">Suspend</button>
+                          <td><a href="{{route('usermanagement.view')}}"><button type="button" class="btn btn-primary">View</button></a>
+                          <button type="button" class="btn btn-danger">Suspend</button>
 </td>
                         </tr>
                         <tr>
@@ -94,10 +90,8 @@
                             <td>Samarpita Mukherjee</td>
                             <td>samarpita@gmail.com</td>
                           <td>3923451674</td>
-                          <td><button type="button" class="btn btn-primary">View</button>
-                        <button type="button" class="btn btn-danger">Block</button>
-<button type="button" class="btn btn-success">Disable</button>
-<button type="button" class="btn btn-warning">Suspend</button>
+                          <td><a href="{{route('usermanagement.view')}}"><button type="button" class="btn btn-primary">View</button></a>
+                          <button type="button" class="btn btn-danger">Suspend</button>
 </td>
                         </tr>
                         <tr>
@@ -105,10 +99,8 @@
                             <td>Samarpita Mukherjee</td>
                             <td>samarpita@gmail.com</td>
                           <td>3923451674</td>
-                          <td><button type="button" class="btn btn-primary">View</button>
-                        <button type="button" class="btn btn-danger">Block</button>
-<button type="button" class="btn btn-success">Disable</button>
-<button type="button" class="btn btn-warning">Suspend</button>
+                          <td><a href="{{route('usermanagement.view')}}"><button type="button" class="btn btn-primary">View</button></a>
+                          <button type="button" class="btn btn-danger">Suspend</button>
 </td>
                         </tr>
                       </tbody>

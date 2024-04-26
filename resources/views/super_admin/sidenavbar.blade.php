@@ -1,31 +1,36 @@
-
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Dashboard</title>
 
-  <!-- Google Font: Source Sans Pro -->
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
-  <!-- Font Awesome -->
-  <link rel="stylesheet" href="../plugins/fontawesome-free/css/all.min.css">
-  <!-- Ionicons -->
-  <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
-  <!-- Tempusdominus Bootstrap 4 -->
-  <link rel="stylesheet" href="../plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
-  <!-- iCheck -->
-  <link rel="stylesheet" href="../plugins/icheck-bootstrap/icheck-bootstrap.min.css">
-  <!-- JQVMap -->
-  <link rel="stylesheet" href="../plugins/jqvmap/jqvmap.min.css">
-  <!-- Theme style -->
-  <link rel="stylesheet" href="../dist/css/adminlte.min.css">
-  <!-- overlayScrollbars -->
-  <link rel="stylesheet" href="../plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
-  <!-- Daterange picker -->
-  <link rel="stylesheet" href="../plugins/daterangepicker/daterangepicker.css">
-  <!-- summernote -->
-  <link rel="stylesheet" href="../plugins/summernote/summernote-bs4.min.css">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Dashboard</title>
+
+    <!-- Google Font: Source Sans Pro -->
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="../plugins/fontawesome-free/css/all.min.css">
+    <!-- Ionicons -->
+    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <!-- Tempusdominus Bootstrap 4 -->
+    <link rel="stylesheet" href="../plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
+    <!-- iCheck -->
+    <link rel="stylesheet" href="../plugins/icheck-bootstrap/icheck-bootstrap.min.css">
+    <!-- JQVMap -->
+    <link rel="stylesheet" href="../plugins/jqvmap/jqvmap.min.css">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="../dist/css/adminlte.min.css">
+    <!-- overlayScrollbars -->
+    <link rel="stylesheet" href="../plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
+    <!-- Daterange picker -->
+    <link rel="stylesheet" href="../plugins/daterangepicker/daterangepicker.css">
+    <!-- summernote -->
+    <link rel="stylesheet" href="../plugins/summernote/summernote-bs4.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css" rel="stylesheet">
+
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper">
@@ -48,22 +53,8 @@
     <ul class="navbar-nav ml-auto">
      
       <!-- Messages Dropdown Menu -->
-      <li class="nav-item dropdown">
-        <a class="nav-link" data-toggle="dropdown" href="#">
-          <i class="far fa-comments"></i>
-         
-        </a>
-        
-      </li>
-      <!-- Notifications Dropdown Menu -->
-      <li class="nav-item dropdown">
-        <a class="nav-link" data-toggle="dropdown" href="#">
-          <i class="far fa-bell"></i>
-         
-        </a>
-       
-      </li>
-    </ul>
+     
+     
   </nav>
   <!-- /.navbar -->
 
@@ -78,31 +69,20 @@
 
     <!-- Sidebar -->
     <div class="sidebar">
-      <!-- SidebarSearch Form -->
-      <div class="form-inline">
-        <div class="input-group" data-widget="sidebar-search">
-          <input class="form-control form-control-sidebar" type="search" placeholder="Search" aria-label="Search">
-          <div class="input-group-append">
-            <button class="btn btn-sidebar">
-              <i class="fas fa-search fa-fw"></i>
-            </button>
-          </div>
-        </div>
-      </div>
+    
 
-      <!-- Sidebar Menu -->
       <nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
           <!-- Add icons to the links using the .nav-icon class-->
-     <li class="nav-item menu-open">
-  <a id="dashboard-link" href="{{route('sup.admin.dashboard')}}" class="nav-link active "id="dashboard-link">
+     <li class="nav-item menu-open mb-3">
+  <a id="dashboard-link" href="{{route('sup.admin.dashboard')}}" class="nav-link active"id="dashboard-link">
     <i class="nav-icon fas fa-tachometer-alt"></i> 
     <p>
       Dashboard
     </p>
   </a>
 </li>         
-          <li class="nav-item">
+          <li class="nav-item mb-3">
             <a href="{{ route('Team')}}" class="nav-link">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-people-fill" viewBox="0 0 16 16">
   <path d="M7 14s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1zm4-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6m-5.784 6A2.24 2.24 0 0 1 5 13c0-1.355.68-2.75 1.936-3.72A6.3 6.3 0 0 0 5 9c-4 0-5 3-5 4s1 1 1 1zM4.5 8a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5"/>
@@ -113,9 +93,9 @@
               </p>
             </a>
       
-            
+</li>     
               
-          <li class="nav-item">
+          <li class="nav-item mb-3">
             <a href="{{ route('usermanagement')}}" class="nav-link">
               <i class="nav-icon fas fa-book"></i>
               <p>
@@ -125,36 +105,8 @@
             </a>
 </li>
              
-          <li class="nav-item">
-            <a href="{{ route('contentmoderation')}}" class="nav-link">
-              <i class="nav-icon far fa-plus-square"></i>
-              <p>
-               Content Moderation
-               
-              </p>
-            </a>
-            <li class="nav-item">
-            <a href="{{route('analytics')}}" class="nav-link">
-              <i class="nav-icon fas fa-table"></i>
-              <p>
-               Analytics
-                
-              </p>
-            </a>
-            <li class="nav-item">
-            <a href="{{ route('viewcontent')}}" class="nav-link">
-             
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-clipboard-data-fill" viewBox="0 0 16 16">
-  <path d="M6.5 0A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0zm3 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5z"/>
-  <path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1A2.5 2.5 0 0 1 9.5 5h-3A2.5 2.5 0 0 1 4 2.5zM10 8a1 1 0 1 1 2 0v5a1 1 0 1 1-2 0zm-6 4a1 1 0 1 1 2 0v1a1 1 0 1 1-2 0zm4-3a1 1 0 0 1 1 1v3a1 1 0 1 1-2 0v-3a1 1 0 0 1 1-1"/>
-</svg>
-              <p>
-              View Content
-                
-              </p>
-            </a>
-</li>
-            <li class="nav-item">
+
+            <li class="nav-item mb-3">
                 <a href="{{ route('userban')}}" class="nav-link">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-ban-fill" viewBox="0 0 16 16">
   <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M2.71 12.584q.328.378.706.707l9.875-9.875a7 7 0 0 0-.707-.707l-9.875 9.875Z"/>
@@ -163,7 +115,7 @@
                 </a>
               </li> 
               
-              <li class="nav-item">
+              <li class="nav-item mb-3">
             <a href="{{ route('support')}}" class="nav-link">
         
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-hand-thumbs-up-fill" viewBox="0 0 16 16">
@@ -174,7 +126,8 @@
                 
               </p>
             </a>
-          <li class="nav-item">
+</li>
+            <li class="nav-item mb-3">
             <a href="{{ route('changepass')}}" class="nav-link">
             <i class="nav-icon fas fa-edit"></i>
               <p>Change passWord</p>
@@ -182,7 +135,7 @@
           </li>
           <li class="nav-item">
             <a href="{{ route('super.admin.logout') }}" class="nav-link">
-            <i class="nav-icon fas fa-edit"></i>
+              <i class="fas fa-sign-out-alt"></i>
               <p>logout</p>
             </a>
           </li>
@@ -239,35 +192,66 @@
 <script src="../dist/js/demo.js"></script>
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
 <script src="../dist/js/pages/dashboard.js"></script>
+
 <script>
-  // JavaScript code to handle active state for the navbar links
-  document.addEventListener('DOMContentLoaded', function() {
+ document.addEventListener('DOMContentLoaded', function() {
     // Get the current URL
     var currentUrl = window.location.href;
-
+  
+    // Get the stored active link from session storage
+    var activeLink = sessionStorage.getItem('activeLink');
+  
     // Get all the navbar link elements
     var navLinks = document.querySelectorAll('.nav-link');
-
-    // Loop through each navbar link to check if the current URL matches its href
-    navLinks.forEach(function(link) {
-      if (currentUrl.includes(link.getAttribute('href'))) {
-        // Add the "active" class to the navbar link
-        link.classList.add('active');
-
-        // If the navbar link is inside a dropdown menu, also add the "menu-open" class to its parent
-        var parentLi = link.parentElement;
-        if (parentLi.classList.contains('nav-item') && parentLi.querySelector('.nav-treeview')) {
-          parentLi.classList.add('menu-open');
+  
+    // Check if there's a stored active link
+    if (activeLink) {
+        // Remove the "active" class from all navbar links
+        navLinks.forEach(function(link) {
+            link.classList.remove('active');
+        });
+  
+        // Add the "active" class to the stored active link
+        var storedLink = document.querySelector('a[href="' + activeLink + '"]');
+        if (storedLink) {
+            storedLink.classList.add('active');
+  
+            // If the stored active link is inside a dropdown menu, add the "menu-open" class to its parent
+            var parentLi = storedLink.parentElement;
+            if (parentLi.classList.contains('nav-item') && parentLi.querySelector('.nav-treeview')) {
+                parentLi.classList.add('menu-open');
+            }
         }
-      } else {
-        // Remove the "active" class from the navbar link
-        link.classList.remove('active');
-        
-      }
+    } else {
+        // Loop through each navbar link to check if the current URL matches its href
+        navLinks.forEach(function(link) {
+            if (currentUrl === link.href) {
+                // Add the "active" class to the navbar link
+                link.classList.add('active');
+  
+                // If the navbar link is inside a dropdown menu, add the "menu-open" class to its parent
+                var parentLi = link.parentElement;
+                if (parentLi.classList.contains('nav-item') && parentLi.querySelector('.nav-treeview')) {
+                    parentLi.classList.add('menu-open');
+                }
+            } else {
+                // Remove the "active" class from the navbar link
+                link.classList.remove('active');
+            }
+        });
+    }
+  
+    // Store the active link in session storage when a navbar link is clicked
+    navLinks.forEach(function(link) {
+        link.addEventListener('click', function() {
+            sessionStorage.setItem('activeLink', link.href);
+        });
     });
-  });
-</script>
+});
 
-</script>
-</body>
-</html>
+  
+  </script>
+  
+  </body>
+  </html>
+  
