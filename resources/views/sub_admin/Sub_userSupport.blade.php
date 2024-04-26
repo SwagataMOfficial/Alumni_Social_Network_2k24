@@ -61,28 +61,28 @@
                             <td>Samarpita Mukherjee</td>
                             <td>samarpita@gmail.com</td>
                         
-                       <td> <button type="button" class="btn btn-success" > view</button></td>
+                       <td><a href="{{route('subadmin.usersupport.view')}}"> <button type="button" class="btn btn-success" > view</button></td>
                         </tr>
                         <tr>
                             <td>10</td>
                             <td>Samarpita Mukherjee</td>
                             <td>samarpita@gmail.com</td>
                         
-                       <td> <button type="button" class="btn btn-success" > view</button></td>
+                       <td><a href="{{route('subadmin.usersupport.view')}}"> <button type="button" class="btn btn-success" > view</button></td>
                         </tr>
                         <tr>
                             <td>12</td>
                             <td>Samarpita Mukherjee</td>
                             <td>samarpita@gmail.com</td>
                         
-                       <td> <button type="button" class="btn btn-success" > view</button></td>
+                       <td><a href="{{route('subadmin.usersupport.view')}}"> <button type="button" class="btn btn-success" > view</button></td>
                         </tr>
                         <tr>
                             <td>25</td>
                             <td>Samarpita Mukherjee</td>
                             <td>samarpita@gmail.com</td>
                         
-                       <td> <button type="button" class="btn btn-success"> view</button></td>
+                       <td><a href="{{route('subadmin.usersupport.view')}}"> <button type="button" class="btn btn-success"> view</button></td>
                         </tr>
                       </tbody>
                     </table>
