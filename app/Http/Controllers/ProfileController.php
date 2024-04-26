@@ -206,12 +206,13 @@ class ProfileController extends Controller {
 
         $request->validate([
             'c_old_password' => 'required',
-            'c_new_password' => 'required|string|min:6',
+            'c_new_password' => 'required|string|min:6|different:c_old_password',
             'c_new_cpassword_again' => 'required|same:c_new_password',
         ], [
             'c_old_password.required' => 'Please enter your current password.',
             'c_new_password.required' => 'Please enter a new password.',
             'c_new_password.min' => 'The new password must be at least :min characters long.',
+            'c_new_password.different' => 'The new password must be different from the current password.',
             'c_new_cpassword_again.required' => 'Please confirm your new password.',
             'c_new_cpassword_again.same' => 'The new passwords do not match.',
         ]);
