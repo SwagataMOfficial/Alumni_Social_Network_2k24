@@ -27,15 +27,7 @@
     border: 2px solid white;
   }
 
-  .post-buttons {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-top: 15px; 
-  }
-  .post-buttons .btn {
-    margin: 0 5px; 
-  }
+
 
 </style>
 
@@ -55,7 +47,7 @@
              <div class="card-body">
                   <div class="d-flex align-items-center mb-3">
             <div class="position-relative">
-                            <img src="assets\img\image.jpg" alt="Profile Pic" class="rounded-circle mr-1" width="50">
+                            <img src="\assets\img\image.jpg" alt="Profile Pic" class="rounded-circle mr-1" width="50">
                             <span class="online-dot"></span>
                   </div>
                           <!-- contents written-->
@@ -63,14 +55,14 @@
              </div>
                         <!-- contents img posts-->
              <div style="display: flex; justify-content: center; align-items: center; height: 100%;">
-               <img src="assets\img\post.png" alt="Post Image" style="width: 90%; height: auto;">
+               <img src="\assets\img\post.png" alt="Post Image" style="width: 90%; height: auto;">
                         </div>
                         <!-- Post buttons -->
-             <div class="post-buttons">
-                          <button class="btn btn-danger">Delete</button>
-                          <button class="btn btn-warning"><b>Warning</b></button>
-                 </div>
-             </div>
+                        <div class="post-buttons d-flex justify-content-center">
+    <button class="btn btn-danger mt-3"><b>Delete</b></button>
+</div>
+
+
              </div>
               <!-- Post Second -->
              <div class="col-md-12 mb-4">
@@ -78,7 +70,7 @@
              <div class="card-body">
                   <div class="d-flex align-items-center mb-3">
             <div class="position-relative">
-                            <img src="assets\img\image.jpg" alt="Profile Pic" class="rounded-circle mr-1" width="50">
+                            <img src="\assets\img\image.jpg" alt="Profile Pic" class="rounded-circle mr-1" width="50">
                             <span class="online-dot"></span>
                   </div>
                           <!-- contents written-->
@@ -86,13 +78,13 @@
              </div>
                         <!-- contents img posts-->
              <div style="display: flex; justify-content: center; align-items: center; height: 100%;">
-               <img src="assets\img\post.png" alt="Post Image" style="width: 90%; height: auto;">
+               <img src="\assets\img\post.png" alt="Post Image" style="width: 90%; height: auto;">
                         </div>
                         <!-- Post buttons -->
-             <div class="post-buttons">
-                          <button class="btn btn-danger">Delete</button>
-                          <button class="btn btn-warning"><b>Warning</b></button>
-                 </div>
+                        <div class="post-buttons d-flex justify-content-center">
+    <button class="btn btn-danger mt-3"><b>Delete</b></button>
+</div>
+
              </div>
              </div>
   </div>

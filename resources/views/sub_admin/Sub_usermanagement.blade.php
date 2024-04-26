@@ -63,7 +63,7 @@
                                             <td>3923451674</td>
                                             <td><button type="button" class="btn btn-secondary">Suspend</button>
 
-                                                <button type="button" class="btn btn-success">View</button>
+                                                <a href="{{ route('subadmin.profileview') }}">    <button type="button" class="btn btn-success">View</button></a>
                                             </td>
                                         </tr>
                                         <tr>
@@ -73,7 +73,7 @@
                                             <td>3923451674</td>
                                             <td><button type="button" class="btn btn-secondary">Suspend</button>
 
-                                                <button type="button" class="btn btn-success">View</button>
+                                                <a href="{{ route('subadmin.profileview') }}">    <button type="button" class="btn btn-success">View</button></a>
                                             </td>
                                         </tr>
                                         <tr>
@@ -83,7 +83,7 @@
                                             <td>3923451674</td>
                                             <td><button type="button" class="btn btn-secondary">Suspend</button>
 
-                                                <button type="button" class="btn btn-success">View</button>
+                                                <a href="{{ route('subadmin.profileview') }}">    <button type="button" class="btn btn-success">View</button></a>
                                             </td>
                                         </tr>
                                         <tr>
@@ -92,8 +92,7 @@
                                             <td>samarpita@gmail.com</td>
                                             <td>3923451674</td>
                                             <td><button type="button" class="btn btn-secondary">Suspend</button>
-
-                                                <button type="button" class="btn btn-success">View</button>
+                                                <a href="{{ route('subadmin.profileview') }}">    <button type="button" class="btn btn-success">View</button></a>
                                             </td>
                                         </tr>
                                         <tr>
@@ -103,7 +102,7 @@
                                             <td>3923451675</td>
                                             <td><button type="button" class="btn btn-secondary">Suspend</button>
 
-                                                <button type="button" class="btn btn-success">View</button>
+                                                <a href="{{ route('subadmin.profileview') }}">    <button type="button" class="btn btn-success">View</button></a>
 
                                             </td>
                                         </tr>

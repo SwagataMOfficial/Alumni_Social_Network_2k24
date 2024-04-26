@@ -55,25 +55,7 @@
             </ul>
 
             <!-- Right navbar links -->
-            <ul class="navbar-nav ml-auto">
-
-                <!-- Messages Dropdown Menu -->
-                <li class="nav-item dropdown">
-                    <a class="nav-link" data-toggle="dropdown" href="#">
-                        <i class="far fa-comments"></i>
-
-                    </a>
-
-                </li>
-                <!-- Notifications Dropdown Menu -->
-                <li class="nav-item dropdown">
-                    <a class="nav-link" data-toggle="dropdown" href="#">
-                        <i class="far fa-bell"></i>
-
-                    </a>
-
-                </li>
-            </ul>
+           
         </nav>
         <!-- /.navbar -->
 
@@ -95,7 +77,7 @@
                         data-accordion="false">
                         <!-- Add icons to the links using the .nav-icon class-->
 
-                        <li class="nav-item menu-open">
+                        <li class="nav-item menu-open  mb-3">
                             <a id="dashboard-link" href="{{ route('sub.admin.dashboard') }}"
                                 class="nav-link "id="dashboard-link">
                                 <i class="nav-icon fas fa-tachometer-alt"></i>
@@ -106,8 +88,20 @@
                         </li>
                         
 
-
-                        <li class="nav-item">
+                        <li class="nav-item mb-3">
+                            <a href="{{ route('subadmin.verification')}}" class="nav-link">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-people-fill" viewBox="0 0 16 16">
+                  <path d="M7 14s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1zm4-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6m-5.784 6A2.24 2.24 0 0 1 5 13c0-1.355.68-2.75 1.936-3.72A6.3 6.3 0 0 0 5 9c-4 0-5 3-5 4s1 1 1 1zM4.5 8a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5"/>
+                </svg>
+                              <p>
+                                User Verification
+                              </p>
+                            </a>
+                      
+                </li>
+                              
+                        
+                        <li class="nav-item  mb-3">
                             <a href="{{ route('subadmin.usermanagement') }}" class="nav-link">
                                 <i class="nav-icon fas fa-book"></i>
                                 <p>
@@ -117,7 +111,7 @@
                             </a>
                         </li>
 
-                        <li class="nav-item">
+                        <li class="nav-item  mb-3">
                             <a href="{{ route('subadmin.content') }}" class="nav-link">
                                 <i class="nav-icon far fa-plus-square"></i>
                                 <p>
@@ -126,13 +120,8 @@
                                 </p>
                             </a>
                         </li>
-                        <li class="nav-item">
-                            <a href="{{ route('subadmin.profilesearch') }}" class="nav-link">
-                                <i class="bi bi-person-plus-fill"></i>
-                                <p>Profile Search</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
+                      
+                        <li class="nav-item  mb-3">
                             <a href="{{ route('subadmin.usersupport') }}" class="nav-link">
 
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
@@ -146,14 +135,14 @@
                                 </p>
                             </a>
 
-                        <li class="nav-item">
+                        <li class="nav-item  mb-3">
                             <a href="{{ route('subadmin.changepassword') }}" class="nav-link">
                                 <i class="nav-icon fas fa-edit"></i>
                                 <p>Change passWord</p>
                             </a>
                         </li>
 
-                        <li class="nav-item">
+                        <li class="nav-item  mb-3">
                             <a href="{{ route('sub.admin.logout') }}" class="nav-link">
                                 <i class="bi bi-power"></i>
                                 <p>Log Out</p>
@@ -211,33 +200,60 @@
     <script src="../dist/js/pages/dashboard.js"></script>
 
     <script>
-        // JavaScript code to handle active state for the navbar links
-        document.addEventListener('DOMContentLoaded', function() {
-            // Get the current URL
-            var currentUrl = window.location.href;
+     document.addEventListener('DOMContentLoaded', function() {
+  // Get the current URL
+  var currentUrl = window.location.href;
 
-            // Get all the navbar link elements
-            var navLinks = document.querySelectorAll('.nav-link');
+  // Get the stored active link from session storage
+  var activeLink = sessionStorage.getItem('activeLink');
 
-            // Loop through each navbar link to check if the current URL matches its href
-            navLinks.forEach(function(link) {
-                if (currentUrl.includes(link.getAttribute('href'))) {
-                    // Add the "active" class to the navbar link
-                    link.classList.add('active');
+  // Get all the navbar link elements
+  var navLinks = document.querySelectorAll('.nav-link');
 
-                    // If the navbar link is inside a dropdown menu, also add the "menu-open" class to its parent
-                    var parentLi = link.parentElement;
-                    if (parentLi.classList.contains('nav-item') && parentLi.querySelector(
-                        '.nav-treeview')) {
-                        parentLi.classList.add('menu-open');
-                    }
-                } else {
-                    // Remove the "active" class from the navbar link
-                    link.classList.remove('active');
+  // Check if there's a stored active link
+  if (activeLink) {
+    // Remove the "active" class from all navbar links
+    navLinks.forEach(function(link) {
+      link.classList.remove('active');
+    });
 
-                }
-            });
-        });
+    // Add the "active" class to the stored active link
+    var storedLink = document.querySelector('a[href="' + activeLink + '"]');
+    if (storedLink) {
+      storedLink.classList.add('active');
+
+      // If the stored active link is inside a dropdown menu, add the "menu-open" class to its parent
+      var parentLi = storedLink.parentElement;
+      if (parentLi.classList.contains('nav-item') && parentLi.querySelector('.nav-treeview')) {
+        parentLi.classList.add('menu-open');
+      }
+    }
+  } else {
+    // Loop through each navbar link to check if the current URL matches its href
+    navLinks.forEach(function(link) {
+      if (currentUrl === link.href) {
+        // Add the "active" class to the navbar link
+        link.classList.add('active');
+
+        // If the navbar link is inside a dropdown menu, add the "menu-open" class to its parent
+        var parentLi = link.parentElement;
+        if (parentLi.classList.contains('nav-item') && parentLi.querySelector('.nav-treeview')) {
+          parentLi.classList.add('menu-open');
+        }
+      } else {
+        // Remove the "active" class from the navbar link
+        link.classList.remove('active');
+      }
+    });
+  }
+
+  // Store the active link in session storage when a navbar link is clicked
+  navLinks.forEach(function(link) {
+    link.addEventListener('click', function() {
+      sessionStorage.setItem('activeLink', link.href);
+    });
+  });
+});
     </script>
 
 </body>
