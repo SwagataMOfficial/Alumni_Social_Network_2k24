@@ -174,14 +174,14 @@ class ProfileController extends Controller {
 
         // preparating json response
         // TODO: uncomment this lines
-        // if ($result) {
-            // return response()->json(['success' => true, 'message' => 'Profile Updated Successfully'], 200);
-        // }
-        // else {
-        //     return response()->json(['success' => false, 'message' => 'Failed to update profile'], 422);
-        // }
+        if ($result) {
+            return response()->json(['success' => true, 'message' => 'Profile Updated Successfully'], 200);
+        }
+        else {
+            return response()->json(['success' => false, 'message' => 'Failed to update profile'], 422);
+        }
 
-        return redirect(route('profile.edit'));
+        // return redirect(route('profile.edit'));
     }
 
     public function toggleVisibility(Request $request)

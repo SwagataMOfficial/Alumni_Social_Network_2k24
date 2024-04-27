@@ -15,8 +15,8 @@
             <div class="flex flex-col items-center gap-3" id="section-container">
                 <section class="bg-white w-full rounded-xl">
                     <h1 class="text-stone-600 font-bold text-xl mx-5 my-2">Edit Profile and Cover Image</h1>
-                    <form method="post" class="mx-12" action="{{ route('profile.savechanges') }}"
-                        enctype="multipart/form-data">
+                    <form id="cover_and_profile_pic_edit_form" method="post" class="mx-12"
+                        action="{{ route('profile.savechanges') }}" enctype="multipart/form-data">
                         @csrf
                         <div class="mb-5 flex items-center justify-center gap-10">
                             <div class="flex items-center justify-center w-full h-40 rounded-xl relative"
@@ -36,7 +36,8 @@
                                         </svg>
                                     </label>
                                 </div>
-                                <input type="file" name="profile_picture" id="profile_picture" class="hidden" accept="image/jpeg,image/jpg,image/png,image/svg+xml">
+                                <input type="file" name="profile_picture" id="profile_picture" class="hidden"
+                                    accept="image/jpeg,image/jpg,image/png,image/svg+xml">
                                 <label for="cover_picture"
                                     class="bg-blue-600 p-3 rounded-xl text-white cursor-pointer absolute -bottom-4 -right-4 hover:scale-95 hover:bg-blue-800 duration-300">
                                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
@@ -56,7 +57,7 @@
 
                 <section class="bg-white w-full rounded-xl">
                     <h1 class="text-stone-600 font-bold text-xl mx-5 my-2">Edit Common Details</h1>
-                    <form method="post" action="{{ route('profile.savechanges') }}">
+                    <form id="edit_common_details_form" method="post" action="{{ route('profile.savechanges') }}">
                         @csrf
                         <div class="flex">
                             <div class="mb-2 mx-10 w-full">
@@ -119,7 +120,7 @@
 
                 <section class="bg-white w-full rounded-xl">
                     <h1 class="text-stone-600 font-bold text-xl mx-5 my-2">Edit Contact Details</h1>
-                    <form method="post" action="{{ route('profile.savechanges') }}">
+                    <form id="edit_contact_details_form" method="post" action="{{ route('profile.savechanges') }}">
                         @csrf
                         <div class="flex">
                             <div class="mb-2 mx-10 w-full">
@@ -151,7 +152,7 @@
 
                 <section class="bg-white w-full rounded-xl">
                     <h1 class="text-stone-600 font-bold text-xl mx-5 my-2">Edit Education Details</h1>
-                    <form method="post" action="{{ route('profile.savechanges') }}">
+                    <form id="edit_education_details_form" method="post" action="{{ route('profile.savechanges') }}">
                         @csrf
                         <div class="flex">
                             <div class="mb-2 mx-10 w-full">
@@ -210,7 +211,7 @@
 
                 <section class="bg-white w-full rounded-xl">
                     <h1 class="text-stone-600 font-bold text-xl mx-5 my-2">Edit Skills</h1>
-                    <form method="post" action="{{ route('profile.savechanges') }}">
+                    <form id="Edit_skills_form" method="post" action="{{ route('profile.savechanges') }}">
                         @csrf
                         <div class="mb-2 mx-10">
                             <label for="skills" class="block mb-2 text-sm font-medium text-gray-500">Skills</label>
@@ -236,7 +237,7 @@
 
                 <section class="bg-white w-full rounded-xl">
                     <h1 class="text-stone-600 font-bold text-xl mx-5 my-2">Edit Your Career</h1>
-                    <form method="post" action="{{ route('profile.savechanges') }}">
+                    <form id="edit_your_career_form" method="post" action="{{ route('profile.savechanges') }}">
                         @csrf
                         <div class="mb-2 mx-10">
                             <label for="career_history" class="block mb-2 text-sm font-medium text-gray-500">Your Career
@@ -293,7 +294,7 @@
 
                 <section class="bg-white w-full rounded-xl">
                     <h1 class="text-stone-600 font-bold text-xl mx-5 my-2">Edit Links</h1>
-                    <form method="post" action="{{ route('profile.savechanges') }}">
+                    <form id="edit_links_form" method="post" action="{{ route('profile.savechanges') }}">
                         @csrf
                         <div class="mb-2 mx-10 flex items-center gap-1">
                             <label for="facebook_link" class="block text-sm font-medium text-gray-500">
@@ -442,10 +443,11 @@
                         </div>
                     </form>
                 </section>
-
+                {{-- edit documents --}}
                 <section class="bg-white w-full rounded-xl">
                     <h1 class="text-stone-600 font-bold text-xl mx-5 my-2">Edit Documents</h1>
-                    <form method="post" enctype="multipart/form-data" action="{{ route('profile.savechanges') }}">
+                    <form id="edit_documents_form" method="post" enctype="multipart/form-data"
+                        action="{{ route('profile.savechanges') }}">
                         @csrf
                         <div class="flex items-center justify-center px-32">
                             @if (!$user['verified_at'])
@@ -466,7 +468,8 @@
                                             Browse
                                         </label>
                                         <input type="file" name="verification_document" id="verification_document"
-                                            class="hidden"  accept="application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document">
+                                            class="hidden"
+                                            accept="application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document">
                                     </div>
                                 </div>
                             @endif
@@ -487,7 +490,8 @@
                                         class="text-white bg-blue-600 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-full text-sm w-1/7 xxl:w-auto px-6 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 hover:scale-95 duration-300 mb-3 cursor-pointer">
                                         Browse
                                     </label>
-                                    <input type="file" name="resume" id="resume" class="hidden" accept="application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document">
+                                    <input type="file" name="resume" id="resume" class="hidden"
+                                        accept="application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document">
                                 </div>
                             </div>
 
@@ -519,22 +523,399 @@
                         </div>
                     </form>
                 </section>
+                {{-- edit document section end --}}
             </div>
         </div>
     </div>
 @endsection
 
-{{-- @push('script')
+@push('script')
     <script>
-        // alert('hello');
-        $(document).ready(()=>{
-            Array.from($('button[type=submit]')).forEach( (e) => {
-                $(e).text("Saving...");
-                $("#alertArea").child('<x-alert message="Profile Updated Successfully" color="green" />');
-                setTimeout(() => {
-                    $("#alertArea").removeChild();
-                }, 1500);
+        $(document).ready(function() {
+            // Add event listener to the form submit event
+            $('#cover_and_profile_pic_edit_form').submit(function(event) {
+                event.preventDefault(); // Prevent the default form submission
+
+                // Create FormData object to send form data asynchronously
+                var formData = new FormData(this);
+
+                // Store the form object to use inside AJAX success callback
+                var form = $(this);
+
+                // Perform AJAX request
+                $.ajax({
+                    type: 'POST',
+                    url: form.attr('action'),
+                    data: formData,
+                    processData: false, // Prevent jQuery from processing the data
+                    contentType: false, // Prevent jQuery from setting the content type
+                    success: function(response) {
+                        // If the response is successful, show success message
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Image Updated Successfully',
+                            showConfirmButton: false,
+                            timer: 1500
+                        });
+
+                        // Update page content dynamically
+                        // For example, you can reload the page or update specific elements with new data
+                        // For simplicity, let's reload the page after 1.5 seconds (same as the timer for success message)
+                        setTimeout(function() {
+                            location.reload();
+                        }, 1500);
+                    },
+                    error: function(xhr, status, error) {
+                        // If there's an error, show error message
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Failed to update image',
+                            text: 'Please try again later',
+                            showConfirmButton: false,
+                            timer: 2000
+                        });
+                    }
+                });
+            });
+
+
+            $('#edit_common_details_form').submit(function(event) {
+                event.preventDefault();
+
+                var formData = new FormData(this);
+
+                $.ajax({
+                    type: 'POST',
+                    url: $(this).attr('action'),
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    success: function(response) {
+                        if (response.success) {
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Common Details Updated Successfully',
+                                showConfirmButton: false,
+                                timer: 1500
+                            });
+
+                            // Update text boxes with new data
+                            $('#name').val(response.user.name);
+                            $('#nickname').val(response.user.nickname);
+                            $('#about').val(response.user.about);
+                            $('#dob').val(response.user.dob);
+
+                            // Update gender radio button
+                            $('input[name="gender"][value="' + response.user.gender + '"]')
+                                .prop('checked', true);
+                        } else {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Failed to update common details',
+                                showConfirmButton: false,
+                                timer: 2000
+                            });
+                        }
+                    },
+                    error: function() {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Failed to update common details',
+                            text: 'Please try again later',
+                            showConfirmButton: false,
+                            timer: 2000
+                        });
+                    }
+                });
+            });
+
+            $('#edit_contact_details_form').submit(function(event) {
+                event.preventDefault();
+
+                var formData = new FormData(this);
+
+                $.ajax({
+                    type: 'POST',
+                    url: $(this).attr('action'),
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    success: function(response) {
+                        if (response.success) {
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Contact Details Updated Successfully',
+                                showConfirmButton: false,
+                                timer: 1500
+                            });
+
+                            // Update text boxes with new data
+                            $('#phone').val(response.user.phone);
+                            $('#email').val(response.user.email);
+                            $('#address').val(response.user.address);
+                        } else {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Failed to update contact details',
+                                showConfirmButton: false,
+                                timer: 2000
+                            });
+                        }
+                    },
+                    error: function() {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Failed to update contact details',
+                            text: 'Please try again later',
+                            showConfirmButton: false,
+                            timer: 2000
+                        });
+                    }
+                });
+            });
+
+            $('#edit_education_details_form').submit(function(event) {
+                event.preventDefault();
+
+                var formData = new FormData(this);
+
+                $.ajax({
+                    type: 'POST',
+                    url: $(this).attr('action'),
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    success: function(response) {
+                        if (response.success) {
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Education Details Updated Successfully',
+                                showConfirmButton: false,
+                                timer: 1500
+                            });
+
+                            // // Update select and input fields with new data
+                            var graduationYear = response.user.graduation_year;
+                            var degree = response.user.degree;
+
+                            // // Update graduation year select
+                            $('#graduation_year option').each(function() {
+                                if ($(this).val() === graduationYear) {
+                                    $(this).prop('selected', true);
+                                } else {
+                                    $(this).prop('selected', false);
+                                }
+                            });
+
+                            // // Update degree select
+                            $('#degree option').each(function() {
+                                if ($(this).val() === degree) {
+                                    $(this).prop('selected', true);
+                                } else {
+                                    $(this).prop('selected', false);
+                                }
+                            });
+
+                            // Update education input
+                            $('#education').val(response.user.education);
+                            // Update languages input
+                            $('#languages').val(response.user.languages);
+                        } else {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Failed to update education details',
+                                showConfirmButton: false,
+                                timer: 2000
+                            });
+                        }
+                    },
+                    error: function() {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Failed to update education details',
+                            text: 'Please try again later',
+                            showConfirmButton: false,
+                            timer: 2000
+                        });
+                    }
+                });
+            });
+
+
+            $('#Edit_skills_form').submit(function(event) {
+                event.preventDefault();
+
+                var formData = new FormData(this);
+
+                $.ajax({
+                    type: 'POST',
+                    url: $(this).attr('action'),
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    success: function(response) {
+                        if (response.success) {
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Skills Updated Successfully',
+                                showConfirmButton: false,
+                                timer: 1500
+                            });
+
+                            // Update skills and expertise fields with new data
+                            $('#skills').val(response.user.skills);
+                            $('#expertise').val(response.user.expertise);
+                        } else {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Failed to update skills',
+                                showConfirmButton: false,
+                                timer: 2000
+                            });
+                        }
+                    },
+                    error: function() {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Failed to update skills',
+                            text: 'Please try again later',
+                            showConfirmButton: false,
+                            timer: 2000
+                        });
+                    }
+                });
+            });
+
+            $('#edit_your_career_form').submit(function(event) {
+                event.preventDefault();
+
+                var formData = new FormData(this);
+
+                $.ajax({
+                    type: 'POST',
+                    url: $(this).attr('action'),
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    success: function(response) {
+                        if (response.success) {
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Career Details Updated Successfully',
+                                showConfirmButton: false,
+                                timer: 1500
+                            });
+
+                            // Update career details fields with new data
+                            $('#career_history').val(response.user.career_history);
+                            $('#projects').val(response.user.projects);
+                            $('#first_company').val(response.user.first_company);
+                            $('#current_company').val(response.user.current_company);
+                            $('#publications').val(response.user.publications);
+                            $('#hostel').val(response.user.hostel);
+                        } else {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Failed to update career details',
+                                showConfirmButton: false,
+                                timer: 2000
+                            });
+                        }
+                    },
+                    error: function() {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Failed to update career details',
+                            text: 'Please try again later',
+                            showConfirmButton: false,
+                            timer: 2000
+                        });
+                    }
+                });
+            });
+
+
+            $('#edit_links_form').submit(function(event) {
+                event.preventDefault();
+
+                var formData = new FormData(this);
+
+                $.ajax({
+                    type: 'POST',
+                    url: $(this).attr('action'),
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    success: function(response) {
+                        if (response.success) {
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Links Updated Successfully',
+                                showConfirmButton: false,
+                                timer: 1500
+                            });
+
+                            // Update link fields with new data
+                            $('#facebook_link').val(response.user.facebook_link);
+                            $('#instagram_link').val(response.user.instagram_link);
+                            $('#github_link').val(response.user.github_link);
+                            $('#twitter_link').val(response.user.twitter_link);
+                            $('#linkedin_link').val(response.user.linkedin_link);
+                        } else {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Failed to update links',
+                                showConfirmButton: false,
+                                timer: 2000
+                            });
+                        }
+                    },
+                    error: function() {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Failed to update links',
+                            text: 'Please try again later',
+                            showConfirmButton: false,
+                            timer: 2000
+                        });
+                    }
+                });
+            });
+
+            $('#edit_documents_form').submit(function(e) {
+                e.preventDefault(); // Prevent form submission
+
+                var formData = new FormData($(this)[0]); // Get form data
+
+                $.ajax({
+                    url: $(this).attr('action'), // Form action URL
+                    type: 'POST',
+                    data: formData, // Form data
+                    processData: false,
+                    contentType: false,
+                    success: function(response) {
+
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Success',
+                            text: 'Changes saved successfully!',
+                        }).then(function() {
+                            location.reload();
+                        });
+                    },
+                    error: function(xhr, status, error) {
+
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: 'An error occurred while saving changes.',
+                        });
+                    },
+                    complete: function() {
+                        // Hide loading spinner or progress bar
+                    }
+                });
             });
         });
     </script>
-@endpush --}}
+@endpush
