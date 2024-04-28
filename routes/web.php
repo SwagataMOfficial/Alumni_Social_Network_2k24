@@ -17,6 +17,7 @@ Route::middleware([LoginCheck::class])->group(function () {
     Route::post('/addpost', [PostController::class, 'addpost'])->name('post.add');
     Route::post('/addjobpost', [PostController::class, 'addjobpost'])->name('post.addjob');
     Route::post('/like', [PostController::class, 'likepost'])->name('post.like');
+    Route::get('/post/report/{id}', [PostController::class, 'report_post'])->name('post.report');
 
     Route::group(['prefix' => "/comments"], function(){ 
         Route::post('/add', [PostController::class, 'add_comment'])->name('comments.add');

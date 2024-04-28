@@ -124,4 +124,10 @@ class PostController extends Controller {
         //     return response()->json(['success'=> false, 'message' => 'Unable to delete'], 422);
         // }
     }
+
+    public function report_post(Userpost $id){
+        echo $id->reported_at = now();
+        $id->save();
+        return redirect()->back();
+    }
 }

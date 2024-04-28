@@ -10,9 +10,9 @@ use Illuminate\Http\Request;
 class ViewsController extends Controller {
     public function index() {
         $user = User::where("student_id", "=", session()->get('user_id'))->first();
-        $posts = Userpost::where('posted_by', '!=', session()->get('user_id'))->where('visibility', '!=', '0')->where('post_type', '!=', 'job')->orderBy('created_at', 'desc')->limit(20)->get()->toArray();
+        $posts = Userpost::where('posted_by', '!=', session()->get('user_id'))->where('visibility', '!=', '0')->where('post_type', '!=', 'job')->where('reported_at', '=', null)->orderBy('created_at', 'desc')->limit(20)->get()->toArray();
         $data = compact("user", "posts");
-
+        
         return view("feed")->with($data);
     }
     public function friends() {
