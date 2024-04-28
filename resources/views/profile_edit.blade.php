@@ -49,7 +49,7 @@
                                 </label>
                             </div>
                         </div>
-                        <button type="submit" id="reg_btn"
+                        <button type="submit" id="edit_profile_img_btn"
                             class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-full text-sm w-1/7 xxl:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 hover:scale-95 duration-300 mb-3"
                             value="Register">Save Changes</button>
                     </form>
@@ -111,7 +111,7 @@
                             </div>
                         </div>
                         <div class="mx-12 mt-3">
-                            <button type="submit" id="reg_btn"
+                            <button type="submit" id="common_details_btn"
                                 class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-full text-sm w-1/7 xxl:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 hover:scale-95 duration-300 mb-3"
                                 value="Register">Save Changes</button>
                         </div>
@@ -143,7 +143,7 @@
                                 placeholder="Edit Your Address">{{ $user['address'] }}</textarea>
                         </div>
                         <div class="mx-12 mt-3">
-                            <button type="submit" id="reg_btn"
+                            <button type="submit" id="contact_details_btn"
                                 class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-full text-sm w-1/7 xxl:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 hover:scale-95 duration-300 mb-3"
                                 value="Register">Save Changes</button>
                         </div>
@@ -202,7 +202,7 @@
                                 value="{{ $user['languages'] }}">
                         </div>
                         <div class="mx-12 mt-3">
-                            <button type="submit" id="reg_btn"
+                            <button type="submit" id="education_details_btn"
                                 class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-full text-sm w-1/7 xxl:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 hover:scale-95 duration-300 mb-3"
                                 value="Register">Save Changes</button>
                         </div>
@@ -228,7 +228,7 @@
                                 value="{{ $user['expertise'] }}">
                         </div>
                         <div class="mx-12 mt-3">
-                            <button type="submit" id="reg_btn"
+                            <button type="submit" id="edit_skills_btn"
                                 class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-full text-sm w-1/7 xxl:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 hover:scale-95 duration-300 mb-3"
                                 value="Register">Save Changes</button>
                         </div>
@@ -285,7 +285,7 @@
                                 placeholder="Enter your hostel name (if any)" value="{{ $user['hostel'] }}">
                         </div>
                         <div class="mx-12 mt-3">
-                            <button type="submit" id="reg_btn"
+                            <button type="submit" id="career_btn"
                                 class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-full text-sm w-1/7 xxl:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 hover:scale-95 duration-300 mb-3"
                                 value="Register">Save Changes</button>
                         </div>
@@ -437,7 +437,7 @@
                                 placeholder="Linkedin link"value="{{ $user['linkedin_link'] }}">
                         </div>
                         <div class="mx-12 mt-3">
-                            <button type="submit" id="reg_btn"
+                            <button type="submit" id="links_btn"
                                 class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-full text-sm w-1/7 xxl:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 hover:scale-95 duration-300 mb-3"
                                 value="Register">Save Changes</button>
                         </div>
@@ -517,7 +517,7 @@
                             </div>
                         </div>
                         <div class="mx-12 mt-3">
-                            <button type="submit" id="reg_btn"
+                            <button type="submit" id="edit_documents_btn"
                                 class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-full text-sm w-1/7 xxl:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 hover:scale-95 duration-300 mb-3"
                                 value="Register">Save Changes</button>
                         </div>
@@ -536,6 +536,8 @@
             $('#cover_and_profile_pic_edit_form').submit(function(event) {
                 event.preventDefault(); // Prevent the default form submission
 
+                // Change button text to "Submitting..."
+                $('#edit_profile_img_btn').text('Submitting...');
                 // Create FormData object to send form data asynchronously
                 var formData = new FormData(this);
 
@@ -574,6 +576,10 @@
                             showConfirmButton: false,
                             timer: 2000
                         });
+                    },
+                    complete: function() {
+                        // Reset button text after AJAX request is complete
+                        $('#edit_profile_img_btn').text('Save Changes');
                     }
                 });
             });
@@ -583,7 +589,7 @@
                 event.preventDefault();
 
                 var formData = new FormData(this);
-
+                $('#common_details_btn').text('Submitting...');
                 $.ajax({
                     type: 'POST',
                     url: $(this).attr('action'),
@@ -598,7 +604,7 @@
                                 showConfirmButton: false,
                                 timer: 1500
                             });
-
+                            $('#common_details_btn').text('Save Changes');
                             // Update text boxes with new data
                             $('#name').val(response.user.name);
                             $('#nickname').val(response.user.nickname);
@@ -608,6 +614,7 @@
                             // Update gender radio button
                             $('input[name="gender"][value="' + response.user.gender + '"]')
                                 .prop('checked', true);
+
                         } else {
                             Swal.fire({
                                 icon: 'error',
@@ -631,7 +638,7 @@
 
             $('#edit_contact_details_form').submit(function(event) {
                 event.preventDefault();
-
+                $('#contact_details_btn').text('Submitting........');
                 var formData = new FormData(this);
 
                 $.ajax({
@@ -648,7 +655,7 @@
                                 showConfirmButton: false,
                                 timer: 1500
                             });
-
+                            $('#contact_details_btn').text('Save Changes');
                             // Update text boxes with new data
                             $('#phone').val(response.user.phone);
                             $('#email').val(response.user.email);
@@ -670,13 +677,17 @@
                             showConfirmButton: false,
                             timer: 2000
                         });
+                    },
+                    complete: function() {
+                        // Reset button text after AJAX request is complete
+
                     }
                 });
             });
 
             $('#edit_education_details_form').submit(function(event) {
                 event.preventDefault();
-
+                $('#education_details_btn').text('Submitting...');
                 var formData = new FormData(this);
 
                 $.ajax({
@@ -693,6 +704,7 @@
                                 showConfirmButton: false,
                                 timer: 1500
                             });
+                            $('#education_details_btn').text('Save Changes');
 
                             // // Update select and input fields with new data
                             var graduationYear = response.user.graduation_year;
@@ -737,6 +749,10 @@
                             showConfirmButton: false,
                             timer: 2000
                         });
+                    },
+                    complete: function() {
+                        // Reset button text after AJAX request is complete
+
                     }
                 });
             });
@@ -744,7 +760,7 @@
 
             $('#Edit_skills_form').submit(function(event) {
                 event.preventDefault();
-
+                $('#edit_skills_btn').text('Submitting...');
                 var formData = new FormData(this);
 
                 $.ajax({
@@ -761,7 +777,7 @@
                                 showConfirmButton: false,
                                 timer: 1500
                             });
-
+                            $('#edit_skills_btn').text('Save Changes');
                             // Update skills and expertise fields with new data
                             $('#skills').val(response.user.skills);
                             $('#expertise').val(response.user.expertise);
@@ -782,13 +798,17 @@
                             showConfirmButton: false,
                             timer: 2000
                         });
+                    },
+                    complete: function() {
+                        // Reset button text after AJAX request is complete
+
                     }
                 });
             });
 
             $('#edit_your_career_form').submit(function(event) {
                 event.preventDefault();
-
+                $('#career_btn').text('Submitting...');
                 var formData = new FormData(this);
 
                 $.ajax({
@@ -805,7 +825,7 @@
                                 showConfirmButton: false,
                                 timer: 1500
                             });
-
+                            $('#career_btn').text('Save Changes');
                             // Update career details fields with new data
                             $('#career_history').val(response.user.career_history);
                             $('#projects').val(response.user.projects);
@@ -830,6 +850,10 @@
                             showConfirmButton: false,
                             timer: 2000
                         });
+                    },
+                    complete: function() {
+                        // Reset button text after AJAX request is complete
+
                     }
                 });
             });
@@ -837,7 +861,7 @@
 
             $('#edit_links_form').submit(function(event) {
                 event.preventDefault();
-
+                $('#links_btn').text('Submitting...');
                 var formData = new FormData(this);
 
                 $.ajax({
@@ -854,7 +878,7 @@
                                 showConfirmButton: false,
                                 timer: 1500
                             });
-
+                            $('#links_btn').text('Save Changes');
                             // Update link fields with new data
                             $('#facebook_link').val(response.user.facebook_link);
                             $('#instagram_link').val(response.user.instagram_link);
@@ -878,13 +902,17 @@
                             showConfirmButton: false,
                             timer: 2000
                         });
+                    },
+                    complete: function() {
+                        // Reset button text after AJAX request is complete
+
                     }
                 });
             });
 
             $('#edit_documents_form').submit(function(e) {
                 e.preventDefault(); // Prevent form submission
-
+                $('#edit_documents_btn').text('Submitting...');
                 var formData = new FormData($(this)[0]); // Get form data
 
                 $.ajax({
@@ -902,6 +930,7 @@
                         }).then(function() {
                             location.reload();
                         });
+                        $('#edit_documents_btn').text('Save Changes');
                     },
                     error: function(xhr, status, error) {
 
@@ -910,9 +939,6 @@
                             title: 'Oops...',
                             text: 'An error occurred while saving changes.',
                         });
-                    },
-                    complete: function() {
-                        // Hide loading spinner or progress bar
                     }
                 });
             });

@@ -79,7 +79,11 @@ Route::middleware([SubAdminAuth::class])->group(function () {
     Route::get('/subadmin', [AdminController::class, 'sub_admin_login']);
     Route::get('/subadmin/dashboard', [AdminController::class, 'sub_admin_dashboard'])->name('sub.admin.dashboard');
     Route::get('/subadmin/userverification', [AdminController::class, 'sub_admin_verification'])->name('subadmin.verification');
-    Route::get('/subadmin/userverification_view', [AdminController::class, 'sub_admin_verification_view'])->name('subadmin.verification_view');
+    Route::get('/subadmin/userverification_view/{id}', [AdminController::class, 'sub_admin_verification_view'])->name('subadmin.verification_view');
+    
+    Route::get('/subadmin/userverification_view/approve/{id}', [AdminController::class, 'sub_admin_verification_view_approve'])->name('subadmin.verification_view_approve');
+    Route::get('/subadmin/userverification_view/reject/{id}', [AdminController::class, 'sub_admin_verification_view_reject'])->name('subadmin.verification_view_reject');
+
     Route::get('/subadmin/team', [AdminController::class, 'subadmin_team'])->name('subadmin.team');
     Route::get('/subadmin/teamadd', [AdminController::class, 'subadmin_teamadd'])->name('subadmin.teamadd');
     Route::get('/subadmin/usermanagement', [AdminController::class, 'subadmin_usermanagement'])->name('subadmin.usermanagement');

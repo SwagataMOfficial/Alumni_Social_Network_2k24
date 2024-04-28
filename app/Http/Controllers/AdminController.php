@@ -2,9 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
+use App\Models\User;
+use App\Models\Admin;
+use App\Models\Userpost;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
+
 
 class AdminController extends Controller
 {
@@ -143,13 +148,56 @@ class AdminController extends Controller
  
      public function sub_admin_verification()
      {
-         return view('sub_admin.sub_userverification');
+        $users=User::whereNull('verified_at')->where('verification_document', '!=', 'reject')->latest('created_at')->get(); //checking the unverified user
+        
+        $data=compact('users');
+         return view('sub_admin.sub_userverification')->with($data);
      }
  
-     public function sub_admin_verification_view()
+     public function sub_admin_verification_view($id)
      {
-         return view('sub_admin.sub_userverification_view');
+        $user=User::find($id); 
+        if(is_null($user)){
+            
+            return redirect('/subadmin/userverification');
+        }
+        else{
+            //$unVerified_user=Customer::where('c_id', $id)->get();
+            $data=compact('id','user');
+            return view('sub_admin.sub_userverification_view')->with($data);
+        }
+
      }
+     public function sub_admin_verification_view_approve($id)
+     {
+        $user=User::find($id); 
+        if(is_null($user)){
+            
+            return redirect('/subadmin/userverification');
+        }
+        else{
+            $user->verified_at=Carbon::now();
+            $user->save();
+    
+            return redirect('/subadmin/userverification')->with('message','Doocument is verified !');
+        }
+     }
+     public function sub_admin_verification_view_reject($id)
+     {
+        $user=User::find($id); 
+        if(is_null($user)){
+            
+            return redirect('/subadmin/userverification');
+        }
+        else{
+            $user->verification_document = "reject";
+            $user->verified_at=null;
+            $user->save();
+    
+            return redirect('/subadmin/userverification')->with('message','Document is rejected !');
+        }
+     }
+ 
  
      public function subadmin_profileview()
      {
@@ -187,6 +235,22 @@ class AdminController extends Controller
      public function sub_admin_dashboard()
      {
          $userData = ['userInfo' => DB::table('admins')->where('email', session('sub_admin_logged_in'))->first()];
-         return view('sub_admin.Sub_dashboard', $userData);
+         //last 5 recent join user data
+         $recentUsers = User::orderBy('created_at', 'desc')->take(5)->get();
+
+        //count the total user from user table
+         $totalUser = User::count();
+
+        //count the total posts from user_posts table
+         $totalPost = Userpost::count();
+
+         //count the total sub admin from admin table
+         $totalSubAdmin= Admin::where('admin_type', 'sub')->count();
+
+         // Get the count of distinct users who have at least one reported content
+         $totalReportedUsers = DB::table('user_posts')->whereNotNull('reported_at')->distinct()->count('posted_by');
+
+         $data=compact('totalUser','totalPost','totalSubAdmin','userData','recentUsers','totalReportedUsers');
+         return view('sub_admin.Sub_dashboard')->with($data);
      }
 }
