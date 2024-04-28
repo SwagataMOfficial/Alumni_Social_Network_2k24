@@ -3,8 +3,6 @@
     <title>Home | Alumni Junction</title>
 @endpush
 @section('main-section')
-    {{-- background gray container --}}
-    {{-- <div class="container bg-gray-200 min-h-[calc(100vh-67px)]"> --}}
     <div class="container">
         {{-- max-width container with left,right space --}}
         <div class="px-8 mx-auto pt-3 flex justify-center gap-10">
