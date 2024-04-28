@@ -44,7 +44,7 @@
                             <div class="card-body d-flex flex-column align-items-center justify-content-center">
                                 <div class="d-flex align-items-center mb-3">
                                     <div class="position-relative">
-                                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTOd6VLrAsHVVG0KJ7dMy-36-RAunP8w48blA&s" alt="Profile Pic" class="rounded-circle mr-1"
+                                        <img src="{{ asset('/storage/' . $user['profile_picture']) }}" alt="Profile Pic" class="rounded-circle mr-1"
                                             width="50">
                                         {{-- <span class="online-dot"></span> --}}
                                     </div>
