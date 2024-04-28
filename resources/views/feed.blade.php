@@ -302,7 +302,8 @@
             <div class="container mx-auto mt-4 lg:w-full">
                 @if (count($posts) != 0)
                     @foreach ($posts as $index => $post)
-                        <x-userpost :details="$post['get_user']" :likeduser="$post['get_liked_user']" :posts="$post" :key="$index" />
+                        <x-userpost :details="$post['get_user']" :likeduser="$post['get_liked_user']" :posts="$post" :comments="$post['get_comments']"
+                            :key="$index" />
                     @endforeach
                 @else
                     <div class="bg-white shadow-lg rounded-lg overflow-hidden max-w-lg mx-auto mb-4">
@@ -377,13 +378,76 @@
 
 @push('script')
     <script>
-        document.getElementById("menu-toggle").addEventListener("click", function() {
-            document.getElementById("menu").classList.toggle("hidden");
-        });
+        $(document).ready(() => {
 
-        $("#post_modal_opener").click(() => {
-            $("#post_modal_opener").blur();
-            $("#text_or_job_post_btn").click();
+            // hamburger toggle button
+            document.getElementById("menu-toggle").addEventListener("click", function() {
+                document.getElementById("menu").classList.toggle("hidden");
+            });
+
+            // add post modal open-close script here
+            $("#post_modal_opener").click(() => {
+                $("#post_modal_opener").blur();
+                $("#text_or_job_post_btn").click();
+            });
+
+            // comment section toggle script here
+            $("button[data-role=comment]").each((index, element) => {
+                $(element).on('click', (e) => {
+                    // getting the comment section div to unhide
+                    let commentBox = $(element).attr("data-target-comment-section-toggle");
+                    // getting the input area to autofocus
+                    let commentInput = $(element).attr("data-focus-comment-input");
+
+                    // toggling the comment section
+                    $("#" + commentBox).toggleClass('hidden');
+
+                    // focusing on the comment input box
+                    if (!($("#" + commentBox).hasClass("hidden"))) {
+                        $("#" + commentInput).focus();
+                    }
+                });
+            });
+
+            // deleting comment dynamically
+            // $("button[data-link-address]").each((index, element) => {
+            //     $(element).on('click', (e) => {
+            //         const URL = $(element).attr("data-link-address");
+            //         const commentItem = $(element).attr("data-comment-item");
+
+            //         $(element).text('Deleting....');
+
+            //         // ajax call to delete the comment and remove the element dynamically
+            //         $.ajax({
+            //             url: URL,
+            //             type: "DELETE",
+            //             // data: {
+            //             //     '_token': "{{ csrf_token() }}"
+            //             // },
+            //             processData: false, // Prevent jQuery from processing the data
+            //             contentType: false, // Prevent jQuery from setting the content type
+            //             success: function(response) {
+            //                 Swal.fire({
+            //                     icon: 'success',
+            //                     title: 'Comment Deleted Successfully',
+            //                     showConfirmButton: false,
+            //                     timer: 2500
+            //                 });
+            //                 $(element).text('Delete');
+            //                 $('#' + commentItem).remove();
+            //             },
+            //             error: function(xhr) {
+            //                 Swal.fire({
+            //                     icon: 'error',
+            //                     title: 'Failed to delete the comment!',
+            //                     text: 'Please try again later',
+            //                     showConfirmButton: false,
+            //                     timer: 2500
+            //                 });
+            //             }
+            //         });
+            //     });
+            // });
         });
     </script>
 @endpush

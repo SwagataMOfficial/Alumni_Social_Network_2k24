@@ -18,6 +18,10 @@ Route::middleware([LoginCheck::class])->group(function () {
     Route::post('/addjobpost', [PostController::class, 'addjobpost'])->name('post.addjob');
     Route::post('/like', [PostController::class, 'likepost'])->name('post.like');
 
+    Route::group(['prefix' => "/comments"], function(){ 
+        Route::post('/add', [PostController::class, 'add_comment'])->name('comments.add');
+        Route::delete('/delete/{id}', [PostController::class, 'delete_comment'])->name('comments.delete');
+    });
 
     // common navigation views
     Route::get("/friends", [ViewsController::class, "friends"]);
@@ -89,8 +93,3 @@ Route::middleware([SubAdminAuth::class])->group(function () {
     Route::get('/subadmin/logout', [AdminController::class, 'subadmin_logout'])->name('sub.admin.logout');
 });
 Route::post("/subadmin/login", [AdminController::class, 'subloginUser'])->name('subadmin.login');
-
-
-
-
-Route::view('/testing', 'test');

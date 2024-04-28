@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Comment;
 use App\Models\Like;
 use App\Models\Userpost;
 use Illuminate\Http\Request;
@@ -98,4 +99,29 @@ class PostController extends Controller {
         return redirect()->back();
     }
 
+    public function add_comment(Request $request) {
+        $post = Userpost::find($request->input('post_id'));
+        $post->comment_count += 1;
+        $post->save();
+        Comment::create([
+            'post_id' => $request->input('post_id'),
+            'posted_by' => session()->get("user_id"),
+            'comment' => $request->input('comment'),
+        ]);
+        return redirect()->back();
+    }
+    public function delete_comment($id) {
+        $comment = Comment::find($id);
+        $post = Userpost::find($comment->post_id);
+        $post->comment_count -= 1;
+        $res1 = $post->save();
+        $res2 = $comment->delete();
+        return redirect()->back();
+        // if($res1 && $res2){
+        //     return response()->json(['success'=> true, 'message' => 'Comment deleted successfully'], 200);
+        // }
+        // else{
+        //     return response()->json(['success'=> false, 'message' => 'Unable to delete'], 422);
+        // }
+    }
 }

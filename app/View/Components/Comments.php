@@ -6,23 +6,20 @@ use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
-class Userpost extends Component
+class Comments extends Component
 {
-    public $details;
-    public $posts;
-    public $key;
-    public $likeduser;
     public $comments;
+    public $userdetails;
+    public $key;
+    public $index;
     /**
      * Create a new component instance.
      */
-    public function __construct($details, $posts, $key, $likeduser, $comments)
-    {
-        $this->details = $details;
-        $this->posts = $posts;
-        $this->key = $key;
-        $this->likeduser = $likeduser;
+    public function __construct($comments, $userdetails, $key, $index) {
         $this->comments = $comments;
+        $this->userdetails = $userdetails;
+        $this->key = $key;
+        $this->index = $index;
     }
 
     /**
@@ -30,6 +27,6 @@ class Userpost extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('components.userpost');
+        return view('components.comments');
     }
 }

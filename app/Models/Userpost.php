@@ -20,7 +20,6 @@ class Userpost extends Model
         'attachment',
         'likes',
         'comment_count',
-        'comments',
         'visibility',
         'post_type',
         'reported_at',
@@ -29,11 +28,17 @@ class Userpost extends Model
         'deleted_at	'
     ];
 
+    protected $with = ['getUser', 'getLikedUser', 'getComments'];
+
     function getUser(){
         return $this->hasOne('App\Models\User','student_id','posted_by');
     }
     function getLikedUser(){
         return $this->hasMany('App\Models\Like','post_id','post_id');
+    }
+
+    function getComments(){
+        return $this->hasMany('App\Models\Comment','post_id','post_id');
     }
     
 }

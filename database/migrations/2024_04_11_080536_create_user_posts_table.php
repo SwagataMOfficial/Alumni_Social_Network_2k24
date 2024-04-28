@@ -20,7 +20,6 @@ return new class extends Migration
             $table->text('registration_link')->nullable()->default(null);
             $table->bigInteger('likes')->default(0);
             $table->bigInteger('comment_count')->default(0);
-            $table->text('comments')->nullable();
             $table->boolean('visibility')->default(true);
             $table->enum('post_type', ["post", "job"])->default('post');
             $table->timestamp('reported_at')->nullable()->default(null);
