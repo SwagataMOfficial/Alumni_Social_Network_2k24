@@ -1,101 +1,86 @@
 @include('sub_admin.sub_sidenavbar')
 
 <style>
-  .team-members {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-
-  @media (max-width: 768px) {
     .team-members {
-      flex-direction: column;
-      align-items: flex-start;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
     }
-  }
-  .all{
-    
-  background-color: rgba(255, 255, 255, 0.5); /* white color with 50% opacity */
-}
 
-  
+    @media (max-width: 768px) {
+        .team-members {
+            flex-direction: column;
+            align-items: flex-start;
+        }
+    }
+
+    .all {
+
+        background-color: rgba(255, 255, 255, 0.5);
+        /* white color with 50% opacity */
+    }
 </style>
+@if (Session::has('message'))
+    <script>
+        swal("Message", "{{ Session::get('message') }}", 'success', {
+            button: true,
+            button: "OK",
+        })
+    </script>
+@endif
 <div class="content-wrapper all">
     <!-- Content Header (Page header) -->
     <div class="content-header">
-      <div class="container-fluid">
-        <div class="row mb-2">
-          <div class="col-sm-6">
-            <h1 class="m-0"><b>User Verification</b></h1>
-          </div><!-- /.col -->
-          
-        </div><!-- /.row -->
-      </div><!-- /.container-fluid -->
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1 class="m-0"><b>User Verification</b></h1>
+                </div><!-- /.col -->
+
+            </div><!-- /.row -->
+        </div><!-- /.container-fluid -->
     </div>
 
     <div class="page-content page-container" id="page-content">
-    <div class="padding">
-        <div class="row container d-flex justify-content-center">
+        <div class="padding">
+            <div class="row container d-flex justify-content-center">
 
-<div class="col-lg-12 grid-margin stretch-card">
-              <div class="card">
-                <div class="card-body">
-     
-           
-                  <div class="table-responsive">
-                    <table class="table">
-                      <thead>
-                        <tr style="color:red">
-                            <th>Student_id</th>
-                            <th>Name</th>
-                            <th>Email</th>
-                             <th>Verification_document</th>
-                            
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr>
-                            <td>34424433</td>
-                            <td>Samarpita Mukherjee</td>
-                            <td>samarpita@gmail.com</td>
-                          <td>College id_card</td>
-                          <td><a href="{{route('subadmin.verification_view')}}"><button type="button" class="btn btn-primary">View</button></a></td>
-                        </tr>
-                        <tr>
-                            <td>34424433</td>
-                            <td>Samarpita Mukherjee</td>
-                            <td>samarpita@gmail.com</td>
-                          <td>Aadhar Card</td>
-                          <td><a href="{{route('subadmin.verification_view')}}"><button type="button" class="btn btn-primary">View</button></a></td>
-                        </tr>
-                        <tr>
-                            <td>34424433</td>
-                            <td>Samarpita Mukherjee</td>
-                            <td>samarpita@gmail.com</td>
-                          <td>Pan Card</td>
-                          <td><a href="{{route('subadmin.verification_view')}}"><button type="button" class="btn btn-primary">View</button></a></td>
-                        </tr>
-                        <tr>
-                            <td>34424433</td>
-                            <td>Samarpita Mukherjee</td>
-                            <td>samarpita@gmail.com</td>
-                          <td>College Id_card</td>
-                          <td><a href="{{route('subadmin.verification_view')}}"><button type="button" class="btn btn-primary">View</button></a></td>
-                        </tr>
-                        <tr>
-                            <td>34424433</td>
-                            <td>Samarpita Mukherjee</td>
-                            <td>samarpita@gmail.com</td>
-                          <td>passport</td>
-                          <td><a href="{{route('subadmin.verification_view')}}"><button type="button" class="btn btn-primary">View</button></a></td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
+                <div class="col-lg-12 grid-margin stretch-card">
+                    <div class="card">
+                        <div class="card-body">
+
+
+                            <div class="table-responsive">
+                                <table class="table" id="myTable">
+                                    <thead>
+                                        <tr style="color:rgb(20, 103, 228)">
+                                            <th>Student_id</th>
+                                            <th>Name</th>
+                                            <th>Email</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($users as $user)
+                                            <tr>
+                                                <td>{{ $user->student_id }}</td>
+                                                <td>{{ $user->name }}</td>
+                                                <td>{{ $user->email }}</td>
+                                                <td>
+                                                    <a
+                                                        href="{{ route('subadmin.verification_view', ['id' => $user->student_id]) }}">
+                                                        <button type="button" class="btn btn-primary">View</button>
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-              </div>
+
             </div>
-            
-            </div>
-              </div>
-            </div>
+        </div>
+    </div>

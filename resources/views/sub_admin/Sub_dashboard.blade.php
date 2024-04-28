@@ -25,7 +25,7 @@
                     <div class="col-lg-6 col-12 mb-4">
                         <div class="small-box bg-info">
                             <div class="inner">
-                                <h3>150</h3>
+                                <h3>{{$totalUser}}</h3>
                                 <p class="mb-3">Total User</p>
                             </div>
                             <div class="icon">
@@ -38,7 +38,7 @@
                     <div class="col-lg-6 col-12 mb-4" >
                         <div class="small-box bg-success">
                             <div class="inner">
-                                <h3>10</h3>
+                                <h3>{{$totalSubAdmin}}</h3>
                                 <p class="mb-3">Total Sub-Admin</p>
                             </div>
                             <div class="icon">
@@ -52,7 +52,7 @@
                       <!-- Total Posts -->
                       <div class="small-box bg-danger mb-4" style="height: 140px;">
                           <div class="inner">
-                              <h3>10032</h3>
+                              <h3>{{$totalPost}}</h3>
                               <p><b>Total Posts</b></p>
                           </div>
                           <div class="icon">
@@ -64,7 +64,7 @@
                         <div class="card mb-4" style="height: 140px; background-color:#F07857">
                             <div class="card-body">
                                 <div class="inner">
-                                    <h2>15</h2>
+                                    <h2>{{$totalReportedUsers}}</h2>
                                     <p class="mb-3"><b>Total Reported User</b></p>
                                     <div class="icon">
                                         <i class="fas fa-exclamation-circle fa-3x"
@@ -89,31 +89,20 @@
                                       </tr>
                                   </thead>
                                   <tbody>
-                                      <tr>
-                                          <td>1</td>
-                                          <td>Mcneil, Burke Q.</td>
-                                          <td>samarpita@gmaicom</td>
-                                      </tr>
-                                      <tr>
-                                          <td>2</td>
-                                          <td>Burris, Lesley T.</td>
-                                          <td>samarpita@gmaicom</td>
-                                      </tr>
-                                      <tr>
-                                          <td>3</td>
-                                          <td>Sears, Drew G.</td>
-                                          <td>samarpita@gmaicom</td>
-                                      </tr>
-                                      <tr>
-                                          <td>4</td>
-                                          <td>Oconnor, Jocelyn A.</td>
-                                          <td>samarpita@gmaicom</td>
-                                      </tr>
-                                      <tr>
-                                          <td>5</td>
-                                          <td>Stewart, Anika M.</td>
-                                          <td>samarpita@gmaicom</td>
-                                      </tr>
+                                    @php
+                                        $count = 1;
+                                    @endphp
+
+                                    @foreach ($recentUsers as $user )
+                                        <tr>
+                                          <td>{{$count}}</td>
+                                          <td>{{$user->name}}</td>
+                                          <td>{{$user->email}}</td>
+                                        </tr>
+                                        @php
+                                             $count++;
+                                        @endphp
+                                    @endforeach
                                   </tbody>
                               </table>
                           </div>
