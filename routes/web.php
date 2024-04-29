@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\FriendsController;
+use App\Http\Controllers\NotificationsController;
 use App\Http\Middleware\AdminAuth;
 use App\Http\Middleware\LoginCheck;
 use App\Http\Middleware\SubAdminAuth;
@@ -24,12 +26,17 @@ Route::middleware([LoginCheck::class])->group(function () {
         Route::delete('/delete/{id}', [PostController::class, 'delete_comment'])->name('comments.delete');
     });
 
+    Route::group(['prefix' => "/notification"], function(){ 
+        Route::get('/read/{id}', [NotificationsController::class, 'mark_read'])->name('notification.read');
+        Route::get('/delete/{id}', [NotificationsController::class, 'delete'])->name('notification.delete');
+    });
+
     // common navigation views
-    Route::get("/friends", [ViewsController::class, "friends"]);
-    Route::get("/messages", [ViewsController::class, "messages"]);
-    Route::get("/notifications", [ViewsController::class, "notifications"]);
-    Route::get("/settings", [ViewsController::class, "view_settings"]);
-    Route::get("/results", [ProfileController::class, 'view_search']);
+    Route::get("/friends", [ViewsController::class, "friends"])->name('friends');
+    Route::get("/messages", [ViewsController::class, "messages"])->name('messages');
+    Route::get("/notifications", [ViewsController::class, "notifications"])->name('notifications');
+    Route::get("/settings", [ViewsController::class, "view_settings"])->name('settings');
+    Route::get("/results", [ProfileController::class, 'view_search'])->name('search.results');
 
     // grouped routes [ the url should start with /profile]
     Route::group(['prefix' => '/profile'], function () {
@@ -39,6 +46,14 @@ Route::middleware([LoginCheck::class])->group(function () {
         Route::get("/{user_token}", [ProfileController::class, "view_page"]);
         Route::get('/search', [ProfileController::class, 'view_search'])->name('profile.search');
         Route::post('/change-password', [ProfileController::class, 'changePassword'])->name('profile.changePassword');
+    });
+
+    // friend routes [grouped]
+    Route::group(['prefix' => '/friends'], function () {
+        Route::get('/accept/{token}/{id}', [FriendsController::class, 'accept_friend'])->name('friend.accept');
+        Route::get('/reject/{token}/{id}', [FriendsController::class, 'reject_request'])->name('friend.reject');
+        Route::get('/send-request/{token}', [FriendsController::class, 'send_request'])->name('friend.request');
+        Route::get('/remove/{token}', [FriendsController::class, 'remove_friend'])->name('friend.remove');
     });
 });
 

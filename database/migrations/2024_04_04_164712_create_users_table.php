@@ -23,7 +23,7 @@ return new class extends Migration {
             $table->text('address')->nullable();
             $table->string('profile_picture', 50)->default('avatar.jpg');
             $table->string('cover_picture', 50)->default('cover.png');
-            $table->bigInteger('followers')->default('0');
+            $table->bigInteger('friends')->default('0');
             $table->text('about')->nullable();
             $table->text('skills')->nullable();
             $table->text('expertise')->nullable();

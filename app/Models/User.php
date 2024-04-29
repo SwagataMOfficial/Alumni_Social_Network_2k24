@@ -22,7 +22,7 @@ class User extends Model {
         'address',
         'profile_picture',
         'cover_picture',
-        'followers',
+        'friends',
         'about',
         'skills',
         'expertise',
