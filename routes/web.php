@@ -39,14 +39,15 @@ Route::middleware([LoginCheck::class])->group(function () {
     Route::get("/notifications", [ViewsController::class, "notifications"])->name('notifications');
     Route::get("/settings", [ViewsController::class, "view_settings"])->name('settings');
     Route::get("/results", [ProfileController::class, 'view_search'])->name('search.results');
+    Route::get('/myfriends', [ViewsController::class, 'view_myfriends'])->name('myfriends');
 
     // grouped routes [ the url should start with /profile]
     Route::group(['prefix' => '/profile'], function () {
         Route::get("/edit", [ProfileController::class, 'view_edit'])->name('profile.edit');
         Route::post("/edit", [ProfileController::class, 'save_changes'])->name('profile.savechanges');
         Route::post("/togglevisibility", [ProfileController::class, 'toggleVisibility'])->name('profile.visibility');
+        Route::get('/user/search', [ProfileController::class, 'view_search'])->name('profile.search');
         Route::get("/{user_token}", [ProfileController::class, "view_page"]);
-        Route::get('/search', [ProfileController::class, 'view_search'])->name('profile.search');
         Route::post('/change-password', [ProfileController::class, 'changePassword'])->name('profile.changePassword');
      
     });
@@ -56,7 +57,7 @@ Route::middleware([LoginCheck::class])->group(function () {
         Route::get('/accept/{token}/{id}', [FriendsController::class, 'accept_friend'])->name('friend.accept');
         Route::get('/reject/{token}/{id}', [FriendsController::class, 'reject_request'])->name('friend.reject');
         Route::get('/send-request/{token}', [FriendsController::class, 'send_request'])->name('friend.request');
-        Route::get('/remove/{token}', [FriendsController::class, 'remove_friend'])->name('friend.remove');
+        Route::get('/remove/{id}', [FriendsController::class, 'remove_friend'])->name('friend.remove');
     });
 
     

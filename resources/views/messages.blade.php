@@ -6,7 +6,7 @@
     {{-- <h1 class="text-3xl font-bold text-blue-700">
         Messages Page!
     </h1> --}}
-    <div class="container">
+    {{-- <div class="container"> --}}
         <div class="px-8 mx-auto pt-3 flex justify-center gap-10">
             {{-- left navigation panel --}}
             <div class="w-1/4 rounded-xl h-fit bg-white pt-3">
@@ -129,7 +129,7 @@
                     <div class="">
                         <form method="POST" action="#">
                             <label for="chat" class="sr-only">Your message</label>
-                            <div class="flex items-center px-3 py-4 bg-gray-50">
+                            <div class="flex items-center px-3 py-4 bg-gray-100 border-t border-t-gray-400">
                                 <textarea id="chat" rows="1"
                                     class="block mx-2 p-2.5 w-full text-sm text-gray-900 bg-white rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 resize-none"
                                     placeholder="Type Your message..."></textarea>
@@ -148,5 +148,5 @@
                 </section>
             </div>
         </div>
-    </div>
+    {{-- </div> --}}
 @endsection

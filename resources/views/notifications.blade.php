@@ -4,8 +4,8 @@
 @endpush
 @section('main-section')
     {{-- <div class="container bg-gray-200 min-h-[calc(100vh-67px)]"> --}}
-    <div class="container">
-        <div class="px-52 mx-auto py-3">
+    {{-- <div class="container"> --}}
+        <div class="px-2 2xl:px-52 xl:px-40 lg:px-14 md:px-10 sm:px-4 mx-auto py-3">
             <div class="bg-white max-h-[85vh] w-full flex flex-col items-center gap-2 py-4 rounded-xl overflow-auto">
                 <h3 class="text-center font-semibold text-3xl">Notifications</h3>
                 @if (count($notifications) == 0)
@@ -54,7 +54,7 @@
                 @endif
             </div>
         </div>
-    </div>
+    {{-- </div> --}}
 @endsection
 @push('script')
     <script>

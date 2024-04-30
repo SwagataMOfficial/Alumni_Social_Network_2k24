@@ -3,10 +3,9 @@
     <title>Profile-Name | Alumni Junction</title>
 @endpush
 @section('main-section')
-    {{-- <div class="container bg-gray-200 min-h-[calc(100vh-67px)]"> --}}
-    <div class="container">
+    {{-- <div class="container"> --}}
         <div class="px-8 mx-auto pt-3 flex justify-center gap-10">
-            <div class="w-3/4">
+            <div class="w-3/4 pb-3">
                 <div class="rounded-xl overflow-hidden relative mb-3">
 
                     <img class="w-full h-40 object-cover" src="{{ asset('/storage/' . $user['cover_picture']) }}"
@@ -15,7 +14,7 @@
                     <img class="absolute top-16 left-8 z-10 w-32 aspect-square rounded-[50%] object-cover outline outline-white"
                         src="{{ asset('/storage/' . $user['profile_picture']) }}" alt="profile picture" id="profile-picture">
 
-                    <x-profilesection :details="$user" />
+                    <x-profilesection :details="$user" :friend="$friendStatus"/>
                 </div>
                 <div class="rounded-xl overflow-hidden bg-white pb-4 pt-2">
                     <nav class="pl-12 mt-4 flex gap-4" id="default-styled-tab"
@@ -48,23 +47,23 @@
                     @if ($user['profile_visibility'] || $user['student_id'] == session()->get('user_id'))
                         <div id="default-styled-tab-content">
                             <div class="hidden" id="styled-profile" role="tabpanel" aria-labelledby="profile-tab">
+                                <x-aboutprofile :details="$user" />
                                 <p class="text-sm text-gray-500 dark:text-gray-400">
-                                    <x-aboutprofile :details="$user" />
                                 </p>
                             </div>
                             <div class="hidden" id="styled-dashboard" role="tabpanel" aria-labelledby="dashboard-tab">
+                                <x-posts :details="$user" :posts="$posts" />
                                 <p class="text-sm text-gray-500 dark:text-gray-400">
-                                    <x-posts :details="$user" :posts="$posts" />
                                 </p>
                             </div>
                             <div class="hidden" id="styled-settings" role="tabpanel" aria-labelledby="settings-tab">
+                                <x-postgallery :details="$imgArr" />
                                 <p class="text-sm text-gray-500 dark:text-gray-400">
-                                    <x-postgallery :details="$imgArr" />
                                 </p>
                             </div>
                             <div class="hidden" id="styled-contacts" role="tabpanel" aria-labelledby="contacts-tab">
+                                <x-jobposts :details="$user" :posts="$jobs" />
                                 <p class="text-sm text-gray-500 dark:text-gray-400">
-                                    <x-jobposts :details="$user" :posts="$jobs" />
                                 </p>
                             </div>
                         </div>
@@ -86,7 +85,7 @@
                     @endforeach
                 </div>
                 <div class="pt-3 px-4">
-                    <a class="flex text-stone-600 hover:text-stone-900 text-sm" href="#">
+                    <a class="flex text-stone-600 hover:text-stone-900 text-sm" href="{{route('friends')}}">
                         <span class="font-semibold">View all</span>
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5">
                             <path fill-rule="evenodd"
@@ -97,7 +96,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    {{-- </div> --}}
 @endsection
 @push('script')
     <script>
@@ -123,30 +122,5 @@
                 });
             });
         });
-        // $(document).ready(function() {
-        // $("#visibility_input").change(() => {
-        // // alert("Visibility Changed");
-        // $("#visibility_form").submit();
-        // });
-
-        // $("#visibility_form").submit((e)=>{
-        // e.preventDefault();
-        // $("#visibility_input").prop("disabled");
-        // // alert('submitting form');
-        // // Submitting the form through ajax
-        // $.ajax({
-        // url: "{{ route('profile.visibility') }}",
-        // method: "POST",
-        // data: $(this).serialize(),
-        // success: function(response) {
-        // $("#visibility_input").removeAttr("disabled");
-        // alert("Data=", response.json());
-        // },
-        // error: function(xhr, status, error) {
-        // alert('error:', error);
-        // }
-        // });
-        // });
-        // });
     </script>
 @endpush

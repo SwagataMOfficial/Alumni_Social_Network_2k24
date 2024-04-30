@@ -3,15 +3,15 @@
     <title>Friends | Alumni Junction</title>
 @endpush
 @section('main-section')
-    <div class="container">
+    {{-- <div class="container"> --}}
         {{-- max-width container with left,right space --}}
-        <div class="px-8 mx-auto pt-3 flex justify-center gap-10">
+        <div class="px-4 mx-auto pt-3 flex justify-center gap-10 lg:px-8">
 
             {{-- left navigation panel --}}
-            <div class="w-1/4 rounded-xl h-fit bg-white px-4 py-4">
+            <div class="w-1/4 rounded-xl h-fit bg-white px-4 py-4 hidden lg:block">
                 <h1 class="text-stone-700 font-semibold text-2xl mb-2 ml-1">My connections</h1>
                 <div class="flex flex-col items-start justify-center">
-                    <a href="#"
+                    <a href="{{route('myfriends')}}"
                         class="px-2 rounded-lg w-full py-2 text-lg flex items-center justify-between hover:bg-stone-200">
                         <span class="flex items-center gap-2">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5">
@@ -22,19 +22,10 @@
                         </span>
                         <span class="text-sky-600 font-semibold text-md">{{ $user['friends'] }}</span>
                     </a>
-                    <a href="#"
-                        class="px-2 rounded-lg w-full py-2 text-lg flex items-center gap-2 hover:bg-stone-200">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5">
-                            <path fill-rule="evenodd"
-                                d="M10.868 2.884c-.321-.772-1.415-.772-1.736 0l-1.83 4.401-4.753.381c-.833.067-1.171 1.107-.536 1.651l3.62 3.102-1.106 4.637c-.194.813.691 1.456 1.405 1.02L10 15.591l4.069 2.485c.713.436 1.598-.207 1.404-1.02l-1.106-4.637 3.62-3.102c.635-.544.297-1.584-.536-1.65l-4.752-.382-1.831-4.401Z"
-                                clip-rule="evenodd" />
-                        </svg>
-                        <span>My favourites</span>
-                    </a>
                 </div>
             </div>
             {{-- right main settings option --}}
-            <div class="w-3/4 flex flex-col gap-3 mb-3">
+            <div class="w-full flex flex-col gap-3 mb-3 xl:w-3/4">
                 <section class="rounded-xl overflow-hidden bg-white px-6 py-4">
                     <h1 class="text-stone-700 font-semibold text-2xl mb-2">Pending requests</h3>
 
@@ -80,15 +71,15 @@
                                 </div>
                             @endforeach
                         @else
-                            <p class="text-lg mx-2 text-blue-500">No pending requests found!</p>
+                            <p class="text-lg mx-2 text-blue-500 max-[375px]:text-md">No pending requests found!</p>
                         @endif
                 </section>
-                <section class="rounded-xl overflow-hidden bg-white px-6 py-4">
-                    <h1 class="text-stone-700 font-semibold text-2xl mb-4">Suggested people</h3>
+                <section class="rounded-xl overflow-hidden bg-white px-0 min-[510px]:px-6 py-4">
+                    <h1 class="text-stone-700 font-semibold text-2xl mb-4 max-[510px]:px-6">Suggested people</h3>
 
                         {{-- suggested people cards will appear here --}}
                         @if (count($s_peoples) > 0)
-                            <div class="grid grid-cols-4 gap-2">
+                            <div class="grid grid-cols-1 gap-2 max-[375px]:px-4 max-[510px]:px-12 min-[510px]:grid-cols-2 md:grid-cols-3 xl:grid-cols-4">
                                 {{-- cards --}}
                                 @foreach ($s_peoples as $people)
                                     <div
@@ -116,9 +107,8 @@
                         @else
                             <p class="text-lg mx-2 text-red-500">No suggested people found!</p>
                         @endif
-
                 </section>
             </div>
         </div>
-    </div>
+    {{-- </div> --}}
 @endsection

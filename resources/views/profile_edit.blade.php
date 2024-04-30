@@ -3,13 +3,8 @@
     <title>{{ $user['name'] }} - Edit | Alumni Junction</title>
 @endpush
 @section('main-section')
-    <div class="flex justify-center">
-        <div class="fixed z-20 mt-2 w-1/2" id="alertArea">
-            {{-- TODO: make this alert using ajax --}}
-            {{-- <x-alert message="Profile Updated Successfully" color="green" /> --}}
-        </div>
-    </div>
-    <div class="container">
+
+    {{-- <div class="container"> --}}
         {{-- max-width container with left,right space --}}
         <div class="px-8 mx-auto py-3">
             <div class="flex flex-col items-center gap-3" id="section-container">
@@ -244,7 +239,7 @@
                                 History</label>
                             <input type="text" name="career_history" id="career_history"
                                 class="border border-gray-600 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500 mx-3"
-                                placeholder="Edit Your career history" value="{{ $user['career_history'] }}">
+                                placeholder="Ex: story 1, story 2, ...." value="{{ $user['career_history'] }}">
                         </div>
                         <div class="mb-2 mx-10">
                             <label for="projects" class="block mb-2 text-sm font-medium text-gray-500">Your
@@ -469,7 +464,7 @@
                                         </label>
                                         <input type="file" name="verification_document" id="verification_document"
                                             class="hidden"
-                                            accept="application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document">
+                                            accept="image/jpeg,image/jpg,image/png,image/svg+xml">
                                     </div>
                                 </div>
                             @endif
@@ -491,7 +486,7 @@
                                         Browse
                                     </label>
                                     <input type="file" name="resume" id="resume" class="hidden"
-                                        accept="application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document">
+                                    accept="image/jpeg,image/jpg,image/png,image/svg+xml">
                                 </div>
                             </div>
 
@@ -512,7 +507,7 @@
                                         Browse
                                     </label>
                                     <input type="file" name="certificates[]" id="certificates" class="hidden"
-                                        multiple accept=".jpg,.jpeg,.png,.svg,.pdf,.doc,.docx">
+                                        multiple accept="image/jpeg,image/jpg,image/png,image/svg+xml">
                                 </div>
                             </div>
                         </div>
@@ -526,7 +521,7 @@
                 {{-- edit document section end --}}
             </div>
         </div>
-    </div>
+    {{-- </div> --}}
 @endsection
 
 @push('script')

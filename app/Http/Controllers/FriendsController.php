@@ -34,7 +34,7 @@ class FriendsController extends Controller {
                 'notified_to' => $requestedUserData->student_id,
                 'n_description' => "$mydata->name has accepted your friend request",
                 'type' => 'friend-request',
-                'url' => route('friends'),
+                'url' => route('myfriends'),
                 'created_at' => now(),
                 'updated_at' => now()
             ]);
@@ -95,8 +95,18 @@ class FriendsController extends Controller {
             return redirect('/friends');
         }
     }
-    public function remove_friend($token) {
-        echo $token;
+    public function remove_friend($id) {
+        echo $id;
+
+        $friendData = Friend::where('student_id', '=', $id)->where('friend_id', '=', session()->get('user_id'))->first();
+        $myFriendData = Friend::where('student_id', '=', session()->get('user_id'))->where('friend_id', '=', $id)->first();
+
+        if ($myFriendData->delete() && $friendData->delete()) {
+            return redirect()->back();
+        }
+        else {
+            return redirect('/friends');
+        }
     }
     public function send_request($token) {
 

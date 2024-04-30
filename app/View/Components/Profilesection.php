@@ -13,7 +13,7 @@ class Profilesection extends Component
     /**
      * Create a new component instance.
      */
-    public function __construct($friend=0, $details=0)
+    public function __construct($friend, $details)
     {
         $this->friend = $friend;
         $this->details = $details;
