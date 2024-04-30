@@ -48,6 +48,7 @@
                             <div class="team-members">
                                 <div class="container mt-2">
                                     <h2>All Posts</h2>
+                                    <!--First-->
                                     @foreach ($userPosts as $post)
                                         <div class="col-md-12 mb-4">
                                             <div class="card">
@@ -59,31 +60,29 @@
                                                             {{-- <span class="online-dot"></span> --}}
                                                         </div>
                                                         <!-- contents written-->
-                                                        <span class="card-text"
-                                                            style="font-size: 16px">{{ $post->post_description }}</span>
+                                                        <span class="card-text" style="font-size: 14px">{{$post->post_description}}</span>
                                                     </div>
                                                     <!-- contents img posts-->
                                                     <div
                                                         style="display: flex; justify-content: center; align-items: center; height: 100%;">
-                                                        <img src="{{ asset('/storage/'.$post->attachment) }}"alt="upload posts"
+                                                        <img src="{{ asset('/storage/'.$post->attachment) }}" alt="Reported Post"
                                                             style="width: 90%; height: auto;">
                                                     </div>
                                                     <!-- Post buttons -->
                                                     <div class="post-buttons d-flex  justify-content-center ">
-                                                        <a href="{{ route('subadmin.Profileview_delete',['id'=>$post->post_id])}}">
+                                                        <a href="{{ route('subadmin.ReportedContent_view_delete',['id'=>$post->post_id])}}">
                                                             <button class="btn btn-danger mt-3  mr-2">Delete</button>
                                                         </a>
-                                                        <a href="{{ route('subadmin.Profileview_suspend',['id'=>$post->post_id])}}">
+                                                        <a href="{{ route('subadmin.ReportedContent_view_suspend',['id'=>$post->post_id])}}">
                                                             <button class="btn btn-secondary mt-3">Suspend</button>
                                                         </a>
                                                     </div>
-
-
                                                 </div>
-
+                                                
                                             </div>
                                         </div>
                                     @endforeach
+
                                 </div>
                             </div>
                         </div>

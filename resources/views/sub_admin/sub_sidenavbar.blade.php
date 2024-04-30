@@ -74,7 +74,14 @@
             <a href="{{ route('sub.admin.dashboard') }}" class="brand-link">
                 <img src="{{asset('dist\img\Admin.png')}}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
                     style="opacity: .8">
-                <span class="brand-text font-weight-light">Sub Admin</span>
+                <span class="brand-text font-weight-light">  
+                    {{-- @if(session()->has('sub_admin_name'))
+                        {{ session('sub_admin_name') }}
+                    @else
+                        Sub Admin
+                    @endif --}}
+                    Sub Admin
+                </span>
             </a>
 
             <!-- Sidebar -->
@@ -122,7 +129,7 @@
                         </li>
 
                         <li class="nav-item  mb-3">
-                            <a href="{{ route('subadmin.content') }}" class="nav-link">
+                            <a href="{{ route('subadmin.reportedContent') }}" class="nav-link">
                                 <i class="nav-icon far fa-plus-square"></i>
                                 <p>
                                     Reported Content
@@ -145,12 +152,7 @@
                                 </p>
                             </a>
 
-                        <li class="nav-item  mb-3">
-                            <a href="{{ route('subadmin.changepassword') }}" class="nav-link">
-                                <i class="nav-icon fas fa-edit"></i>
-                                <p>Change passWord</p>
-                            </a>
-                        </li>
+                
 
                         <li class="nav-item  mb-3">
                             <a href="{{ route('sub.admin.logout') }}" class="nav-link">

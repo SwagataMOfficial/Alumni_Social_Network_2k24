@@ -101,20 +101,32 @@ Route::middleware([SubAdminAuth::class])->group(function () {
     Route::get('/subadmin/dashboard', [AdminController::class, 'sub_admin_dashboard'])->name('sub.admin.dashboard');
     Route::get('/subadmin/userverification', [AdminController::class, 'sub_admin_verification'])->name('subadmin.verification');
     Route::get('/subadmin/userverification_view/{id}', [AdminController::class, 'sub_admin_verification_view'])->name('subadmin.verification_view');
-    
+
+    //user verification START--
     Route::get('/subadmin/userverification_view/approve/{id}', [AdminController::class, 'sub_admin_verification_view_approve'])->name('subadmin.verification_view_approve');
     Route::get('/subadmin/userverification_view/reject/{id}', [AdminController::class, 'sub_admin_verification_view_reject'])->name('subadmin.verification_view_reject');
+    //user verification END!!
 
     Route::get('/subadmin/team', [AdminController::class, 'subadmin_team'])->name('subadmin.team');
     Route::get('/subadmin/teamadd', [AdminController::class, 'subadmin_teamadd'])->name('subadmin.teamadd');
+
+    //USER MANAGEMENT START--
     Route::get('/subadmin/usermanagement', [AdminController::class, 'subadmin_usermanagement'])->name('subadmin.usermanagement');
-    Route::get('/subadmin/content', [AdminController::class, 'subadmin_content'])->name('subadmin.content');
-    Route::get('/subadmin/profilesearch', [AdminController::class, 'subadmin_profilesearch'])->name('subadmin.profilesearch');
-    Route::get('/subadmin/profileview', [AdminController::class, 'subadmin_profileview'])->name('subadmin.profileview');
+    Route::get('/subadmin/profileview/{id}', [AdminController::class, 'subadmin_profileview'])->name('subadmin.profileview');
+    Route::get('/subadmin/profileview/delete/{id}', [AdminController::class, 'subadmin_profileview_delete'])->name('subadmin.Profileview_delete');
+    Route::get('/subadmin/profileview/suspend/{id}', [AdminController::class, 'subadmin_profileview_suspend'])->name('subadmin.Profileview_suspend');
+    //USER MANAGEMENT END--
+
+    //reported content START--
+    Route::get('/subadmin/reportedContent', [AdminController::class, 'subadmin_reportedContent'])->name('subadmin.reportedContent');
+    Route::get('/subadmin/reportedContent_view/{id}', [AdminController::class, 'subadmin_reportedContent_view'])->name('subadmin.reportedContent_view');
+    Route::get('/subadmin/reportedContent_view/delete/{id}', [AdminController::class, 'subadmin_reportedContent_view_delete'])->name('subadmin.ReportedContent_view_delete');
+    Route::get('/subadmin/reportedContent_view/suspend/{id}', [AdminController::class, 'subadmin_reportedContent_view_suspend'])->name('subadmin.ReportedContent_view_suspend');
+    //reported contet END--
+    
     Route::get('/subadmin/communication', [AdminController::class, 'subadmin_communication'])->name('subadmin.communication');
     Route::get('/subadmin/usersupport', [AdminController::class, 'subadmin_usersupport'])->name('subadmin.usersupport');
     Route::get('/subadmin/view', [AdminController::class, 'subadmin_usersupport_view'])->name('subadmin.usersupport.view');
-    Route::get('/subadmin/changepassword', [AdminController::class, 'subadmin_changepassword'])->name('subadmin.changepassword');
     Route::get('/subadmin/logout', [AdminController::class, 'subadmin_logout'])->name('sub.admin.logout');
 });
 Route::post("/subadmin/login", [AdminController::class, 'subloginUser'])->name('subadmin.login');
