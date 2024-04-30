@@ -19,6 +19,22 @@
         /* white color with 50% opacity */
     }
 </style>
+@if (Session::has('message'))
+    <script>
+        swal( "{{ Session::get('message') }}", 'User has not posted anything yet ', {
+            button: true,
+            button: "OK",
+        })
+    </script>
+@endif
+@if (Session::has('success'))
+    <script>
+        swal("Message", "{{ Session::get('success') }}", 'success', {
+            button: true,
+            button: "OK",
+        })
+    </script>
+@endif
 <div class="content-wrapper all">
     <!-- Content Header (Page header) -->
     <div class="content-header">
@@ -45,9 +61,9 @@
 
 
                             <div class="table-responsive">
-                                <table class="table">
+                                <table class="table" id="myTable">
                                     <thead>
-                                        <tr style="color:red">
+                                        <tr style="color:rgb(20, 103, 228)">
                                             <th>ID No.</th>
                                             <th>Name</th>
                                             <th>Email</th>
@@ -56,56 +72,26 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td>34424433</td>
-                                            <td>Samarpita Mukherjee</td>
-                                            <td>samarpita@gmail.com</td>
-                                            <td>3923451674</td>
-                                            <td><button type="button" class="btn btn-secondary">Suspend</button>
+                                        @foreach ($users as $user)
+                                            <tr>
+                                                <td>{{ $user->student_id }}</td>
+                                                <td>{{ $user->name }}</td>
+                                                <td>{{ $user->email }}</td>
+                                                <td>
+                                                    @if (empty($user->phone))
+                                                        __
+                                                    @else
+                                                        {{ $user->phone }}
+                                                    @endif
+                                                </td>
 
-                                                <a href="{{ route('subadmin.profileview') }}">    <button type="button" class="btn btn-success">View</button></a>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>34424433</td>
-                                            <td>Samarpita Mukherjee</td>
-                                            <td>samarpita@gmail.com</td>
-                                            <td>3923451674</td>
-                                            <td><button type="button" class="btn btn-secondary">Suspend</button>
+                                                <td>
 
-                                                <a href="{{ route('subadmin.profileview') }}">    <button type="button" class="btn btn-success">View</button></a>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>34424433</td>
-                                            <td>Samarpita Mukherjee</td>
-                                            <td>samarpita@gmail.com</td>
-                                            <td>3923451674</td>
-                                            <td><button type="button" class="btn btn-secondary">Suspend</button>
-
-                                                <a href="{{ route('subadmin.profileview') }}">    <button type="button" class="btn btn-success">View</button></a>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>34424433</td>
-                                            <td>Samarpita Mukherjee</td>
-                                            <td>samarpita@gmail.com</td>
-                                            <td>3923451674</td>
-                                            <td><button type="button" class="btn btn-secondary">Suspend</button>
-                                                <a href="{{ route('subadmin.profileview') }}">    <button type="button" class="btn btn-success">View</button></a>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>34424433</td>
-                                            <td>Samarpita Mukherjee</td>
-                                            <td>samarpita@gmail.com</td>
-                                            <td>3923451675</td>
-                                            <td><button type="button" class="btn btn-secondary">Suspend</button>
-
-                                                <a href="{{ route('subadmin.profileview') }}">    <button type="button" class="btn btn-success">View</button></a>
-
-                                            </td>
-                                        </tr>
+                                                    <a href="{{ route('subadmin.profileview',['id' => $user->student_id])  }}"> <button
+                                                            type="button" class="btn btn-success">View</button></a>
+                                                </td>
+                                            </tr>
+                                        @endforeach
                                     </tbody>
                                 </table>
                             </div>

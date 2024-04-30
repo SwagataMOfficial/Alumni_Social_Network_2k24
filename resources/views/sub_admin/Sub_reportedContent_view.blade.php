@@ -30,7 +30,14 @@
         border: 2px solid white;
     }
 </style>
-
+@if (Session::has('success'))
+    <script>
+        swal("Message", "{{ Session::get('success') }}", 'success', {
+            button: true,
+            button: "OK",
+        })
+    </script>
+@endif
 <div class="content-wrapper all">
     <div class="page-content page-container" id="page-content">
         <div class="padding">
@@ -42,63 +49,40 @@
                                 <div class="container mt-2">
                                     <h2>All Posts</h2>
                                     <!--First-->
-                                    <div class="col-md-12 mb-4">
-                                        <div class="card">
-                                            <div class="card-body">
-                                                <div class="d-flex align-items-center mb-3">
-                                                    <div class="position-relative">
-                                                        <img src="\assets\img\image.jpg" alt="Profile Pic"
-                                                            class="rounded-circle mr-1" width="50">
-                                                        <span class="online-dot"></span>
+                                    @foreach ($userPosts as $post)
+                                        <div class="col-md-12 mb-4">
+                                            <div class="card">
+                                                <div class="card-body">
+                                                    <div class="d-flex align-items-center mb-3">
+                                                        <div class="position-relative">
+                                                            <img src="{{ asset('/storage/' . $user['profile_picture']) }}" alt="Profile Pic"
+                                                                class="rounded-circle mr-1" width="50">
+                                                            {{-- <span class="online-dot"></span> --}}
+                                                        </div>
+                                                        <!-- contents written-->
+                                                        <span class="card-text" style="font-size: 14px">{{$post->post_description}}</span>
                                                     </div>
-                                                    <!-- contents written-->
-                                                    <span class="card-text" style="font-size: 25px">Glad to announce
-                                                        that I have successfully completed C++ course</span>
-                                                </div>
-                                                <!-- contents img posts-->
-                                                <div
-                                                    style="display: flex; justify-content: center; align-items: center; height: 100%;">
-                                                    <img src="\assets\img\post.png" alt="Post Image"
-                                                        style="width: 90%; height: auto;">
-                                                </div>
-                                                <!-- Post buttons -->
-                                                <div class="post-buttons d-flex justify-content-center">
-                                                    <button class="btn btn-danger mt-3"><b>Delete</b></button>
-                                                </div>
-
-
-                                            </div>
-                                            <!-- Post Second -->
-                                            <div class="col-md-12 mb-4">
-                                                <div class="card">
-                                                    <div class="card-body">
-                                                        <div class="d-flex align-items-center mb-3">
-                                                            <div class="position-relative">
-                                                                <img src="\assets\img\image.jpg" alt="Profile Pic"
-                                                                    class="rounded-circle mr-1" width="50">
-                                                                <span class="online-dot"></span>
-                                                            </div>
-                                                            <!-- contents written-->
-                                                            <span class="card-text" style="font-size: 25px">Glad to
-                                                                announce that I have successfully completed C++
-                                                                course</span>
-                                                        </div>
-                                                        <!-- contents img posts-->
-                                                        <div
-                                                            style="display: flex; justify-content: center; align-items: center; height: 100%;">
-                                                            <img src="\assets\img\post.png" alt="Post Image"
-                                                                style="width: 90%; height: auto;">
-                                                        </div>
-                                                        <!-- Post buttons -->
-                                                        <div class="post-buttons d-flex justify-content-center">
-                                                            <button class="btn btn-danger mt-3"><b>Delete</b></button>
-                                                        </div>
-
+                                                    <!-- contents img posts-->
+                                                    <div
+                                                        style="display: flex; justify-content: center; align-items: center; height: 100%;">
+                                                        <img src="{{ asset('/storage/'.$post->attachment) }}" alt="Reported Post"
+                                                            style="width: 90%; height: auto;">
+                                                    </div>
+                                                    <!-- Post buttons -->
+                                                    <div class="post-buttons d-flex  justify-content-center ">
+                                                        <a href="{{ route('subadmin.ReportedContent_view_delete',['id'=>$post->post_id])}}">
+                                                            <button class="btn btn-danger mt-3  mr-2">Delete</button>
+                                                        </a>
+                                                        <a href="{{ route('subadmin.ReportedContent_view_suspend',['id'=>$post->post_id])}}">
+                                                            <button class="btn btn-secondary mt-3">Suspend</button>
+                                                        </a>
                                                     </div>
                                                 </div>
+                                                
                                             </div>
                                         </div>
-                                    </div>
+                                    @endforeach
+
                                 </div>
                             </div>
                         </div>
