@@ -55,33 +55,52 @@
                                                 <div class="card-body">
                                                     <div class="d-flex align-items-center mb-3">
                                                         <div class="position-relative">
-                                                            <img src="{{ asset('/storage/' . $user['profile_picture']) }}" alt="Profile Pic"
-                                                                class="rounded-circle mr-1" width="50">
-                                                            {{-- <span class="online-dot"></span> --}}
+                                                            <img src="{{ asset('/storage/' . $user['profile_picture']) }}"
+                                                                alt="Profile Pic" class="rounded-circle mr-1"
+                                                                width="50">
                                                         </div>
-                                                        <!-- contents written-->
-                                                        <span class="card-text" style="font-size: 14px">{{$post->post_description}}</span>
+                                                        <!-- contents written -->
+                                                        <span class="card-text"
+                                                            style="font-size: 16px">{{ $post->post_description }}</span>
                                                     </div>
-                                                    <!-- contents img posts-->
-                                                    <div
-                                                        style="display: flex; justify-content: center; align-items: center; height: 100%;">
-                                                        <img src="{{ asset('/storage/'.$post->attachment) }}" alt="Reported Post"
-                                                            style="width: 90%; height: auto;">
-                                                    </div>
+                                                    @if ($post->post_type == 'post')
+                                                        @if ($post->attachment)
+                                                            <!-- contents img posts -->
+                                                            <div
+                                                                style="display: flex; justify-content: center; align-items: center; height: 100%;">
+                                                                <img src="{{ asset('/storage/' . $post->attachment) }}"
+                                                                    alt="upload posts"
+                                                                    style="width: 90%; height: auto;">
+                                                            </div>
+                                                        @endif
+                                                    @elseif ($post->post_type == 'job')
+                                                        <!-- job post details -->
+                                                        <div>
+                                                            <p><strong>Job Description:</strong>
+                                                                {{ $post->post_description }}</p>
+                                                            <p><strong>Job Link:</strong> <a
+                                                                    href="{{ $post->registration_link }}"
+                                                                    target="_blank">{{ $post->registration_link }}</a>
+                                                            </p>
+                                                        </div>
+                                                    @endif
+
                                                     <!-- Post buttons -->
-                                                    <div class="post-buttons d-flex  justify-content-center ">
-                                                        <a href="{{ route('subadmin.ReportedContent_view_delete',['id'=>$post->post_id])}}">
-                                                            <button class="btn btn-danger mt-3  mr-2">Delete</button>
+                                                    <div class="post-buttons d-flex justify-content-center">
+                                                        <a
+                                                            href="{{ route('subadmin.ReportedContent_view_delete', ['id' => $post->post_id]) }}">
+                                                            <button class="btn btn-danger mt-3 mr-2">Delete</button>
                                                         </a>
-                                                        <a href="{{ route('subadmin.ReportedContent_view_suspend',['id'=>$post->post_id])}}">
+                                                        <a
+                                                            href="{{ route('subadmin.ReportedContent_view_suspend', ['id' => $post->post_id]) }}">
                                                             <button class="btn btn-secondary mt-3">Suspend</button>
                                                         </a>
                                                     </div>
                                                 </div>
-                                                
                                             </div>
                                         </div>
                                     @endforeach
+
 
                                 </div>
                             </div>

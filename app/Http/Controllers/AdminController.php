@@ -149,22 +149,19 @@ class AdminController extends Controller
 
         if (is_null($user)) {
             return redirect('/subadmin/usermanagement');
-        } 
-        else {
-            // Retrieve user's posts
-            $userPosts = Userpost::where('posted_by', $id)->where('delete_post', '!=', 1)->get();
-            if($userPosts->isEmpty())
-            {
-                return redirect()->back()->with('message','No posts found !');
-               
-            }
-            else{
+        } else {
+            // Retrieve user's posts (including all types)
+            $userPosts = UserPost::where('posted_by', $id)->where('delete_post', '!=', 1)->get();
+            if($userPosts->isEmpty()) {
+                return redirect()->back()->with('message', 'No posts found!');
+            } else {
                 // Pass user and their posts to the view
-                $data=compact('user', 'userPosts');
-                return view('sub_admin.Sub_profile_view' )->with($data);
+                $data = compact('user', 'userPosts');
+                return view('sub_admin.Sub_profile_view')->with($data);
             }
         }
     }
+
     public function subadmin_profileview_delete($id)
     {
         // Find the post by ID
