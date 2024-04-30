@@ -126,6 +126,12 @@
                     });
                 });
             });
+
+
+
+            // Show or hide the notification dot based on the presence of new notifications
+            // Adjust the selector according to your HTML structure
+            
         });
     </script>
 @endpush

@@ -57,9 +57,7 @@
           </a>
           <!-- Notification section -->
           <a href="/notifications" class="text-white hover:text-gray-300">
-              <span
-                  class="flex flex-col items-center justify-center py-2 px-3 text-white rounded md:bg-transparent md:p-0 hover:text-blue-100"
-                  aria-current="page">
+            <span class="relative flex flex-col items-center justify-center py-2 px-3 text-white rounded md:bg-transparent md:p-0 hover:text-blue-100" aria-current="page">
                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
                       <path
                           d="M5.85 3.5a.75.75 0 0 0-1.117-1 9.719 9.719 0 0 0-2.348 4.876.75.75 0 0 0 1.479.248A8.219 8.219 0 0 1 5.85 3.5ZM19.267 2.5a.75.75 0 1 0-1.118 1 8.22 8.22 0 0 1 1.987 4.124.75.75 0 0 0 1.48-.248A9.72 9.72 0 0 0 19.266 2.5Z" />
@@ -67,6 +65,8 @@
                           d="M12 2.25A6.75 6.75 0 0 0 5.25 9v.75a8.217 8.217 0 0 1-2.119 5.52.75.75 0 0 0 .298 1.206c1.544.57 3.16.99 4.831 1.243a3.75 3.75 0 1 0 7.48 0 24.583 24.583 0 0 0 4.83-1.244.75.75 0 0 0 .298-1.205 8.217 8.217 0 0 1-2.118-5.52V9A6.75 6.75 0 0 0 12 2.25ZM9.75 18c0-.034 0-.067.002-.1a25.05 25.05 0 0 0 4.496 0l.002.1a2.25 2.25 0 1 1-4.5 0Z"
                           clip-rule="evenodd" />
                   </svg>
+                   <!-- Red dot for notifications -->
+                   <span class="absolute top-0 right-0 h-3 w-3 bg-red-500 rounded-full notification-dot hidden"></span>
                   <span class="">Notifications</span>
               </span>
           </a>
@@ -193,7 +193,7 @@
                               icon: "success",
                               confirmButtonText: "OK",
                           }).then(function() {
-                            $('#supportForm')[0].reset();
+                              $('#supportForm')[0].reset();
                               $('#supportModal').addClass('hidden');
                           });
                       },
@@ -210,6 +210,31 @@
                   });
               });
 
+              function updateNotificationDot() {
+                  $.ajax({
+                      url: "http://127.0.0.1:8000/notification/check-new",
+                      method: 'GET',
+                      success: function(response) {
+                          if (response.newNotifications) {
+                              // Show the red dot if there are new notifications
+                              $('.notification-dot').removeClass('hidden');
+                          } else {
+                              // Hide the red dot if there are no new notifications
+                              $('.notification-dot').addClass('hidden');
+                          }
+                      },
+                      error: function(xhr, status, error) {
+                          // Handle errors
+                          console.error(xhr.responseText);
+                      }
+                  });
+              }
+
+              // Call the function to initially check for new notifications
+              updateNotificationDot();
+
+              // Set a timer to periodically check for new notifications
+              setInterval(updateNotificationDot, 60000);
           });
       </script>
   @endpush

@@ -30,6 +30,7 @@ Route::middleware([LoginCheck::class])->group(function () {
     Route::group(['prefix' => "/notification"], function(){ 
         Route::get('/read/{id}', [NotificationsController::class, 'mark_read'])->name('notification.read');
         Route::get('/delete/{id}', [NotificationsController::class, 'delete'])->name('notification.delete');
+        Route::get('/check-new', [NotificationsController::class, 'checkNew'])->name('notification.checkNew');
     });
 
     // common navigation views
