@@ -6,6 +6,7 @@ use App\Models\Comment;
 use App\Models\Like;
 use App\Models\Userpost;
 use Illuminate\Http\Request;
+use App\Models\Support;
 
 class PostController extends Controller {
     public function addpost(Request $request) {
@@ -129,5 +130,20 @@ class PostController extends Controller {
         echo $id->reported_at = now();
         $id->save();
         return redirect()->back();
+
+    }
+    //for user suppor query to submit in supports database
+    public function saveSupportQuery(Request $request)
+    {
+        $query = $request->input('query');
+        $studentId = $request->input('student_id');
+
+        // Save the query to the database
+        Support::create([
+            'student_id' => $studentId,
+            'query' => $query
+        ]);
+
+        return response()->json(['message' => 'Query submitted successfully!']);
     }
 }
