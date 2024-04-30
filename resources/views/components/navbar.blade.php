@@ -178,12 +178,10 @@
                   $.ajax({
                       url: "{{ route('user.support') }}",
                       type: 'POST',
-                      headers: {
-                          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                      },
                       data: {
                           student_id: studentId,
-                          query: query
+                          query: query,
+                          _token: "{{ csrf_token() }}",
                       },
                       success: function(response) {
                           alert('Query submitted successfully!');
