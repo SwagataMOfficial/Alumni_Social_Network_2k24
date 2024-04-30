@@ -48,6 +48,7 @@
                             <div class="team-members">
                                 <div class="container mt-2">
                                     <h2>All Posts</h2>
+                                    <!--First-->
                                     @foreach ($userPosts as $post)
                                         <div class="col-md-12 mb-4">
                                             <div class="card">
@@ -87,11 +88,11 @@
                                                     <!-- Post buttons -->
                                                     <div class="post-buttons d-flex justify-content-center">
                                                         <a
-                                                            href="{{ route('subadmin.Profileview_delete', ['id' => $post->post_id]) }}">
+                                                            href="{{ route('subadmin.ReportedContent_view_delete', ['id' => $post->post_id]) }}">
                                                             <button class="btn btn-danger mt-3 mr-2">Delete</button>
                                                         </a>
                                                         <a
-                                                            href="{{ route('subadmin.Profileview_suspend', ['id' => $post->post_id]) }}">
+                                                            href="{{ route('subadmin.ReportedContent_view_suspend', ['id' => $post->post_id]) }}">
                                                             <button class="btn btn-secondary mt-3">Suspend</button>
                                                         </a>
                                                     </div>

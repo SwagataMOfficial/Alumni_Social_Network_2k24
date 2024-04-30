@@ -39,7 +39,7 @@
      
            
                   <div class="table-responsive">
-                    <table class="table">
+                    <table class="table"  id="myTable">
                       <thead>
                         <tr style="color:red">
                             <th>ID No.</th>
