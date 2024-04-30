@@ -3,7 +3,7 @@
     <title>Settings | Alumni Junction</title>
 @endpush
 @section('main-section')
-    <div class="container">
+    {{-- <div class="container"> --}}
         {{-- max-width container with left,right space --}}
         <div class="px-8 mx-auto pt-3 flex justify-center gap-10">
 
@@ -575,7 +575,7 @@
                 {{-- notification settings ends here --}}
             </div>
         </div>
-    </div>
+    {{-- </div> --}}
 @endsection
 @push('script')
     <script>

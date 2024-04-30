@@ -212,34 +212,19 @@
                 <hr class="mt-5">
                 <!-- Friends counter -->
                 <div>
-                    <p class="mt-2 ml-5 text-gray-400">All Friends</p>
-                    <div class="flex ml-5 justify-between mt-3">
-                        <div class="flex items-center gap-2">
+                    <p class="my-2 ml-5 text-gray-400">All Friends</p>
+                    <a href="{{ route('myfriends') }}"
+                        class="px-2 rounded-lg mx-4 py-2 mb-3 text-lg flex items-center justify-between hover:bg-stone-200">
+                        <span class="flex items-center gap-2">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
                                 class="w-5 h-5">
                                 <path
                                     d="M7 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6ZM14.5 9a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5ZM1.615 16.428a1.224 1.224 0 0 1-.569-1.175 6.002 6.002 0 0 1 11.908 0c.058.467-.172.92-.57 1.174A9.953 9.953 0 0 1 7 18a9.953 9.953 0 0 1-5.385-1.572ZM14.5 16h-.106c.07-.297.088-.611.048-.933a7.47 7.47 0 0 0-1.588-3.755 4.502 4.502 0 0 1 5.874 2.636.818.818 0 0 1-.36.98A7.465 7.465 0 0 1 14.5 16Z" />
                             </svg>
-                            <p class="text-gray-500">Friends</p>
-                        </div>
-                        <div>
-                            <p class="text-blue-500 font-bold mr-5">{{ $user['followers'] }}</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="bg-white rounded-b-lg mt-5">
-                    <hr class="mt-2 mb-4">
-                    <div class="ml-5 mt-2 flex items-center">
-                        <a href="#" class="flex items-center hover:text-stone-800">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
-                                class="w-6 h-6 mb-3">
-                                <path fill-rule="evenodd"
-                                    d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.006 5.404.434c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.434 2.082-5.005Z"
-                                    clip-rule="evenodd" />
-                            </svg>
-                            <span class="ml-2 mb-3">My Favorites</span>
-                        </a>
-                    </div>
+                            <span>Friends</span>
+                        </span>
+                        <span class="text-sky-600 font-semibold text-md">{{ $user['friends'] }}</span>
+                    </a>
                 </div>
             </div>
 
@@ -316,62 +301,58 @@
 
         <!-- Third Div -->
         <div class="w-full md:w-1/3 lg:w-1/3 xl:w-1/3">
-            <a href="#"
-                class="fixed top-24 right-8 block max-w-sm px-6 pt-2 pb-4 bg-white border rounded-lg shadow w-96">
+            <div class="fixed top-24 right-8 block max-w-sm px-6 pt-2 pb-4 bg-white border rounded-lg shadow w-96">
+                <h3 class="font-bold text-stone-700">More Peoples for You</h3>
+                <div class="flex flex-col gap-3 items-center justify-center mt-2 bg-white">
 
-                <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-500">Job Alerts</h5>
-                <ul class="max-w-md space-y-1 text-gray-500 list-disc list-inside">
-                    <li>
-                        <span class="font-semibold text-gray-600">Company wants to hire!</span>
-                        <p class="text-sm text-gray-500">1 day ago</p>
-                    </li>
-                    <li>
-                        <span class="font-semibold text-gray-600">Company wants to hire!</span>
-                        <p class="text-sm text-gray-500">1 day ago</p>
-                    </li>
-                    <li>
-                        <span class="font-semibold text-gray-600">Company wants to hire!</span>
-                        <p class="text-sm text-gray-500">1 day ago</p>
-                    </li>
-                    <li>
-                        <span class="font-semibold text-gray-600">Company wants to hire!</span>
-                        <p class="text-sm text-gray-500">1 day ago</p>
-                    </li>
-                </ul>
-            </a>
-
-            <a href="#"
-                class="fixed top-96 right-8 block max-w-sm px-6 pt-2 pb-4 bg-white border rounded-lg shadow w-96">
-
-                <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-500">Chats</h5>
-                <div class="flex ml-5 justify-between mt-3">
-                    <div>
-                        <p class="text-gray-500">Person 1</p>
-                    </div>
-                    <div>
-                        <p class="text-blue-500 font-bold mr-5">5</p>
-                    </div>
+                    {{-- getting all the suggested people from the system --}}
+                    @foreach ($suggested_people as $people)
+                        {{-- <x-people :people="$people" /> --}}
+                        <div class="flex justify-between items-center gap-4 w-full">
+                            <div class="flex gap-4">
+                                <a href="/profile/{{ $people['remember_token'] }}"
+                                    class="w-12 border-2 border-stone-500 aspect-square rounded-[50%] overflow-hidden">
+                                    <img class="w-full h-full object-cover"
+                                        src="{{ asset('/storage/' . $people['profile_picture']) }}" alt="profile image">
+                                </a>
+                                <div class="flex flex-col justify-center select-none">
+                                    <p class="text-sm font-semibold text-stone-600">{{ $people['name'] }}</p>
+                                    <p class="text-xs font-medium text-stone-500">
+                                        {{-- Student at techno idnia hooghly --}}
+                                        @if ($people['about'] != null)
+                                            @if (strlen($people['about']) > 35)
+                                                {{ substr($people['about'], 0, 35) }}{{ '....' }}
+                                            @else
+                                                {{ $people['about'] }}
+                                            @endif
+                                        @else
+                                            {{ 'Not set' }}
+                                        @endif
+                                    </p>
+                                </div>
+                            </div>
+                            <a href="{{ route('friend.request', ['token' => $people['remember_token']]) }}"
+                                class="flex items-center text-stone-600">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
+                                    class="w-5 h-5 hover:cursor-pointer hover:text-stone-900">
+                                    <path
+                                        d="M10 5a3 3 0 1 1-6 0 3 3 0 0 1 6 0ZM1.615 16.428a1.224 1.224 0 0 1-.569-1.175 6.002 6.002 0 0 1 11.908 0c.058.467-.172.92-.57 1.174A9.953 9.953 0 0 1 7 18a9.953 9.953 0 0 1-5.385-1.572ZM16.25 5.75a.75.75 0 0 0-1.5 0v2h-2a.75.75 0 0 0 0 1.5h2v2a.75.75 0 0 0 1.5 0v-2h2a.75.75 0 0 0 0-1.5h-2v-2Z" />
+                                </svg>
+                            </a>
+                        </div>
+                    @endforeach
                 </div>
-
-                <div class="flex ml-5 justify-between mt-3">
-                    <div>
-                        <p class="text-gray-500">Person 2</p>
-                    </div>
-                    <div>
-                        <p class="text-blue-500 font-bold mr-5">3</p>
-                    </div>
+                <div class="pt-3">
+                    <a class="flex text-stone-600 hover:text-stone-900 text-sm" href="{{ route('friends') }}">
+                        <span class="font-semibold">View all</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5">
+                            <path fill-rule="evenodd"
+                                d="M9.47 15.28a.75.75 0 0 0 1.06 0l4.25-4.25a.75.75 0 1 0-1.06-1.06L10 13.69 6.28 9.97a.75.75 0 0 0-1.06 1.06l4.25 4.25ZM5.22 6.03l4.25 4.25a.75.75 0 0 0 1.06 0l4.25-4.25a.75.75 0 0 0-1.06-1.06L10 8.69 6.28 4.97a.75.75 0 0 0-1.06 1.06Z"
+                                clip-rule="evenodd" />
+                        </svg>
+                    </a>
                 </div>
-
-                <div class="flex ml-5 justify-between mt-3">
-                    <div>
-                        <p class="text-gray-500">Person 3</p>
-                    </div>
-                    <div>
-                        <p class="text-blue-500 font-bold mr-5">1</p>
-                    </div>
-                </div>
-            </a>
-
+            </div>
         </div>
     </div>
 @endsection
@@ -379,11 +360,6 @@
 @push('script')
     <script>
         $(document).ready(() => {
-
-            // hamburger toggle button
-            document.getElementById("menu-toggle").addEventListener("click", function() {
-                document.getElementById("menu").classList.toggle("hidden");
-            });
 
             // add post modal open-close script here
             $("#post_modal_opener").click(() => {

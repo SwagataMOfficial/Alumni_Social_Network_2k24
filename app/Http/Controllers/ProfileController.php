@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Friend;
 use App\Models\User;
 use App\Models\Userpost;
 use Illuminate\Http\Request;
@@ -17,8 +18,13 @@ class ProfileController extends Controller {
         $user = User::where("remember_token", "=", $id)->first();
 
         // getting suggested people data
-        $suggested_people = User::where("graduation_year", "=", $user->graduation_year)->where('student_id', '!=', session()->get('user_id'))->limit(4)->get();
+        $myid = session()->get('user_id');
+        $mydata = User::find($myid);
 
+        $suggested_people = User::leftJoin('friends', function ($join) use ($myid) {
+            $join->on('users.student_id', '=', 'friends.student_id')->where('friends.friend_id', '=', $myid)->orWhere('users.student_id', '=', 'friends.friend_id');
+        })->whereNull('friends.student_id')->whereNull('friends.friend_id')->where('users.student_id', '!=', $myid)->where("graduation_year", "=", $mydata->graduation_year)->select('users.*')->limit(4)->get();
+        
         // getting all the images posted by the user from the user_posts table and also filtering the non image posts
         $postedImages = Userpost::select('attachment')->where('posted_by', '=', $user->student_id)->where('attachment', '!=', null)->get()->toArray();
 
@@ -27,6 +33,8 @@ class ProfileController extends Controller {
         $posts = Userpost::with('getUser')->with("getLikedUser")->where('posted_by', '=', $user->student_id)->where('post_type', '!=', 'job')->orderBy('created_at', 'desc')->get()->toArray();
 
         $jobs = Userpost::with('getUser')->with("getLikedUser")->where('posted_by', '=', $user->student_id)->where('post_type', '=', 'job')->orderBy('created_at', 'desc')->get()->toArray();
+
+        $friendStatus = Friend::where('student_id', '=', session()->get('user_id'))->where('friend_id', '=', $user['student_id'])->get()->toArray();
 
         // generating an array for the images only
         $imgArr = [];
@@ -44,23 +52,23 @@ class ProfileController extends Controller {
             }
         }
 
-        $data = compact("user", "imgArr", "posts", "suggested_people", "jobs");
+        $data = compact("user", "imgArr", "posts", "suggested_people", "jobs", "friendStatus");
         return view('profiles')->with($data);
     }
 
     public function view_search(Request $request) {
-        // TODO: uncomment this lines
         $search = $request->search;
-        $user = User::where("name", "LIKE", "%$search%")->get()->toArray();
-        // $data = compact("user");
-        // return view("[add a view]")->with($data); 
 
-        echo "Searching for: " . $request->search;
-        echo "<h1>Result:</h1>";
-        echo "<br>";
-        echo "<pre>";
-        print_r($user);
-        echo "</pre>";
+        $myid = session()->get('user_id');
+        $mydata = User::find($myid);
+
+        $searchedData = User::where("name", "LIKE", "%$search%")->get()->toArray();
+        $suggested_people = User::leftJoin('friends', function ($join) use ($myid) {
+            $join->on('users.student_id', '=', 'friends.student_id')->where('friends.friend_id', '=', $myid)->orWhere('users.student_id', '=', 'friends.friend_id');
+        })->whereNull('friends.student_id')->whereNull('friends.friend_id')->where('users.student_id', '!=', $myid)->where("graduation_year", "=", $mydata->graduation_year)->select('users.*')->limit(4)->get();
+
+        $data = compact("searchedData", "suggested_people");
+        return view("searchedprofile")->with($data);
     }
 
     public function view_edit() {

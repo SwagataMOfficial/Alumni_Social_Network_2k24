@@ -5,7 +5,7 @@
         @endforeach
     @else
         <div class="rounded-lg overflow-hidden mx-auto mb-4">
-            <h1 class="text-red-600 font-semibold text-center py-5 text-2xl">No Posts Are Available</h1>
+            <h1 class="text-center text-red-500 font-semibold text-3xl mt-6 mb-2">No Posts Are Available</h1>
         </div>
     @endif
 </div>
