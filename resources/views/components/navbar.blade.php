@@ -119,7 +119,8 @@
                       <textarea id="query" class="w-full h-24 border rounded-lg px-3 py-2 mb-4" placeholder="Enter your query"></textarea>
                       <button type="submit"
                           class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">Submit</button>
-                          <button type="button" class="close-button bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600 ml-4">Close</button>
+                      <button type="button"
+                          class="close-button bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600 ml-4">Close</button>
                   </form>
               </div>
           </div>
@@ -166,9 +167,9 @@
               });
 
 
-              $('.close-button').click(function () {
-            $('#supportModal').addClass('hidden');
-        });
+              $('.close-button').click(function() {
+                  $('#supportModal').addClass('hidden');
+              });
               // Submit Form
               $('#supportForm').submit(function(e) {
                   e.preventDefault(); // Prevent default form submission
@@ -184,11 +185,26 @@
                           _token: "{{ csrf_token() }}",
                       },
                       success: function(response) {
-                          alert('Query submitted successfully!');
-                          $('#supportModal').addClass('hidden');
+                          // Display success message using SweetAlert
+                          // Display success message using SweetAlert
+                          Swal.fire({
+                              title: "Success",
+                              text: "Query submitted successfully!",
+                              icon: "success",
+                              confirmButtonText: "OK",
+                          }).then(function() {
+                            $('#supportForm')[0].reset();
+                              $('#supportModal').addClass('hidden');
+                          });
                       },
                       error: function(xhr, status, error) {
-                          alert('Error occurred while submitting query!');
+                          // Display error message using SweetAlert
+                          Swal.fire({
+                              title: "Error",
+                              text: "Error occurred while submitting query!",
+                              icon: "error",
+                              confirmButtonText: "OK",
+                          });
                           console.error(xhr.responseText);
                       }
                   });
