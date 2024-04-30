@@ -75,7 +75,7 @@
               <div class="md:flex md:flex-col md:items-center" type="button">
                   <div class="md:flex md:flex-col md:items-center">
                       <!-- Image  -->
-                      <img src="{{asset('/storage/' . session()->get('user_profile_img'))}}" alt="Profile Picture"
+                      <img src="{{ asset('/storage/' . session()->get('user_profile_img')) }}" alt="Profile Picture"
                           class="rounded-full h-2 md:w-6 md:h-6">
                       <span
                           class="block text-white hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-100 md:p-0">Profile</span>
@@ -85,7 +85,8 @@
           <!-- Dropdown menu -->
           <div id="dropdownOptions" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow">
               <div class="px-4 py-3 text-sm text-gray-900 flex gap-2 items-center">
-                  <img src="{{asset('/storage/' . session()->get('user_profile_img'))}}" alt="Profile Picture" class="rounded-full h-2 md:w-8 md:h-8">
+                  <img src="{{ asset('/storage/' . session()->get('user_profile_img')) }}" alt="Profile Picture"
+                      class="rounded-full h-2 md:w-8 md:h-8">
                   <div>{{ Session::get('user_name') }}</div>
               </div>
               <ul class="py-2 text-sm text-gray-700" aria-labelledby="dropdownInformationButton">
@@ -94,12 +95,11 @@
                           Profile</a>
                   </li>
                   <li>
-                      <a href="/settings"
-                          class="block px-4 py-2 hover:bg-gray-100">Settings
+                      <a href="/settings" class="block px-4 py-2 hover:bg-gray-100">Settings
                           & Privacy</a>
                   </li>
                   <li>
-                      <a href="/help-and-support" class="block px-4 py-2 hover:bg-gray-100">Help &
+                      <a href="#" class="block px-4 py-2 hover:bg-gray-100" id="openSupportModal">Help &
                           Support</a>
                   </li>
               </ul>
@@ -108,7 +108,21 @@
                       class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Logout</a>
               </div>
           </div>
-
+          <!-- Support Modal -->
+          <div id="supportModal" class="modal hidden fixed inset-0 z-50 overflow-auto bg-gray-900 bg-opacity-50">
+              <div class="modal-content bg-white w-96 mx-auto mt-20 p-6 rounded shadow-lg">
+                  <span class="close absolute top-0 right-0 cursor-pointer text-3xl">&times;</span>
+                  <h1 class="text-lg font-semibold mb-4">Help & Support</h1>
+                  <form id="supportForm">
+                      @csrf
+                      <input type="hidden" id="studentId" value="{{ session()->get('user_id') }}">
+                      <textarea id="query" class="w-full h-24 border rounded-lg px-3 py-2 mb-4" placeholder="Enter your query"></textarea>
+                      <button type="submit"
+                          class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">Submit</button>
+                          <button type="button" class="close-button bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600 ml-4">Close</button>
+                  </form>
+              </div>
+          </div>
           <!-- Settings section -->
           <a href="/settings" class="text-white hover:text-gray-300">
               <span
@@ -143,3 +157,45 @@
       <a href="#" class="block px-4 py-2 hover:bg-gray-700">Settings</a>
   </div>
   <!-- Navbar End  -->
+
+  @push('script')
+      <script>
+          $(document).ready(function() {
+              $('#openSupportModal').click(function() {
+                  $('#supportModal').removeClass('hidden');
+              });
+
+
+              $('.close-button').click(function () {
+            $('#supportModal').addClass('hidden');
+        });
+              // Submit Form
+              $('#supportForm').submit(function(e) {
+                  e.preventDefault(); // Prevent default form submission
+                  var studentId = $('#studentId').val();
+                  var query = $('#query').val();
+
+                  $.ajax({
+                      url: "{{ route('user.support') }}",
+                      type: 'POST',
+                      headers: {
+                          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                      },
+                      data: {
+                          student_id: studentId,
+                          query: query
+                      },
+                      success: function(response) {
+                          alert('Query submitted successfully!');
+                          $('#supportModal').addClass('hidden');
+                      },
+                      error: function(xhr, status, error) {
+                          alert('Error occurred while submitting query!');
+                          console.error(xhr.responseText);
+                      }
+                  });
+              });
+
+          });
+      </script>
+  @endpush

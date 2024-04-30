@@ -13,6 +13,7 @@ use App\Http\Controllers\ViewsController;
 use App\Http\Controllers\ProfileController;
 
 Route::middleware([LoginCheck::class])->group(function () {
+ 
     Route::get('/', [UserController::class, 'index']);
     Route::get("/feed", [ViewsController::class, "index"])->name('feed');
     Route::get('/logout', [UserController::class, 'logout'])->name('auth.logout');
@@ -46,6 +47,7 @@ Route::middleware([LoginCheck::class])->group(function () {
         Route::get("/{user_token}", [ProfileController::class, "view_page"]);
         Route::get('/search', [ProfileController::class, 'view_search'])->name('profile.search');
         Route::post('/change-password', [ProfileController::class, 'changePassword'])->name('profile.changePassword');
+     
     });
 
     // friend routes [grouped]
@@ -55,6 +57,8 @@ Route::middleware([LoginCheck::class])->group(function () {
         Route::get('/send-request/{token}', [FriendsController::class, 'send_request'])->name('friend.request');
         Route::get('/remove/{token}', [FriendsController::class, 'remove_friend'])->name('friend.remove');
     });
+
+    
 });
 
 Route::get('/register', [UserController::class, 'register'])->name('register');
@@ -113,3 +117,4 @@ Route::middleware([SubAdminAuth::class])->group(function () {
     Route::get('/subadmin/logout', [AdminController::class, 'subadmin_logout'])->name('sub.admin.logout');
 });
 Route::post("/subadmin/login", [AdminController::class, 'subloginUser'])->name('subadmin.login');
+Route::post('/save-support-query', [PostController::class, 'saveSupportQuery'])->name('user.support');
