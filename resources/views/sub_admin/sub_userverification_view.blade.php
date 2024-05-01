@@ -54,7 +54,8 @@
                                 <!-- contents img posts -->
                                 <div
                                     style="display: flex; justify-content: flex-end; align-items: center; height: 50%; margin-left: auto;">
-                                    <img src="{{ asset('/storage/' . $user->student_id .'/verification_document/' . $user->verification_document) }}" alt="Verification Document"style="width: 90%;  height: auto;">
+                                    {{-- <img src="{{ asset('/storage/' . $user->student_id .'/verification_document/' . $user->verification_document) }}" alt="Verification Document"style="width: 90%;  height: auto;"> --}}
+                                    <img src="{{ asset('/storage/' . $user->verification_document)}}" alt="Verification Document"style="width: 90%;  height: auto;">
                                 </div>
                                 <div class="post-buttons mt-3 ml-auto d-flex justify-content-between flex-wrap">
                                     <a href="{{ route('subadmin.verification_view_reject',['id'=>$id])}}">

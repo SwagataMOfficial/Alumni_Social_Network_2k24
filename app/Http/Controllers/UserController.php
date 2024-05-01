@@ -104,7 +104,7 @@ class UserController extends Controller
         $degree = $request->input('dropdown2');
 
         // generating filename with original file extension
-        $filename = "verify_doc" . '.' . $request->file('verify_doc')->getClientOriginalExtension();
+        $filename = $request->input('student_id')."/verification_document/verify_doc" . '.' . $request->file('verify_doc')->getClientOriginalExtension();
 
         // Store uploaded picture in the public/upload_student_id directory with the unique filename
         
@@ -120,7 +120,8 @@ class UserController extends Controller
             'verification_document' => $filename,
             'remember_token' => md5($request->input('student_id') . $request->input('u_mail'))
         ]);
-        $request->file('verify_doc')->storeAs($request->input('student_id') . '/verification_document', $filename, 'public');
+        $request->file('verify_doc')->storeAs('/', $filename, 'public');
+      //  $request->file('verification_document')->storeAs('/', $filename, 'public');
         
         // Return success response
         return response()->json(['message' => 'User registered successfully'], 200);
