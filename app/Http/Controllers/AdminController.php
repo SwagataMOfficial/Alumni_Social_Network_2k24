@@ -115,6 +115,7 @@ class AdminController extends Controller
         if ($user && $user->password === $password) {
             // Authentication passed
             session(['sub_admin_logged_in' => $user->email]);
+            session(['sub_admin_name' => $user->name]);
             // // Retrieve the user's name
             // $userName = $user->name;
             // session(['sub_admin_name' => $userName]); // Storing name in session
