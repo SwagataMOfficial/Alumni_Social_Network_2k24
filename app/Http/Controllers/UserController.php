@@ -87,7 +87,22 @@ class UserController extends Controller
             'u_conpassword' => 'required|string|min:6|same:u_password',
             'dropdown1' => 'required', // Add validation rule for dropdown1
             'dropdown2' => 'required',
-            'student_id' => 'required|string|max:255|unique:users,student_id',
+            'student_id' => [
+                'required',
+                'string',
+                'max:255',
+                function ($attribute, $value, $fail) {
+                    // Custom validation logic to check if user with the same student ID exists
+                    $existingUser = User::where('student_id', $value)->first();
+                    if ($existingUser) {
+                        if ($existingUser->deleted_acc == 1) {
+                            $fail('User account is banned.');
+                        } else {
+                            $fail('Student ID is taken.');
+                        }
+                    }
+                }
+            ],
             'verify_doc' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048'
             // Add more validation rules as needed
         ];
