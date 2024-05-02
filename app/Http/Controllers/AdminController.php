@@ -92,7 +92,7 @@ class AdminController extends Controller
          $email = $request->input('super_admin_email');
          $password = $request->input('super_admin_password');
       
-         $user = DB::table('admins')->where('email', $email)->first();
+         $user = DB::table('admins')->where('email', $email)->where('admin_type', 'super')->first();
  
          if ($user && $user->password === $password) {
              // Authentication passed
@@ -110,7 +110,7 @@ class AdminController extends Controller
         $email = $request->input('sub_admin_email');
         $password = $request->input('sub_admin_password');
      
-        $user = DB::table('admins')->where('email', $email)->first();
+        $user = DB::table('admins')->where('email', $email)->where('admin_type', 'sub')->first();
 
         if ($user && $user->password === $password) {
             // Authentication passed
