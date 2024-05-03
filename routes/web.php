@@ -1,16 +1,16 @@
 <?php
 
-use App\Http\Controllers\FriendsController;
-use App\Http\Controllers\NotificationsController;
 use App\Http\Middleware\AdminAuth;
 use App\Http\Middleware\LoginCheck;
 use App\Http\Middleware\SubAdminAuth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\UserController;
-use App\Http\Controllers\AdminController;// remove login check middleware from globally to locally for other middleware should work properly eg. admin and sub admin middle ware otherwise it will conflict
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ViewsController;
+use App\Http\Controllers\FriendsController;// remove login check middleware from globally to locally for other middleware should work properly eg. admin and sub admin middle ware otherwise it will conflict
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\NotificationsController;
 
 Route::middleware([LoginCheck::class])->group(function () {
 
@@ -127,8 +127,13 @@ Route::middleware([SubAdminAuth::class])->group(function () {
     //reported contet END--
 
     Route::get('/subadmin/communication', [AdminController::class, 'subadmin_communication'])->name('subadmin.communication');
+
+    //User support START--
     Route::get('/subadmin/usersupport', [AdminController::class, 'subadmin_usersupport'])->name('subadmin.usersupport');
-    Route::get('/subadmin/view', [AdminController::class, 'subadmin_usersupport_view'])->name('subadmin.usersupport.view');
+    Route::get('/subadmin/view/{id}', [AdminController::class, 'subadmin_usersupport_view'])->name('subadmin.usersupport.view');
+    Route::post('/subadmin/usersupport/submit', [AdminController::class, 'subadmin_usersupport_view_submit'])->name('subadmin.usersupport.submit');
+
+    //User support END--
     Route::get('/subadmin/logout', [AdminController::class, 'subadmin_logout'])->name('sub.admin.logout');
 });
 Route::post("/subadmin/login", [AdminController::class, 'subloginUser'])->name('subadmin.login');

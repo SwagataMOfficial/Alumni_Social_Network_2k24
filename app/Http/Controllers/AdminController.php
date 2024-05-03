@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Carbon\Carbon;
 use App\Models\User;
 use App\Models\Admin;
+use App\Models\Support;
 use App\Models\Userpost;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -91,7 +92,7 @@ class AdminController extends Controller
          $email = $request->input('super_admin_email');
          $password = $request->input('super_admin_password');
       
-         $user = DB::table('admins')->where('email', $email)->first();
+         $user = DB::table('admins')->where('email', $email)->where('admin_type', 'super')->first();
  
          if ($user && $user->password === $password) {
              // Authentication passed
@@ -109,11 +110,12 @@ class AdminController extends Controller
         $email = $request->input('sub_admin_email');
         $password = $request->input('sub_admin_password');
      
-        $user = DB::table('admins')->where('email', $email)->first();
+        $user = DB::table('admins')->where('email', $email)->where('admin_type', 'sub')->first();
 
         if ($user && $user->password === $password) {
             // Authentication passed
             session(['sub_admin_logged_in' => $user->email]);
+            session(['sub_admin_name' => $user->name]);
             // // Retrieve the user's name
             // $userName = $user->name;
             // session(['sub_admin_name' => $userName]); // Storing name in session
@@ -356,17 +358,54 @@ class AdminController extends Controller
     }
     //SUB admin user verification END---
  
- 
+    //User support START---
     public function subadmin_usersupport()
-     {
-         return view('sub_admin.Sub_userSupport');
-     }
- 
-     public function subadmin_usersupport_view()
-     {
-         return view('sub_admin.Sub_usersupport_view');
-     }
- 
+    {
+        // Retrieve users who have at least one query and whose reply is null
+        $users = Support::select('supports.student_id', 'users.name', 'users.email')
+                        ->join('users', 'supports.student_id', '=', 'users.student_id')
+                        ->whereNotNull('supports.query')
+                        ->whereNull('supports.reply')
+                        ->distinct()
+                        ->get();
+        
+        return view('sub_admin.Sub_userSupport', compact('users'));
+    }
+    public function subadmin_usersupport_view($id)
+    {
+        // Retrieve user's queries with null replies
+        $queries = Support::where('student_id', $id)
+                        ->whereNotNull('query')
+                        ->whereNull('reply')
+                        ->get();
+
+        return view('sub_admin.Sub_usersupport_view', compact('queries'));
+    }
+    
+
+    public function subadmin_usersupport_view_submit(Request $request)
+    {
+        $validatedData = $request->validate([
+            'id' => 'required|exists:supports,id', // Ensure the query ID exists in the supports table
+            'reply' => 'required|string|max:255', // Validate the reply
+        ]);
+    
+        // Find the support record by query ID
+        $support = Support::find($validatedData['id']);
+    
+        if ($support) {
+           
+            $support->reply = $validatedData['reply'];
+            $support->save();
+    
+            return redirect()->back()->with('success', 'Reply submitted successfully.');
+        } else {
+            // Redirect back with an error message if the support record is not found
+            return redirect()->back()->with('error', 'Support record not found.');
+        }
+    }
+    //User support END---
+
      public function subadmin_logout()
      {
          // Clear the user session
