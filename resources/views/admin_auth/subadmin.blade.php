@@ -22,7 +22,7 @@ backdrop-filter: blur(1px);">
             <div class="w-1/2 md:block hidden">
                 <p class="text-red-500 font-medium ml-6" style="font-size: 25px;">Sub Admin Login</p>
                 <!-- Vector Image  -->
-                <img class="" src="{{('images/sub_man_image.png')}}" alt="pictire">
+                <img class="" src="{{asset('images/sub_man_image.png')}}" alt="pictire">
             </div>
 
             <!-- Right Portion  -->
