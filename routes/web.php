@@ -13,7 +13,7 @@ use App\Http\Controllers\ViewsController;
 use App\Http\Controllers\ProfileController;
 
 Route::middleware([LoginCheck::class])->group(function () {
- 
+
     Route::get('/', [UserController::class, 'index']);
     Route::get("/feed", [ViewsController::class, "index"])->name('feed');
     Route::get('/logout', [UserController::class, 'logout'])->name('auth.logout');
@@ -22,12 +22,12 @@ Route::middleware([LoginCheck::class])->group(function () {
     Route::post('/like', [PostController::class, 'likepost'])->name('post.like');
     Route::get('/post/report/{id}', [PostController::class, 'report_post'])->name('post.report');
 
-    Route::group(['prefix' => "/comments"], function(){ 
+    Route::group(['prefix' => "/comments"], function () {
         Route::post('/add', [PostController::class, 'add_comment'])->name('comments.add');
         Route::delete('/delete/{id}', [PostController::class, 'delete_comment'])->name('comments.delete');
     });
 
-    Route::group(['prefix' => "/notification"], function(){ 
+    Route::group(['prefix' => "/notification"], function () {
         Route::get('/read/{id}', [NotificationsController::class, 'mark_read'])->name('notification.read');
         Route::get('/delete/{id}', [NotificationsController::class, 'delete'])->name('notification.delete');
         Route::get('/check-new', [NotificationsController::class, 'checkNew'])->name('notification.checkNew');
@@ -46,10 +46,11 @@ Route::middleware([LoginCheck::class])->group(function () {
         Route::get("/edit", [ProfileController::class, 'view_edit'])->name('profile.edit');
         Route::post("/edit", [ProfileController::class, 'save_changes'])->name('profile.savechanges');
         Route::post("/togglevisibility", [ProfileController::class, 'toggleVisibility'])->name('profile.visibility');
-        Route::get('/user/search', [ProfileController::class, 'view_search'])->name('profile.search');
+        // TODO: go to controller and fix a bug
+        Route::get('/users/search', [ProfileController::class, 'view_search'])->name('profile.search');
         Route::get("/{user_token}", [ProfileController::class, "view_page"]);
         Route::post('/change-password', [ProfileController::class, 'changePassword'])->name('profile.changePassword');
-     
+
     });
 
     // friend routes [grouped]
@@ -60,7 +61,7 @@ Route::middleware([LoginCheck::class])->group(function () {
         Route::get('/remove/{id}', [FriendsController::class, 'remove_friend'])->name('friend.remove');
     });
 
-    
+
 });
 
 Route::get('/register', [UserController::class, 'register'])->name('register');
@@ -124,7 +125,7 @@ Route::middleware([SubAdminAuth::class])->group(function () {
     Route::get('/subadmin/reportedContent_view/delete/{id}', [AdminController::class, 'subadmin_reportedContent_view_delete'])->name('subadmin.ReportedContent_view_delete');
     Route::get('/subadmin/reportedContent_view/suspend/{id}', [AdminController::class, 'subadmin_reportedContent_view_suspend'])->name('subadmin.ReportedContent_view_suspend');
     //reported contet END--
-    
+
     Route::get('/subadmin/communication', [AdminController::class, 'subadmin_communication'])->name('subadmin.communication');
     Route::get('/subadmin/usersupport', [AdminController::class, 'subadmin_usersupport'])->name('subadmin.usersupport');
     Route::get('/subadmin/view', [AdminController::class, 'subadmin_usersupport_view'])->name('subadmin.usersupport.view');

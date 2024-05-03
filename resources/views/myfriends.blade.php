@@ -6,11 +6,11 @@
 @section('main-section')
 
     <div class="px-8 mx-auto pt-3 flex justify-center gap-10">
-        <div class="w-3/4 bg-white rounded-xl px-4 py-3">
+        <div class="w-3/4 bg-white rounded-xl px-4 py-3 h-max">
             <h3 class="text-2xl font-bold text-stone-700 mb-3">My Friends</h3>
             {{-- my friends cards will appear here --}}
             @if (count($myfriends) > 0)
-                <div class="grid grid-cols-5 gap-3">
+                <div class="grid grid-cols-5 gap-3 pb-3">
                     {{-- cards --}}
                     @foreach ($myfriends as $friend)
                         <div
@@ -22,15 +22,26 @@
                             </a>
                             <p class="mt-14 font-semibold text-xl">{{ $friend['get_friend']['name'] }}</p>
                             <p class="text-md py-1">Passout year - {{ $friend['get_friend']['graduation_year'] }}</p>
-                            <a href="{{ route('messages') }}"
-                                class="text-sm px-3 py-2 mt-1 rounded-xl bg-indigo-500 hover:bg-indigo-600 border-[3px] border-indigo-900 mb-3 text-white">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
-                                    class="w-5 h-5">
-                                    <path fill-rule="evenodd"
-                                        d="M10 3c-4.31 0-8 3.033-8 7 0 2.024.978 3.825 2.499 5.085a3.478 3.478 0 0 1-.522 1.756.75.75 0 0 0 .584 1.143 5.976 5.976 0 0 0 3.936-1.108c.487.082.99.124 1.503.124 4.31 0 8-3.033 8-7s-3.69-7-8-7Zm0 8a1 1 0 1 0 0-2 1 1 0 0 0 0 2Zm-2-1a1 1 0 1 1-2 0 1 1 0 0 1 2 0Zm5 1a1 1 0 1 0 0-2 1 1 0 0 0 0 2Z"
-                                        clip-rule="evenodd" />
-                                </svg>
-                            </a>
+                            <div class="flex gap-3">
+                                <a href="{{ route('messages') }}"
+                                    class="text-sm p-2 mt-1 rounded-xl bg-indigo-500 hover:bg-indigo-600 border-[3px] border-indigo-900 mb-3 text-white">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
+                                        class="w-5 h-5">
+                                        <path fill-rule="evenodd"
+                                            d="M10 3c-4.31 0-8 3.033-8 7 0 2.024.978 3.825 2.499 5.085a3.478 3.478 0 0 1-.522 1.756.75.75 0 0 0 .584 1.143 5.976 5.976 0 0 0 3.936-1.108c.487.082.99.124 1.503.124 4.31 0 8-3.033 8-7s-3.69-7-8-7Zm0 8a1 1 0 1 0 0-2 1 1 0 0 0 0 2Zm-2-1a1 1 0 1 1-2 0 1 1 0 0 1 2 0Zm5 1a1 1 0 1 0 0-2 1 1 0 0 0 0 2Z"
+                                            clip-rule="evenodd" />
+                                    </svg>
+                                </a>
+                                <a href="javascript:void(0);"
+                                    data-remove-link="{{ route('friend.remove', ['id' => $friend['get_friend']['student_id']]) }}"
+                                    class="text-sm p-2 mt-1 rounded-xl bg-red-500 hover:bg-red-600 border-[3px] border-red-900 mb-3 text-white">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
+                                        class="w-5 h-5">
+                                        <path
+                                            d="M11 5a3 3 0 1 1-6 0 3 3 0 0 1 6 0ZM2.046 15.253c-.058.468.172.92.57 1.175A9.953 9.953 0 0 0 8 18c1.982 0 3.83-.578 5.384-1.573.398-.254.628-.707.57-1.175a6.001 6.001 0 0 0-11.908 0ZM12.75 7.75a.75.75 0 0 0 0 1.5h5.5a.75.75 0 0 0 0-1.5h-5.5Z" />
+                                    </svg>
+                                </a>
+                            </div>
                         </div>
                     @endforeach
                 </div>
@@ -65,3 +76,93 @@
         </div>
     </div>
 @endsection
+@push('script')
+    <script>
+        $(document).ready(function() {
+
+            // HANDLING FRIEND REQUEST SENDING
+            $('a[data-send-link]').each(function(index, element) {
+                $(element).click(function(event) {
+                    event.preventDefault();
+
+                    // getting the url
+                    const URL = $(element).attr("data-send-link");
+
+                    // Perform AJAX request to send friend request
+                    $.ajax({
+                        url: URL,
+                        method: 'GET',
+                        success: function(response) {
+
+                            // Handle the AJAX response here
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Friend request successfully sent!',
+                                showConfirmButton: false,
+                                timer: 1500
+                            }).then(function() {
+                                location.reload();
+                            });
+                        },
+                        error: function(xhr, status, error) {
+                            // Handle errors
+                            let errors = JSON.parse(xhr.responseText);
+
+                            // Handle the AJAX response here
+                            Swal.fire({
+                                icon: 'error',
+                                title: errors.message,
+                                showConfirmButton: false,
+                                timer: 2000
+                            }).then(function() {
+                                location.reload();
+                            });
+                        }
+                    });
+                });
+            });
+
+            // HANDLING REMOVING FRIEND
+            $('a[data-remove-link]').each(function(index, element) {
+                $(element).click(function(event) {
+                    event.preventDefault();
+
+                    // getting the url
+                    const URL = $(element).attr("data-remove-link");
+
+                    // Perform AJAX request to send friend request
+                    $.ajax({
+                        url: URL,
+                        method: 'GET',
+                        success: function(response) {
+
+                            // Handle the AJAX response here
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Friend deleted successfully!',
+                                showConfirmButton: false,
+                                timer: 1500
+                            }).then(function() {
+                                location.reload();
+                            });
+                        },
+                        error: function(xhr, status, error) {
+                            // Handle errors
+                            let errors = JSON.parse(xhr.responseText);
+
+                            // Handle the AJAX response here
+                            Swal.fire({
+                                icon: 'error',
+                                title: errors.message,
+                                showConfirmButton: false,
+                                timer: 2000
+                            }).then(function() {
+                                location.reload();
+                            });
+                        }
+                    });
+                });
+            });
+        });
+    </script>
+@endpush

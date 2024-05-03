@@ -8,7 +8,7 @@
           </a>
           <!-- Searchbar -->
           <form action="{{ route('profile.search') }}" method="get">
-              <input type="text" placeholder="Search...." name="search" id="search"
+              <input type="text" placeholder="Search by name or ID .." name="search" id="search"
                   class="pl-4 pr-16 bg-blue-500 rounded-lg text-white focus:outline-none placeholder:text-white focus:ring-2 focus:ring-white">
           </form>
       </div>
@@ -73,7 +73,8 @@
               </span>
           </a>
 
-          <button id="profileBtn" data-dropdown-toggle="dropdownOptions" class="text-white hover:text-gray-300 focus:outline-none">
+          <button id="profileBtn" data-dropdown-toggle="dropdownOptions"
+              class="text-white hover:text-gray-300 focus:outline-none">
               <div class="md:flex md:flex-col md:items-center" type="button">
                   <div class="md:flex md:flex-col md:items-center">
                       <!-- Image  -->
@@ -170,7 +171,7 @@
               document.getElementById("menu-toggle").addEventListener("click", function() {
                   document.getElementById("menu").classList.toggle("hidden");
               });
-              
+
               $('#openSupportModal').click(function() {
                   $('#supportModal').removeClass('hidden');
               });

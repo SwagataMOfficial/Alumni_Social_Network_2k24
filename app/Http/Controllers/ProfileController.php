@@ -62,7 +62,8 @@ class ProfileController extends Controller {
         $myid = session()->get('user_id');
         $mydata = User::find($myid);
 
-        $searchedData = User::where("name", "LIKE", "%$search%")->get()->toArray();
+        // TODO: fix search functionality bug
+        $searchedData = User::where("name", "LIKE", "%$search%")->orWhere('student_id', "LIKE", "%$search%")->where('student_id', "!=", $myid)->get()->toArray();
         $suggested_people = User::leftJoin('friends', function ($join) use ($myid) {
             $join->on('users.student_id', '=', 'friends.student_id')->where('friends.friend_id', '=', $myid)->orWhere('users.student_id', '=', 'friends.friend_id');
         })->whereNull('friends.student_id')->whereNull('friends.friend_id')->where('users.student_id', '!=', $myid)->where("graduation_year", "=", $mydata->graduation_year)->select('users.*')->limit(4)->get();

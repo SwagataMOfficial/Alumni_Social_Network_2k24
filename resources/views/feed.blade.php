@@ -49,7 +49,7 @@
                 </div>
                 <!-- Modal body -->
                 <div class="px-4 md:px-5 md:py-3">
-                    <div action="#" method="POST" id="default-styled-tab-content">
+                    <div id="default-styled-tab-content">
 
                         {{-- only text post --}}
                         <form action="{{ route('post.add') }}" method="POST" class="hidden rounded-lg bg-gray-50"
@@ -111,7 +111,7 @@
         </div>
     </div>
 
-    <!-- image post modal modal -->
+    <!-- image post modal -->
     <div id="post_modal" tabindex="-1" aria-hidden="true"
         class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
         <div class="relative p-4 w-full max-w-md max-h-full">
@@ -307,7 +307,6 @@
 
                     {{-- getting all the suggested people from the system --}}
                     @foreach ($suggested_people as $people)
-                        {{-- <x-people :people="$people" /> --}}
                         <div class="flex justify-between items-center gap-4 w-full">
                             <div class="flex gap-4">
                                 <a href="/profile/{{ $people['remember_token'] }}"
@@ -331,7 +330,8 @@
                                     </p>
                                 </div>
                             </div>
-                            <a href="{{ route('friend.request', ['token' => $people['remember_token']]) }}"
+                            <a href="javascript:void(0);"
+                                data-send-link="{{ route('friend.request', ['token' => $people['remember_token']]) }}"
                                 class="flex items-center text-stone-600">
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
                                     class="w-5 h-5 hover:cursor-pointer hover:text-stone-900">
@@ -385,45 +385,85 @@
                 });
             });
 
-            // deleting comment dynamically
-            // $("button[data-link-address]").each((index, element) => {
-            //     $(element).on('click', (e) => {
-            //         const URL = $(element).attr("data-link-address");
-            //         const commentItem = $(element).attr("data-comment-item");
+            // HANDLING FRIEND REQUEST SENDING
+            $('a[data-send-link]').each(function(index, element) {
+                $(element).click(function(event) {
+                    event.preventDefault();
 
-            //         $(element).text('Deleting....');
+                    // getting the url
+                    const URL = $(element).attr("data-send-link");
 
-            //         // ajax call to delete the comment and remove the element dynamically
-            //         $.ajax({
-            //             url: URL,
-            //             type: "DELETE",
-            //             // data: {
-            //             //     '_token': "{{ csrf_token() }}"
-            //             // },
-            //             processData: false, // Prevent jQuery from processing the data
-            //             contentType: false, // Prevent jQuery from setting the content type
-            //             success: function(response) {
-            //                 Swal.fire({
-            //                     icon: 'success',
-            //                     title: 'Comment Deleted Successfully',
-            //                     showConfirmButton: false,
-            //                     timer: 2500
-            //                 });
-            //                 $(element).text('Delete');
-            //                 $('#' + commentItem).remove();
-            //             },
-            //             error: function(xhr) {
-            //                 Swal.fire({
-            //                     icon: 'error',
-            //                     title: 'Failed to delete the comment!',
-            //                     text: 'Please try again later',
-            //                     showConfirmButton: false,
-            //                     timer: 2500
-            //                 });
-            //             }
-            //         });
-            //     });
-            // });
+                    // Perform AJAX request to send friend request
+                    $.ajax({
+                        url: URL,
+                        method: 'GET',
+                        success: function(response) {
+
+                            // Handle the AJAX response here
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Friend request successfully sent!',
+                                showConfirmButton: false,
+                                timer: 1500
+                            }).then(function() {
+                                location.reload();
+                            });
+                        },
+                        error: function(xhr, status, error) {
+                            // Handle errors
+                            let errors = JSON.parse(xhr.responseText);
+
+                            // Handle the AJAX response here
+                            Swal.fire({
+                                icon: 'error',
+                                title: errors.message,
+                                showConfirmButton: false,
+                                timer: 2000
+                            }).then(function() {
+                                location.reload();
+                            });
+                        }
+                    });
+                });
+            });
+
+            // REPORTING CONTENT
+            $('a[data-report-link]').each(function(index, element) {
+                $(element).click(function(event) {
+                    event.preventDefault();
+
+                    // getting the url
+                    const URL = $(element).attr("data-report-link");
+
+                    // Perform AJAX request to send friend request
+                    $.ajax({
+                        url: URL,
+                        method: 'GET',
+                        success: function(response) {
+
+                            // Handle the AJAX response here
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Content successfully reported!',
+                                showConfirmButton: false,
+                                timer: 1500
+                            });
+                        },
+                        error: function(xhr, status, error) {
+                            // Handle errors
+                            let errors = JSON.parse(xhr.responseText);
+
+                            // Handle the AJAX response here
+                            Swal.fire({
+                                icon: 'error',
+                                title: errors.message,
+                                showConfirmButton: false,
+                                timer: 2000
+                            });
+                        }
+                    });
+                });
+            });
         });
     </script>
 @endpush
