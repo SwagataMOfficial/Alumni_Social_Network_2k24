@@ -93,7 +93,11 @@
                                                         </a>
                                                         <a
                                                             href="{{ route('subadmin.ReportedContent_view_suspend', ['id' => $post->post_id]) }}">
-                                                            <button class="btn btn-secondary mt-3">Suspend</button>
+                                                            <button class="btn btn-secondary mt-3 mr-2">Suspend</button>
+                                                        </a>
+                                                        <a
+                                                            href="{{ route('subadmin.ReportedContent_view_removeFromReport', ['id' => $post->post_id]) }}">
+                                                            <button class="btn btn-primary mt-3">Remove from Report</button>
                                                         </a>
                                                     </div>
                                                 </div>

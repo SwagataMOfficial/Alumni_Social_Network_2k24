@@ -70,9 +70,9 @@
             <div class="col-md-6">
                 <div class="custom-container">
 
-                    <form action="{{ url('/admin/team/updatePassword/') }}" method="post">
+                    <form action="{{ url('/admin/team/updatePassword/' . $id) }}" method="post">
                         @csrf
-                        
+                        <input type="hidden" name="id" value="{{ $id }}">
                         <div class="form-group">
                             <label for="">Current Password:</label>
                             <input type="password" id="" name="current-password">

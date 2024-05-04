@@ -20,6 +20,26 @@
 </style>
 
 </style>
+@if (Session::has('success'))
+    <script>
+        Swal.fire({
+            title: 'Message',
+            text: "{{ Session::get('success') }}",
+            icon: 'success',
+            showConfirmButton: true
+        });
+    </script>
+@endif
+@if (Session::has('error'))
+    <script>
+        Swal.fire({
+            title: 'Message',
+            text: "{{ Session::get('error') }}",
+            icon: 'error',
+            showConfirmButton: true
+        });
+    </script>
+@endif
 <div class="content-wrapper all">
     <!-- Content Header (Page header) -->
     <div class="content-header">
@@ -46,9 +66,9 @@
 
 
                             <div class="table-responsive">
-                                <table class="table">
+                                <table class="table" id="myTable">
                                     <thead>
-                                        <tr style="color:red">
+                                        <tr style="color:rgb(20, 103, 228)">
                                             <th>ID No.</th>
                                             <th>Name</th>
                                             <th>Mail Id</th>
@@ -56,46 +76,23 @@
                                         </tr>
                                     </thead>
                                     <tbody>
+                                        @foreach($banuser as $user)
                                         <tr>
-                                            <td>04</td>
-                                            <td>Samarpita Mukherjee</td>
-                                            <td>samarpita@gmail.com</td>
+                                            <td>{{ $user->student_id }}</td>
+                                            <td>{{ $user->name }}</td>
+                                            <td>{{ $user->email }}</td>
 
-                                            <td> <button type="button" class="btn btn-magenta"><b>Un Ban</b></button>
+                                            <td>
+                                                <a
+                                                href="{{ route('userban_unban', ['id' => $user->student_id]) }}"><button type="button" class="btn btn-magenta">Un Ban</button></a>
+
+                                                <button type="button" class="btn btn-primary" onclick="deleteUser({{ $user->student_id }})">Delete</button>
+                                                <a
+                                                href="{{ route('userban_view', ['id' => $user->student_id]) }}"><button type="button" class="btn btn-success">View</button></a>
                                             </td>
                                         </tr>
-                                        <tr>
-                                            <td>07</td>
-                                            <td>Samarpita Mukherjee</td>
-                                            <td>samarpita@gmail.com</td>
-
-                                            <td> <button type="button" class="btn btn-magenta"><b>Un Ban</b></button>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>10</td>
-                                            <td>Samarpita Mukherjee</td>
-                                            <td>samarpita@gmail.com</td>
-
-                                            <td> <button type="button" class="btn btn-magenta"><b>Un Ban</b></button>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>12</td>
-                                            <td>Samarpita Mukherjee</td>
-                                            <td>samarpita@gmail.com</td>
-
-                                            <td> <button type="button" class="btn btn-magenta"><b>Un Ban</b></button>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>25</td>
-                                            <td>Samarpita Mukherjee</td>
-                                            <td>samarpita@gmail.com</td>
-
-                                            <td> <button type="button" class="btn btn-magenta"><b>Un Ban</b></button>
-                                            </td>
-                                        </tr>
+                                        @endforeach
+                                      
                                     </tbody>
                                 </table>
                             </div>
@@ -106,3 +103,21 @@
             </div>
         </div>
     </div>
+    <script>
+        function deleteUser(id) {
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "Once deleted, you will not be able to recover this record!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#3085d6',
+                confirmButtonText: 'Yes, delete it!',
+                cancelButtonText: 'Cancel'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = "{{ route('userban_delete', ['id' => ':id']) }}".replace(':id', id);
+                }
+            });
+        }
+    </script>

@@ -38,8 +38,8 @@
                     <div class="col-lg-6 col-12 mb-4" >
                         <div class="small-box bg-success">
                             <div class="inner">
-                                <h3>{{$totalSubAdmin}}</h3>
-                                <p class="mb-3">Total Sub-Admin</p>
+                                <h3>{{$totalBanUser}}</h3>
+                                <p class="mb-3">Total Ban-User</p>
                             </div>
                             <div class="icon">
                                 <i class="fas fa-user-shield"></i>

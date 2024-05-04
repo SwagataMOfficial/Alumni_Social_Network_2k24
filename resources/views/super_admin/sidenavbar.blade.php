@@ -35,6 +35,10 @@
 
     <!-- Yajra data Table CSS -->
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/2.0.5/css/dataTables.dataTables.min.css">
+    <!-- sweet alert cdn link -->
+    {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js" integrity="sha512-AA1Bzp5Q0K1KanKKmvN/4d3IRKVlv9PYgwFPvm32nPO6QS8yH1HO7LbgB1pgiOxPtfeg5zEn2ba64MUcqJx6CA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>  --}}
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+
 
 </head>
 
@@ -43,7 +47,7 @@
 
         <!-- Preloader -->
         <div class="preloader flex-column justify-content-center align-items-center">
-            <img class="animation__shake" src="../dist\img\AdminLTELogo.png" alt="AdminLTELogo" height="60"
+            <img class="animation__shake" src="{{asset('dist\img\AdminLTELogo.png')}}" alt="AdminLTELogo" height="60"
                 width="60">
         </div>
 
@@ -55,7 +59,7 @@
                 <a class="nav-link " data-widget="pushmenu" href="#" role="button"><i
                         class="fas fa-bars"></i></a>
                 <span>
-                    <h2>Super Admin</h2>
+                    <h2>{{ session('sup_admin_name') }}</h2>
                 </span>
             </ul>
 
@@ -73,7 +77,7 @@
             <!-- Brand Logo -->
 
             <a href="{{ route('sup.admin.dashboard') }}" class="brand-link">
-                <img src="../dist\img\Admin.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
+                <img src="{{asset('dist\img\Admin.png')}}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
                     style="opacity: .8">
                 <span class="brand-text font-weight-light">Super Admin</span>
             </a>
