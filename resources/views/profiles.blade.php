@@ -357,7 +357,7 @@
                             // Handle the AJAX response here
                             Swal.fire({
                                 icon: 'success',
-                                title: 'Friend deleted successfully!',
+                                title: 'Unfriend successfully!',
                                 showConfirmButton: false,
                                 timer: 1500
                             }).then(function() {

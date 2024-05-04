@@ -8,7 +8,7 @@
           </a>
           <!-- Searchbar -->
           <form action="{{ route('profile.search') }}" method="get">
-              <input type="text" placeholder="Search by name or ID .." name="search" id="search"
+              <input type="text" required placeholder="Search by name or ID .." name="search" id="search"
                   class="pl-4 pr-16 bg-blue-500 rounded-lg text-white focus:outline-none placeholder:text-white focus:ring-2 focus:ring-white">
           </form>
       </div>

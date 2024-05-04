@@ -134,6 +134,11 @@ class FriendsController extends Controller {
                 return response()->json(['success' => false, 'message' => 'Friend request is already sent!'], 422);
             }
 
+            // checking whether the opposite user has sent me any friend request or not
+            $is_received = Friend::where('student_id', '=', $user->student_id)->where('friend_id', '=', session()->get('user_id'))->where('is_pending', '=', '1')->get();
+            if (!count($is_received) == 0) {
+                return response()->json(['success' => false, 'message' => 'This user has already sent you friend request!'], 422);
+            }
             // saving the request into the database
             $res = Friend::create([
                 'student_id' => session()->get('user_id'),

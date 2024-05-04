@@ -8,7 +8,7 @@ use App\Http\Controllers\PostController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ViewsController;
-use App\Http\Controllers\FriendsController;// remove login check middleware from globally to locally for other middleware should work properly eg. admin and sub admin middle ware otherwise it will conflict
+use App\Http\Controllers\FriendsController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\NotificationsController;
 
@@ -38,17 +38,15 @@ Route::middleware([LoginCheck::class])->group(function () {
     Route::get("/messages", [ViewsController::class, "messages"])->name('messages');
     Route::get("/notifications", [ViewsController::class, "notifications"])->name('notifications');
     Route::get("/settings", [ViewsController::class, "view_settings"])->name('settings');
-    Route::get("/results", [ProfileController::class, 'view_search'])->name('search.results');
     Route::get('/myfriends', [ViewsController::class, 'view_myfriends'])->name('myfriends');
 
     // grouped routes [ the url should start with /profile]
     Route::group(['prefix' => '/profile'], function () {
-        Route::get("/edit", [ProfileController::class, 'view_edit'])->name('profile.edit');
+        Route::get("/edit", [ViewsController::class, 'view_edit'])->name('profile.edit');
         Route::post("/edit", [ProfileController::class, 'save_changes'])->name('profile.savechanges');
         Route::post("/togglevisibility", [ProfileController::class, 'toggleVisibility'])->name('profile.visibility');
-        // TODO: go to controller and fix a bug
-        Route::get('/users/search', [ProfileController::class, 'view_search'])->name('profile.search');
-        Route::get("/{user_token}", [ProfileController::class, "view_page"]);
+        Route::get('/users/search', [ViewsController::class, 'view_search'])->name('profile.search');
+        Route::get("/{user_token}", [ViewsController::class, "view_profiles"]);
         Route::post('/change-password', [ProfileController::class, 'changePassword'])->name('profile.changePassword');
 
     });
@@ -60,7 +58,6 @@ Route::middleware([LoginCheck::class])->group(function () {
         Route::get('/send-request/{token}', [FriendsController::class, 'send_request'])->name('friend.request');
         Route::get('/remove/{id}', [FriendsController::class, 'remove_friend'])->name('friend.remove');
     });
-
 
 });
 

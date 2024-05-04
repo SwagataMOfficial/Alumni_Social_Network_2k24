@@ -5,12 +5,12 @@
 
 @section('main-section')
 
-    <div class="px-8 mx-auto pt-3 flex justify-center gap-10">
-        <div class="w-3/4 bg-white rounded-xl px-4 py-3">
-            <h3 class="text-2xl font-bold text-stone-700 mb-3">My Friends</h3>
-            {{-- my friends cards will appear here --}}
+    <div class="max-[426px]:px-2 px-4 xl:px-8 mx-auto pt-3 flex justify-center lg:gap-6 xl:gap-10">
+        <div class="w-full lg:w-3/4 bg-white rounded-xl px-4 pt-3 pb-6 h-max">
+            <h3 class="text-2xl font-bold text-stone-700 mb-3">Results</h3>
+            {{-- searched account cards will appear here --}}
             @if (count($searchedData) > 0)
-                <div class="grid grid-cols-5 gap-3">
+                <div class="grid grid-cols-1 gap-3 min-[425px]:grid-cols-2 md:grid-cols-3 xl:grid-cols-5">
                     {{-- cards --}}
                     @foreach ($searchedData as $data)
                         <div
@@ -22,7 +22,8 @@
                             </a>
                             <p class="mt-14 font-semibold text-xl">{{ $data['name'] }}</p>
                             <p class="text-md py-1">Passout year - {{ $data['graduation_year'] }}</p>
-                            <a href="{{ route('friend.request', ['token' => $data['remember_token']]) }}"
+                            <a href="javascript:void(0);"
+                                data-send-link="{{ route('friend.request', ['token' => $data['remember_token']]) }}"
                                 class="text-sm px-3 py-2 mt-1 rounded-xl bg-indigo-500 hover:bg-indigo-600 border-[3px] border-indigo-900 mb-3 text-white">
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
                                     class="w-5 h-5">
@@ -39,7 +40,7 @@
 
         </div>
         {{-- more peoples to follow section --}}
-        <div class="w-1/4 rounded-xl h-fit bg-white px-4 py-3">
+        <div class="hidden w-1/4 rounded-xl h-fit bg-white px-4 py-3 lg:block">
             <h3 class="font-bold text-stone-700">More Peoples for You</h3>
             <div class="flex flex-col gap-3 items-center justify-center mt-2">
 
@@ -49,7 +50,7 @@
                 @endforeach
             </div>
             <div class="pt-3 px-4">
-                <a class="flex text-stone-600 hover:text-stone-900 text-sm" href="{{ route('friends') }}">
+                <a href="{{ route('friends') }}" class="flex text-stone-600 hover:text-stone-900 text-sm">
                     <span class="font-semibold">View all</span>
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5">
                         <path fill-rule="evenodd"
@@ -61,3 +62,51 @@
         </div>
     </div>
 @endsection
+@push('script')
+    <script>
+        $(document).ready(function() {
+
+            // HANDLING FRIEND REQUEST SENDING
+            $('a[data-send-link]').each(function(index, element) {
+                $(element).click(function(event) {
+                    event.preventDefault();
+
+                    // getting the url
+                    const URL = $(element).attr("data-send-link");
+
+                    // Perform AJAX request to send friend request
+                    $.ajax({
+                        url: URL,
+                        method: 'GET',
+                        success: function(response) {
+
+                            // Handle the AJAX response here
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Friend request successfully sent!',
+                                showConfirmButton: false,
+                                timer: 1500
+                            }).then(function() {
+                                location.reload();
+                            });
+                        },
+                        error: function(xhr, status, error) {
+                            // Handle errors
+                            let errors = JSON.parse(xhr.responseText);
+
+                            // Handle the AJAX response here
+                            Swal.fire({
+                                icon: 'error',
+                                title: errors.message,
+                                showConfirmButton: false,
+                                timer: 2000
+                            }).then(function() {
+                                location.reload();
+                            });
+                        }
+                    });
+                });
+            });
+        });
+    </script>
+@endpush

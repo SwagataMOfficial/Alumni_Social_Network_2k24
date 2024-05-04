@@ -5,12 +5,12 @@
 
 @section('main-section')
 
-    <div class="px-8 mx-auto pt-3 flex justify-center gap-10">
-        <div class="w-3/4 bg-white rounded-xl px-4 py-3 h-max">
+<div class="max-[426px]:px-2 px-4 xl:px-8 mx-auto pt-3 flex justify-center lg:gap-6 xl:gap-10">
+    <div class="w-full lg:w-3/4 bg-white rounded-xl px-4 pt-3 pb-6 h-max">
             <h3 class="text-2xl font-bold text-stone-700 mb-3">My Friends</h3>
             {{-- my friends cards will appear here --}}
             @if (count($myfriends) > 0)
-                <div class="grid grid-cols-5 gap-3 pb-3">
+            <div class="grid grid-cols-1 gap-3 min-[425px]:grid-cols-2 md:grid-cols-3 min-[1380px]:grid-cols-5">
                     {{-- cards --}}
                     @foreach ($myfriends as $friend)
                         <div
@@ -54,7 +54,7 @@
 
         </div>
         {{-- more peoples to follow section --}}
-        <div class="w-1/4 rounded-xl h-fit bg-white px-4 py-3">
+        <div class="hidden w-1/4 rounded-xl h-fit bg-white px-4 py-3 lg:block">
             <h3 class="font-bold text-stone-700">More Peoples for You</h3>
             <div class="flex flex-col gap-3 items-center justify-center mt-2">
 
@@ -139,7 +139,7 @@
                             // Handle the AJAX response here
                             Swal.fire({
                                 icon: 'success',
-                                title: 'Friend deleted successfully!',
+                                title: 'Unfriend Successfully!',
                                 showConfirmButton: false,
                                 timer: 1500
                             }).then(function() {
