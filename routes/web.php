@@ -34,6 +34,7 @@ Route::middleware([LoginCheck::class])->group(function () {
     });
 
     // common navigation views
+    Route::get("/jobs", [ViewsController::class, "jobs"])->name('jobs');
     Route::get("/friends", [ViewsController::class, "friends"])->name('friends');
     Route::get("/messages", [ViewsController::class, "messages"])->name('messages');
     Route::get("/notifications", [ViewsController::class, "notifications"])->name('notifications');

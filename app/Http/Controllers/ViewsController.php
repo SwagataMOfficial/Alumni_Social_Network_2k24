@@ -28,6 +28,28 @@ class ViewsController extends Controller {
 
         return view("feed")->with($data);
     }
+
+    public function jobs() {
+        $user = User::where("student_id", "=", session()->get('user_id'))->first();
+
+        $posts = Userpost::where('posted_by', '!=', session()->get('user_id'))->where('visibility', '!=', '0')->where('post_type', '=', 'job')->where('reported_at', '=', null)->orderBy('created_at', 'desc')->limit(20)->get()->toArray();
+
+        $myid = session()->get('user_id');
+
+        $suggested_people = User::leftJoin('friends', function ($join) use ($myid) {
+            $join->on('users.student_id', '=', 'friends.student_id')
+                ->where('friends.friend_id', '=', $myid)
+                ->orWhere('users.student_id', '=', 'friends.friend_id');
+        })->whereNull('friends.student_id')
+            ->whereNull('friends.friend_id')
+            ->where('users.student_id', '!=', $myid)
+            ->where("graduation_year", "=", $user->graduation_year)->select('users.*')->limit(6)->get();
+
+        $data = compact("user", "posts", "suggested_people");
+
+        return view("jobs")->with($data);
+    }
+
     public function friends() {
         $p_requests = Friend::where('friend_id', '=', session()->get('user_id'))->where('is_pending', '=', '1')->get()->toArray();
 
