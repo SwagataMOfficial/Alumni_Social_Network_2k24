@@ -128,12 +128,11 @@ class PostController extends Controller {
 
     public function report_post(Userpost $id){
         $id->reported_at = now();
-        die;
         if($id->save()){
             return response()->json(['success' => true, 'message' => 'Content reported successfully'], 200);
         }
         else{
-            return response()->json(['success' => false, 'message' => 'Failed to report content'], 422);
+            return response()->json(['success' => false, 'message' => 'Failed to report the content'], 422);
         }
 
     }

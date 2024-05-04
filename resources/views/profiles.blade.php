@@ -46,23 +46,15 @@
                     <div id="default-styled-tab-content">
                         <div class="hidden" id="styled-profile" role="tabpanel" aria-labelledby="profile-tab">
                             <x-aboutprofile :details="$user" />
-                            <p class="text-sm text-gray-500 dark:text-gray-400">
-                            </p>
                         </div>
                         <div class="hidden" id="styled-dashboard" role="tabpanel" aria-labelledby="dashboard-tab">
                             <x-posts :details="$user" :posts="$posts" />
-                            <p class="text-sm text-gray-500 dark:text-gray-400">
-                            </p>
                         </div>
                         <div class="hidden" id="styled-settings" role="tabpanel" aria-labelledby="settings-tab">
                             <x-postgallery :details="$imgArr" />
-                            <p class="text-sm text-gray-500 dark:text-gray-400">
-                            </p>
                         </div>
                         <div class="hidden" id="styled-contacts" role="tabpanel" aria-labelledby="contacts-tab">
                             <x-jobposts :details="$user" :posts="$jobs" />
-                            <p class="text-sm text-gray-500 dark:text-gray-400">
-                            </p>
                         </div>
                     </div>
                 @else
@@ -324,6 +316,48 @@
                             Swal.fire({
                                 icon: 'success',
                                 title: 'Friend request successfully sent!',
+                                showConfirmButton: false,
+                                timer: 1500
+                            }).then(function() {
+                                location.reload();
+                            });
+                        },
+                        error: function(xhr, status, error) {
+                            // Handle errors
+                            let errors = JSON.parse(xhr.responseText);
+
+                            // Handle the AJAX response here
+                            Swal.fire({
+                                icon: 'error',
+                                title: errors.message,
+                                showConfirmButton: false,
+                                timer: 2000
+                            }).then(function() {
+                                location.reload();
+                            });
+                        }
+                    });
+                });
+            });
+
+            // HANDLING REMOVING FRIEND
+            $('a[data-remove-friend-link]').each(function(index, element) {
+                $(element).click(function(event) {
+                    event.preventDefault();
+
+                    // getting the url
+                    const URL = $(element).attr("data-remove-friend-link");
+
+                    // Perform AJAX request to send friend request
+                    $.ajax({
+                        url: URL,
+                        method: 'GET',
+                        success: function(response) {
+
+                            // Handle the AJAX response here
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Friend deleted successfully!',
                                 showConfirmButton: false,
                                 timer: 1500
                             }).then(function() {

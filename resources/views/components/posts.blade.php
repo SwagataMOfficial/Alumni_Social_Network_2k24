@@ -1,8 +1,10 @@
 <div class="container mx-auto mt-4 lg:w-full">
 
+    {{-- only show the post modal if the profile is my --}}
+    @if ($details['student_id'] == session()->get('user_id'))        
     <div class="flex items-center justify-center">
         <div
-            class="inline-flex items-center justify-center p-4 bg-white rounded-full drop-shadow-xl border border-gray-300">
+            class="inline-flex items-center justify-center p-4 bg-white rounded-full drop-shadow-xl border border-gray-300 mb-5">
             <!-- Profile picture -->
             <a href="/profile/{{ $details['remember_token'] }}"
                 class="rounded-full bg-gray-300 h-12 w-12 flex items-center justify-center overflow-hidden">
@@ -30,7 +32,7 @@
                     </svg>
                 </button>
 
-                {{-- camera button --}}
+                <!-- camera button -->
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                     stroke="currentColor" class="w-6 h-6 cursor-not-allowed text-stone-400">
                     <path stroke-linecap="round" stroke-linejoin="round"
@@ -51,9 +53,7 @@
             </div>
         </div>
     </div>
-
-
-
+    @endif
 
     @if (count($posts) != 0)
         @foreach ($posts as $index => $post)

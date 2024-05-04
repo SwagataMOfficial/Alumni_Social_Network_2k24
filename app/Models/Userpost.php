@@ -38,7 +38,7 @@ class Userpost extends Model
     }
 
     function getComments(){
-        return $this->hasMany('App\Models\Comment','post_id','post_id');
+        return $this->hasMany('App\Models\Comment','post_id','post_id')->orderBy('created_at', 'desc');
     }
     
 }
