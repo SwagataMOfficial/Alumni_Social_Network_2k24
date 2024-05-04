@@ -145,7 +145,7 @@
             @endif
         </form>
 
-        {{-- like buttons --}}
+        {{-- like button --}}
         @if ($liked == true)
             <button type="submit" form="{{ $key }}"
                 class="like_btns text-blue-500 hover:text-blue-700 focus:outline-none flex items-center font-bold"
@@ -172,6 +172,7 @@
             </button>
         @endif
 
+        {{-- comment button with comment section toggling --}}
         <button class="text-gray-500 hover:text-blue-500 focus:outline-none flex items-center" type="button"
             data-target-comment-section-toggle="comments_{{ $key }}"
             data-focus-comment-input="chat_{{ $key }}" data-role="comment">

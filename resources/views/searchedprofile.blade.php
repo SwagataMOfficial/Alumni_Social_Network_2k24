@@ -15,10 +15,10 @@
                     @foreach ($searchedData as $data)
                         <div
                             class="rounded-xl bg-slate-200 overflow-hidden relative flex flex-col justify-start items-center">
-                            <img src="/storage/default/cover.png" alt="cover photo" class="object-cover max-h-16 w-full">
+                            <img src="{{asset('/storage/' . $data['cover_picture'])}}" alt="cover photo" class="object-cover max-h-16 w-full">
                             <a href="/profile/{{ $data['remember_token'] }}"
                                 class="absolute top-7 w-20 aspect-square object-cover rounded-[50%] border-2 border-slate-600 overflow-hidden">
-                                <img src="/storage/default/avatar.jpg" alt="profile photo" class="w-full h-full">
+                                <img src="{{asset('/storage/' . $data['profile_picture'])}}" alt="profile photo" class="w-full h-full">
                             </a>
                             <p class="mt-14 font-semibold text-xl">{{ $data['name'] }}</p>
                             <p class="text-md py-1">Passout year - {{ $data['graduation_year'] }}</p>

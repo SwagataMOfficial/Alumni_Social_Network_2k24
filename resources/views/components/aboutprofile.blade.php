@@ -294,7 +294,7 @@
                 <img src="{{ asset('/storage/' . $details['resume']) }}" alt="resume"
                     class="object-cover w-full h-full hover:opacity-90">
             </button>
-            <button type="button"
+            <button type="button" data-delete-filename="/storage/{{ $details['resume'] }}"
                 class="absolute -top-3 right-0 text-white bg-red-600 hover:bg-red-700 focus:ring-2 focus:outline-none focus:ring-red-900 p-1 rounded-md">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-6 h-6">
                     <path fill-rule="evenodd"
@@ -354,7 +354,7 @@
                         <img src="{{ asset('/storage/' . $item) }}" alt="certificate"
                             class="object-cover w-full h-full rounded-xl hover:opacity-95">
                     </button>
-                    <button type="button"
+                    <button type="button" data-delete-filename="/storage/{{ $item }}"
                         class="absolute -top-3 -right-2 text-white bg-red-600 hover:bg-red-700 focus:ring-2 focus:outline-none focus:ring-red-900 p-1 rounded-md">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
                             class="w-6 h-6">

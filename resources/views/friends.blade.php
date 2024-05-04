@@ -35,7 +35,7 @@
                             <div class="flex items-center justify-between mb-3 px-4">
                                 <div class="flex justify-center items-center gap-4">
                                     <a href="/profile/{{ $frequest['get_student']['remember_token'] }}" class="">
-                                        <img src="/storage/default/avatar.jpg" alt="profile image"
+                                        <img src="{{asset('/storage/' . $frequest['get_student']['profile_picture'])}}" alt="profile image"
                                             class="w-14 object-cover aspect-square rounded-[50%] border-2 border-slate-800">
                                     </a>
                                     <div class="flex flex-col">
@@ -86,11 +86,11 @@
                             @foreach ($s_peoples as $people)
                                 <div
                                     class="rounded-xl bg-slate-200 overflow-hidden relative flex flex-col justify-start items-center">
-                                    <img src="/storage/default/cover.png" alt="cover photo"
+                                    <img src="{{asset('/storage/' . $people['cover_picture'])}}" alt="cover photo"
                                         class="object-cover max-h-16 w-full">
                                     <a href="/profile/{{ $people['remember_token'] }}"
                                         class="absolute top-7 w-20 aspect-square object-cover rounded-[50%] border-2 border-slate-600 overflow-hidden">
-                                        <img src="/storage/default/avatar.jpg" alt="profile photo" class="w-full h-full">
+                                        <img src="{{asset('/storage/' . $people['profile_picture'])}}" alt="profile photo" class="w-full h-full">
                                     </a>
                                     <p class="mt-12 font-semibold text-xl">{{ $people['name'] }}</p>
                                     <p class="text-md py-1">Passout year - {{ $people['graduation_year'] }}</p>
