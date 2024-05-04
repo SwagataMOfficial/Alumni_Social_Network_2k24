@@ -128,7 +128,7 @@
                                 <label for="email" class="block mb-2 text-sm font-medium text-gray-500">Email</label>
                                 <input type="email" name="email" id="email"
                                     class="border border-gray-600 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500 mx-3"
-                                    placeholder="Edit Your Email" value="{{ $user['email'] }}">
+                                    placeholder="Edit Your Email" value="{{ $user['email'] }}" readonly>
                             </div>
                         </div>
                         <div class="mb-2 mx-10">
