@@ -21,7 +21,7 @@ backdrop-filter: blur(1px);">
             <!-- Left Portion  -->
 
             <div class="w-1/2 md:block hidden">
-                <p class="text-purple-700 font-medium ml-6" style="font-size: 45px;">Admin login</p>
+                <p class="text-purple-700 font-medium ml-6" style="font-size: 45px;">Super Admin login</p>
                 <!-- Vector Image  -->
                 <img class="" src="{{ asset('images/admin_log_man.png') }}" alt="picture">
             </div>
@@ -34,8 +34,7 @@ backdrop-filter: blur(1px);">
                     @csrf
                     <!-- Email Section  -->
                     <div class="mb-5">
-                        <label for="email" class="block mb-2 text-sm font-medium text-gray-500">Email or
-                            Phone</label>
+                        <label for="email" class="block mb-2 text-sm font-medium text-gray-500">Email</label>
                         <input type="email" name="super_admin_email" id="super_admin_email"
                             class="border-gray-500 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-purple-500 block w-full p-2.5  dark:placeholder-gray-400 dark:focus:ring-purple-500 dark:focus:border-purple-500"
                             placeholder="name@gmail.com" required />

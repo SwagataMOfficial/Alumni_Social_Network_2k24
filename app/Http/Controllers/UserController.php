@@ -68,6 +68,8 @@ class UserController extends Controller
             'u_mail.email' => 'Invalid email format.',
             'u_mail.unique' => 'Email is already registered.',
             'u_password.required' => 'Password is required.',
+            'u_password.min' => 'User password must be at least six characters long.',
+            'u_conpassword.min' => 'User Confirm password must be at least six characters long.',
             'u_conpassword.required' => 'Confirm Password is required.',
             'u_conpassword.same' => 'Password confirmation does not match.',
             'dropdown1.required' => 'Graduation Year is required.',
@@ -103,7 +105,7 @@ class UserController extends Controller
                     }
                 }
             ],
-            'verify_doc' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048'
+            'verify_doc' => 'required|image|mimes:jpeg,png,jpg|max:2048'
             // Add more validation rules as needed
         ];
 
@@ -119,10 +121,10 @@ class UserController extends Controller
         $degree = $request->input('dropdown2');
 
         // generating filename with original file extension
-        $filename = $request->input('student_id')."/verification_document/verify_doc" . '.' . $request->file('verify_doc')->getClientOriginalExtension();
+        $filename = $request->input('student_id') . "/verification_document/verify_doc" . '.' . $request->file('verify_doc')->getClientOriginalExtension();
 
         // Store uploaded picture in the public/upload_student_id directory with the unique filename
-        
+
         $user = User::create([
             'student_id' => $request->input('student_id'),
             'name' => $request->input('u_fname'),
@@ -136,8 +138,8 @@ class UserController extends Controller
             'remember_token' => md5($request->input('student_id') . $request->input('u_mail'))
         ]);
         $request->file('verify_doc')->storeAs('/', $filename, 'public');
-      //  $request->file('verification_document')->storeAs('/', $filename, 'public');
-        
+        //  $request->file('verification_document')->storeAs('/', $filename, 'public');
+
         // Return success response
         return response()->json(['message' => 'User registered successfully'], 200);
     }
@@ -174,7 +176,7 @@ class UserController extends Controller
 
         // Check if the user exists and the provided password matches
         if ($user && Hash::check($request->password, $user->password)) {
-            session()->put("loggedInUser",$user->email);
+            session()->put("loggedInUser", $user->email);
             session()->put("loggedin", true);
             session()->put("token", $user->remember_token);
             session()->put("user_id", $user->student_id);
@@ -193,6 +195,9 @@ class UserController extends Controller
         // Validate the request data
         $request->validate([
             'email' => 'required|email',
+        ], [
+            'email.required' => 'A valid email is required.',
+            'email.email' => 'A valid email is required.',
         ]);
 
         // Check if the user with the provided email exists
@@ -234,8 +239,12 @@ class UserController extends Controller
         $request->validate([
             're_password' => 'required|string|min:6',
             're_password_confirmation' => 'required|string|min:6|same:re_password',
-            'token' => 'required', // You may need to pass the token through the form
+            'token' => 'required',
         ], [
+            're_password.required' => 'The password field must be filled.',
+            're_password.min' => 'The password must be at least :min characters long.',
+            're_password_confirmation.required' => 'The confirmation password field must be filled.',
+            're_password_confirmation.min' => 'The confirmation password must be at least :min characters long.',
             're_password_confirmation.same' => 'The new password and confirm password must match.'
         ]);
 
@@ -254,7 +263,7 @@ class UserController extends Controller
             return response()->json(['message' => 'Password reset  successfully! &nbsp;<h3><a href="/">Login Now</a></h3>'], 200);
         } else {
             // If the user or token is invalid, redirect back with an error message
-            return response()->json(['error' => 'Link expired'],422);
+            return response()->json(['error' => 'Link expired'], 422);
 
 
         }

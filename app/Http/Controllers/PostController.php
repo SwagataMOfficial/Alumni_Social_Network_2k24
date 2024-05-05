@@ -127,9 +127,13 @@ class PostController extends Controller {
     }
 
     public function report_post(Userpost $id){
-        echo $id->reported_at = now();
-        $id->save();
-        return redirect()->back();
+        $id->reported_at = now();
+        if($id->save()){
+            return response()->json(['success' => true, 'message' => 'Content reported successfully'], 200);
+        }
+        else{
+            return response()->json(['success' => false, 'message' => 'Failed to report the content'], 422);
+        }
 
     }
     //for user suppor query to submit in supports database

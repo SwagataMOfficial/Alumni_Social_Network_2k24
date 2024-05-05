@@ -17,10 +17,6 @@
                 <a href="/profile/{{ $details['remember_token'] }}" class="block px-4 py-2 hover:bg-gray-100">View
                     Profile</a>
             </li>
-            <li>
-                <a href="{{ route('post.report', ['id' => $posts['post_id']]) }}"
-                    class="block px-4 py-2 hover:bg-gray-100">Report</a>
-            </li>
             @if (session()->get('user_id') == $details['student_id'])
                 <li>
                     <a href="#" class="block px-4 py-2 hover:bg-gray-100">Delete</a>
@@ -56,7 +52,21 @@
 
     <!-- Content -->
     <div class="p-2">
-        <p class="text-gray-800">{{ $posts['post_description'] }}</p>
+        @if ($posts['post_type'] != 'post')
+            <p class="text-wrap text-gray-800">{{ $posts['post_description'] }}</p>
+        @else
+            <p class="text-wrap text-gray-800">{{ $posts['post_description'] }}</p>
+        @endif
+
+        @if ($posts['post_type'] != 'post')
+            <p class="text-gray-800">
+                <span class="font-semibold">Registration link: </span>
+                <a href="{{ $posts['registration_link'] }}"
+                    class="text-blue-500 hover:text-blue-800 underline underline-offset-2">
+                    {{ $posts['registration_link'] }}
+                </a>
+            </p>
+        @endif
 
         {{-- checking if the post contains any image or not --}}
         @if ($posts['attachment'] != null)
@@ -148,25 +158,8 @@
                 <input type="hidden" name="like_id" value="{{ $like_id }}">
             @endif
         </form>
-        {{-- <button type="submit" form="{{ $key }}"
-            class="like_btns text-blue-500 hover:text-blue-500 focus:outline-none flex items-center font-bold"
-            id="{{ $posts['post_id'] }}">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                stroke="currentColor" class="w-6 h-6">
-                <path stroke-linecap="round" stroke-linejoin="round"
-                    d="M6.633 10.25c.806 0 1.533-.446 2.031-1.08a9.041 9.041 0 0 1 2.861-2.4c.723-.384 1.35-.956 1.653-1.715a4.498 4.498 0 0 0 .322-1.672V2.75a.75.75 0 0 1 .75-.75 2.25 2.25 0 0 1 2.25 2.25c0 1.152-.26 2.243-.723 3.218-.266.558.107 1.282.725 1.282m0 0h3.126c1.026 0 1.945.694 2.054 1.715.045.422.068.85.068 1.285a11.95 11.95 0 0 1-2.649 7.521c-.388.482-.987.729-1.605.729H13.48c-.483 0-.964-.078-1.423-.23l-3.114-1.04a4.501 4.501 0 0 0-1.423-.23H5.904m10.598-9.75H14.25M5.904 18.5c.083.205.173.405.27.602.197.4-.078.898-.523.898h-.908c-.889 0-1.713-.518-1.972-1.368a12 12 0 0 1-.521-3.507c0-1.553.295-3.036.831-4.398C3.387 9.953 4.167 9.5 5 9.5h1.053c.472 0 .745.556.5.96a8.958 8.958 0 0 0-1.302 4.665c0 1.194.232 2.333.654 3.375Z" />
-            </svg>
 
-            <span class="ml-1">
-                @if ($liked == true)
-                    {{ 'Liked' }}
-                @else
-                    {{ 'Like' }}
-                @endif
-            </span>
-        </button> --}}
-
-        {{-- like buttons --}}
+        {{-- like button --}}
         @if ($liked == true)
             <button type="submit" form="{{ $key }}"
                 class="like_btns text-blue-500 hover:text-blue-700 focus:outline-none flex items-center font-bold"
@@ -193,6 +186,7 @@
             </button>
         @endif
 
+        {{-- comment button with comment section toggling --}}
         <button class="text-gray-500 hover:text-blue-500 focus:outline-none flex items-center" type="button"
             data-target-comment-section-toggle="comments_{{ $key }}"
             data-focus-comment-input="chat_{{ $key }}" data-role="comment">
@@ -204,14 +198,16 @@
             <span class="ml-1">Comment</span>
         </button>
 
-        <button class="text-gray-500 hover:text-blue-500 focus:outline-none flex items-center">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
-                <path fill-rule="evenodd"
-                    d="M7.5 3.75A1.5 1.5 0 0 0 6 5.25v13.5a1.5 1.5 0 0 0 1.5 1.5h6a1.5 1.5 0 0 0 1.5-1.5V15a.75.75 0 0 1 1.5 0v3.75a3 3 0 0 1-3 3h-6a3 3 0 0 1-3-3V5.25a3 3 0 0 1 3-3h6a3 3 0 0 1 3 3V9A.75.75 0 0 1 15 9V5.25a1.5 1.5 0 0 0-1.5-1.5h-6Zm10.72 4.72a.75.75 0 0 1 1.06 0l3 3a.75.75 0 0 1 0 1.06l-3 3a.75.75 0 1 1-1.06-1.06l1.72-1.72H9a.75.75 0 0 1 0-1.5h10.94l-1.72-1.72a.75.75 0 0 1 0-1.06Z"
-                    clip-rule="evenodd" />
+        {{-- report button --}}
+        <a href="javascript:void(0);" data-report-link="{{ route('post.report', ['id' => $posts['post_id']]) }}"
+            class="text-gray-500 hover:text-blue-500 focus:outline-none flex items-center">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                stroke="currentColor" class="w-6 h-6">
+                <path stroke-linecap="round" stroke-linejoin="round"
+                    d="m11.25 11.25.041-.02a.75.75 0 0 1 1.063.852l-.708 2.836a.75.75 0 0 0 1.063.853l.041-.021M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9-3.75h.008v.008H12V8.25Z" />
             </svg>
-            <span class="ml-1">Share</span>
-        </button>
+            <span class="ml-1">Report</span>
+        </a>
     </div>
 
     {{-- comment section starts here --}}

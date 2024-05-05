@@ -58,7 +58,7 @@
                                 </svg>
                             </span>
                         </a>
-                        <a href="{{ route('friend.remove', ['id' => $details['student_id']]) }}"
+                        <a href="javascript:void(0);" data-remove-friend-link="{{ route('friend.remove', ['id' => $details['student_id']]) }}"
                             class="rounded-3xl px-6 py-2 font-bold tracking-wide bg-red-600 text-white hover:bg-red-700 flex items-center gap-2 focus:ring-2 focus:outline-none focus:ring-red-800">
                             <span>Unfriend</span>
                             <span>
@@ -82,7 +82,7 @@
                     </div>
                 @endif
             @else
-                <a href="{{ route('friend.request', ['token' => $details['remember_token']]) }}"
+                <a href="javascript:void(0);" data-send-link="{{ route('friend.request', ['token' => $details['remember_token']]) }}"
                     class="rounded-3xl px-6 py-2 font-bold tracking-wide bg-blue-600 text-white hover:bg-blue-700 flex items-center gap-2 focus:ring-2 focus:outline-none focus:ring-blue-800">
                     <span>Add Friend</span>
                     <span>

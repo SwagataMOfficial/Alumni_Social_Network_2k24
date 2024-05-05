@@ -59,8 +59,15 @@
                         $("#forgot_pass_btn").text("Reset Password");
                     },
                     error: function(xhr, status, error) {
-                        console.log(xhr.responseText);
-                        var errorMessage = JSON.parse(xhr.responseText).error;
+                        var errorMessage = '';
+                        if (xhr.responseJSON && xhr.responseJSON.errors && xhr.responseJSON
+                            .errors.email) {
+                            errorMessage = xhr.responseJSON.errors.email[0];
+                        } else if (xhr.responseJSON && xhr.responseJSON.error) {
+                            errorMessage = xhr.responseJSON.error;
+                        } else {
+                            errorMessage = 'An error occurred while processing your request.';
+                        }
                         showAlert('error', errorMessage);
                         // Reset the button text
                         $("#forgot_pass_btn").text("Reset Password");

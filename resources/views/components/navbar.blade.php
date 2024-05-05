@@ -7,16 +7,16 @@
               <img src="{{ asset('images/reg_brand_logo.png') }}" class="h-12" alt="Logo">
           </a>
           <!-- Searchbar -->
-          <form action="{{ route('profile.search') }}" method="get">
-              <input type="text" placeholder="Search...." name="search" id="search"
+          <form action="{{ route('profile.search') }}" method="get" class="hidden min-[600px]:block">
+              <input type="text" required placeholder="Search by name or ID .." name="search" id="search"
                   class="pl-4 pr-16 bg-blue-500 rounded-lg text-white focus:outline-none placeholder:text-white focus:ring-2 focus:ring-white">
           </form>
       </div>
       <!-- Right side: Navigation items -->
       <div class="hidden lg:flex items-center gap-8">
           <!-- Navigation items -->
-          <a href="/feed" class="text-white hover:text-gray-300 focus:outline-none">
-              <!-- Home section  -->
+          <!-- Home section  -->
+          <a href="{{route('feed')}}" class="text-white hover:text-gray-300 focus:outline-none">
               <span
                   class="flex flex-col items-center justify-center py-2 px-3 text-white rounded md:bg-transparent md:p-0 hover:text-blue-100"
                   aria-current="page">
@@ -29,8 +29,20 @@
                   <span class="">Home</span>
               </span>
           </a>
+          <!-- jpb section  -->
+          <a href="{{route('jobs')}}" class="text-white hover:text-gray-300 focus:outline-none">
+              <span
+                  class="flex flex-col items-center justify-center py-2 px-3 text-white rounded md:bg-transparent md:p-0 hover:text-blue-100"
+                  aria-current="page">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
+                    <path fill-rule="evenodd" d="M7.5 5.25a3 3 0 0 1 3-3h3a3 3 0 0 1 3 3v.205c.933.085 1.857.197 2.774.334 1.454.218 2.476 1.483 2.476 2.917v3.033c0 1.211-.734 2.352-1.936 2.752A24.726 24.726 0 0 1 12 15.75c-2.73 0-5.357-.442-7.814-1.259-1.202-.4-1.936-1.541-1.936-2.752V8.706c0-1.434 1.022-2.7 2.476-2.917A48.814 48.814 0 0 1 7.5 5.455V5.25Zm7.5 0v.09a49.488 49.488 0 0 0-6 0v-.09a1.5 1.5 0 0 1 1.5-1.5h3a1.5 1.5 0 0 1 1.5 1.5Zm-3 8.25a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5Z" clip-rule="evenodd" />
+                    <path d="M3 18.4v-2.796a4.3 4.3 0 0 0 .713.31A26.226 26.226 0 0 0 12 17.25c2.892 0 5.68-.468 8.287-1.335.252-.084.49-.189.713-.311V18.4c0 1.452-1.047 2.728-2.523 2.923-2.12.282-4.282.427-6.477.427a49.19 49.19 0 0 1-6.477-.427C4.047 21.128 3 19.852 3 18.4Z" />
+                  </svg>                  
+                  <span class="">Get jobs</span>
+              </span>
+          </a>
           <!-- Friends section  -->
-          <a href="/friends" class="text-white hover:text-gray-300 focus:outline-none">
+          <a href="{{route('friends')}}" class="text-white hover:text-gray-300 focus:outline-none">
               <span
                   class="flex flex-col items-center justify-center py-2 px-3 text-white rounded md:bg-transparent md:p-0 hover:text-blue-100"
                   aria-current="page">
@@ -43,7 +55,7 @@
               </span>
           </a>
           <!-- Message section  -->
-          <a href="/messages" class="text-white hover:text-gray-300 focus:outline-none">
+          <a href="{{route('messages')}}" class="text-white hover:text-gray-300 focus:outline-none">
               <span
                   class="flex flex-col items-center justify-center py-2 px-3 text-white rounded md:bg-transparent md:p-0 hover:text-blue-100"
                   aria-current="page">
@@ -56,7 +68,7 @@
               </span>
           </a>
           <!-- Notification section -->
-          <a href="/notifications" class="text-white hover:text-gray-300 focus:outline-none">
+          <a href="{{route('notifications')}}" class="text-white hover:text-gray-300 focus:outline-none">
               <span
                   class="relative flex flex-col items-center justify-center py-2 px-3 text-white rounded md:bg-transparent md:p-0 hover:text-blue-100"
                   aria-current="page">
@@ -73,7 +85,8 @@
               </span>
           </a>
 
-          <button id="profileBtn" data-dropdown-toggle="dropdownOptions" class="text-white hover:text-gray-300 focus:outline-none">
+          <button id="profileBtn" data-dropdown-toggle="dropdownOptions"
+              class="text-white hover:text-gray-300 focus:outline-none">
               <div class="md:flex md:flex-col md:items-center" type="button">
                   <div class="md:flex md:flex-col md:items-center">
                       <!-- Image  -->
@@ -93,11 +106,11 @@
               </div>
               <ul class="py-2 text-sm text-gray-700" aria-labelledby="dropdownInformationButton">
                   <li>
-                      <a href="/profile/{{ Session::get('token') }}" class="block px-4 py-2 hover:bg-gray-100">Your
+                      <a href="{{url('/')}}/profile/{{ Session::get('token') }}" class="block px-4 py-2 hover:bg-gray-100">Your
                           Profile</a>
                   </li>
                   <li>
-                      <a href="/settings" class="block px-4 py-2 hover:bg-gray-100">Settings
+                      <a href="{{route('settings')}}" class="block px-4 py-2 hover:bg-gray-100">Settings
                           & Privacy</a>
                   </li>
                   <li>
@@ -127,7 +140,7 @@
               </div>
           </div>
           <!-- Settings section -->
-          <a href="/settings" class="text-white hover:text-gray-300 focus:outline-none">
+          <a href="{{route('settings')}}" class="text-white hover:text-gray-300 focus:outline-none">
               <span
                   class="flex flex-col items-center justify-center py-2 px-3 text-white rounded md:bg-transparent md:p-0 hover:text-blue-100"
                   aria-current="page">
@@ -152,7 +165,16 @@
   </nav>
   <!-- Dropdown menu -->
   <div id="menu" class="lg:hidden bg-blue-600 text-white absolute w-full right-0 top-20 z-50 hidden text-center">
-      <a href="{{ route('feed') }}" class="block px-4 py-2 hover:bg-blue-700">Home</a>
+      <!-- Searchbar -->
+      <form action="{{ route('profile.search') }}" method="get"
+          class="w-full flex max-[425px]:flex-col justify-center items-center gap-2 min-[600px]:hidden">
+          <input type="text" required placeholder="Search by name or ID .." name="search" id="search"
+              class="pl-4 pr-20 bg-blue-500 rounded-lg text-white focus:outline-none placeholder:text-white focus:ring-2 focus:ring-white w-9/12">
+          <button type="submit"
+              class="px-4 py-2 bg-gray-500 rounded-lg hover:bg-gray-600 focus:ring-2 focus:outline-none focus:ring-gray-800">Search</button>
+      </form>
+      <a href="{{ route('feed') }}" class="block px-4 py-2 max-[600px]:mt-2 hover:bg-blue-700">Home</a>
+      <a href="{{ route('jobs') }}" class="block px-4 py-2 hover:bg-blue-700">Get jobs</a>
       <a href="{{ route('friends') }}" class="block px-4 py-2 hover:bg-blue-700">Friends</a>
       <a href="{{ route('messages') }}" class="block px-4 py-2 hover:bg-blue-700">Message</a>
       <a href="{{ route('notifications') }}" class="block px-4 py-2 hover:bg-blue-700">Notification</a>
@@ -170,7 +192,7 @@
               document.getElementById("menu-toggle").addEventListener("click", function() {
                   document.getElementById("menu").classList.toggle("hidden");
               });
-              
+
               $('#openSupportModal').click(function() {
                   $('#supportModal').removeClass('hidden');
               });

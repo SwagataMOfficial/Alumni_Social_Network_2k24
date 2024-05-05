@@ -52,15 +52,10 @@ class FriendsController extends Controller {
             $friend->is_pending = false;
             $friend->save();
 
-            return redirect()->back();
+            return response()->json(['success' => true, 'message' => 'Friend request accepted successfully'], 200);
         }
         else {
-            // actual response
-            // TODO: implement this feature
-            // return redirect('/friends')->withErrors([
-            //     'message' => 'Request is invalid!'
-            // ]);
-            return redirect('/friends');
+            return response()->json(['success' => true, 'message' => 'Failed to accept friend request'], 422);
         }
     }
     public function reject_request($token, $id) {
@@ -84,28 +79,44 @@ class FriendsController extends Controller {
             $friend = Friend::find($id);
             $friend->delete();
 
-            return redirect()->back();
+            return response()->json(['success' => true, 'message' => 'Friend request is rejected successfully!'], 200);
         }
         else {
-            // actual response
-            // TODO: implement this feature
-            // return redirect('/friends')->withErrors([
-            //     'message' => 'Request is invalid!'
-            // ]);
-            return redirect('/friends');
+            return response()->json(['success' => false, 'message' => 'An error occured!'], 422);
         }
     }
     public function remove_friend($id) {
-        echo $id;
 
         $friendData = Friend::where('student_id', '=', $id)->where('friend_id', '=', session()->get('user_id'))->first();
         $myFriendData = Friend::where('student_id', '=', session()->get('user_id'))->where('friend_id', '=', $id)->first();
 
+        // get both the user data and decrease the friend count by 1
+        $me = User::find(session()->get('user_id'));
+        $friend = User::find($id);
+
         if ($myFriendData->delete() && $friendData->delete()) {
-            return redirect()->back();
+
+            // get both the user data and decrease the friend count by 1
+            $me = User::find(session()->get('user_id'));
+            $friend = User::find($id);
+
+            // decrementing the friend count
+            $me->friends -= 1;
+            $friend->friends -= 1;
+
+            // saving the updated data
+            $res1 = $me->save();
+            $res2 = $friend->save();
+
+            if ($res1 && $res2) {
+                return response()->json(['success' => true, 'message' => 'Friend deleted successfully!'], 200);
+            }
+            else {
+                return response()->json(['success' => false, 'message' => 'An error occured!'], 422);
+            }
         }
         else {
-            return redirect('/friends');
+            return response()->json(['success' => false, 'message' => 'Faild to delete friend!'], 422);
         }
     }
     public function send_request($token) {
@@ -115,6 +126,19 @@ class FriendsController extends Controller {
             $user = User::where('remember_token', '=', $token)->first();
             $me = session()->get('user_name');
 
+            // getting the friend request data to check whether the friend request has been already sent and it is pending or not
+            $is_sent = Friend::where('student_id', '=', session()->get('user_id'))->where('friend_id', '=', $user->student_id)->where('is_pending', '=', '1')->get();
+
+            // if user has already sent a request to the same user then this if block will execute and it will return an error.
+            if (!count($is_sent) == 0) {
+                return response()->json(['success' => false, 'message' => 'Friend request is already sent!'], 422);
+            }
+
+            // checking whether the opposite user has sent me any friend request or not
+            $is_received = Friend::where('student_id', '=', $user->student_id)->where('friend_id', '=', session()->get('user_id'))->where('is_pending', '=', '1')->get();
+            if (!count($is_received) == 0) {
+                return response()->json(['success' => false, 'message' => 'This user has already sent you friend request!'], 422);
+            }
             // saving the request into the database
             $res = Friend::create([
                 'student_id' => session()->get('user_id'),
@@ -134,7 +158,10 @@ class FriendsController extends Controller {
             ]);
 
             if ($res) {
-                return redirect()->back();
+                return response()->json(['success' => true, 'message' => 'Friend request sent successfully'], 200);
+            }
+            else {
+                return response()->json(['success' => false, 'message' => 'Faild to send friend request'], 422);
             }
         }
     }

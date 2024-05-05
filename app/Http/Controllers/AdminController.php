@@ -376,47 +376,47 @@ class AdminController extends Controller
     }
 
 
-     //________________super admin login request ajax___________________
+     //_super admin login request ajax__________________
      public function loginUser(Request $request)
      {
-    
-        $email = $request->input('super_admin_email');
-        $password = $request->input('super_admin_password');
-    
-        $user = DB::table('admins')->where('email', $email)->first();
+       
+         $email = $request->input('super_admin_email');
+         $password = $request->input('super_admin_password');
+      
+         $user = DB::table('admins')->where('email', $email)->where('admin_type', 'super')->first();
+ 
+         if ($user && $user->password === $password) {
+             // Authentication passed
+             session(['Super_admin_logged_in' => $user->email]);
+             return response()->json(['message' => 'Login successful'], 200);
+         } else {
+             // Authentication failed
+             return response()->json(['errors' => ['identifier' => ['Invalid email or password.']]], 422);
+         }
+     }
+        //sub admin login request ajaxx
+    public function subloginUser(Request $request)
+    {
+      
+        $email = $request->input('sub_admin_email');
+        $password = $request->input('sub_admin_password');
+     
+        $user = DB::table('admins')->where('email', $email)->where('admin_type', 'sub')->first();
 
         if ($user && $user->password === $password) {
             // Authentication passed
-            session(['Super_admin_logged_in' => $user->email]);
-            session(['sup_admin_name' => $user->name]);
+            session(['sub_admin_logged_in' => $user->email]);
+            session(['sub_admin_name' => $user->name]);
+            // // Retrieve the user's name
+            // $userName = $user->name;
+            // session(['sub_admin_name' => $userName]); // Storing name in session
+
             return response()->json(['message' => 'Login successful'], 200);
         } else {
             // Authentication failed
             return response()->json(['errors' => ['identifier' => ['Invalid email or password.']]], 422);
         }
-     }
-        //sub admin login request ajaxx
-        public function subloginUser(Request $request)
-        {
-            $email = $request->input('sub_admin_email');
-            $password = $request->input('sub_admin_password');
-        
-            $user = DB::table('admins')->where('email', $email)->first();
-        
-            if ($user && Crypt::decryptString($user->password) === $password) {
-                // Authentication passed
-                session(['sub_admin_logged_in' => $user->email]);
-                session(['sub_admin_name' => $user->name]);
-                // // Retrieve the user's name
-                // $userName = $user->name;
-                // session(['sub_admin_name' => $userName]); // Storing name in session
-        
-                return response()->json(['message' => 'Login successful'], 200);
-            } else {
-                // Authentication failed
-                return response()->json(['errors' => ['identifier' => ['Invalid email or password.']]], 422);
-            }
-        }
+    }
      // Sub Admin methods
     
      

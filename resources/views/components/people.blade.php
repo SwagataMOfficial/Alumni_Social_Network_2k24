@@ -1,8 +1,9 @@
 <div class="flex justify-between items-center gap-4 w-full">
     <div class="flex gap-4">
-        <a href="/profile/{{ $people['remember_token'] }}" class="w-12 border-2 border-stone-500 aspect-square rounded-[50%] overflow-hidden">
-            <img class="w-full h-full object-cover"
-                src="{{ asset('/storage/' . $people['profile_picture']) }}" alt="profile image">
+        <a href="/profile/{{ $people['remember_token'] }}"
+            class="w-12 border-2 border-stone-500 aspect-square rounded-[50%] overflow-hidden">
+            <img class="w-full h-full object-cover" src="{{ asset('/storage/' . $people['profile_picture']) }}"
+                alt="profile image">
         </a>
         <div class="flex flex-col justify-center select-none">
             <p class="text-sm font-semibold text-stone-600">{{ $people['name'] }}</p>
@@ -20,8 +21,8 @@
             </p>
         </div>
     </div>
-    <a href="{{ route('friend.request', ['token' => $people['remember_token']]) }}"
-    class="flex items-center text-stone-600">
+    <a href="javascript:void(0);" data-send-link="{{ route('friend.request', ['token' => $people['remember_token']]) }}"
+        class="flex items-center text-stone-600">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
             class="w-5 h-5 hover:cursor-pointer hover:text-stone-900">
             <path

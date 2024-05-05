@@ -8,12 +8,12 @@ use App\Http\Controllers\PostController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ViewsController;
-use App\Http\Controllers\FriendsController;// remove login check middleware from globally to locally for other middleware should work properly eg. admin and sub admin middle ware otherwise it will conflict
+use App\Http\Controllers\FriendsController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\NotificationsController;
 
 Route::middleware([LoginCheck::class])->group(function () {
- 
+
     Route::get('/', [UserController::class, 'index']);
     Route::get("/feed", [ViewsController::class, "index"])->name('feed');
     Route::get('/logout', [UserController::class, 'logout'])->name('auth.logout');
@@ -22,34 +22,34 @@ Route::middleware([LoginCheck::class])->group(function () {
     Route::post('/like', [PostController::class, 'likepost'])->name('post.like');
     Route::get('/post/report/{id}', [PostController::class, 'report_post'])->name('post.report');
 
-    Route::group(['prefix' => "/comments"], function(){ 
+    Route::group(['prefix' => "/comments"], function () {
         Route::post('/add', [PostController::class, 'add_comment'])->name('comments.add');
         Route::delete('/delete/{id}', [PostController::class, 'delete_comment'])->name('comments.delete');
     });
 
-    Route::group(['prefix' => "/notification"], function(){ 
+    Route::group(['prefix' => "/notification"], function () {
         Route::get('/read/{id}', [NotificationsController::class, 'mark_read'])->name('notification.read');
         Route::get('/delete/{id}', [NotificationsController::class, 'delete'])->name('notification.delete');
         Route::get('/check-new', [NotificationsController::class, 'checkNew'])->name('notification.checkNew');
     });
 
     // common navigation views
+    Route::get("/jobs", [ViewsController::class, "jobs"])->name('jobs');
     Route::get("/friends", [ViewsController::class, "friends"])->name('friends');
     Route::get("/messages", [ViewsController::class, "messages"])->name('messages');
     Route::get("/notifications", [ViewsController::class, "notifications"])->name('notifications');
     Route::get("/settings", [ViewsController::class, "view_settings"])->name('settings');
-    Route::get("/results", [ProfileController::class, 'view_search'])->name('search.results');
     Route::get('/myfriends', [ViewsController::class, 'view_myfriends'])->name('myfriends');
 
     // grouped routes [ the url should start with /profile]
     Route::group(['prefix' => '/profile'], function () {
-        Route::get("/edit", [ProfileController::class, 'view_edit'])->name('profile.edit');
+        Route::get("/edit", [ViewsController::class, 'view_edit'])->name('profile.edit');
         Route::post("/edit", [ProfileController::class, 'save_changes'])->name('profile.savechanges');
         Route::post("/togglevisibility", [ProfileController::class, 'toggleVisibility'])->name('profile.visibility');
-        Route::get('/user/search', [ProfileController::class, 'view_search'])->name('profile.search');
-        Route::get("/{user_token}", [ProfileController::class, "view_page"]);
+        Route::get('/users/search', [ViewsController::class, 'view_search'])->name('profile.search');
+        Route::get("/{user_token}", [ViewsController::class, "view_profiles"]);
         Route::post('/change-password', [ProfileController::class, 'changePassword'])->name('profile.changePassword');
-     
+
     });
 
     // friend routes [grouped]
@@ -60,7 +60,6 @@ Route::middleware([LoginCheck::class])->group(function () {
         Route::get('/remove/{id}', [FriendsController::class, 'remove_friend'])->name('friend.remove');
     });
 
-    
 });
 
 Route::get('/register', [UserController::class, 'register'])->name('register');
@@ -150,7 +149,7 @@ Route::middleware([SubAdminAuth::class])->group(function () {
     Route::get('/subadmin/reportedContent_view/suspend/{id}', [AdminController::class, 'subadmin_reportedContent_view_suspend'])->name('subadmin.ReportedContent_view_suspend');
     Route::get('/subadmin/reportedContent_view/removeFromReport/{id}', [AdminController::class, 'subadmin_reportedContent_view_removeFromReport'])->name('subadmin.ReportedContent_view_removeFromReport');
     //reported contet END--
-    
+
     Route::get('/subadmin/communication', [AdminController::class, 'subadmin_communication'])->name('subadmin.communication');
 
     //User support START--
