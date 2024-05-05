@@ -38,16 +38,16 @@ class AdminController extends Controller
     }
     //user management START---
     public function usermanagement()
-    {   
+    {
         $users = User::where('ban_acc', 0)->get();
 
-        $data=compact('users');
-         
-        
+        $data = compact('users');
+
+
         return view('super_admin.Usermanagement')->with($data);
     }
     public function usermanagementview($id)
-    {   
+    {
         $user = User::find($id);
 
         if (is_null($user)) {
@@ -55,7 +55,7 @@ class AdminController extends Controller
         } else {
             // Retrieve user's posts (including all types)
             $userPosts = UserPost::where('posted_by', $id)->where('delete_post', '!=', 1)->get();
-            if($userPosts->isEmpty()) {
+            if ($userPosts->isEmpty()) {
                 return redirect()->back()->with('message', 'No posts found!');
             } else {
                 // Pass user and their posts to the view
@@ -63,7 +63,7 @@ class AdminController extends Controller
                 return view('super_admin.usermanagement_view')->with($data);
             }
         }
-        
+
     }
 
     public function usermanagementview_delete($id)
@@ -114,21 +114,21 @@ class AdminController extends Controller
 
         return redirect('/admin/usermanagement')->with('success', 'User successfully suspended .');
     }
-     //user management END---
+    //user management END---
 
-     //Team START---
-     public function admin_team()
-     {
-         // Fetch all sub-admins
-         $subAdmins = Admin::where('admin_type', 'sub')->get();
-     
-         // Decrypt passwords for each sub-admin
-         foreach ($subAdmins as $subAdmin) {
-             $subAdmin->decryptedPassword = Crypt::decryptString($subAdmin->password);
-         }
-     
-         return view('super_admin.team', compact('subAdmins'));
-     }
+    //Team START---
+    public function admin_team()
+    {
+        // Fetch all sub-admins
+        $subAdmins = Admin::where('admin_type', 'sub')->get();
+
+        // Decrypt passwords for each sub-admin
+        foreach ($subAdmins as $subAdmin) {
+            $subAdmin->decryptedPassword = Crypt::decryptString($subAdmin->password);
+        }
+
+        return view('super_admin.team', compact('subAdmins'));
+    }
 
     public function teamadd()
     {
@@ -136,7 +136,7 @@ class AdminController extends Controller
         //$value=compact('data');
         return view('super_admin.teamadd');//->with($value);
     }
-    
+
     public function teamMemberadd(Request $request)
     {
         $request->validate([
@@ -170,20 +170,22 @@ class AdminController extends Controller
         }
     }
 
-    public function admin_team_remove($id){
-        
+    public function admin_team_remove($id)
+    {
+
         $sub_admin = Admin::find($id);
 
         if ($sub_admin) {
-        
+
             $sub_admin->delete();
             return redirect()->back()->with('success', 'Record is removed');
         } else {
             return redirect()->back()->with('error', 'Record not Found!!!');
         }
     }
-    public function admin_team_changePassword($id){
-        
+    public function admin_team_changePassword($id)
+    {
+
         $sub_admin = Admin::find($id);
 
         if (!$sub_admin) {
@@ -193,7 +195,7 @@ class AdminController extends Controller
             return view('super_admin.team_changePassword', compact('id'));
         }
     }
- 
+
 
     public function admin_team_updatePassword(Request $request, $id)
     {
@@ -230,12 +232,12 @@ class AdminController extends Controller
 
 
     //Team END!!!
- 
+
     public function content()
     {
         return view('super_admin.Contentmoderation');
     }
-       public function viewcontent()
+    public function viewcontent()
     {
         return view('super_admin.viewcontent');
     }
@@ -244,38 +246,40 @@ class AdminController extends Controller
     public function userban()
     {
         $banuser = User::where('ban_acc', '1')->get();
-        $data=compact('banuser');
+        $data = compact('banuser');
         return view('super_admin.banneduser')->with($data);
     }
 
-    public function userban_unban($id){
-        
+    public function userban_unban($id)
+    {
+
         $user = User::find($id);
-    
+
         if (!$user) {
             return redirect()->back()->with('error', 'User not found.');
         }
-    
+
         // Update the user's ban_acc column to 0 (unban)
         $user->ban_acc = 0;
         $user->save();
-    
+
         // Update reported posts associated with the user
         //UserPost::where('posted_by', $id)->update(['reported_at' => null]);  --- update the column
 
         // UserPost::where('posted_by', $id)
         // ->whereNotNull('reported_at')    --- delete the reported post
         // ->delete();
-    
+
         // Update delete_post column to 0 for the user's posts  
         // UserPost::where('posted_by', $id)->update(['delete_post' => 0]);
-    
+
         return redirect()->back()->with('success', 'User unbanned successfully.');
     }
-    
-    public function userban_delete($id){
+
+    public function userban_delete($id)
+    {
         $user = User::find($id);
-    
+
         if (!$user) {
             return redirect()->back()->with('error', 'User not found.');
         }
@@ -283,19 +287,19 @@ class AdminController extends Controller
 
         return redirect()->back()->with('success', 'User Deleted');
     }
-    public function userban_view($id){
-        
+    public function userban_view($id)
+    {
+
         $user = User::find($id);
 
         if (is_null($user)) {
             return redirect()->back();
-        } 
-        else {
+        } else {
             $userPosts = UserPost::where('posted_by', $id)
                 ->where('delete_post', 1)
                 ->get();
-        
-            return view('super_admin.banneduser_view', compact('userPosts','user'));
+
+            return view('super_admin.banneduser_view', compact('userPosts', 'user'));
         }
     }
     //ban user END---
@@ -305,26 +309,26 @@ class AdminController extends Controller
     {
         // Retrieve users who have at least one query and whose reply is null
         $users = Support::select('supports.student_id', 'users.name', 'users.email')
-                        ->join('users', 'supports.student_id', '=', 'users.student_id')
-                        ->whereNotNull('supports.query')
-                        ->whereNull('supports.reply')
-                        ->distinct()
-                        ->get();
-        
+            ->join('users', 'supports.student_id', '=', 'users.student_id')
+            ->whereNotNull('supports.query')
+            ->whereNull('supports.reply')
+            ->distinct()
+            ->get();
+
         return view('super_admin.support', compact('users'));
-        
+
     }
 
     public function viewsupport($id)
     {
         // Retrieve user's queries with null replies
         $queries = Support::where('student_id', $id)
-                        ->whereNotNull('query')
-                        ->whereNull('reply')
-                        ->get();
+            ->whereNotNull('query')
+            ->whereNull('reply')
+            ->get();
 
         return view('super_admin.viewsupport', compact('queries'));
-        
+
     }
     public function viewsupport_submit(Request $request)
     {
@@ -332,15 +336,15 @@ class AdminController extends Controller
             'id' => 'required|exists:supports,id', // Ensure the query ID exists in the supports table
             'reply' => 'required|string|max:255', // Validate the reply
         ]);
-    
+
         // Find the support record by query ID
         $support = Support::find($validatedData['id']);
-    
+
         if ($support) {
-           
+
             $support->reply = $validatedData['reply'];
             $support->save();
-    
+
             return redirect()->back()->with('success', 'Reply submitted successfully.');
         } else {
             // Redirect back with an error message if the support record is not found
@@ -366,70 +370,71 @@ class AdminController extends Controller
         $totalPost = Userpost::count();
 
         //count the total sub admin from admin table
-        $totalSubAdmin= Admin::where('admin_type', 'sub')->count();
+        $totalSubAdmin = Admin::where('admin_type', 'sub')->count();
 
         // Get the count of distinct users who have at least one reported content
         $totalReportedUsers = DB::table('user_posts')->whereNotNull('reported_at')->distinct()->count('posted_by');
 
-        $data=compact('totalUser','totalPost','totalSubAdmin','userData','recentUsers','totalReportedUsers');
+        $data = compact('totalUser', 'totalPost', 'totalSubAdmin', 'userData', 'recentUsers', 'totalReportedUsers');
         return view('super_admin.Sup_admin_dashboard')->with($data);
     }
 
 
-     //_super admin login request ajax__________________
-     public function loginUser(Request $request)
-     {
-       
-         $email = $request->input('super_admin_email');
-         $password = $request->input('super_admin_password');
-      
-         $user = DB::table('admins')->where('email', $email)->where('admin_type', 'super')->first();
- 
-         if ($user && Hash::check($password, $user->password)) {
-             // Authentication passed
-             session(['Super_admin_logged_in' => $user->email]);
-             return response()->json(['message' => 'Login successful'], 200);
-         } else {
-             // Authentication failed
-             return response()->json(['errors' => ['identifier' => ['Invalid email or password.']]], 422);
-         }
-     }
-        //sub admin login request ajaxx
-    public function subloginUser(Request $request)
-    {
-      
-        $email = $request->input('sub_admin_email');
-        $password = $request->input('sub_admin_password');
-     
-        $user = DB::table('admins')->where('email', $email)->where('admin_type', 'sub')->first();
-        // Decrypt the stored password
-        $storedEncryptedPassword =  $user->password ;
-        $storedPassword = Crypt::decryptString($storedEncryptedPassword);
+    //_super admin login request ajax__________________
+    public function loginUser(Request $request)
+{
 
-        if ($user &&   $storedPassword === $password) {
+    $email = $request->input('super_admin_email');
+    $password = $request->input('super_admin_password');
+
+    $user = DB::table('admins')->where('email', $email)->where('admin_type', 'super')->first();
+    if ($user !== null) {
+        // Use password_verify to compare hashed password
+        if (Hash::check($password, $user->password)) {
             // Authentication passed
-            session(['sub_admin_logged_in' => $user->email]);
-            session(['sub_admin_name' => $user->name]);
-            // // Retrieve the user's name
-            // $userName = $user->name;
-            // session(['sub_admin_name' => $userName]); // Storing name in session
-
+            session(['Super_admin_logged_in' => $user->email]);
             return response()->json(['message' => 'Login successful'], 200);
         } else {
-            // Authentication failed
             return response()->json(['errors' => ['identifier' => ['Invalid email or password.']]], 422);
         }
     }
-     // Sub Admin methods
-    
-     
-     //user Management start---
+    return response()->json(['errors' => ['identifier' => ['Invalid email or password.']]], 422);
+}
+    //sub admin login request ajaxx
+    public function subloginUser(Request $request)
+    {
+        $email = $request->input('sub_admin_email');
+        $password = $request->input('sub_admin_password');
+
+        $user = DB::table('admins')->where('email', $email)->where('admin_type', 'sub')->first();
+
+        // Check if user exists before accessing its properties
+        if ($user !== null) {
+            // Decrypt the stored password
+            $storedEncryptedPassword = $user->password;
+            $storedPassword = Crypt::decryptString($storedEncryptedPassword);
+
+            if ($storedPassword === $password) {
+                // Authentication passed
+                session(['sub_admin_logged_in' => $user->email]);
+                session(['sub_admin_name' => $user->name]);
+                return response()->json(['message' => 'Login successful'], 200);
+            }
+        }
+
+        // Authentication failed (either user doesn't exist or incorrect password)
+        return response()->json(['errors' => ['identifier' => ['Invalid email or password.']]], 422);
+    }
+    // Sub Admin methods
+
+
+    //user Management start---
     public function subadmin_usermanagement()
     {
         $users = User::where('ban_acc', 0)->get();
 
-        $data=compact('users');
-         return view('sub_admin.Sub_usermanagement')->with($data);
+        $data = compact('users');
+        return view('sub_admin.Sub_usermanagement')->with($data);
     }
     public function subadmin_profileview($id)
     {
@@ -440,7 +445,7 @@ class AdminController extends Controller
         } else {
             // Retrieve user's posts (including all types)
             $userPosts = UserPost::where('posted_by', $id)->where('delete_post', '!=', 1)->get();
-            if($userPosts->isEmpty()) {
+            if ($userPosts->isEmpty()) {
                 return redirect()->back()->with('message', 'No posts found!');
             } else {
                 // Pass user and their posts to the view
@@ -500,51 +505,51 @@ class AdminController extends Controller
         return redirect('/subadmin/usermanagement')->with('success', 'User successfully suspended .');
     }
     //user Management END!!!
- 
+
 
     // Reported Content START--
-     public function subadmin_reportedContent()
+    public function subadmin_reportedContent()
     {
         // Retrieve distinct posted_by values for users who have at least one reported post
         $userIdsWithReports = DB::table('user_posts')
-        ->join('users', 'user_posts.posted_by', '=', 'users.student_id')
-        ->select('user_posts.posted_by')
-        ->whereNotNull('user_posts.reported_at')
-        ->where('user_posts.delete_post', 0)
-        ->where('users.ban_acc', 0)
-        ->distinct()
-        ->pluck('user_posts.posted_by');
-    
+            ->join('users', 'user_posts.posted_by', '=', 'users.student_id')
+            ->select('user_posts.posted_by')
+            ->whereNotNull('user_posts.reported_at')
+            ->where('user_posts.delete_post', 0)
+            ->where('users.ban_acc', 0)
+            ->distinct()
+            ->pluck('user_posts.posted_by');
+
 
         // Retrieve user details for the users with reported posts
         $usersWithReports = User::whereIn('student_id', $userIdsWithReports)->get(['name', 'email', 'student_id']);
 
         // Pass data to the view using compact
         return view('sub_admin.Sub_contentmoderation', compact('usersWithReports'));
-    }    
+    }
     public function subadmin_reportedContent_view($id)
     {
         $user = User::find($id);
 
         if (is_null($user)) {
             return redirect('/subadmin/usermanagement');
-        } 
-        else {
+        } else {
             // Retrieve user's reported posts
             $userPosts = UserPost::where('posted_by', $id)
                 ->where('delete_post', '!=', 1)
                 ->whereNotNull('reported_at')
                 ->get();
-        
-            
-            
-                // Pass user and their reported posts to the view
-                return view('sub_admin.Sub_reportedContent_view', compact('user', 'userPosts'));
-            
+
+
+
+            // Pass user and their reported posts to the view
+            return view('sub_admin.Sub_reportedContent_view', compact('user', 'userPosts'));
+
         }
     }
-    public function subadmin_reportedContent_view_delete($id){
-       // Find the post by ID
+    public function subadmin_reportedContent_view_delete($id)
+    {
+        // Find the post by ID
         $post = Userpost::find($id);
 
         if ($post) {
@@ -569,7 +574,8 @@ class AdminController extends Controller
             return redirect()->back();
         }
     }
-    public function subadmin_reportedContent_view_suspend($id){
+    public function subadmin_reportedContent_view_suspend($id)
+    {
         $post = UserPost::find($id);
         if (!$post) {
             return redirect()->back()->with('error', 'Post not found.');
@@ -588,7 +594,8 @@ class AdminController extends Controller
 
         return redirect('/subadmin/reportedContent')->with('success', 'User successfully suspended .');
     }
-    public function subadmin_reportedContent_view_removeFromReport($id){
+    public function subadmin_reportedContent_view_removeFromReport($id)
+    {
         $post = UserPost::find($id);
         if (!$post) {
             return redirect()->back()->with('error', 'Post not found.');
@@ -599,85 +606,82 @@ class AdminController extends Controller
         return redirect()->back();
     }
     // reported Content END!!
- 
+
     // user verification START---
     public function sub_admin_verification()
     {
-    $users=User::whereNull('verified_at')->where('verification_document', '!=', 'reject')->latest('created_at')->get(); //checking the unverified user
-    
-    $data=compact('users');
+        $users = User::whereNull('verified_at')->where('verification_document', '!=', 'reject')->latest('created_at')->get(); //checking the unverified user
+
+        $data = compact('users');
         return view('sub_admin.sub_userverification')->with($data);
     }
 
     public function sub_admin_verification_view($id)
     {
-    $user=User::find($id); 
-    if(is_null($user)){
-        
-        return redirect('/subadmin/userverification');
-    }
-    else{
-        //$unVerified_user=Customer::where('c_id', $id)->get();
-        $data=compact('id','user');
-        return view('sub_admin.sub_userverification_view')->with($data);
-    }
+        $user = User::find($id);
+        if (is_null($user)) {
+
+            return redirect('/subadmin/userverification');
+        } else {
+            //$unVerified_user=Customer::where('c_id', $id)->get();
+            $data = compact('id', 'user');
+            return view('sub_admin.sub_userverification_view')->with($data);
+        }
 
     }
     public function sub_admin_verification_view_approve($id)
     {
-    $user=User::find($id); 
-    if(is_null($user)){
-        
-        return redirect('/subadmin/userverification');
-    }
-    else{
-        $user->verified_at=Carbon::now();
-        $user->save();
+        $user = User::find($id);
+        if (is_null($user)) {
 
-        return redirect('/subadmin/userverification')->with('message','Doocument is verified !');
-    }
+            return redirect('/subadmin/userverification');
+        } else {
+            $user->verified_at = Carbon::now();
+            $user->save();
+
+            return redirect('/subadmin/userverification')->with('message', 'Doocument is verified !');
+        }
     }
     public function sub_admin_verification_view_reject($id)
     {
-        $user=User::find($id); 
-        if(is_null($user)){
-            
+        $user = User::find($id);
+        if (is_null($user)) {
+
             return redirect('/subadmin/userverification');
-        }
-        else{
+        } else {
             $user->verification_document = "reject";
-            $user->verified_at=null;
+            $user->verified_at = null;
             $user->save();
 
-            return redirect('/subadmin/userverification')->with('message','Document is rejected !');
+            return redirect('/subadmin/userverification')->with('message', 'Document is rejected !');
         }
     }
     //SUB admin user verification END---
- 
+
     //User support START---
     public function subadmin_usersupport()
     {
         // Retrieve users who have at least one query and whose reply is null
         $users = Support::select('supports.student_id', 'users.name', 'users.email')
-                        ->join('users', 'supports.student_id', '=', 'users.student_id')
-                        ->whereNotNull('supports.query')
-                        ->whereNull('supports.reply')
-                        ->distinct()
-                        ->get();
-        
+            ->join('users', 'supports.student_id', '=', 'users.student_id')
+            ->whereNotNull('supports.query')
+            ->whereNull('supports.reply')
+            ->distinct()
+            ->get();
+
         return view('sub_admin.Sub_userSupport', compact('users'));
     }
     public function subadmin_usersupport_view($id)
     {
         // Retrieve user's queries with null replies
         $queries = Support::where('student_id', $id)
-                        ->whereNotNull('query')
-                        ->whereNull('reply')
-                        ->get();
+            ->whereNotNull('query')
+            ->whereNull('reply')
+            ->get();
 
         return view('sub_admin.Sub_usersupport_view', compact('queries'));
     }
-    
+
 
     public function subadmin_usersupport_view_submit(Request $request)
     {
@@ -685,15 +689,15 @@ class AdminController extends Controller
             'id' => 'required|exists:supports,id', // Ensure the query ID exists in the supports table
             'reply' => 'required|string|max:255', // Validate the reply
         ]);
-    
+
         // Find the support record by query ID
         $support = Support::find($validatedData['id']);
-    
+
         if ($support) {
-           
+
             $support->reply = $validatedData['reply'];
             $support->save();
-    
+
             return redirect()->back()->with('success', 'Reply submitted successfully.');
         } else {
             // Redirect back with an error message if the support record is not found
@@ -702,36 +706,36 @@ class AdminController extends Controller
     }
     //User support END---
 
-     public function subadmin_logout()
-     {
-         // Clear the user session
-         Session::forget('sub_admin_logged_in');
- 
-         // Redirect the user to the login page or any other page
-         return redirect('/subadmin');
- 
-     }
-     //sub_admin Dashboard START---
-     public function sub_admin_dashboard()
-     {
-         $userData = ['userInfo' => DB::table('admins')->where('email', session('sub_admin_logged_in'))->first()];
-         //last 5 recent join user data
-         $recentUsers = User::orderBy('created_at', 'desc')->take(5)->get();
+    public function subadmin_logout()
+    {
+        // Clear the user session
+        Session::forget('sub_admin_logged_in');
+
+        // Redirect the user to the login page or any other page
+        return redirect('/subadmin');
+
+    }
+    //sub_admin Dashboard START---
+    public function sub_admin_dashboard()
+    {
+        $userData = ['userInfo' => DB::table('admins')->where('email', session('sub_admin_logged_in'))->first()];
+        //last 5 recent join user data
+        $recentUsers = User::orderBy('created_at', 'desc')->take(5)->get();
 
         //count the total user from user table
         $totalUser = User::where('ban_acc', 0)->count();
 
         //count the total posts from user_posts table
-         $totalPost = Userpost::count();
+        $totalPost = Userpost::count();
 
-         //count the total sub admin from admin table
-         $totalBanUser= User::where('ban_acc', '1')->count();
+        //count the total sub admin from admin table
+        $totalBanUser = User::where('ban_acc', '1')->count();
 
-         // Get the count of distinct users who have at least one reported content
-         $totalReportedUsers = DB::table('user_posts')->whereNotNull('reported_at')->distinct()->count('posted_by');
+        // Get the count of distinct users who have at least one reported content
+        $totalReportedUsers = DB::table('user_posts')->whereNotNull('reported_at')->distinct()->count('posted_by');
 
-         $data=compact('totalUser','totalPost','totalBanUser','userData','recentUsers','totalReportedUsers');
-         return view('sub_admin.Sub_dashboard')->with($data);
-     }
-     //sub_admin Dashboard END!!!
+        $data = compact('totalUser', 'totalPost', 'totalBanUser', 'userData', 'recentUsers', 'totalReportedUsers');
+        return view('sub_admin.Sub_dashboard')->with($data);
+    }
+    //sub_admin Dashboard END!!!
 }

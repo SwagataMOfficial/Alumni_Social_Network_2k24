@@ -18,11 +18,12 @@ class Superadmin extends Seeder
             return;
         }
 
-        // creating an admin
+        $password = bcrypt("123456");
+
         Admin::create([
             "name" => "admin",
             "email" => "super@admin.com",
-            "password" => md5("superadmin"),
+            "password" => $password,
             "admin_type" => "super",
         ]);
     }
