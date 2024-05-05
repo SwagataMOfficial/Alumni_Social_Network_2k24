@@ -385,7 +385,7 @@ class AdminController extends Controller
       
          $user = DB::table('admins')->where('email', $email)->where('admin_type', 'super')->first();
  
-         if ($user && $user->password === $password) {
+         if ($user && Hash::check($password, $user->password)) {
              // Authentication passed
              session(['Super_admin_logged_in' => $user->email]);
              return response()->json(['message' => 'Login successful'], 200);
