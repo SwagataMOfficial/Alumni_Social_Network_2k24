@@ -402,8 +402,11 @@ class AdminController extends Controller
         $password = $request->input('sub_admin_password');
      
         $user = DB::table('admins')->where('email', $email)->where('admin_type', 'sub')->first();
+        // Decrypt the stored password
+        $storedEncryptedPassword =  $user->password ;
+        $storedPassword = Crypt::decryptString($storedEncryptedPassword);
 
-        if ($user && $user->password === $password) {
+        if ($user &&   $storedPassword === $password) {
             // Authentication passed
             session(['sub_admin_logged_in' => $user->email]);
             session(['sub_admin_name' => $user->name]);
