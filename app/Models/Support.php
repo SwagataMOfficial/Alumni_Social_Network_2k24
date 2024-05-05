@@ -15,8 +15,8 @@ class Support extends Model
             'student_id',
             'query',
             'reply',
-            // You might not need to specify 'id', 'created_at', and 'updated_at' as fillable, 
-            // as they are typically managed by Laravel automatically.
+            'created_at',
+            'updated_at'
         ];
 }
 
