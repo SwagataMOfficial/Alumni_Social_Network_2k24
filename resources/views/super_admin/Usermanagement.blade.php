@@ -63,7 +63,6 @@
                                             <th>ID No.</th>
                                             <th>Name</th>
                                             <th>Email</th>
-                                            <th>Ph No.</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
@@ -73,13 +72,6 @@
                                             <td>{{ $user->student_id }}</td>
                                             <td>{{ $user->name }}</td>
                                             <td>{{ $user->email }}</td>
-                                            <td>
-                                                @if (empty($user->phone))
-                                                    __
-                                                @else
-                                                    {{ $user->phone }}
-                                                @endif
-                                            </td>
 
                                             <td>
 

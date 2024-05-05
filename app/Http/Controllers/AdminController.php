@@ -245,7 +245,7 @@ class AdminController extends Controller
     //ban user SRART---
     public function userban()
     {
-        $banuser = User::where('ban_acc', '1')->get();
+        $banuser = User::where('ban_acc', '1')->where('deleted_acc', '0')->get();
         $data = compact('banuser');
         return view('super_admin.banneduser')->with($data);
     }
@@ -283,7 +283,8 @@ class AdminController extends Controller
         if (!$user) {
             return redirect()->back()->with('error', 'User not found.');
         }
-        $user->delete();
+        $user->deleted_acc= 1;
+        $user->save();
 
         return redirect()->back()->with('success', 'User Deleted');
     }
@@ -312,6 +313,7 @@ class AdminController extends Controller
             ->join('users', 'supports.student_id', '=', 'users.student_id')
             ->whereNotNull('supports.query')
             ->whereNull('supports.reply')
+            ->where('ban_acc', '=', '0')
             ->distinct()
             ->get();
 
@@ -425,6 +427,7 @@ class AdminController extends Controller
         // Authentication failed (either user doesn't exist or incorrect password)
         return response()->json(['errors' => ['identifier' => ['Invalid email or password.']]], 422);
     }
+
     // Sub Admin methods
 
 
@@ -610,7 +613,9 @@ class AdminController extends Controller
     // user verification START---
     public function sub_admin_verification()
     {
-        $users = User::whereNull('verified_at')->where('verification_document', '!=', 'reject')->latest('created_at')->get(); //checking the unverified user
+        $users = User::whereNull('verified_at')
+        ->where('verification_document', '!=', 'reject')
+        ->where('ban_acc', '=', '0')->latest('created_at')->get(); //checking the unverified user
 
         $data = compact('users');
         return view('sub_admin.sub_userverification')->with($data);
@@ -666,6 +671,7 @@ class AdminController extends Controller
             ->join('users', 'supports.student_id', '=', 'users.student_id')
             ->whereNotNull('supports.query')
             ->whereNull('supports.reply')
+            ->where('ban_acc', '=', '0')
             ->distinct()
             ->get();
 

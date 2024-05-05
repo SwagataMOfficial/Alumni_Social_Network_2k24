@@ -50,7 +50,7 @@
                         <div class="card-body">
                             <div class="team-members">
                                 <div class="container mt-2">
-                                    <h2>All Deleted Post by sub-admin</h2>
+                                    <h2>Baned User All Post</h2>
                                     @foreach ($userPosts as $post)
                                         @if ($post->delete_post == 1)
                                             <div class="col-md-12 mb-4">

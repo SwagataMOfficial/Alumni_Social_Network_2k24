@@ -86,7 +86,7 @@
                                                 <a
                                                 href="{{ route('userban_unban', ['id' => $user->student_id]) }}"><button type="button" class="btn btn-magenta">Un Ban</button></a>
 
-                                                <button type="button" class="btn btn-primary" onclick="deleteUser({{ $user->student_id }})">Delete</button>
+                                                <button type="button" class="btn btn-primary" onclick="deleteUser({{ $user->student_id }})">Delete Account</button>
                                                 <a
                                                 href="{{ route('userban_view', ['id' => $user->student_id]) }}"><button type="button" class="btn btn-success">View</button></a>
                                             </td>

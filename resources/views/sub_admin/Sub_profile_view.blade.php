@@ -88,11 +88,11 @@
                                                     <div class="post-buttons d-flex justify-content-center">
                                                         <a
                                                             href="{{ route('subadmin.Profileview_delete', ['id' => $post->post_id]) }}">
-                                                            <button class="btn btn-danger mt-3 mr-2">Delete</button>
+                                                            <button class="btn btn-danger mt-3 mr-2">Delete Post</button>
                                                         </a>
                                                         <a
                                                             href="{{ route('subadmin.Profileview_suspend', ['id' => $post->post_id]) }}">
-                                                            <button class="btn btn-secondary mt-3">Suspend</button>
+                                                            <button class="btn btn-secondary mt-3">Suspend Account</button>
                                                         </a>
                                                     </div>
                                                 </div>
