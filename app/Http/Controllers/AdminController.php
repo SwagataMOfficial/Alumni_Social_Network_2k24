@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\Session;
 use App\Mail\SupportReply;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\AccountBanned;
+use App\Models\Notification;
 
 use Symfony\Component\HttpKernel\Event\RequestEvent;
 
@@ -78,7 +79,15 @@ class AdminController extends Controller
             // Set the delete_post column to 1
             $post->delete_post = 1;
             $post->save();
-
+            // Create a notification for the user
+            Notification::create([
+                'notified_to' => $post->posted_by,
+                'n_description' => 'Your post has been deleted by the admin. Please refrain from posting similar content in the future, as repeated violations may result in account suspension or banning.',
+                'type' => 'post-deleted',
+                'url' => route('notifications'), // Adjust the URL as needed
+                'created_at' => now(),
+                'updated_at' => now()
+            ]);
             // Count the remaining posts for the user
             $remainingPostsCount = Userpost::where('posted_by', $post->posted_by)
                 ->where('delete_post', '!=', 1)
@@ -112,7 +121,16 @@ class AdminController extends Controller
         $user = User::find($post->posted_by);
         if ($user) {
             $user->ban_acc = 1;
+
             $user->save();
+            Notification::create([
+                'notified_to' => $post->posted_by,
+                'n_description' => 'Your account has been banned. It is currently under review by the super admin. Additionally, one of your posts has been deleted by the admin. Please contact support for further assistance ',
+                'type' => 'suspend_ac',
+                'url' => route('notifications'), // Adjust the URL as needed
+                'created_at' => now(),
+                'updated_at' => now()
+            ]);
         }
 
         return redirect('/admin/usermanagement')->with('success', 'User successfully suspended .');
@@ -275,25 +293,34 @@ class AdminController extends Controller
 
         // Update delete_post column to 0 for the user's posts  
         // UserPost::where('posted_by', $id)->update(['delete_post' => 0]);
-
+        Notification::create([
+            'notified_to' => $user->student_id,
+            'n_description' => 'Good news! Your account has been reviewed by the admin and has been unbanned. You can now access your account as usual. We apologize for any inconvenience caused during this time.
+            ',
+            'type' => 'unban-ac',
+            'url' => route('notifications'), // Adjust the URL as needed
+            'created_at' => now(),
+            'updated_at' => now()
+        ]);
+        
         return redirect()->back()->with('success', 'User unbanned successfully.');
     }
 
     public function userban_delete($id)
     {
         $user = User::find($id);
-    
+
         if (!$user) {
             return redirect()->back()->with('error', 'User not found.');
         }
-    
+
         // Ban the user's account
         $user->deleted_acc = 1;
         $user->save();
-    
+
         // Send ban notification email
         Mail::to($user->email)->send(new AccountBanned($user));
-    
+
         return redirect()->back()->with('success', 'User Deleted');
     }
     public function userban_view($id)
@@ -386,7 +413,14 @@ class AdminController extends Controller
 
                 // Send email to the user with query and reply
                 Mail::to($email)->send(new SupportReply($query, $validatedData['reply']));
-
+                Notification::create([
+                    'notified_to' => $support->student_id,
+                    'n_description' => 'We wanted to inform you that a response has been provided to your recent query by our support team. Please check your email inbox for the detailed reply. ',
+                    'type' => 'support_reply',
+                    'url' => route('notifications'), // Adjust the URL as needed
+                    'created_at' => now(),
+                    'updated_at' => now()
+                ]);
                 // Delete the support record
                 $support->delete();
 
@@ -413,29 +447,29 @@ class AdminController extends Controller
             'new-password' => 'required|string|min:6|different:current-password|confirmed',
             'new-password_confirmation' => 'required',
         ]);
-        
+
         // Retrieve the user's email from the session
         $userEmail = session()->get('Super_admin_logged_in');
-        
+
         // Retrieve the user based on the email stored in the session
         $user = Admin::where('email', $userEmail)->first();
-        
+
         // Check if the user exists
         if (!$user) {
             return redirect()->back()->with('error', 'User not found.');
         }
-        
+
         // Check if the provided current password matches the user's password
         if (!Hash::check($request->input('current-password'), $user->password)) {
             return redirect()->back()->with('error', 'Current password is incorrect.');
         }
-        
+
         // Update the user's password
         $user->password = Hash::make($request->input('new-password'));
         $user->save();
-        
+
         return redirect()->back()->with('success', 'Password updated successfully.');
-        
+
     }
     //CHANGE PASSWORD END!!
     public function super_admin_dashboard()
@@ -551,6 +585,14 @@ class AdminController extends Controller
             $remainingPostsCount = Userpost::where('posted_by', $post->posted_by)
                 ->where('delete_post', '!=', 1)
                 ->count();
+                Notification::create([
+                    'notified_to' => $post->posted_by,
+                    'n_description' => 'Your post has been deleted by the admin. Please refrain from posting similar content in the future, as repeated violations may result in account suspension or banning',
+                    'type' => 'post-deleted',
+                    'url' => route('notifications'), // Adjust the URL as needed
+                    'created_at' => now(),
+                    'updated_at' => now()
+                ]);
 
             // If there are no remaining posts for the user, redirect to the profileview page
             if ($remainingPostsCount === 0) {
@@ -582,6 +624,14 @@ class AdminController extends Controller
         if ($user) {
             $user->ban_acc = 1;
             $user->save();
+            Notification::create([
+                'notified_to' => $post->posted_by,
+                'n_description' => 'Your account has been banned. It is currently under review by the super admin. Additionally, one of your posts has been deleted by the admin. Please contact support for further assistance ',
+                'type' => 'suspend_ac',
+                'url' => route('notifications'), // Adjust the URL as needed
+                'created_at' => now(),
+                'updated_at' => now()
+            ]);
         }
 
         return redirect('/subadmin/usermanagement')->with('success', 'User successfully suspended .');
@@ -643,7 +693,14 @@ class AdminController extends Controller
             $remainingPostsCount = Userpost::where('posted_by', $post->posted_by)
                 ->where('delete_post', '!=', 1)
                 ->count();
-
+                Notification::create([
+                    'notified_to' => $post->posted_by,
+                    'n_description' => 'Your post has been deleted by the admin. Please refrain from posting similar content in the future, as repeated violations may result in account suspension or banning',
+                    'type' => 'post-deleted',
+                    'url' => route('notifications'), // Adjust the URL as needed
+                    'created_at' => now(),
+                    'updated_at' => now()
+                ]);
             // If there are no remaining posts for the user, redirect to the profileview page
             if ($remainingPostsCount === 0) {
                 return redirect('/subadmin/reportedContent')->with('success', 'Post deleted successfully.');
@@ -672,6 +729,14 @@ class AdminController extends Controller
         if ($user) {
             $user->ban_acc = 1;
             $user->save();
+            Notification::create([
+                'notified_to' => $post->posted_by,
+                'n_description' => 'Your account has been banned. It is currently under review by the super admin. Additionally, one of your posts has been deleted by the admin. Please contact support for further assistance ',
+                'type' => 'suspend_ac',
+                'url' => route('notifications'), // Adjust the URL as needed
+                'created_at' => now(),
+                'updated_at' => now()
+            ]);
         }
 
         return redirect('/subadmin/reportedContent')->with('success', 'User successfully suspended .');
@@ -722,7 +787,14 @@ class AdminController extends Controller
         } else {
             $user->verified_at = Carbon::now();
             $user->save();
-
+            Notification::create([
+                'notified_to' => $user->student_id,
+                'n_description' => 'We are pleased to inform you that your verification document has been approved by our admin team. You are now verified and can enjoy full access to all features of our platform.',
+                'type' => 'verification_doc',
+                'url' => route('notifications'), // Adjust the URL as needed
+                'created_at' => now(),
+                'updated_at' => now()
+            ]);
             return redirect('/subadmin/userverification')->with('message', 'Doocument is verified !');
         }
     }
@@ -736,7 +808,14 @@ class AdminController extends Controller
             $user->verification_document = "reject";
             $user->verified_at = null;
             $user->save();
-
+            Notification::create([
+                'notified_to' => $user->student_id,
+                'n_description' => 'We regret to inform you that your verification document has been rejected by our admin team. We kindly ask you to re-upload the document according to the provided guidelines.',
+                'type' => 'verification_doc',
+                'url' => route('notifications'), // Adjust the URL as needed
+                'created_at' => now(),
+                'updated_at' => now()
+            ]);
             return redirect('/subadmin/userverification')->with('message', 'Document is rejected !');
         }
     }
@@ -815,7 +894,15 @@ class AdminController extends Controller
 
                 // Send email to the user with query and reply
                 Mail::to($email)->send(new SupportReply($query, $validatedData['reply']));
-
+                Notification::create([
+                    'notified_to' => $user->student_id,
+                    'n_description' => 'We wanted to inform you that a response has been provided to your recent query by our support team. Please check your email inbox for the detailed reply.',
+                    'type' => 'support_reply',
+                    'url' => route('notifications'), // Adjust the URL as needed
+                    'created_at' => now(),
+                    'updated_at' => now()
+                ]);
+               
                 // Delete the support record
                 $support->delete();
 
