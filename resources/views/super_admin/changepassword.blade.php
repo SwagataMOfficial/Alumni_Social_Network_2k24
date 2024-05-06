@@ -70,7 +70,7 @@
             <div class="col-md-6">
                 <div class="custom-container">
 
-                    <form action="{{ url('/admin/team/updatePassword/') }}" method="post">
+                    <form action="{{ url('/admin/updatepassword') }}" method="post">
                         @csrf
                         
                         <div class="form-group">

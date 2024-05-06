@@ -115,7 +115,10 @@ Route::middleware([AdminAuth::class])->group(function () {
     Route::post('/subadmin/viewsupport/submit', [AdminController::class, 'viewsupport_submit'])->name('viewsupport.submit');
     //USER support END---
 
+    //CHANGE PASSWORD START---
     Route::get('/admin/cpassword', [AdminController::class, 'changepassword'])->name('changepass');
+    Route::post('/admin/updatepassword', [AdminController::class, 'updatepassword'])->name('updatepassword');
+     //CHANGE PASSWORD ENDD !!
 });
 Route::post("/admin/login", [AdminController::class, 'loginUser'])->name('admin.login');
 

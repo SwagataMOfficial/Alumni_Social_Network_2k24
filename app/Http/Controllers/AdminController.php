@@ -353,12 +353,46 @@ class AdminController extends Controller
             return redirect()->back()->with('error', 'Support record not found.');
         }
     }
-    //user support START
+    //user support END!!!
 
+    // super_CHANGE PASSWORD START---
     public function changepassword()
     {
         return view('super_admin.changepassword');
     }
+
+    public function updatePassword(Request $request)
+    {
+        $request->validate([
+            'current-password' => 'required',
+            'new-password' => 'required|string|min:6|different:current-password|confirmed',
+            'new-password_confirmation' => 'required',
+        ]);
+        
+        // Retrieve the user's email from the session
+        $userEmail = session()->get('Super_admin_logged_in');
+        
+        // Retrieve the user based on the email stored in the session
+        $user = Admin::where('email', $userEmail)->first();
+        
+        // Check if the user exists
+        if (!$user) {
+            return redirect()->back()->with('error', 'User not found.');
+        }
+        
+        // Check if the provided current password matches the user's password
+        if (!Hash::check($request->input('current-password'), $user->password)) {
+            return redirect()->back()->with('error', 'Current password is incorrect.');
+        }
+        
+        // Update the user's password
+        $user->password = Hash::make($request->input('new-password'));
+        $user->save();
+        
+        return redirect()->back()->with('success', 'Password updated successfully.');
+        
+    }
+    //CHANGE PASSWORD END!!
     public function super_admin_dashboard()
     {
         $userData = ['userInfo' => DB::table('admins')->where('email', session('Super_admin_logged_in'))->first()];
