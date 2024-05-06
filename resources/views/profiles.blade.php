@@ -367,7 +367,22 @@
                     });
                 });
             });
-
+            // Function to display confirmation alert
+            function displayConfirmationAlert(title, text, successCallback) {
+                Swal.fire({
+                    title: title,
+                    text: text,
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonText: 'Yes',
+                    cancelButtonText: 'No',
+                    reverseButtons: true
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        successCallback();
+                    }
+                });
+            }
             // HANDLING REMOVING FRIEND
             $('a[data-remove-friend-link]').each(function(index, element) {
                 $(element).click(function(event) {
@@ -376,37 +391,41 @@
                     // getting the url
                     const URL = $(element).attr("data-remove-friend-link");
 
-                    // Perform AJAX request to send friend request
-                    $.ajax({
-                        url: URL,
-                        method: 'GET',
-                        success: function(response) {
+                    // Display confirmation alert
+                    displayConfirmationAlert('Are you sure?',
+                        'Do you really want to unfriend this user?',
+                        function() {
+                            // Perform AJAX request to unfriend
+                            $.ajax({
+                                url: URL,
+                                method: 'GET',
+                                success: function(response) {
+                                    // Handle the AJAX response here
+                                    Swal.fire({
+                                        icon: 'success',
+                                        title: 'Unfriend successful!',
+                                        showConfirmButton: false,
+                                        timer: 1500
+                                    }).then(function() {
+                                        location.reload();
+                                    });
+                                },
+                                error: function(xhr, status, error) {
+                                    // Handle errors
+                                    let errors = JSON.parse(xhr.responseText);
 
-                            // Handle the AJAX response here
-                            Swal.fire({
-                                icon: 'success',
-                                title: 'Unfriend successfully!',
-                                showConfirmButton: false,
-                                timer: 1500
-                            }).then(function() {
-                                location.reload();
+                                    // Handle the AJAX response here
+                                    Swal.fire({
+                                        icon: 'error',
+                                        title: errors.message,
+                                        showConfirmButton: false,
+                                        timer: 2000
+                                    }).then(function() {
+                                        location.reload();
+                                    });
+                                }
                             });
-                        },
-                        error: function(xhr, status, error) {
-                            // Handle errors
-                            let errors = JSON.parse(xhr.responseText);
-
-                            // Handle the AJAX response here
-                            Swal.fire({
-                                icon: 'error',
-                                title: errors.message,
-                                showConfirmButton: false,
-                                timer: 2000
-                            }).then(function() {
-                                location.reload();
-                            });
-                        }
-                    });
+                        });
                 });
             });
 
@@ -418,33 +437,37 @@
                     // getting the url
                     const URL = $(element).attr("data-report-link");
 
-                    // Perform AJAX request to send friend request
-                    $.ajax({
-                        url: URL,
-                        method: 'GET',
-                        success: function(response) {
+                    // Display confirmation alert
+                    displayConfirmationAlert('Are you sure?',
+                        'Do you really want to report this content?',
+                        function() {
+                            // Perform AJAX request to report content
+                            $.ajax({
+                                url: URL,
+                                method: 'GET',
+                                success: function(response) {
+                                    // Handle the AJAX response here
+                                    Swal.fire({
+                                        icon: 'success',
+                                        title: 'Content successfully reported!',
+                                        showConfirmButton: false,
+                                        timer: 1500
+                                    });
+                                },
+                                error: function(xhr, status, error) {
+                                    // Handle errors
+                                    let errors = JSON.parse(xhr.responseText);
 
-                            // Handle the AJAX response here
-                            Swal.fire({
-                                icon: 'success',
-                                title: 'Content successfully reported!',
-                                showConfirmButton: false,
-                                timer: 1500
+                                    // Handle the AJAX response here
+                                    Swal.fire({
+                                        icon: 'error',
+                                        title: errors.message,
+                                        showConfirmButton: false,
+                                        timer: 2000
+                                    });
+                                }
                             });
-                        },
-                        error: function(xhr, status, error) {
-                            // Handle errors
-                            let errors = JSON.parse(xhr.responseText);
-
-                            // Handle the AJAX response here
-                            Swal.fire({
-                                icon: 'error',
-                                title: errors.message,
-                                showConfirmButton: false,
-                                timer: 2000
-                            });
-                        }
-                    });
+                        });
                 });
             });
         });

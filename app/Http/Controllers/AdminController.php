@@ -13,6 +13,9 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\Session;
+use App\Mail\SupportReply;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\AccountBanned;
 
 use Symfony\Component\HttpKernel\Event\RequestEvent;
 
@@ -279,13 +282,18 @@ class AdminController extends Controller
     public function userban_delete($id)
     {
         $user = User::find($id);
-
+    
         if (!$user) {
             return redirect()->back()->with('error', 'User not found.');
         }
-        $user->deleted_acc= 1;
+    
+        // Ban the user's account
+        $user->deleted_acc = 1;
         $user->save();
-
+    
+        // Send ban notification email
+        Mail::to($user->email)->send(new AccountBanned($user));
+    
         return redirect()->back()->with('success', 'User Deleted');
     }
     public function userban_view($id)
@@ -332,24 +340,61 @@ class AdminController extends Controller
         return view('super_admin.viewsupport', compact('queries'));
 
     }
+    // public function viewsupport_submit(Request $request)
+    // {
+    //     $validatedData = $request->validate([
+    //         'id' => 'required|exists:supports,id', // Ensure the query ID exists in the supports table
+    //         'reply' => 'required|string|max:255', // Validate the reply
+    //     ]);
+
+    //     // Find the support record by query ID
+    //     $support = Support::find($validatedData['id']);
+
+    //     if ($support) {
+
+    //         $support->reply = $validatedData['reply'];
+    //         $support->save();
+
+    //         return redirect()->back()->with('success', 'Reply submitted successfully.');
+    //     } else {
+    //         // Redirect back with an error message if the support record is not found
+    //         return redirect()->back()->with('error', 'Support record not found.');
+    //     }
+    // }
     public function viewsupport_submit(Request $request)
     {
         $validatedData = $request->validate([
-            'id' => 'required|exists:supports,id', // Ensure the query ID exists in the supports table
-            'reply' => 'required|string|max:255', // Validate the reply
+            'id' => 'required|exists:supports,id',
+            'reply' => 'required|string|max:255',
         ]);
 
         // Find the support record by query ID
         $support = Support::find($validatedData['id']);
 
         if ($support) {
+            // Retrieve the query text from the support record
+            $query = $support->query;
 
             $support->reply = $validatedData['reply'];
             $support->save();
 
-            return redirect()->back()->with('success', 'Reply submitted successfully.');
+            // Retrieve the user associated with the support
+            $user = User::find($support->student_id);
+
+            if ($user) {
+                $email = $user->email;
+
+                // Send email to the user with query and reply
+                Mail::to($email)->send(new SupportReply($query, $validatedData['reply']));
+
+                // Delete the support record
+                $support->delete();
+
+                return redirect()->back()->with('success', 'Reply submitted successfully. An email has been sent.');
+            } else {
+                return redirect()->back()->with('error', 'User not found for the associated support.');
+            }
         } else {
-            // Redirect back with an error message if the support record is not found
             return redirect()->back()->with('error', 'Support record not found.');
         }
     }
@@ -418,24 +463,24 @@ class AdminController extends Controller
 
     //_super admin login request ajax__________________
     public function loginUser(Request $request)
-{
+    {
 
-    $email = $request->input('super_admin_email');
-    $password = $request->input('super_admin_password');
+        $email = $request->input('super_admin_email');
+        $password = $request->input('super_admin_password');
 
-    $user = DB::table('admins')->where('email', $email)->where('admin_type', 'super')->first();
-    if ($user !== null) {
-        // Use password_verify to compare hashed password
-        if (Hash::check($password, $user->password)) {
-            // Authentication passed
-            session(['Super_admin_logged_in' => $user->email]);
-            return response()->json(['message' => 'Login successful'], 200);
-        } else {
-            return response()->json(['errors' => ['identifier' => ['Invalid email or password.']]], 422);
+        $user = DB::table('admins')->where('email', $email)->where('admin_type', 'super')->first();
+        if ($user !== null) {
+            // Use password_verify to compare hashed password
+            if (Hash::check($password, $user->password)) {
+                // Authentication passed
+                session(['Super_admin_logged_in' => $user->email]);
+                return response()->json(['message' => 'Login successful'], 200);
+            } else {
+                return response()->json(['errors' => ['identifier' => ['Invalid email or password.']]], 422);
+            }
         }
+        return response()->json(['errors' => ['identifier' => ['Invalid email or password.']]], 422);
     }
-    return response()->json(['errors' => ['identifier' => ['Invalid email or password.']]], 422);
-}
     //sub admin login request ajaxx
     public function subloginUser(Request $request)
     {
@@ -648,8 +693,8 @@ class AdminController extends Controller
     public function sub_admin_verification()
     {
         $users = User::whereNull('verified_at')
-        ->where('verification_document', '!=', 'reject')
-        ->where('ban_acc', '=', '0')->latest('created_at')->get(); //checking the unverified user
+            ->where('verification_document', '!=', 'reject')
+            ->where('ban_acc', '=', '0')->latest('created_at')->get(); //checking the unverified user
 
         $data = compact('users');
         return view('sub_admin.sub_userverification')->with($data);
@@ -723,6 +768,28 @@ class AdminController extends Controller
     }
 
 
+    // public function subadmin_usersupport_view_submit(Request $request)
+    // {
+    //     $validatedData = $request->validate([
+    //         'id' => 'required|exists:supports,id', // Ensure the query ID exists in the supports table
+    //         'reply' => 'required|string|max:255', // Validate the reply
+    //     ]);
+
+    //     // Find the support record by query ID
+    //     $support = Support::find($validatedData['id']);
+
+    //     if ($support) {
+
+    //         $support->reply = $validatedData['reply'];
+    //         $support->save();
+
+    //         return redirect()->back()->with('success', 'Reply submitted successfully.');
+    //     } else {
+    //         // Redirect back with an error message if the support record is not found
+    //         return redirect()->back()->with('error', 'Support record not found.');
+    //     }
+    // }
+
     public function subadmin_usersupport_view_submit(Request $request)
     {
         $validatedData = $request->validate([
@@ -734,11 +801,28 @@ class AdminController extends Controller
         $support = Support::find($validatedData['id']);
 
         if ($support) {
+            // Retrieve the query text from the support record
+            $query = $support->query;
 
             $support->reply = $validatedData['reply'];
             $support->save();
 
-            return redirect()->back()->with('success', 'Reply submitted successfully.');
+            // Retrieve the user associated with the support
+            $user = User::find($support->student_id);
+
+            if ($user) {
+                $email = $user->email;
+
+                // Send email to the user with query and reply
+                Mail::to($email)->send(new SupportReply($query, $validatedData['reply']));
+
+                // Delete the support record
+                $support->delete();
+
+                return redirect()->back()->with('success', 'Reply submitted successfully. An email has been sent.');
+            } else {
+                return redirect()->back()->with('error', 'User not found for the associated support.');
+            }
         } else {
             // Redirect back with an error message if the support record is not found
             return redirect()->back()->with('error', 'Support record not found.');

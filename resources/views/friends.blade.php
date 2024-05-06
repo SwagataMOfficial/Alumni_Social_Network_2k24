@@ -35,7 +35,8 @@
                             <div class="flex items-center justify-between mb-3 px-4">
                                 <div class="flex justify-center items-center gap-4">
                                     <a href="/profile/{{ $frequest['get_student']['remember_token'] }}" class="">
-                                        <img src="{{asset('/storage/' . $frequest['get_student']['profile_picture'])}}" alt="profile image"
+                                        <img src="{{ asset('/storage/' . $frequest['get_student']['profile_picture']) }}"
+                                            alt="profile image"
                                             class="w-14 object-cover aspect-square rounded-[50%] border-2 border-slate-800">
                                     </a>
                                     <div class="flex flex-col">
@@ -86,11 +87,12 @@
                             @foreach ($s_peoples as $people)
                                 <div
                                     class="rounded-xl bg-slate-200 overflow-hidden relative flex flex-col justify-start items-center">
-                                    <img src="{{asset('/storage/' . $people['cover_picture'])}}" alt="cover photo"
+                                    <img src="{{ asset('/storage/' . $people['cover_picture']) }}" alt="cover photo"
                                         class="object-cover max-h-16 w-full">
                                     <a href="/profile/{{ $people['remember_token'] }}"
                                         class="absolute top-7 w-20 aspect-square object-cover rounded-[50%] border-2 border-slate-600 overflow-hidden">
-                                        <img src="{{asset('/storage/' . $people['profile_picture'])}}" alt="profile photo" class="w-full h-full">
+                                        <img src="{{ asset('/storage/' . $people['profile_picture']) }}"
+                                            alt="profile photo" class="w-full h-full">
                                     </a>
                                     <p class="mt-12 font-semibold text-xl">{{ $people['name'] }}</p>
                                     <p class="text-md py-1">Passout year - {{ $people['graduation_year'] }}</p>
@@ -125,34 +127,46 @@
                     // getting the url
                     const URL = $(element).attr("data-send-link");
 
-                    // Perform AJAX request to send friend request
-                    $.ajax({
-                        url: URL,
-                        method: 'GET',
-                        success: function(response) {
+                    // Display confirmation alert
+                    Swal.fire({
+                        title: 'Send Friend Request?',
+                        text: 'Do you want to send a friend request?',
+                        icon: 'question',
+                        showCancelButton: true,
+                        confirmButtonText: 'Send',
+                        cancelButtonText: 'Cancel',
+                        reverseButtons: true
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            // If user confirms, proceed with AJAX request to send friend request
+                            $.ajax({
+                                url: URL,
+                                method: 'GET',
+                                success: function(response) {
+                                    // Handle the AJAX response here
+                                    Swal.fire({
+                                        icon: 'success',
+                                        title: 'Friend request successfully sent!',
+                                        showConfirmButton: false,
+                                        timer: 1500
+                                    }).then(function() {
+                                        location.reload();
+                                    });
+                                },
+                                error: function(xhr, status, error) {
+                                    // Handle errors
+                                    let errors = JSON.parse(xhr.responseText);
 
-                            // Handle the AJAX response here
-                            Swal.fire({
-                                icon: 'success',
-                                title: 'Friend request successfully sent!',
-                                showConfirmButton: false,
-                                timer: 1500
-                            }).then(function() {
-                                location.reload();
-                            });
-                        },
-                        error: function(xhr, status, error) {
-                            // Handle errors
-                            let errors = JSON.parse(xhr.responseText);
-
-                            // Handle the AJAX response here
-                            Swal.fire({
-                                icon: 'error',
-                                title: errors.message,
-                                showConfirmButton: false,
-                                timer: 2000
-                            }).then(function() {
-                                location.reload();
+                                    // Handle the AJAX response here
+                                    Swal.fire({
+                                        icon: 'error',
+                                        title: errors.message,
+                                        showConfirmButton: false,
+                                        timer: 2000
+                                    }).then(function() {
+                                        location.reload();
+                                    });
+                                }
                             });
                         }
                     });
