@@ -430,33 +430,56 @@
                 $(element).click(function(event) {
                     event.preventDefault();
 
-                    // getting the url
-                    const URL = $(element).attr("data-report-link");
+                    // Display SweetAlert confirmation dialog
+                    Swal.fire({
+                        title: 'Are you sure?',
+                        text: 'Do you really want to report this post?',
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonText: 'Yes, report it!',
+                        cancelButtonText: 'No, cancel!',
+                        reverseButtons: true
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            // If user clicks "Yes, report it!", proceed with reporting
 
-                    // Perform AJAX request to send friend request
-                    $.ajax({
-                        url: URL,
-                        method: 'GET',
-                        success: function(response) {
+                            // getting the url
+                            const URL = $(element).attr("data-report-link");
 
-                            // Handle the AJAX response here
+                            // Perform AJAX request to send friend request
+                            $.ajax({
+                                url: URL,
+                                method: 'GET',
+                                success: function(response) {
+                                    // Handle the AJAX response here
+                                    Swal.fire({
+                                        icon: 'success',
+                                        title: 'Content successfully reported!',
+                                        showConfirmButton: false,
+                                        timer: 1500
+                                    });
+                                    location.reload();
+                                },
+                                error: function(xhr, status, error) {
+                                    // Handle errors
+                                    let errors = JSON.parse(xhr.responseText);
+                                    // Handle the AJAX response here
+                                    Swal.fire({
+                                        icon: 'error',
+                                        title: errors.message,
+                                        showConfirmButton: false,
+                                        timer: 2000
+                                    });
+                                }
+                            });
+                        } else if (result.dismiss === Swal.DismissReason.cancel) {
+                            // If user clicks "No, cancel!", do nothing
                             Swal.fire({
-                                icon: 'success',
-                                title: 'Content successfully reported!',
+                                title: 'Cancelled',
+                                text: 'Report action cancelled :)',
+                                icon: 'info',
                                 showConfirmButton: false,
                                 timer: 1500
-                            });
-                        },
-                        error: function(xhr, status, error) {
-                            // Handle errors
-                            let errors = JSON.parse(xhr.responseText);
-
-                            // Handle the AJAX response here
-                            Swal.fire({
-                                icon: 'error',
-                                title: errors.message,
-                                showConfirmButton: false,
-                                timer: 2000
                             });
                         }
                     });

@@ -11,6 +11,7 @@ use App\Http\Controllers\ViewsController;
 use App\Http\Controllers\FriendsController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\NotificationsController;
+use App\Http\Controllers\MessageController;
 
 Route::middleware([LoginCheck::class])->group(function () {
 
@@ -38,6 +39,7 @@ Route::middleware([LoginCheck::class])->group(function () {
     Route::get("/jobs", [ViewsController::class, "jobs"])->name('jobs');
     Route::get("/friends", [ViewsController::class, "friends"])->name('friends');
     Route::get("/messages/{token?}", [ViewsController::class, "messages"])->name('messages');
+    Route::post('/message/send', [MessageController::class, 'send_message'])->name('message.send');
     Route::get("/notifications", [ViewsController::class, "notifications"])->name('notifications');
     Route::get("/settings", [ViewsController::class, "view_settings"])->name('settings');
     Route::get('/myfriends', [ViewsController::class, 'view_myfriends'])->name('myfriends');

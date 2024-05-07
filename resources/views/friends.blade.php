@@ -94,7 +94,7 @@
                                         <img src="{{ asset('/storage/' . $people['profile_picture']) }}"
                                             alt="profile photo" class="w-full h-full">
                                     </a>
-                                    <p class="mt-12 font-semibold text-xl">{{ $people['name'] }}</p>
+                                    <p class="mt-12 font-semibold text-xl text-center">{{ $people['name'] }}</p>
                                     <p class="text-md py-1">Passout year - {{ $people['graduation_year'] }}</p>
                                     <a href="javascript:void(0);"
                                         data-send-link="{{ route('friend.request', ['token' => $people['remember_token']]) }}"

@@ -444,65 +444,65 @@
             });
 
             // REPORTING CONTENT
-$('a[data-report-link]').each(function(index, element) {
-    $(element).click(function(event) {
-        event.preventDefault();
+            $('a[data-report-link]').each(function(index, element) {
+                $(element).click(function(event) {
+                    event.preventDefault();
 
-        // Display SweetAlert confirmation dialog
-        Swal.fire({
-            title: 'Are you sure?',
-            text: 'Do you really want to report this post?',
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonText: 'Yes, report it!',
-            cancelButtonText: 'No, cancel!',
-            reverseButtons: true
-        }).then((result) => {
-            if (result.isConfirmed) {
-                // If user clicks "Yes, report it!", proceed with reporting
+                    // Display SweetAlert confirmation dialog
+                    Swal.fire({
+                        title: 'Are you sure?',
+                        text: 'Do you really want to report this post?',
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonText: 'Yes, report it!',
+                        cancelButtonText: 'No, cancel!',
+                        reverseButtons: true
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            // If user clicks "Yes, report it!", proceed with reporting
 
-                // getting the url
-                const URL = $(element).attr("data-report-link");
+                            // getting the url
+                            const URL = $(element).attr("data-report-link");
 
-                // Perform AJAX request to send friend request
-                $.ajax({
-                    url: URL,
-                    method: 'GET',
-                    success: function(response) {
-                        // Handle the AJAX response here
-                        Swal.fire({
-                            icon: 'success',
-                            title: 'Content successfully reported!',
-                            showConfirmButton: false,
-                            timer: 1500
-                        });
-                        location.reload();
-                    },
-                    error: function(xhr, status, error) {
-                        // Handle errors
-                        let errors = JSON.parse(xhr.responseText);
-                        // Handle the AJAX response here
-                        Swal.fire({
-                            icon: 'error',
-                            title: errors.message,
-                            showConfirmButton: false,
-                            timer: 2000
-                        });
-                    }
+                            // Perform AJAX request to send friend request
+                            $.ajax({
+                                url: URL,
+                                method: 'GET',
+                                success: function(response) {
+                                    // Handle the AJAX response here
+                                    Swal.fire({
+                                        icon: 'success',
+                                        title: 'Content successfully reported!',
+                                        showConfirmButton: false,
+                                        timer: 1500
+                                    });
+                                    location.reload();
+                                },
+                                error: function(xhr, status, error) {
+                                    // Handle errors
+                                    let errors = JSON.parse(xhr.responseText);
+                                    // Handle the AJAX response here
+                                    Swal.fire({
+                                        icon: 'error',
+                                        title: errors.message,
+                                        showConfirmButton: false,
+                                        timer: 2000
+                                    });
+                                }
+                            });
+                        } else if (result.dismiss === Swal.DismissReason.cancel) {
+                            // If user clicks "No, cancel!", do nothing
+                            Swal.fire({
+                                title: 'Cancelled',
+                                text: 'Report action cancelled :)',
+                                icon: 'info',
+                                showConfirmButton: false,
+                                timer: 1500
+                            });
+                        }
+                    });
                 });
-            } else if (result.dismiss === Swal.DismissReason.cancel) {
-                // If user clicks "No, cancel!", do nothing
-                Swal.fire({
-                    title: 'Cancelled',
-                    text: 'Report action cancelled :)',
-                    icon: 'info',
-                    showConfirmButton: false,
-                    timer: 1500
-                });
-            }
-        });
-    });
-});
+            });
         });
     </script>
 @endpush

@@ -14,19 +14,16 @@ class Chat extends Model
         'chat_id',
         'chatted_by',
         'chatted_to',
-        'last_message_sent_by',
-        'last_message',
-        'last_message_sent_at',
         'created_at',
         'updated_at'
     ];    
 
-    protected $with = ['getMe', 'getOther', 'getMessages'];
+    protected $with = ['getChattedBy', 'getChattedTo', 'getMessages'];
 
-    function getMe(){
+    function getChattedBy(){
         return $this->hasOne('App\Models\User','student_id','chatted_by');
     }
-    function getOther(){
+    function getChattedTo(){
         return $this->hasOne('App\Models\User','student_id','chatted_to');
     }
     

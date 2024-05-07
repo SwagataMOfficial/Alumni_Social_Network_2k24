@@ -156,7 +156,7 @@
         <h3 class="text-xl font-semibold">Social Links</h3>
         <div class="flex gap-3 items-center pt-2 px-4">
             @if ($details['facebook_link'] != null)
-                <a href="{{ $details['facebook_link'] }}" class="">
+                <a href="{{ $details['facebook_link'] }}" target="_blank">
                     <svg viewBox="0 0 48 48" version="1.1" xmlns="http://www.w3.org/2000/svg" class="w-8 h-8"
                         xmlns:xlink="http://www.w3.org/1999/xlink" fill="#000000">
                         <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
@@ -178,7 +178,7 @@
             @endif
 
             @if ($details['instagram_link'] != null)
-                <a href="{{ $details['instagram_link'] }}" class="">
+                <a href="{{ $details['instagram_link'] }}" target="_blank">
                     <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-8 h-8">
                         <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
                         <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
@@ -231,7 +231,7 @@
             @endif
 
             @if ($details['github_link'] != null)
-                <a href="{{ $details['github_link'] }}" class="">
+                <a href="{{ $details['github_link'] }}" target="_blank">
                     <svg viewBox="0 -0.5 48 48" version="1.1" xmlns="http://www.w3.org/2000/svg"
                         xmlns:xlink="http://www.w3.org/1999/xlink" fill="#000000" class="w-8 h-8">
                         <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
@@ -253,7 +253,7 @@
             @endif
 
             @if ($details['twitter_link'] != null)
-                <a href="{{ $details['twitter_link'] }}" class="">
+                <a href="{{ $details['twitter_link'] }}" target="_blank">
                     <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-9 h-9">
                         <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
                         <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
@@ -268,7 +268,7 @@
             @endif
 
             @if ($details['linkedin_link'] != null)
-                <a href="{{ $details['linkedin_link'] }}" class="">
+                <a href="{{ $details['linkedin_link'] }}" target="_blank">
                     <svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" fill="none" class="w-9 h-9">
                         <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
                         <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>

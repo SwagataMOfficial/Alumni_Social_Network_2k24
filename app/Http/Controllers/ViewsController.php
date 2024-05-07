@@ -96,17 +96,14 @@ class ViewsController extends Controller {
             $user_id = session()->get('user_id');
 
             // get the chats [if the chat does not exist then create one]
-            // $chats = Chat::where(function ($query) use ($user_id) {
-            //     // here chatted_by can be me
-            //     $query->where('chatted_by', $user_id)
-            //         ->orWhere('chatted_to', $user_id);
-            // })
-            //     // here chatted_by can be other one
-            //     ->where(function ($query) use ($user) {
-            //         $query->where('chatted_by', $user['student_id'])
-            //             ->orWhere('chatted_to', $user['student_id']);
-            //     })->get();
-            $chats = Chat::where('chatted_by', '=', $user_id)->where('chatted_to', '=', $user['student_id'])->get();
+            $chats = Chat::where(function ($query) use($user, $user_id) {
+                $query->where('chatted_by', $user_id)
+                    ->where('chatted_to', $user['student_id']);
+            })->orWhere(function ($query) use ($user, $user_id) {
+                $query->where('chatted_by', $user['student_id'])
+                    ->where('chatted_to', $user_id);
+            })->get();
+            // $chats = Chat::where('chatted_by', '=', $user_id)->where('chatted_to', '=', $user['student_id'])->get();
             // echo "Count ";
             // echo count($chats);
 
@@ -118,21 +115,32 @@ class ViewsController extends Controller {
                     'chatted_to' => $user['student_id']
                 ]);
             }
-            $chats = Chat::where('chatted_by', '=', $user_id)->get()->toArray();
 
-            echo "<pre>";
-            print_r($chats);
-            die;
+            $chats = Chat::where(function ($query) use($user, $user_id) {
+                $query->where('chatted_by', $user_id)
+                    ->where('chatted_to', $user['student_id']);
+            })->orWhere(function ($query) use ($user, $user_id) {
+                $query->where('chatted_by', $user['student_id'])
+                    ->where('chatted_to', $user_id);
+            })->first()->toArray();
+
+            // echo "<pre>";
+            // print_r($chats);
+            // die;
+
+            $allchats = Friend::where('is_pending', '=', '0')->where('student_id', '=', session()->get('user_id'))->get()->toArray();
+
 
             // get the messages
-            $data = compact('token', 'chats');
+            $data = compact('token', 'chats', 'allchats');
             return view("messages")->with($data);
         }
         else {
-            $allchats = Chat::where('chatted_by', '=', session()->get('user_id'))->get()->toArray();
+            // $allchats = Chat::where('chatted_by', '=', session()->get('user_id'))->get()->toArray();
+            $allchats = Friend::where('is_pending', '=', '0')->where('student_id', '=', session()->get('user_id'))->get()->toArray();
+
             // echo "<pre>";
             // print_r($allchats);
-            // echo count($allchats);
             // die;
 
             $data = compact('token', 'allchats');

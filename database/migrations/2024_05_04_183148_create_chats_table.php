@@ -15,9 +15,6 @@ return new class extends Migration {
             $table->foreign('chatted_by')->references('student_id')->on('users')->onDelete('cascade');
             $table->bigInteger('chatted_to');
             $table->foreign('chatted_to')->references('student_id')->on('users')->onDelete('cascade');
-            $table->bigInteger('last_message_sent_by')->nullable()->default(null);
-            $table->string('last_message', 20)->nullable();
-            $table->timestamp('last_message_sent_at')->nullable();
             $table->timestamps();
         });
     }

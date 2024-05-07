@@ -22,7 +22,7 @@
                                 <img src="{{ asset('/storage/' . $friend['get_friend']['profile_picture']) }}"
                                     alt="profile photo" class="w-full h-full">
                             </a>
-                            <p class="mt-14 font-semibold text-xl">{{ $friend['get_friend']['name'] }}</p>
+                            <p class="mt-14 font-semibold text-xl text-center">{{ $friend['get_friend']['name'] }}</p>
                             <p class="text-md py-1">Passout year - {{ $friend['get_friend']['graduation_year'] }}</p>
                             <div class="flex gap-3">
                                 <a href="{{ route('messages') }}"
