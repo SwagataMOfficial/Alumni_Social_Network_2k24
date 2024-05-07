@@ -340,7 +340,7 @@ class AdminController extends Controller
         $user->save();
 
         // Send ban notification email
-        //Mail::to($user->email)->send(new AccountBanned($user));
+        Mail::to($user->email)->send(new AccountBanned($user));
 
         return redirect()->back()->with('success', 'User Deleted');
     }
