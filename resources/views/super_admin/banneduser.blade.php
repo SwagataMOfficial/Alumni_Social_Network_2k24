@@ -84,7 +84,7 @@
 
                                             <td>
                                                 <a
-                                                href="{{ route('userban_unban', ['id' => $user->student_id]) }}"><button type="button" class="btn btn-magenta">Un Ban</button></a>
+                                                href="{{ route('userban_unban', ['id' => $user->student_id]) }}"><button type="button" class="btn btn-magenta">Unban Account</button></a>
 
                                                 <button type="button" class="btn btn-primary" onclick="deleteUser({{ $user->student_id }})">Delete Account</button>
                                                 <a
