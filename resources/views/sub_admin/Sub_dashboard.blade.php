@@ -38,8 +38,8 @@
                     <div class="col-lg-6 col-12 mb-4" >
                         <div class="small-box bg-success">
                             <div class="inner">
-                                <h3>{{$totalSubAdmin}}</h3>
-                                <p class="mb-3">Total Sub-Admin</p>
+                                <h3>{{$totalBanUser}}</h3>
+                                <p class="mb-3">Total Ban-User</p>
                             </div>
                             <div class="icon">
                                 <i class="fas fa-user-shield"></i>
@@ -64,8 +64,8 @@
                         <div class="card mb-4" style="height: 140px; background-color:#F07857">
                             <div class="card-body">
                                 <div class="inner">
-                                    <h2>{{$totalReportedUsers}}</h2>
-                                    <p class="mb-3"><b>Total Reported User</b></p>
+                                    <h2>{{$totalPendingQuery}}</h2>
+                                    <p class="mb-3"><b>Total Pending Queries</b></p>
                                     <div class="icon">
                                         <i class="fas fa-exclamation-circle fa-3x"
                                             style="color: rgba(255, 255, 255, 0.5); position: absolute; right:20px; top:40px;"></i>

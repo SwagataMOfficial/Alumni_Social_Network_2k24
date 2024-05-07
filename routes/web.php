@@ -81,17 +81,45 @@ Route::post("/resset-password", [UserController::class, 'update_password'])->nam
 //_______________________super admin________________________
 Route::middleware([AdminAuth::class])->group(function () {
     Route::get('/admin/logout', [AdminController::class, 'logout'])->name('super.admin.logout');
-    Route::get('/admin/admin_team', [AdminController::class, 'admin_team'])->name('Team');
+   
     Route::get('/admin/dashboard', [AdminController::class, 'super_admin_dashboard'])->name('sup.admin.dashboard');
     Route::get('/admin', [AdminController::class, 'admin_login']);
+
+    //Team START---
+    Route::get('/admin/admin_team', [AdminController::class, 'admin_team'])->name('Team');
     Route::get('/admin/teamadd', [AdminController::class, 'teamadd'])->name('teamadd');
+    Route::post('/admin/teamMemberadd', [AdminController::class, 'teamMemberadd'])->name('teamMemberadd');
+    Route::get('/admin/team/remove/{id}', [AdminController::class, 'admin_team_remove'])->name('admin_team_remove');
+    Route::get('/admin/team/changePassword/{id}', [AdminController::class, 'admin_team_changePassword'])->name('admin_team_changePassword');
+    Route::post('/admin/team/updatePassword/{id}', [AdminController::class, 'admin_team_updatePassword'])->name('admin_team_updatePassword');
+    //Team END---
+
+    //user management START---
     Route::get('/admin/usermanagement', [AdminController::class, 'usermanagement'])->name('usermanagement');
-    Route::get('/admin/usermanagementview', [AdminController::class, 'usermanagementview'])->name('usermanagement.view');
+    Route::get('/admin/usermanagementview/{id}', [AdminController::class, 'usermanagementview'])->name('usermanagement.view');
+    Route::get('/subadmin/usermanagementview/delete/{id}', [AdminController::class, 'usermanagementview_delete'])->name('usermanagementview_delete');
+    Route::get('/subadmin/usermanagementview/suspend/{id}', [AdminController::class, 'usermanagementview_suspend'])->name('usermanagementview_suspend');
+    //user management END!!!
+
     Route::get('/admin/viewcontent', [AdminController::class, 'viewcontent'])->name('viewcontent');
+    
+    // User Ban START---
     Route::get('/admin/ban', [AdminController::class, 'userban'])->name('userban');
+    Route::get('/admin/ban/unban/{id}', [AdminController::class, 'userban_unban'])->name('userban_unban');
+    Route::get('/admin/ban/delete/{id}', [AdminController::class, 'userban_delete'])->name('userban_delete');
+    Route::get('/admin/ban/view/{id}', [AdminController::class, 'userban_view'])->name('userban_view');
+    //User Ban END!!!
+
+    //USER support START---
     Route::get('/admin/support', [AdminController::class, 'support'])->name('support');
-    Route::get('/admin/viewsupport', [AdminController::class, 'viewsupport'])->name('viewsupport');
+    Route::get('/admin/viewsupport/{id}', [AdminController::class, 'viewsupport'])->name('viewsupport');
+    Route::post('/subadmin/viewsupport/submit', [AdminController::class, 'viewsupport_submit'])->name('viewsupport.submit');
+    //USER support END---
+
+    //CHANGE PASSWORD START---
     Route::get('/admin/cpassword', [AdminController::class, 'changepassword'])->name('changepass');
+    Route::post('/admin/updatepassword', [AdminController::class, 'updatepassword'])->name('updatepassword');
+     //CHANGE PASSWORD ENDD !!
 });
 Route::post("/admin/login", [AdminController::class, 'loginUser'])->name('admin.login');
 
@@ -123,6 +151,7 @@ Route::middleware([SubAdminAuth::class])->group(function () {
     Route::get('/subadmin/reportedContent_view/{id}', [AdminController::class, 'subadmin_reportedContent_view'])->name('subadmin.reportedContent_view');
     Route::get('/subadmin/reportedContent_view/delete/{id}', [AdminController::class, 'subadmin_reportedContent_view_delete'])->name('subadmin.ReportedContent_view_delete');
     Route::get('/subadmin/reportedContent_view/suspend/{id}', [AdminController::class, 'subadmin_reportedContent_view_suspend'])->name('subadmin.ReportedContent_view_suspend');
+    Route::get('/subadmin/reportedContent_view/removeFromReport/{id}', [AdminController::class, 'subadmin_reportedContent_view_removeFromReport'])->name('subadmin.ReportedContent_view_removeFromReport');
     //reported contet END--
 
     Route::get('/subadmin/communication', [AdminController::class, 'subadmin_communication'])->name('subadmin.communication');

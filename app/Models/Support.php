@@ -10,5 +10,13 @@ class Support extends Model
     
         protected $table = 'supports';
         protected $PrimaryKey="id";
+        
+        protected $fillable = [
+            'student_id',
+            'query',
+            'reply',
+            'created_at',
+            'updated_at'
+        ];
 }
 

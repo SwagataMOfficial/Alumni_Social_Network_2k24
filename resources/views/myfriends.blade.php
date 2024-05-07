@@ -5,20 +5,22 @@
 
 @section('main-section')
 
-<div class="max-[426px]:px-2 px-4 xl:px-8 mx-auto pt-3 flex justify-center lg:gap-6 xl:gap-10">
-    <div class="w-full lg:w-3/4 bg-white rounded-xl px-4 pt-3 pb-6 h-max">
+    <div class="max-[426px]:px-2 px-4 xl:px-8 mx-auto pt-3 flex justify-center lg:gap-6 xl:gap-10">
+        <div class="w-full lg:w-3/4 bg-white rounded-xl px-4 pt-3 pb-6 h-max">
             <h3 class="text-2xl font-bold text-stone-700 mb-3">My Friends</h3>
             {{-- my friends cards will appear here --}}
             @if (count($myfriends) > 0)
-            <div class="grid grid-cols-1 gap-3 min-[425px]:grid-cols-2 md:grid-cols-3 min-[1380px]:grid-cols-5">
+                <div class="grid grid-cols-1 gap-3 min-[425px]:grid-cols-2 md:grid-cols-3 min-[1380px]:grid-cols-5">
                     {{-- cards --}}
                     @foreach ($myfriends as $friend)
                         <div
                             class="rounded-xl bg-slate-200 overflow-hidden relative flex flex-col justify-start items-center">
-                            <img src="{{asset('/storage/' . $friend['get_friend']['cover_picture'])}}" alt="cover photo" class="object-cover max-h-16 w-full">
+                            <img src="{{ asset('/storage/' . $friend['get_friend']['cover_picture']) }}" alt="cover photo"
+                                class="object-cover max-h-16 w-full">
                             <a href="/profile/{{ $friend['get_friend']['remember_token'] }}"
                                 class="absolute top-7 w-20 aspect-square object-cover rounded-[50%] border-2 border-slate-600 overflow-hidden">
-                                <img src="{{asset('/storage/' . $friend['get_friend']['profile_picture'])}}" alt="profile photo" class="w-full h-full">
+                                <img src="{{ asset('/storage/' . $friend['get_friend']['profile_picture']) }}"
+                                    alt="profile photo" class="w-full h-full">
                             </a>
                             <p class="mt-14 font-semibold text-xl">{{ $friend['get_friend']['name'] }}</p>
                             <p class="text-md py-1">Passout year - {{ $friend['get_friend']['graduation_year'] }}</p>
@@ -130,34 +132,46 @@
                     // getting the url
                     const URL = $(element).attr("data-remove-link");
 
-                    // Perform AJAX request to send friend request
-                    $.ajax({
-                        url: URL,
-                        method: 'GET',
-                        success: function(response) {
+                    // Display confirmation alert
+                    Swal.fire({
+                        title: 'Are you sure?',
+                        text: 'Do you really want to unfriend this user?',
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonText: 'Yes',
+                        cancelButtonText: 'No',
+                        reverseButtons: true
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            // If user confirms, proceed with AJAX request to unfriend
+                            $.ajax({
+                                url: URL,
+                                method: 'GET',
+                                success: function(response) {
+                                    // Handle the AJAX response here
+                                    Swal.fire({
+                                        icon: 'success',
+                                        title: 'Unfriend Successfully!',
+                                        showConfirmButton: false,
+                                        timer: 1500
+                                    }).then(function() {
+                                        location.reload();
+                                    });
+                                },
+                                error: function(xhr, status, error) {
+                                    // Handle errors
+                                    let errors = JSON.parse(xhr.responseText);
 
-                            // Handle the AJAX response here
-                            Swal.fire({
-                                icon: 'success',
-                                title: 'Unfriend Successfully!',
-                                showConfirmButton: false,
-                                timer: 1500
-                            }).then(function() {
-                                location.reload();
-                            });
-                        },
-                        error: function(xhr, status, error) {
-                            // Handle errors
-                            let errors = JSON.parse(xhr.responseText);
-
-                            // Handle the AJAX response here
-                            Swal.fire({
-                                icon: 'error',
-                                title: errors.message,
-                                showConfirmButton: false,
-                                timer: 2000
-                            }).then(function() {
-                                location.reload();
+                                    // Handle the AJAX response here
+                                    Swal.fire({
+                                        icon: 'error',
+                                        title: errors.message,
+                                        showConfirmButton: false,
+                                        timer: 2000
+                                    }).then(function() {
+                                        location.reload();
+                                    });
+                                }
                             });
                         }
                     });

@@ -20,6 +20,17 @@
         /* white color with 50% opacity */
     }
 </style>
+@if (Session::has('message'))
+    <script>
+        Swal.fire({
+            title: "{{ Session::get('message') }}",
+            text: 'User has not posted anything yet',
+            icon: 'info',
+            showConfirmButton: true
+        });
+    </script>
+@endif
+
 <div class="content-wrapper all">
     <!-- Content Header (Page header) -->
     <div class="content-header">
@@ -46,68 +57,29 @@
 
 
                             <div class="table-responsive">
-                                <table class="table">
+                                <table class="table" id="myTable">
                                     <thead>
-                                        <tr style="color:red">
+                                        <tr style="color:rgb(20, 103, 228)">
                                             <th>ID No.</th>
                                             <th>Name</th>
                                             <th>Email</th>
-                                            <th>Ph No.</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
+                                        @foreach ($users as $user)
                                         <tr>
-                                            <td>34424433</td>
-                                            <td>Samarpita Mukherjee</td>
-                                            <td>samarpita@gmail.com</td>
-                                            <td>3923451674</td>
-                                            <td><a href="{{ route('usermanagement.view') }}"><button type="button"
-                                                        class="btn btn-primary">View</button></a>
-                                              
+                                            <td>{{ $user->student_id }}</td>
+                                            <td>{{ $user->name }}</td>
+                                            <td>{{ $user->email }}</td>
 
+                                            <td>
+
+                                                <a href="{{ route('usermanagement.view',['id' => $user->student_id])  }}"> <button
+                                                        type="button" class="btn btn-success">View</button></a>
                                             </td>
                                         </tr>
-                                        <tr>
-                                            <td>34424433</td>
-                                            <td>Samarpita Mukherjee</td>
-                                            <td>samarpita@gmail.com</td>
-                                            <td>3923451674</td>
-                                            <td><a href="{{ route('usermanagement.view') }}"><button type="button"
-                                                        class="btn btn-primary">View</button></a>
-                                                
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>34424433</td>
-                                            <td>Samarpita Mukherjee</td>
-                                            <td>samarpita@gmail.com</td>
-                                            <td>3923451674</td>
-                                            <td><a href="{{ route('usermanagement.view') }}"><button type="button"
-                                                        class="btn btn-primary">View</button></a>
-                                               
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>34424433</td>
-                                            <td>Samarpita Mukherjee</td>
-                                            <td>samarpita@gmail.com</td>
-                                            <td>3923451674</td>
-                                            <td><a href="{{ route('usermanagement.view') }}"><button type="button"
-                                                        class="btn btn-primary">View</button></a>
-                                                
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>34424433</td>
-                                            <td>Samarpita Mukherjee</td>
-                                            <td>samarpita@gmail.com</td>
-                                            <td>3923451674</td>
-                                            <td><a href="{{ route('usermanagement.view') }}"><button type="button"
-                                                        class="btn btn-primary">View</button></a>
-                                                
-                                            </td>
-                                        </tr>
+                                    @endforeach
                                     </tbody>
                                 </table>
                             </div>

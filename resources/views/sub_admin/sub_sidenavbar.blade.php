@@ -39,6 +39,12 @@
     <!-- sweet alert cdn link -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js" integrity="sha512-AA1Bzp5Q0K1KanKKmvN/4d3IRKVlv9PYgwFPvm32nPO6QS8yH1HO7LbgB1pgiOxPtfeg5zEn2ba64MUcqJx6CA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script> 
 
+    
+    {{-- link of carousel --}}
+    <!-- Include Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+
+
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed">
@@ -211,9 +217,18 @@
 <script src="{{ asset('dist/js/pages/dashboard.js') }}"></script>
 
 
-    <!-- Yajra data Table 1st- jqery CDN, 2nd js datatable, 3rd intislizing the table -->
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
-    <script src="https://cdn.datatables.net/2.0.5/js/dataTables.min.js"></script>
+    {{-- carusel --}}
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <!-- Include Bootstrap JavaScript -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+     <!-- Yajra data Table 1st- jqery CDN, 2nd js datatable, 3rd intislizing the table -->
+     <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+     <script src="https://cdn.datatables.net/2.0.5/js/dataTables.min.js"></script>
+ 
+
     <script>
         $(document).ready(function() {
             $('#myTable').DataTable();

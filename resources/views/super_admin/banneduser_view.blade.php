@@ -29,30 +29,6 @@
         border-radius: 50%;
         border: 2px solid white;
     }
-
-
-    /* Custom CSS for Bootstrap Carousel */
-    .carousel-control-prev,
-    .carousel-control-next {
-        position: absolute;
-        top: 50%;
-        transform: translateY(-50%);
-        width: auto;
-        height: auto;
-        z-index: 10;
-        color: #590f0f;
-        /* Change the color as needed */
-    }
-
-    /* Adjust the position of the previous button */
-    .carousel-control-prev {
-        left: 0;
-    }
-
-    /* Adjust the position of the next button */
-    .carousel-control-next {
-        right: 0;
-    }
 </style>
 @if (Session::has('success'))
     <script>
@@ -74,23 +50,25 @@
                         <div class="card-body">
                             <div class="team-members">
                                 <div class="container mt-2">
-                                    <h2>All Posts</h2>
+                                    <h2>Baned User All Deleted Post</h2>
                                     @foreach ($userPosts as $post)
-                                        <div class="col-md-12 mb-4">
-                                            <div class="card">
-                                                <div class="card-body">
-                                                    <div class="d-flex align-items-center mb-3">
-                                                        <div class="position-relative">
-                                                            <img src="{{ asset('/storage/' . $user['profile_picture']) }}"
-                                                                alt="Profile Pic" class="rounded-circle mr-1"
-                                                                width="50">
+                                        @if ($post->delete_post == 1)
+                                            <div class="col-md-12 mb-4">
+                                                <div class="card">
+                                                    <div class="card-body">
+                                                        <div class="d-flex align-items-center mb-3">
+                                                            <div class="position-relative">
+                                                                <!-- Assuming $user['profile_picture'] exists -->
+                                                                <img src="{{ asset('/storage/' . $user['profile_picture']) }}"
+                                                                    alt="Profile Pic" class="rounded-circle mr-1"
+                                                                    width="50">
+                                                            </div>
+                                                            <!-- Display post content -->
+                                                            <span class="card-text"
+                                                                style="font-size: 16px">{{ $post->post_description }}</span>
                                                         </div>
-                                                        <!-- contents written -->
-                                                        <span class="card-text"
-                                                            style="font-size: 16px">{{ $post->post_description }}</span>
-                                                    </div>
-                                                    @if ($post->post_type == 'post')
-                                                        @if ($post->attachment)
+                                                        <!-- Additional post details based on post type -->
+                                                        @if ($post->post_type == 'post' && $post->attachment)
                                                             <!-- contents img posts -->
                                                             <div id="carouselExample{{ $loop->index }}"
                                                                 class="carousel slide" data-ride="carousel">
@@ -119,35 +97,21 @@
                                                                     <span class="sr-only">Next</span>
                                                                 </a>
                                                             </div>
+                                                        @elseif ($post->post_type == 'job')
+                                                            <div>
+                                                                <p><strong>Job Description:</strong>
+                                                                    {{ $post->post_description }}</p>
+                                                                <p><strong>Job Link:</strong> <a
+                                                                        href="{{ $post->registration_link }}"
+                                                                        target="_blank">{{ $post->registration_link }}</a>
+                                                                </p>
+                                                            </div>
                                                         @endif
-                                                    @elseif ($post->post_type == 'job')
-                                                        <!-- job post details -->
-                                                        <div>
-                                                            <p><strong>Job Description:</strong>
-                                                                {{ $post->post_description }}</p>
-                                                            <p><strong>Job Link:</strong> <a
-                                                                    href="{{ $post->registration_link }}"
-                                                                    target="_blank">{{ $post->registration_link }}</a>
-                                                            </p>
-                                                        </div>
-                                                    @endif
 
-                                                    <!-- Post buttons -->
-                                                    <div class="post-buttons d-flex justify-content-center">
-                                                        <a
-                                                            href="{{ route('usermanagementview_delete', ['id' => $post->post_id]) }}">
-                                                            <button class="btn btn-danger mt-3 mr-2">Delete
-                                                                Post</button>
-                                                        </a>
-                                                        <a
-                                                            href="{{ route('usermanagementview_suspend', ['id' => $post->post_id]) }}">
-                                                            <button class="btn btn-secondary mt-3">Suspend
-                                                                Account</button>
-                                                        </a>
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
+                                        @endif
                                     @endforeach
                                 </div>
                             </div>

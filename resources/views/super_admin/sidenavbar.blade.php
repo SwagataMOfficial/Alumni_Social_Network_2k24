@@ -35,6 +35,15 @@
 
     <!-- Yajra data Table CSS -->
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/2.0.5/css/dataTables.dataTables.min.css">
+    <!-- sweet alert cdn link -->
+    {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js" integrity="sha512-AA1Bzp5Q0K1KanKKmvN/4d3IRKVlv9PYgwFPvm32nPO6QS8yH1HO7LbgB1pgiOxPtfeg5zEn2ba64MUcqJx6CA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>  --}}
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+
+    {{-- link of carousel --}}
+    <!-- Include Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+
+    
 
 </head>
 
@@ -43,7 +52,7 @@
 
         <!-- Preloader -->
         <div class="preloader flex-column justify-content-center align-items-center">
-            <img class="animation__shake" src="../dist\img\AdminLTELogo.png" alt="AdminLTELogo" height="60"
+            <img class="animation__shake" src="{{asset('dist\img\AdminLTELogo.png')}}" alt="AdminLTELogo" height="60"
                 width="60">
         </div>
 
@@ -55,7 +64,7 @@
                 <a class="nav-link " data-widget="pushmenu" href="#" role="button"><i
                         class="fas fa-bars"></i></a>
                 <span>
-                    <h2>Super Admin</h2>
+                    <h2>{{ session('sup_admin_name') }}</h2>
                 </span>
             </ul>
 
@@ -73,7 +82,7 @@
             <!-- Brand Logo -->
 
             <a href="{{ route('sup.admin.dashboard') }}" class="brand-link">
-                <img src="../dist\img\Admin.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
+                <img src="{{asset('dist\img\Admin.png')}}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
                     style="opacity: .8">
                 <span class="brand-text font-weight-light">Super Admin</span>
             </a>
@@ -214,10 +223,20 @@
     <script src="{{ asset('dist/js/pages/dashboard.js') }}"></script>
 
 
+    
+
+    {{-- carusel --}}
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <!-- Include Bootstrap JavaScript -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    
     <!-- Yajra data Table 1st- jqery CDN, 2nd js datatable, 3rd intislizing the table -->
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"
         integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
     <script src="https://cdn.datatables.net/2.0.5/js/dataTables.min.js"></script>
+
     <script>
         $(document).ready(function() {
             $('#myTable').DataTable();
