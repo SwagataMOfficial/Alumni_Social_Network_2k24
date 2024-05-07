@@ -21,6 +21,7 @@ Route::middleware([LoginCheck::class])->group(function () {
     Route::post('/addjobpost', [PostController::class, 'addjobpost'])->name('post.addjob');
     Route::post('/like', [PostController::class, 'likepost'])->name('post.like');
     Route::get('/post/report/{id}', [PostController::class, 'report_post'])->name('post.report');
+    Route::get('/post/delete/{id}', [PostController::class, 'delete_post'])->name('post.delete');
 
     Route::group(['prefix' => "/comments"], function () {
         Route::post('/add', [PostController::class, 'add_comment'])->name('comments.add');
@@ -36,7 +37,7 @@ Route::middleware([LoginCheck::class])->group(function () {
     // common navigation views
     Route::get("/jobs", [ViewsController::class, "jobs"])->name('jobs');
     Route::get("/friends", [ViewsController::class, "friends"])->name('friends');
-    Route::get("/messages", [ViewsController::class, "messages"])->name('messages');
+    Route::get("/messages/{token?}", [ViewsController::class, "messages"])->name('messages');
     Route::get("/notifications", [ViewsController::class, "notifications"])->name('notifications');
     Route::get("/settings", [ViewsController::class, "view_settings"])->name('settings');
     Route::get('/myfriends', [ViewsController::class, 'view_myfriends'])->name('myfriends');

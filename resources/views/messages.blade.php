@@ -3,71 +3,122 @@
     <title>Message | Alumni Junction</title>
 @endpush
 @section('main-section')
-    {{-- <h1 class="text-3xl font-bold text-blue-700">
-        Messages Page!
-    </h1> --}}
-    {{-- <div class="container"> --}}
-        <div class="px-8 mx-auto pt-3 flex justify-center gap-10">
-            {{-- left navigation panel --}}
-            <div class="w-1/4 rounded-xl h-fit bg-white pt-3">
-                <h1 class="text-stone-700 font-semibold text-xl pb-2 px-5">Your Chats</h1>
-                <form class="max-w-md mx-auto border-b border-b-gray-300 px-5 pb-3 mb-3">
-                    <label for="default-search" class="mb-2 text-sm font-medium text-gray-900 sr-only">Search</label>
-                    <div class="relative">
-                        <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
-                            <svg class="w-4 h-4 text-gray-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                                fill="none" viewBox="0 0 20 20">
-                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
-                            </svg>
-                        </div>
-                        <input type="search" id="default-search"
-                            class="block w-full ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500"
-                            placeholder="Search your chats" required />
+    <div class="px-8 mx-auto pt-3 flex justify-center gap-10">
+        {{-- left navigation panel --}}
+        <div class="w-1/4 rounded-xl h-fit bg-white pt-3">
+            <h1 class="text-stone-700 font-semibold text-xl pb-2 px-5">Your Chats</h1>
+            <form class="max-w-md mx-auto border-b border-b-gray-300 px-5 pb-3 mb-3">
+                <label for="profile_search" class="mb-2 text-sm font-medium text-gray-900 sr-only">Search</label>
+                <div class="relative">
+                    <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+                        <svg class="w-4 h-4 text-gray-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                            fill="none" viewBox="0 0 20 20">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
+                        </svg>
                     </div>
-                </form>
+                    <input type="search" id="profile_search" name="profile_search"
+                        class="block w-full ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500"
+                        placeholder="Search your chats" required />
+                </div>
+            </form>
 
-                {{-- listing all the chats here --}}
-                <ul class="overflow-y-auto max-h-[30rem] pb-3">
-                    {{-- active one --}}
-                    <li
-                        class="px-4 flex items-center justify-between py-2 hover:bg-gray-300 cursor-pointer border-l-[3px] border-l-blue-500 bg-gray-200">
+            {{-- listing all the chats here --}}
+            <div class="overflow-y-auto max-h-[30rem] pb-3">
+
+                {{-- searched profile content generation --}}
+                @isset($searched_profiles)
+                    @if (count($searched_profiles) != 0)
+                        {{ 'ok' }}
+                    @else
+                        {{ 'not' }}
+                    @endif
+                @endisset
+
+                {{-- entry point content generation --}}
+                @isset($allchats)
+                    @if (count($allchats) != 0)
+                        @foreach ($allchats as $key => $chat)
+                            <a href="{{ route('messages', ['token' => $chat['get_other']['remember_token']]) }}"
+                                class="px-4 flex items-center justify-between py-2 hover:bg-gray-300 cursor-pointer">
+                                <div class="flex items-center">
+                                    <img class="w-12 aspect-square object-cover"
+                                        src="{{ asset('/storage/' . $chat['get_other']['profile_picture']) }}"
+                                        alt="profile image">
+                                    <div class="ml-3">
+                                        <p class="font-semibold text-lg">{{ $chat['get_other']['name'] }}</p>
+                                        @if ($chat['last_message_sent_by'] != null)
+                                            @if ($chat['last_message_sent_by'] == 'you')
+                                                <p class="text-sm">You: {{ $chat['last_message'] }}</p>
+                                            @else
+                                                <p class="text-sm">{{ $chat['last_message'] }}</p>
+                                            @endif
+                                        @endif
+                                    </div>
+                                </div>
+                                @if ($chat['last_message_sent_at'] != null)
+                                    @php
+                                        $dateString = $chat['last_message_sent_at'];
+                                        $dateTime = new DateTime($dateString);
+                                        $formattedTime = $dateTime->format('h:i A');
+                                    @endphp
+                                    <p class="self-start">{{ $formattedTime }}</p>
+                                @endif
+                            </a>
+                        @endforeach
+                    @else
+                        <p class="text-center text-lg text-red-600 mb-2">You don't have any chats</p>
+                    @endif
+                @endisset
+
+
+                {{-- active one --}}
+                {{-- <a href="{{ route('messages', ['token' => 'f5977fa9db5f5fcb37f2ae639ab9ce72']) }}"
+                    class="px-4 flex items-center justify-between py-2 hover:bg-gray-300 cursor-pointer border-l-[3px] border-l-blue-500 bg-gray-200">
+                    <div class="flex items-center">
+                        <img class="w-12 aspect-square object-cover" src="/storage/default/avatar.jpg" alt="profile image">
+                        <div class="ml-3">
+                            <p class="font-semibold text-lg">Swagata Mukherjee</p>
+                            <p class="text-sm">You: 1234567890abcdefghij....</p>
+                        </div>
+                    </div>
+                    @php
+                        $dateString = '2024-05-04 20:25:52';
+                        $dateTime = new DateTime($dateString);
+                        $formattedTime = $dateTime->format('h:i A');
+                    @endphp
+                    <p class="self-start">05:30 PM</p>
+                </a>
+                @for ($i = 1; $i <= 1; $i++)
+                    <a href="{{ route('messages', ['token' => 'abaee5e709a1e2f431c5fcfafc08ad73']) }}"
+                        class="px-4 flex items-center justify-between py-2 hover:bg-gray-300 cursor-pointer">
                         <div class="flex items-center">
                             <img class="w-12 aspect-square object-cover" src="/storage/default/avatar.jpg"
                                 alt="profile image">
                             <div class="ml-3">
                                 <p class="font-semibold text-lg">Swagata Mukherjee</p>
-                                {{-- TODO: slice first 20 characters and then add '....' --}}
-                                <p class="text-sm">You: 1234567890abcdefghij....</p>
+                                <p class="text-sm">You: Hello</p>
                             </div>
                         </div>
                         <p class="self-start">05:30 PM</p>
-                    </li>
-                    @for ($i = 1; $i <= 1; $i++)
-                        <li class="px-4 flex items-center justify-between py-2 hover:bg-gray-300 cursor-pointer">
-                            <div class="flex items-center">
-                                <img class="w-12 aspect-square object-cover" src="/storage/default/avatar.jpg"
-                                    alt="profile image">
-                                <div class="ml-3">
-                                    <p class="font-semibold text-lg">Swagata Mukherjee</p>
-                                    <p class="text-sm">You: Hello</p>
-                                </div>
-                            </div>
-                            <p class="self-start">05:30 PM</p>
-                        </li>
-                    @endfor
-                </ul>
+                    </a>
+                @endfor --}}
             </div>
-            {{-- right main settings option --}}
-            <div class="w-3/4">
+        </div>
+
+        {{-- right main settings option --}}
+        <div class="w-3/4">
+            @if ($token == null)
+                <section class="rounded-xl overflow-hidden bg-white h-[85dvh] pt-4 flex items-center justify-center">
+                    <p class="text-5xl font-semibold">Select a chat to continue...</p>
+                </section>
+            @else
                 <section class="rounded-xl overflow-hidden bg-gray-100 pt-4">
                     <!-- Dropdown menu -->
-                    <div id="dropdown"
-                        class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44">
+                    <div id="dropdown" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44">
                         <ul class="py-2 text-sm text-gray-700" aria-labelledby="dropdownDefaultButton">
                             <li>
-                                <a href="/profile/usertoken"
-                                    class="block px-4 py-2 hover:bg-gray-100">View Profile</a>
+                                <a href="/profile/usertoken" class="block px-4 py-2 hover:bg-gray-100">View Profile</a>
                             </li>
                         </ul>
                     </div>
@@ -81,7 +132,8 @@
 
                         {{-- options icon --}}
                         <button type="button" class="w-8 aspect-square cursor-pointer hover:text-blue-600"
-                            id="dropdownDefaultButton" data-dropdown-toggle="dropdown" data-dropdown-delay="1500" data-dropdown-placement="bottom" data-dropdown-offset-skidding="-50">
+                            id="dropdownDefaultButton" data-dropdown-toggle="dropdown" data-dropdown-delay="1500"
+                            data-dropdown-placement="bottom" data-dropdown-offset-skidding="-50">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
                                 class="w-full h-full">
                                 <path fill-rule="evenodd"
@@ -146,7 +198,7 @@
                         </form>
                     </div>
                 </section>
-            </div>
+            @endif
         </div>
-    {{-- </div> --}}
+    </div>
 @endsection
