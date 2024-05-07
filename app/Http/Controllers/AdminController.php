@@ -12,6 +12,7 @@ use App\Mail\AccountBanned;
 use App\Models\Notification;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Crypt;
@@ -315,6 +316,8 @@ class AdminController extends Controller
         return redirect()->back()->with('success', 'User unbanned successfully.');
     }
 
+   
+
     public function userban_delete($id)
     {
         $user = User::find($id);
@@ -323,15 +326,25 @@ class AdminController extends Controller
             return redirect()->back()->with('error', 'User not found.');
         }
 
+        // Delete the folder where the user's posts' images are stored
+        $folderPath = storage_path('app/public/' . $user->student_id);
+        if (File::exists($folderPath)) {
+            File::deleteDirectory($folderPath);
+        }
+
+        // Delete all records associated with the user from the user_posts table
+        UserPost::where('posted_by', $id)->delete();
+
         // Ban the user's account
         $user->deleted_acc = 1;
         $user->save();
 
         // Send ban notification email
-        Mail::to($user->email)->send(new AccountBanned($user));
+        //Mail::to($user->email)->send(new AccountBanned($user));
 
         return redirect()->back()->with('success', 'User Deleted');
     }
+
     public function userban_view($id)
     {
 
@@ -481,6 +494,8 @@ class AdminController extends Controller
 
     }
     //CHANGE PASSWORD END!!
+
+    //super dashboard START---
     public function super_admin_dashboard()
     {
         $userData = ['userInfo' => DB::table('admins')->where('email', session('Super_admin_logged_in'))->first()];
@@ -496,10 +511,10 @@ class AdminController extends Controller
         //count the total sub admin from admin table
         $totalSubAdmin = Admin::where('admin_type', 'sub')->count();
 
-        // Get the count of distinct users who have at least one reported content
-        $totalReportedUsers = DB::table('user_posts')->whereNotNull('reported_at')->distinct()->count('posted_by');
+        // Get the count of total pending query in support table
+        $totalPendingQuery = Support::whereNull('reply')->count();
 
-        $data = compact('totalUser', 'totalPost', 'totalSubAdmin', 'userData', 'recentUsers', 'totalReportedUsers');
+        $data = compact('totalUser', 'totalPost', 'totalSubAdmin', 'userData', 'recentUsers', 'totalPendingQuery');
         return view('super_admin.Sup_admin_dashboard')->with($data);
     }
 
@@ -967,10 +982,9 @@ class AdminController extends Controller
         //count the total sub admin from admin table
         $totalBanUser = User::where('ban_acc', '1')->count();
 
-        // Get the count of distinct users who have at least one reported content
-        $totalReportedUsers = DB::table('user_posts')->whereNotNull('reported_at')->distinct()->count('posted_by');
-
-        $data = compact('totalUser', 'totalPost', 'totalBanUser', 'userData', 'recentUsers', 'totalReportedUsers');
+        // Get the count of total pending query in support table
+        $totalPendingQuery = Support::whereNull('reply')->count();
+        $data = compact('totalUser', 'totalPost', 'totalBanUser', 'userData', 'recentUsers', 'totalPendingQuery');
         return view('sub_admin.Sub_dashboard')->with($data);
     }
     //sub_admin Dashboard END!!!
