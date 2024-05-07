@@ -32,27 +32,16 @@
 
 
     /* Custom CSS for Bootstrap Carousel */
-    .carousel-control-prev,
-    .carousel-control-next {
-        position: absolute;
-        top: 50%;
-        transform: translateY(-50%);
-        width: auto;
-        height: auto;
-        z-index: 10;
-        color: #590f0f;
-        /* Change the color as needed */
-    }
-
-    /* Adjust the position of the previous button */
-    .carousel-control-prev {
-        left: 0;
-    }
-
-    /* Adjust the position of the next button */
-    .carousel-control-next {
-        right: 0;
-    }
+    .image-fit {
+    object-fit: cover;
+    max-width: 100%;
+    max-height: 100%;
+}
+.carousel-container {
+    max-width: 600px; /* Adjust the maximum width as needed */
+    max-height: 400px; /* Adjust the maximum height as needed */
+    margin: 0 auto; /* Center the carousel horizontally */
+}
 </style>
 @if (Session::has('success'))
     <script>
@@ -99,7 +88,7 @@
                                                                         <div
                                                                             class="carousel-item{{ $index === 0 ? ' active' : '' }}">
                                                                             <img src="{{ asset('/storage/' . $attachment) }}"
-                                                                                class="d-block w-100"
+                                                                                class="d-block w-100 image-fit"
                                                                                 alt="Image {{ $index }}">
                                                                         </div>
                                                                     @endforeach
