@@ -45,7 +45,7 @@ class PostController extends Controller {
         $createArr['posted_by'] = session()->get('user_id');
 
         Userpost::create($createArr);
-        return redirect(route('feed'));
+        return redirect()->back();
     }
 
     public function addjobpost(Request $request) {
@@ -59,7 +59,7 @@ class PostController extends Controller {
         $createArr['posted_by'] = session()->get('user_id');
 
         Userpost::create($createArr);
-        return redirect(route('feed'));
+        return redirect()->back();
     }
 
     public function likepost(Request $request) {
@@ -96,7 +96,6 @@ class PostController extends Controller {
         }
 
         // TODO: return response instead of return to an url;
-        // return redirect(route('feed'));
         return redirect()->back();
     }
 
@@ -149,5 +148,15 @@ class PostController extends Controller {
         ]);
 
         return response()->json(['message' => 'Query submitted successfully!']);
+    }
+
+    public function delete_post(Userpost $id){
+        $res = $id->delete();
+        if($res){
+            return response()->json(['success' => true, 'message' => 'Your post has been deleted successfully!'], 200);
+        }
+        else{
+            return response()->json(['success' => false, 'message' => 'Failed to delete the post'], 422);
+        }
     }
 }

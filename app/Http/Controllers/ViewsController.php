@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Chat;
 use App\Models\Friend;
+use App\Models\Message;
 use App\Models\Notification;
 use App\Models\User;
 use App\Models\Userpost;
@@ -80,8 +82,62 @@ class ViewsController extends Controller {
         return view("myfriends")->with($data);
     }
 
-    public function messages() {
-        return view("messages");
+    public function messages($token = null) {
+
+        // TODO: get the chats of the user
+
+        if ($token != null) {
+            // TODO: get the chats by getting the token associated person and their corresponding data
+            // GETTING ALL THE USER'S DATA
+            $user = User::where("remember_token", "=", $token)->first()->toArray();
+            // echo "<pre>";
+            // print_r($user);
+
+            $user_id = session()->get('user_id');
+
+            // get the chats [if the chat does not exist then create one]
+            // $chats = Chat::where(function ($query) use ($user_id) {
+            //     // here chatted_by can be me
+            //     $query->where('chatted_by', $user_id)
+            //         ->orWhere('chatted_to', $user_id);
+            // })
+            //     // here chatted_by can be other one
+            //     ->where(function ($query) use ($user) {
+            //         $query->where('chatted_by', $user['student_id'])
+            //             ->orWhere('chatted_to', $user['student_id']);
+            //     })->get();
+            $chats = Chat::where('chatted_by', '=', $user_id)->where('chatted_to', '=', $user['student_id'])->get();
+            // echo "Count ";
+            // echo count($chats);
+
+            // creating a new chat if the count of the chat variable is 0
+            if (count($chats) == 0) {
+                // CREATING A NEW CHAT
+                Chat::create([
+                    'chatted_by' => $user_id,
+                    'chatted_to' => $user['student_id']
+                ]);
+            }
+            $chats = Chat::where('chatted_by', '=', $user_id)->get()->toArray();
+
+            echo "<pre>";
+            print_r($chats);
+            die;
+
+            // get the messages
+            $data = compact('token', 'chats');
+            return view("messages")->with($data);
+        }
+        else {
+            $allchats = Chat::where('chatted_by', '=', session()->get('user_id'))->get()->toArray();
+            // echo "<pre>";
+            // print_r($allchats);
+            // echo count($allchats);
+            // die;
+
+            $data = compact('token', 'allchats');
+            return view("messages")->with($data);
+        }
     }
     public function notifications() {
         $notifications = Notification::where('notified_to', '=', session()->get('user_id'))->orderByDesc('created_at')->get()->toArray();
@@ -103,7 +159,7 @@ class ViewsController extends Controller {
         $suggested_people = User::leftJoin('friends', function ($join) use ($myid) {
             $join->on('users.student_id', '=', 'friends.student_id')->where('friends.friend_id', '=', $myid)->orWhere('users.student_id', '=', 'friends.friend_id');
         })->whereNull('friends.student_id')->whereNull('friends.friend_id')->where('users.student_id', '!=', $myid)->where("graduation_year", "=", $mydata->graduation_year)->select('users.*')->limit(4)->get();
-        
+
         // getting all the images posted by the user from the user_posts table and also filtering the non image posts
         $postedImages = Userpost::select('attachment')->where('posted_by', '=', $user->student_id)->where('attachment', '!=', null)->get()->toArray();
 
@@ -121,12 +177,12 @@ class ViewsController extends Controller {
         foreach ($postedImages as $img) {
 
             // if multi post found then the below if-else block will run and prepare the array
-            if(strpos($img['attachment'], "||") != false){
+            if (strpos($img['attachment'], "||") != false) {
                 foreach (explode("||", $img['attachment']) as $item) {
                     array_push($imgArr, $item);
                 }
             }
-            else{   
+            else {
                 array_push($imgArr, $img['attachment']);
             }
         }
@@ -141,9 +197,9 @@ class ViewsController extends Controller {
         $myid = session()->get('user_id');
         $mydata = User::find($myid);
 
-        $searchedData = User::where(function($query) use ($search, $myid) {
+        $searchedData = User::where(function ($query) use ($search, $myid) {
             $query->where('name', 'LIKE', "%$search%")
-                  ->orWhere('student_id', 'LIKE', "%$search%");
+                ->orWhere('student_id', 'LIKE', "%$search%");
         })->where('student_id', '!=', $myid)->get()->toArray();
 
         $suggested_people = User::leftJoin('friends', function ($join) use ($myid) {

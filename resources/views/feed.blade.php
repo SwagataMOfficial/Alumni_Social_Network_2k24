@@ -153,7 +153,8 @@
                                         or drag and drop</p>
                                     <p class="mb-2 text-xs text-gray-500 ">SVG, PNG, JPG or GIF (MAX.
                                         800x400px)</p>
-                                    <p class="text-xs text-gray-500 ">(Multiple files are supported)</p>
+                                    <p class="text-xs text-gray-500 mb-2">(Multiple files are supported)</p>
+                                    <p id="filenameshowbox" class="text-xs font-bold text-blue-600 px-10"></p>
                                 </div>
                                 <input id="dropzone-file" type="file" class="hidden" name="post_image[]" multiple />
                             </label>
@@ -185,7 +186,7 @@
         </div>
     </div>
 
-    <div class="flex justify-center xl:justify-between mt-4 px-2 sm:px-10 w-full gap-10 xl:gap-0">
+    <div class="flex justify-center xl:justify-between mt-4 px-2 sm:px-10 w-full gap-10 xl:gap-4">
         <!-- First Div -->
         <div class="min-w-80 h-max sticky top-24 hidden xl:block">
             <div class="bg-cover bg-center bg-white rounded-lg">
@@ -363,6 +364,23 @@
             $("#post_modal_opener").click(() => {
                 $("#post_modal_opener").blur();
                 $("#text_or_job_post_btn").click();
+            });
+
+            // tracking if files are selected for upload or not [if uploaded then show the uploaded file names into the label area]
+            $('#dropzone-file').change(function() {
+                if (this.files && this.files.length > 0) {
+                    let filenames = [];
+                    for (var i = 0; i < this.files.length; i++) {
+                        filenames.push(this.files[i].name);
+                    }
+                    var files = filenames.join(', ');
+                    // slicing the string if the length is bigger than 50
+                    if (files.length > 34) {
+                        files = files.slice(0, 30) + "....";
+                    }
+                    // adding the result into the dropbox area to show that the files are selected properly
+                    $('#filenameshowbox').text("Selected files: " + files);
+                }
             });
 
             // comment section toggle script here

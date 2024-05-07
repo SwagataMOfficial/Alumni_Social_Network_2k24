@@ -12,15 +12,17 @@ class Profilejobview extends Component
     public $posts;
     public $key;
     public $likeduser;
+    public $comments;
     /**
      * Create a new component instance.
      */
-    public function __construct($details, $posts, $key, $likeduser)
+    public function __construct($details, $posts, $key, $likeduser, $comments)
     {
         $this->details = $details;
         $this->posts = $posts;
         $this->key = $key;
         $this->likeduser = $likeduser;
+        $this->comments = $comments;
     }
 
     /**

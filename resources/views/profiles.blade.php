@@ -1,6 +1,6 @@
 @extends('layouts.main')
 @push('title')
-    <title>Profile-Name | Alumni Junction</title>
+    <title>{{$user['name']}} | Alumni Junction</title>
 @endpush
 @section('main-section')
     <div class="px-8 mx-auto pt-3 flex justify-center gap-10">
@@ -242,7 +242,8 @@
                                             or drag and drop</p>
                                         <p class="mb-2 text-xs text-gray-500 ">SVG, PNG, JPG or GIF (MAX.
                                             800x400px)</p>
-                                        <p class="text-xs text-gray-500 ">(Multiple files are supported)</p>
+                                            <p class="text-xs text-gray-500 mb-2">(Multiple files are supported)</p>
+                                        <p id="filenameshowbox" class="text-xs font-bold text-blue-600 px-10"></p>
                                     </div>
                                     <input id="dropzone-file" type="file" class="hidden" name="post_image[]"
                                         multiple />
@@ -285,6 +286,23 @@
             $("#post_modal_opener_profile_page").click(() => {
                 $("#post_modal_opener_profile_page").blur();
                 $("#text_or_job_post_btn_profile_page").click();
+            });
+            
+            // tracking if files are selected for upload or not [if uploaded then show the uploaded file names into the label area]
+            $('#dropzone-file').change(function() {
+                if (this.files && this.files.length > 0) {
+                    let filenames = [];
+                    for (var i = 0; i < this.files.length; i++) {
+                        filenames.push(this.files[i].name);
+                    }
+                    var files = filenames.join(', ');
+                    // slicing the string if the length is bigger than 50
+                    if (files.length > 34) {
+                        files = files.slice(0, 30) + "....";
+                    }
+                    // adding the result into the dropbox area to show that the files are selected properly
+                    $('#filenameshowbox').text("Selected files: " + files);
+                }
             });
 
             // comment section toggle script here
@@ -442,6 +460,48 @@
                                 title: errors.message,
                                 showConfirmButton: false,
                                 timer: 2000
+                            });
+                        }
+                    });
+                });
+            });
+
+            // HANDLING REMOVING FRIEND
+            $('a[data-delete-post]').each(function(index, element) {
+                $(element).click(function(event) {
+                    event.preventDefault();
+
+                    // getting the url
+                    const URL = $(element).attr("data-delete-post");
+
+                    // Perform AJAX request to send friend request
+                    $.ajax({
+                        url: URL,
+                        method: 'GET',
+                        success: function(response) {
+
+                            // Handle the AJAX response here
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Your post has been deleted successfully!',
+                                showConfirmButton: false,
+                                timer: 1500
+                            }).then(function() {
+                                location.reload();
+                            });
+                        },
+                        error: function(xhr, status, error) {
+                            // Handle errors
+                            let errors = JSON.parse(xhr.responseText);
+
+                            // Handle the AJAX response here
+                            Swal.fire({
+                                icon: 'error',
+                                title: errors.message,
+                                showConfirmButton: false,
+                                timer: 2000
+                            }).then(function() {
+                                location.reload();
                             });
                         }
                     });
