@@ -29,6 +29,30 @@
         border-radius: 50%;
         border: 2px solid white;
     }
+
+
+    /* Custom CSS for Bootstrap Carousel */
+    .carousel-control-prev,
+    .carousel-control-next {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        width: auto;
+        height: auto;
+        z-index: 10;
+        color: #590f0f;
+        /* Change the color as needed */
+    }
+
+    /* Adjust the position of the previous button */
+    .carousel-control-prev {
+        left: 0;
+    }
+
+    /* Adjust the position of the next button */
+    .carousel-control-next {
+        right: 0;
+    }
 </style>
 @if (Session::has('success'))
     <script>
@@ -68,11 +92,32 @@
                                                     @if ($post->post_type == 'post')
                                                         @if ($post->attachment)
                                                             <!-- contents img posts -->
-                                                            <div
-                                                                style="display: flex; justify-content: center; align-items: center; height: 100%;">
-                                                                <img src="{{ asset('/storage/' . $post->attachment) }}"
-                                                                    alt="upload posts"
-                                                                    style="width: 90%; height: auto;">
+                                                            <div id="carouselExample{{ $loop->index }}"
+                                                                class="carousel slide" data-ride="carousel">
+                                                                <div class="carousel-inner">
+                                                                    @foreach (explode('||', $post->attachment) as $index => $attachment)
+                                                                        <div
+                                                                            class="carousel-item{{ $index === 0 ? ' active' : '' }}">
+                                                                            <img src="{{ asset('/storage/' . $attachment) }}"
+                                                                                class="d-block w-100"
+                                                                                alt="Image {{ $index }}">
+                                                                        </div>
+                                                                    @endforeach
+                                                                </div>
+                                                                <a class="carousel-control-prev"
+                                                                    href="#carouselExample{{ $loop->index }}"
+                                                                    role="button" data-slide="prev">
+                                                                    <span class="carousel-control-prev-icon"
+                                                                        aria-hidden="true"></span>
+                                                                    <span class="sr-only">Previous</span>
+                                                                </a>
+                                                                <a class="carousel-control-next"
+                                                                    href="#carouselExample{{ $loop->index }}"
+                                                                    role="button" data-slide="next">
+                                                                    <span class="carousel-control-next-icon"
+                                                                        aria-hidden="true"></span>
+                                                                    <span class="sr-only">Next</span>
+                                                                </a>
                                                             </div>
                                                         @endif
                                                     @elseif ($post->post_type == 'job')
@@ -91,11 +136,13 @@
                                                     <div class="post-buttons d-flex justify-content-center">
                                                         <a
                                                             href="{{ route('usermanagementview_delete', ['id' => $post->post_id]) }}">
-                                                            <button class="btn btn-danger mt-3 mr-2">Delete Post</button>
+                                                            <button class="btn btn-danger mt-3 mr-2">Delete
+                                                                Post</button>
                                                         </a>
                                                         <a
                                                             href="{{ route('usermanagementview_suspend', ['id' => $post->post_id]) }}">
-                                                            <button class="btn btn-secondary mt-3">Suspend Account</button>
+                                                            <button class="btn btn-secondary mt-3">Suspend
+                                                                Account</button>
                                                         </a>
                                                     </div>
                                                 </div>

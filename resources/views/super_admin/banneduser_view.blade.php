@@ -50,7 +50,7 @@
                         <div class="card-body">
                             <div class="team-members">
                                 <div class="container mt-2">
-                                    <h2>Baned User All Post</h2>
+                                    <h2>Baned User All Deleted Post</h2>
                                     @foreach ($userPosts as $post)
                                         @if ($post->delete_post == 1)
                                             <div class="col-md-12 mb-4">
@@ -69,11 +69,33 @@
                                                         </div>
                                                         <!-- Additional post details based on post type -->
                                                         @if ($post->post_type == 'post' && $post->attachment)
-                                                            <div
-                                                                style="display: flex; justify-content: center; align-items: center; height: 100%;">
-                                                                <img src="{{ asset('/storage/' . $post->attachment) }}"
-                                                                    alt="Uploaded post image"
-                                                                    style="width: 90%; height: auto;">
+                                                            <!-- contents img posts -->
+                                                            <div id="carouselExample{{ $loop->index }}"
+                                                                class="carousel slide" data-ride="carousel">
+                                                                <div class="carousel-inner">
+                                                                    @foreach (explode('||', $post->attachment) as $index => $attachment)
+                                                                        <div
+                                                                            class="carousel-item{{ $index === 0 ? ' active' : '' }}">
+                                                                            <img src="{{ asset('/storage/' . $attachment) }}"
+                                                                                class="d-block w-100"
+                                                                                alt="Image {{ $index }}">
+                                                                        </div>
+                                                                    @endforeach
+                                                                </div>
+                                                                <a class="carousel-control-prev"
+                                                                    href="#carouselExample{{ $loop->index }}"
+                                                                    role="button" data-slide="prev">
+                                                                    <span class="carousel-control-prev-icon"
+                                                                        aria-hidden="true"></span>
+                                                                    <span class="sr-only">Previous</span>
+                                                                </a>
+                                                                <a class="carousel-control-next"
+                                                                    href="#carouselExample{{ $loop->index }}"
+                                                                    role="button" data-slide="next">
+                                                                    <span class="carousel-control-next-icon"
+                                                                        aria-hidden="true"></span>
+                                                                    <span class="sr-only">Next</span>
+                                                                </a>
                                                             </div>
                                                         @elseif ($post->post_type == 'job')
                                                             <div>
@@ -85,7 +107,7 @@
                                                                 </p>
                                                             </div>
                                                         @endif
-                                                        
+
                                                     </div>
                                                 </div>
                                             </div>

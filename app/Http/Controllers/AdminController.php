@@ -7,16 +7,16 @@ use App\Models\User;
 use App\Models\Admin;
 use App\Models\Support;
 use App\Models\Userpost;
+use App\Mail\SupportReply;
+use App\Mail\AccountBanned;
+use App\Models\Notification;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\Session;
-use App\Mail\SupportReply;
-use Illuminate\Support\Facades\Mail;
-use App\Mail\AccountBanned;
-use App\Models\Notification;
 
 use Symfony\Component\HttpKernel\Event\RequestEvent;
 
@@ -55,20 +55,29 @@ class AdminController extends Controller
         $user = User::find($id);
 
         if (is_null($user)) {
-            return redirect('/admin/usermanagement');
-        } else {
-            // Retrieve user's posts (including all types)
-            $userPosts = UserPost::where('posted_by', $id)->where('delete_post', '!=', 1)->get();
-            if ($userPosts->isEmpty()) {
-                return redirect()->back()->with('message', 'No posts found!');
-            } else {
-                // Pass user and their posts to the view
-                $data = compact('user', 'userPosts');
-                return view('super_admin.usermanagement_view')->with($data);
+            return redirect('/admin/usermanagement')->with('error', 'User not found.');
+        }
+
+        // Retrieve user's posts (excluding deleted posts)
+        $userPosts = UserPost::where('posted_by', $id)->where('delete_post', '!=', 1)->get();
+
+        if ($userPosts->isEmpty()) {
+            return redirect()->back()->with('message', 'No posts found for this user.');
+        }
+
+        // Extract image paths from user posts
+        $imagePathsArray = [];
+        foreach ($userPosts as $post) {
+            $attachments = explode("||", $post->attachment);
+            foreach ($attachments as $attachment) {
+                // Assuming each attachment is a file path
+                $imagePathsArray[] = $attachment;
             }
         }
 
+        return view('super_admin.usermanagement_view')->with(compact('user', 'imagePathsArray', 'userPosts'));
     }
+
 
     public function usermanagementview_delete($id)
     {
@@ -557,18 +566,27 @@ class AdminController extends Controller
         $user = User::find($id);
 
         if (is_null($user)) {
-            return redirect('/subadmin/usermanagement');
-        } else {
-            // Retrieve user's posts (including all types)
-            $userPosts = UserPost::where('posted_by', $id)->where('delete_post', '!=', 1)->get();
-            if ($userPosts->isEmpty()) {
-                return redirect()->back()->with('message', 'No posts found!');
-            } else {
-                // Pass user and their posts to the view
-                $data = compact('user', 'userPosts');
-                return view('sub_admin.Sub_profile_view')->with($data);
+            return redirect('/subadmin/usermanagement')->with('error', 'User not found.');
+        }
+
+        // Retrieve user's posts (excluding deleted posts)
+        $userPosts = UserPost::where('posted_by', $id)->where('delete_post', '!=', 1)->get();
+
+        if ($userPosts->isEmpty()) {
+            return redirect()->back()->with('message', 'No posts found for this user.');
+        }
+
+        // Extract image paths from user posts
+        $imagePathsArray = [];
+        foreach ($userPosts as $post) {
+            $attachments = explode("||", $post->attachment);
+            foreach ($attachments as $attachment) {
+                // Assuming each attachment is a file path
+                $imagePathsArray[] = $attachment;
             }
         }
+
+        return view('sub_admin.Sub_profile_view')->with(compact('user', 'imagePathsArray', 'userPosts'));
     }
 
     public function subadmin_profileview_delete($id)
@@ -672,10 +690,17 @@ class AdminController extends Controller
                 ->whereNotNull('reported_at')
                 ->get();
 
-
-
+            // Extract image paths from user posts
+            $imagePathsArray = [];
+            foreach ($userPosts as $post) {
+            $attachments = explode("||", $post->attachment);
+            foreach ($attachments as $attachment) {
+                // Assuming each attachment is a file path
+                $imagePathsArray[] = $attachment;
+            }
+        }
             // Pass user and their reported posts to the view
-            return view('sub_admin.Sub_reportedContent_view', compact('user', 'userPosts'));
+            return view('sub_admin.Sub_reportedContent_view', compact('user', 'userPosts','imagePathsArray'));
 
         }
     }
