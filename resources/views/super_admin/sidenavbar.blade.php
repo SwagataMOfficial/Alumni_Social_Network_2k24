@@ -223,10 +223,7 @@
     <script src="{{ asset('dist/js/pages/dashboard.js') }}"></script>
 
 
-    <!-- Yajra data Table 1st- jqery CDN, 2nd js datatable, 3rd intislizing the table -->
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
-        integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
-    <script src="https://cdn.datatables.net/2.0.5/js/dataTables.min.js"></script>
+    
 
     {{-- carusel --}}
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
@@ -234,7 +231,11 @@
 
     <!-- Include Bootstrap JavaScript -->
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
+    
+    <!-- Yajra data Table 1st- jqery CDN, 2nd js datatable, 3rd intislizing the table -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+        integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <script src="https://cdn.datatables.net/2.0.5/js/dataTables.min.js"></script>
 
     <script>
         $(document).ready(function() {
