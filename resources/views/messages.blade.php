@@ -43,7 +43,7 @@
                                 <a href="{{ route('messages', ['token' => $chat['get_friend']['remember_token']]) }}"
                                     class="px-4 flex items-center justify-between py-2 hover:bg-gray-300 cursor-pointer border-l-[3px] border-l-blue-500 bg-gray-200">
                                     <div class="flex items-center">
-                                        <img class="w-12 aspect-square object-cover"
+                                        <img class="w-12 aspect-square object-cover rounded-[50%]"
                                             src="{{ asset('/storage/' . $chat['get_friend']['profile_picture']) }}"
                                             alt="profile image">
                                         <div class="ml-3">
@@ -55,7 +55,7 @@
                                 <a href="{{ route('messages', ['token' => $chat['get_friend']['remember_token']]) }}"
                                     class="px-4 flex items-center justify-between py-2 hover:bg-gray-300 cursor-pointer">
                                     <div class="flex items-center">
-                                        <img class="w-12 aspect-square object-cover"
+                                        <img class="w-12 aspect-square object-cover rounded-[50%]"
                                             src="{{ asset('/storage/' . $chat['get_friend']['profile_picture']) }}"
                                             alt="profile image">
                                         <div class="ml-3">
@@ -179,7 +179,7 @@
                             <div class="flex items-center px-3 py-4 bg-gray-100 border-t border-t-gray-400">
                                 <textarea id="chat" rows="1" name="my_message"
                                     class="block mx-2 p-2.5 w-full text-sm text-gray-900 bg-white rounded-lg border border-gray-500 focus:ring-blue-500 focus:border-blue-500 resize-none"
-                                    placeholder="Type Your message..."></textarea>
+                                    placeholder="Type Your message..." required></textarea>
                                 <button type="submit"
                                     class="inline-flex justify-center p-2 text-blue-600 rounded-full cursor-pointer hover:bg-blue-100 focus:ring-2 focus:outline-none focus:ring-blue-700">
                                     <svg class="w-5 h-5 rotate-90 rtl:-rotate-90" aria-hidden="true"
@@ -290,7 +290,7 @@
                             <div class="flex items-center px-3 py-4 bg-gray-100 border-t border-t-gray-400">
                                 <textarea id="chat" rows="1" name="user_message"
                                     class="block mx-2 p-2.5 w-full text-sm text-gray-900 bg-white rounded-lg border border-gray-500 focus:ring-blue-500 focus:border-blue-500 resize-none"
-                                    placeholder="Type Your message..."></textarea>
+                                    placeholder="Type Your message..." required></textarea>
                                 <button type="submit"
                                     class="inline-flex justify-center p-2 text-blue-600 rounded-full cursor-pointer hover:bg-blue-100 focus:ring-2 focus:outline-none focus:ring-blue-700">
                                     <svg class="w-5 h-5 rotate-90 rtl:-rotate-90" aria-hidden="true"

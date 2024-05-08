@@ -1,6 +1,6 @@
 @extends('layouts.main')
 @push('title')
-    <title>{{$user['name']}} | Alumni Junction</title>
+    <title>{{ $user['name'] }} | Alumni Junction</title>
 @endpush
 @section('main-section')
     <div class="px-8 mx-auto pt-3 flex justify-center gap-10">
@@ -65,24 +65,46 @@
 
         {{-- more peoples to follow section --}}
         <div class="w-1/4 rounded-xl h-fit bg-white px-4 py-3">
-            <h3 class="font-bold text-stone-700">More Peoples for You</h3>
-            <div class="flex flex-col gap-3 items-center justify-center mt-2">
 
-                {{-- getting all the suggested people from the system --}}
-                @foreach ($suggested_people as $people)
-                    <x-people :people="$people" />
-                @endforeach
-            </div>
-            <div class="pt-3 px-4">
-                <a class="flex text-stone-600 hover:text-stone-900 text-sm" href="{{ route('friends') }}">
-                    <span class="font-semibold">View all</span>
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5">
-                        <path fill-rule="evenodd"
-                            d="M9.47 15.28a.75.75 0 0 0 1.06 0l4.25-4.25a.75.75 0 1 0-1.06-1.06L10 13.69 6.28 9.97a.75.75 0 0 0-1.06 1.06l4.25 4.25ZM5.22 6.03l4.25 4.25a.75.75 0 0 0 1.06 0l4.25-4.25a.75.75 0 0 0-1.06-1.06L10 8.69 6.28 4.97a.75.75 0 0 0-1.06 1.06Z"
-                            clip-rule="evenodd" />
-                    </svg>
-                </a>
-            </div>
+            {{-- adding common validation before showing the actual content --}}
+            @if ($user['verified_at'] == null)
+                <p class="text-red-600 text-center font-semibold my-2">Account is not verified yet</p>
+            @elseif ($user['ban_acc'] != 0)
+                <p class="text-red-600 text-center font-semibold my-2">Account has been banned by admin!</p>
+            @elseif ($user['deleted_acc'] != 0)
+                <p class="text-red-600 text-center font-semibold my-2">Account has been deleted by admin!</p>
+            @else
+                <h3 class="font-bold text-stone-700">More Peoples for You</h3>
+                <div class="flex flex-col gap-3 items-center justify-center mt-2">
+
+                    {{-- getting all the suggested people from the system --}}
+                    @php
+                        $no_suggested_people = false;
+                    @endphp
+                    @if (count($suggested_people) > 0)
+                        @foreach ($suggested_people as $people)
+                            <x-people :people="$people" />
+                        @endforeach
+                    @else
+                        <p class="text-red-600 text-center font-semibold my-2">Nothing to show</p>
+                        @php
+                            $no_suggested_people = true;
+                        @endphp
+                    @endif
+                </div>
+                @if (!$no_suggested_people)
+                    <div class="pt-3 px-4">
+                        <a class="flex text-stone-600 hover:text-stone-900 text-sm" href="{{ route('friends') }}">
+                            <span class="font-semibold">View all</span>
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5">
+                                <path fill-rule="evenodd"
+                                    d="M9.47 15.28a.75.75 0 0 0 1.06 0l4.25-4.25a.75.75 0 1 0-1.06-1.06L10 13.69 6.28 9.97a.75.75 0 0 0-1.06 1.06l4.25 4.25ZM5.22 6.03l4.25 4.25a.75.75 0 0 0 1.06 0l4.25-4.25a.75.75 0 0 0-1.06-1.06L10 8.69 6.28 4.97a.75.75 0 0 0-1.06 1.06Z"
+                                    clip-rule="evenodd" />
+                            </svg>
+                        </a>
+                    </div>
+                @endif
+            @endif
         </div>
     </div>
 
@@ -143,7 +165,7 @@
                                         thoughts</label>
                                     <textarea id="message" rows="4" name="post_description"
                                         class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500"
-                                        placeholder="Write your thoughts here..."></textarea>
+                                        placeholder="Write your thoughts here..." required></textarea>
                                 </div>
                                 <div class="flex items-center mt-4">
                                     <input id="private_text" type="checkbox" value="0" name="visibility"
@@ -242,11 +264,11 @@
                                             or drag and drop</p>
                                         <p class="mb-2 text-xs text-gray-500 ">SVG, PNG, JPG or GIF (MAX.
                                             800x400px)</p>
-                                            <p class="text-xs text-gray-500 mb-2">(Multiple files are supported)</p>
+                                        <p class="text-xs text-gray-500 mb-2">(Multiple files are supported)</p>
                                         <p id="filenameshowbox" class="text-xs font-bold text-blue-600 px-10"></p>
                                     </div>
-                                    <input id="dropzone-file" type="file" class="hidden" name="post_image[]"
-                                        multiple />
+                                    <input id="dropzone-file" type="file" class="hidden" name="post_image[]" multiple
+                                        required />
                                 </label>
                             </div>
 
@@ -287,7 +309,7 @@
                 $("#post_modal_opener_profile_page").blur();
                 $("#text_or_job_post_btn_profile_page").click();
             });
-            
+
             // tracking if files are selected for upload or not [if uploaded then show the uploaded file names into the label area]
             $('#dropzone-file').change(function() {
                 if (this.files && this.files.length > 0) {
@@ -378,13 +400,12 @@
                                 title: errors.message,
                                 showConfirmButton: false,
                                 timer: 2000
-                            }).then(function() {
-                                location.reload();
                             });
                         }
                     });
                 });
             });
+
             // Function to display confirmation alert
             function displayConfirmationAlert(title, text, successCallback) {
                 Swal.fire({

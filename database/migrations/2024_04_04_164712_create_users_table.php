@@ -16,7 +16,6 @@ return new class extends Migration {
             $table->string('email', 150)->unique();
             $table->string('password');
             $table->rememberToken();
-            $table->timestamp('token_expire')->nullable();
             $table->string('phone', 12)->nullable();
             $table->date('dob')->nullable();
             $table->enum('gender', ["M","F","O", null])->nullable();
@@ -49,9 +48,7 @@ return new class extends Migration {
             $table->string('verification_document', 100);
             $table->timestamps();
             $table->timestamp('verified_at')->nullable()->default(null);
-            $table->timestamp('deleted_at')->nullable()->default(null);
-            //new column add for forget password -altab
-            $table->string('forget_token')->nullable(); // New column for temp_token
+            $table->string('forget_token')->nullable();
             $table->timestamp('forget_token_expire')->nullable();
 
         });

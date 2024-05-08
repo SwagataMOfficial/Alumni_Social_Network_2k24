@@ -36,20 +36,20 @@ Route::middleware([LoginCheck::class])->group(function () {
     });
 
     // common navigation views
-    Route::get("/jobs", [ViewsController::class, "jobs"])->name('jobs');
-    Route::get("/friends", [ViewsController::class, "friends"])->name('friends');
-    Route::get("/messages/{token?}", [ViewsController::class, "messages"])->name('messages');
+    Route::get("/jobs", [ViewsController::class, "jobs"])->name('jobs')->middleware('validacc');
+    Route::get("/friends", [ViewsController::class, "friends"])->name('friends')->middleware('validacc');
+    Route::get("/messages/{token?}", [ViewsController::class, "messages"])->name('messages')->middleware('validacc');
     Route::post('/message/send', [MessageController::class, 'send_message'])->name('message.send');
     Route::get("/notifications", [ViewsController::class, "notifications"])->name('notifications');
     Route::get("/settings", [ViewsController::class, "view_settings"])->name('settings');
-    Route::get('/myfriends', [ViewsController::class, 'view_myfriends'])->name('myfriends');
+    Route::get('/myfriends', [ViewsController::class, 'view_myfriends'])->name('myfriends')->middleware('validacc');
 
     // grouped routes [ the url should start with /profile]
     Route::group(['prefix' => '/profile'], function () {
         Route::get("/edit", [ViewsController::class, 'view_edit'])->name('profile.edit');
         Route::post("/edit", [ProfileController::class, 'save_changes'])->name('profile.savechanges');
         Route::post("/togglevisibility", [ProfileController::class, 'toggleVisibility'])->name('profile.visibility');
-        Route::get('/users/search', [ViewsController::class, 'view_search'])->name('profile.search');
+        Route::get('/users/search', [ViewsController::class, 'view_search'])->name('profile.search')->middleware('validacc');
         Route::get("/{user_token}", [ViewsController::class, "view_profiles"]);
         Route::post('/change-password', [ProfileController::class, 'changePassword'])->name('profile.changePassword');
 

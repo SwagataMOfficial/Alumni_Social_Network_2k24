@@ -60,7 +60,7 @@
                                     thoughts</label>
                                 <textarea id="message" rows="4" name="post_description"
                                     class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500"
-                                    placeholder="Write your thoughts here..."></textarea>
+                                    placeholder="Write your thoughts here..." required></textarea>
                             </div>
                             <div class="flex items-center mt-4">
                                 <input id="private_text" type="checkbox" value="0" name="visibility"
@@ -156,7 +156,8 @@
                                     <p class="text-xs text-gray-500 mb-2">(Multiple files are supported)</p>
                                     <p id="filenameshowbox" class="text-xs font-bold text-blue-600 px-10"></p>
                                 </div>
-                                <input id="dropzone-file" type="file" class="hidden" name="post_image[]" multiple />
+                                <input id="dropzone-file" type="file" class="hidden" name="post_image[]" multiple
+                                    required />
                             </label>
                         </div>
 
@@ -226,9 +227,16 @@
         </div>
 
         <!-- Second Div -->
-        <div class="h-max">
 
-            <!-- post area  -->
+        @if ($user['verified_at'] != null)
+            <div class="h-max max-[768px]:w-full">
+            @else
+                <div class="h-max w-full">
+        @endif
+        <!-- post area  -->
+
+        <!-- if the user account is not verified then do this  -->
+        @if ($user['verified_at'] != null && $user['deleted_acc'] == 0 && $user['ban_acc'] == 0)
             <div class="flex justify-center md:min-w-[70vw] lg:min-w-[50vw] xl:min-w-[45vw]">
                 <div
                     class="flex items-center justify-center flex-col gap-3 md:flex-row p-4 bg-white rounded-2xl md:rounded-full w-full">
@@ -260,7 +268,7 @@
                             </svg>
                         </button>
 
-                        {{-- camera button --}}
+                        <!-- camera button -->
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                             stroke="currentColor" class="w-6 h-6 cursor-not-allowed text-stone-400">
                             <path stroke-linecap="round" stroke-linejoin="round"
@@ -281,7 +289,23 @@
                     </div>
                 </div>
             </div>
+        @endif
 
+        @if ($user['verified_at'] == null)
+            <div class="bg-white shadow-lg rounded-lg overflow-hidden max-w-lg mx-auto mb-4">
+                <h1 class="text-red-600 font-semibold text-center py-5 text-2xl">Your account is not verified yet!</h1>
+            </div>
+        @elseif($user['ban_acc'] != 0)
+            <div class="bg-white shadow-lg rounded-lg overflow-hidden max-w-lg mx-auto mb-4">
+                <h1 class="text-red-600 font-semibold text-center py-5 text-2xl">Account has been banned by the
+                    administrator!</h1>
+            </div>
+        @elseif($user['deleted_acc'] != 0)
+            <div class="bg-white shadow-lg rounded-lg overflow-hidden max-w-lg mx-auto mb-4">
+                <h1 class="text-red-600 font-semibold text-center py-5 text-2xl">Account has been deleted by the
+                    administrator!</h1>
+            </div>
+        @else
             <div class="mx-auto mt-4 lg:w-full">
                 @if (count($posts) != 0)
                     @foreach ($posts as $index => $post)
@@ -294,65 +318,92 @@
                     </div>
                 @endif
             </div>
-            <!-- s end  -->
+        @endif
+        <!-- s end  -->
 
-        </div>
+    </div>
 
-        <!-- Third Div -->
-        <div class="h-max sticky w-full xl:max-w-[22vw] lg:max-w-[30vw] top-24 hidden lg:block">
-            <div class="bg-white border rounded-lg shadow px-4 py-4">
+    <!-- Third Div -->
+    <div class="h-max sticky w-full xl:max-w-[22vw] lg:max-w-[30vw] top-24 hidden lg:block">
+        <div class="bg-white border rounded-lg shadow px-4 py-4">
+
+            {{-- adding common validation before showing the actual content --}}
+            @if ($user['verified_at'] == null)
+                <p class="text-red-600 text-center font-semibold my-2">Account is not verified yet</p>
+            @elseif ($user['ban_acc'] != 0)
+                <p class="text-red-600 text-center font-semibold my-2">Account has been banned by admin!</p>
+            @elseif ($user['deleted_acc'] != 0)
+                <p class="text-red-600 text-center font-semibold my-2">Account has been deleted by admin!</p>
+            @else
                 <h3 class="font-bold text-stone-700">More Peoples for You</h3>
                 <div class="flex flex-col gap-3 items-center justify-center mt-2 bg-white px-2">
 
                     {{-- getting all the suggested people from the system --}}
-                    @foreach ($suggested_people as $people)
-                        <div class="flex justify-between items-center gap-4 w-full">
-                            <div class="flex gap-4">
-                                <a href="/profile/{{ $people['remember_token'] }}"
-                                    class="w-12 border-2 border-stone-500 aspect-square rounded-[50%] overflow-hidden">
-                                    <img class="w-full h-full object-cover"
-                                        src="{{ asset('/storage/' . $people['profile_picture']) }}" alt="profile image">
-                                </a>
-                                <div class="flex flex-col justify-center select-none">
-                                    <p class="text-sm font-semibold text-stone-600">{{ $people['name'] }}</p>
-                                    <p class="text-xs font-medium text-stone-500">
-                                        {{-- Student at techno idnia hooghly --}}
-                                        @if ($people['about'] != null)
-                                            @if (strlen($people['about']) > 35)
-                                                {{ substr($people['about'], 0, 35) }}{{ '....' }}
+                    @php
+                        $no_suggested_people = false;
+                    @endphp
+                    @if (count($suggested_people) > 0)
+                        @foreach ($suggested_people as $people)
+                            <div class="flex justify-between items-center gap-4 w-full">
+                                <div class="flex gap-4">
+                                    <a href="/profile/{{ $people['remember_token'] }}"
+                                        class="w-12 border-2 border-stone-500 aspect-square rounded-[50%] overflow-hidden">
+                                        <img class="w-full h-full object-cover"
+                                            src="{{ asset('/storage/' . $people['profile_picture']) }}"
+                                            alt="profile image">
+                                    </a>
+                                    <div class="flex flex-col justify-center select-none">
+                                        <p class="text-sm font-semibold text-stone-600">{{ $people['name'] }}</p>
+                                        <p class="text-xs font-medium text-stone-500">
+                                            {{-- Student at techno idnia hooghly --}}
+                                            @if ($people['about'] != null)
+                                                @if (strlen($people['about']) > 35)
+                                                    {{ substr($people['about'], 0, 35) }}{{ '....' }}
+                                                @else
+                                                    {{ $people['about'] }}
+                                                @endif
                                             @else
-                                                {{ $people['about'] }}
+                                                {{ 'Not set' }}
                                             @endif
-                                        @else
-                                            {{ 'Not set' }}
-                                        @endif
-                                    </p>
+                                        </p>
+                                    </div>
                                 </div>
+                                <a href="javascript:void(0);"
+                                    data-send-link="{{ route('friend.request', ['token' => $people['remember_token']]) }}"
+                                    class="flex items-center text-stone-600">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
+                                        class="w-5 h-5 hover:cursor-pointer hover:text-stone-900">
+                                        <path
+                                            d="M10 5a3 3 0 1 1-6 0 3 3 0 0 1 6 0ZM1.615 16.428a1.224 1.224 0 0 1-.569-1.175 6.002 6.002 0 0 1 11.908 0c.058.467-.172.92-.57 1.174A9.953 9.953 0 0 1 7 18a9.953 9.953 0 0 1-5.385-1.572ZM16.25 5.75a.75.75 0 0 0-1.5 0v2h-2a.75.75 0 0 0 0 1.5h2v2a.75.75 0 0 0 1.5 0v-2h2a.75.75 0 0 0 0-1.5h-2v-2Z" />
+                                    </svg>
+                                </a>
                             </div>
-                            <a href="javascript:void(0);"
-                                data-send-link="{{ route('friend.request', ['token' => $people['remember_token']]) }}"
-                                class="flex items-center text-stone-600">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
-                                    class="w-5 h-5 hover:cursor-pointer hover:text-stone-900">
-                                    <path
-                                        d="M10 5a3 3 0 1 1-6 0 3 3 0 0 1 6 0ZM1.615 16.428a1.224 1.224 0 0 1-.569-1.175 6.002 6.002 0 0 1 11.908 0c.058.467-.172.92-.57 1.174A9.953 9.953 0 0 1 7 18a9.953 9.953 0 0 1-5.385-1.572ZM16.25 5.75a.75.75 0 0 0-1.5 0v2h-2a.75.75 0 0 0 0 1.5h2v2a.75.75 0 0 0 1.5 0v-2h2a.75.75 0 0 0 0-1.5h-2v-2Z" />
-                                </svg>
-                            </a>
-                        </div>
-                    @endforeach
+                        @endforeach
+                    @else
+                        <p class="text-red-600 text-center font-semibold my-2">Nothing to show</p>
+                        @php
+                            $no_suggested_people = true;
+                        @endphp
+                    @endif
                 </div>
-                <div class="pt-3">
-                    <a class="flex text-stone-600 hover:text-stone-900 text-sm" href="{{ route('friends') }}">
-                        <span class="font-semibold">View all</span>
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5">
-                            <path fill-rule="evenodd"
-                                d="M9.47 15.28a.75.75 0 0 0 1.06 0l4.25-4.25a.75.75 0 1 0-1.06-1.06L10 13.69 6.28 9.97a.75.75 0 0 0-1.06 1.06l4.25 4.25ZM5.22 6.03l4.25 4.25a.75.75 0 0 0 1.06 0l4.25-4.25a.75.75 0 0 0-1.06-1.06L10 8.69 6.28 4.97a.75.75 0 0 0-1.06 1.06Z"
-                                clip-rule="evenodd" />
-                        </svg>
-                    </a>
-                </div>
-            </div>
+
+                {{-- if there is no data to show then there will be no view all button --}}
+                @if (!$no_suggested_people)
+                    <div class="pt-3">
+                        <a class="flex text-stone-600 hover:text-stone-900 text-sm" href="{{ route('friends') }}">
+                            <span class="font-semibold">View all</span>
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
+                                class="w-5 h-5">
+                                <path fill-rule="evenodd"
+                                    d="M9.47 15.28a.75.75 0 0 0 1.06 0l4.25-4.25a.75.75 0 1 0-1.06-1.06L10 13.69 6.28 9.97a.75.75 0 0 0-1.06 1.06l4.25 4.25ZM5.22 6.03l4.25 4.25a.75.75 0 0 0 1.06 0l4.25-4.25a.75.75 0 0 0-1.06-1.06L10 8.69 6.28 4.97a.75.75 0 0 0-1.06 1.06Z"
+                                    clip-rule="evenodd" />
+                            </svg>
+                        </a>
+                    </div>
+                @endif
+            @endif
         </div>
+    </div>
     </div>
 @endsection
 

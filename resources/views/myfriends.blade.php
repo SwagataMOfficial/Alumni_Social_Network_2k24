@@ -25,8 +25,8 @@
                             <p class="mt-14 font-semibold text-xl text-center">{{ $friend['get_friend']['name'] }}</p>
                             <p class="text-md py-1">Passout year - {{ $friend['get_friend']['graduation_year'] }}</p>
                             <div class="flex gap-3">
-                                <a href="{{ route('messages') }}"
-                                    class="text-sm p-2 mt-1 rounded-xl bg-indigo-500 hover:bg-indigo-600 border-[3px] border-indigo-900 mb-3 text-white">
+                                <a href="{{ route('messages', ['token' => $friend['get_friend']['remember_token']]) }}"
+                                    class="text-sm p-2 mt-1 rounded-xl bg-green-500 hover:bg-green-600 border-[3px] border-green-800 mb-3 text-white">
                                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
                                         class="w-5 h-5">
                                         <path fill-rule="evenodd"
@@ -56,25 +56,37 @@
 
         </div>
         {{-- more peoples to follow section --}}
-        <div class="hidden w-1/4 rounded-xl h-fit bg-white px-4 py-3 lg:block">
+        <div class="w-1/4 rounded-xl h-fit bg-white px-4 py-3 hidden lg:block">
             <h3 class="font-bold text-stone-700">More Peoples for You</h3>
             <div class="flex flex-col gap-3 items-center justify-center mt-2">
 
                 {{-- getting all the suggested people from the system --}}
-                @foreach ($suggested_people as $people)
-                    <x-people :people="$people" />
-                @endforeach
+                @php
+                    $no_suggested_people = false;
+                @endphp
+                @if (count($suggested_people) > 0)
+                    @foreach ($suggested_people as $people)
+                        <x-people :people="$people" />
+                    @endforeach
+                @else
+                    <p class="text-red-600 text-center font-semibold my-2">Nothing to show</p>
+                    @php
+                        $no_suggested_people = true;
+                    @endphp
+                @endif
             </div>
-            <div class="pt-3 px-4">
-                <a class="flex text-stone-600 hover:text-stone-900 text-sm" href="{{ route('friends') }}">
-                    <span class="font-semibold">View all</span>
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5">
-                        <path fill-rule="evenodd"
-                            d="M9.47 15.28a.75.75 0 0 0 1.06 0l4.25-4.25a.75.75 0 1 0-1.06-1.06L10 13.69 6.28 9.97a.75.75 0 0 0-1.06 1.06l4.25 4.25ZM5.22 6.03l4.25 4.25a.75.75 0 0 0 1.06 0l4.25-4.25a.75.75 0 0 0-1.06-1.06L10 8.69 6.28 4.97a.75.75 0 0 0-1.06 1.06Z"
-                            clip-rule="evenodd" />
-                    </svg>
-                </a>
-            </div>
+            @if (!$no_suggested_people)
+                <div class="pt-3 px-4">
+                    <a class="flex text-stone-600 hover:text-stone-900 text-sm" href="{{ route('friends') }}">
+                        <span class="font-semibold">View all</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5">
+                            <path fill-rule="evenodd"
+                                d="M9.47 15.28a.75.75 0 0 0 1.06 0l4.25-4.25a.75.75 0 1 0-1.06-1.06L10 13.69 6.28 9.97a.75.75 0 0 0-1.06 1.06l4.25 4.25ZM5.22 6.03l4.25 4.25a.75.75 0 0 0 1.06 0l4.25-4.25a.75.75 0 0 0-1.06-1.06L10 8.69 6.28 4.97a.75.75 0 0 0-1.06 1.06Z"
+                                clip-rule="evenodd" />
+                        </svg>
+                    </a>
+                </div>
+            @endif
         </div>
     </div>
 @endsection

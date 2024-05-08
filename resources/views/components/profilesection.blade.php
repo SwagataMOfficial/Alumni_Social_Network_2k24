@@ -5,8 +5,7 @@
         {{-- <p class="text-4xl font-bold text-stone-600">Username</p> --}}
         <p class="text-xl font-semibold text-stone-500">{{ $details['about'] ? $details['about'] : '-- --' }}</p>
         <div>
-            <a href="#"
-                class="text-blue-700 font-bold hover:underline hover:underline-offset-2">{{ $details['followers'] }}</a>
+            <p class="text-blue-700 font-bold">Friends: {{ $details['friends'] }}</p>
         </div>
 
         {{-- if the profile is mine then don't show the buttons like add friend, etc --}}
@@ -46,8 +45,8 @@
                 @if ($friend[0]['is_pending'] == 0)
                     {{-- message and unfriend button will only appear if the user has that user as his/her friend --}}
                     <div class="flex gap-4">
-                        <a href="{{ route('messages') }}"
-                            class="rounded-3xl px-6 py-2 font-bold tracking-wide bg-blue-600 text-white hover:bg-blue-700 flex items-center gap-2 focus:ring-2 focus:outline-none focus:ring-blue-800">
+                        <a href="{{ route('messages', ['token' => $details['remember_token'] ]) }}"
+                            class="rounded-3xl px-6 py-2 font-bold tracking-wide bg-green-600 text-white hover:bg-green-700 flex items-center gap-2 focus:ring-2 focus:outline-none focus:ring-green-800">
                             <span>Message</span>
                             <span>
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"

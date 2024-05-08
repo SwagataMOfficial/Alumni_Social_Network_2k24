@@ -13,7 +13,7 @@
           </form>
       </div>
       <!-- Right side: Navigation items -->
-      <div class="hidden lg:flex items-center gap-8">
+      <div class="hidden lg:flex items-center gap-6 xl:gap-8">
           <!-- Navigation items -->
           <!-- Home section  -->
           <a href="{{route('feed')}}" class="text-white hover:text-gray-300 focus:outline-none">

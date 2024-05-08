@@ -23,7 +23,7 @@
                 </a>
             </div>
         </div>
-        {{-- right main settings option --}}
+        {{-- right main friends option --}}
         <div class="w-full flex flex-col gap-3 mb-3 xl:w-3/4">
             <section class="rounded-xl overflow-hidden bg-white px-6 py-4">
                 <h1 class="text-stone-700 font-semibold text-2xl mb-2">Pending requests</h3>
@@ -109,7 +109,7 @@
                             @endforeach
                         </div>
                     @else
-                        <p class="text-lg mx-2 text-red-500">No suggested people found!</p>
+                        <p class="text-lg mx-2 text-red-500 max-[510px]:mx-8">No suggested people found!</p>
                     @endif
             </section>
         </div>

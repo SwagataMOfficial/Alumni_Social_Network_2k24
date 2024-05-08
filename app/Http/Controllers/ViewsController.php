@@ -24,7 +24,7 @@ class ViewsController extends Controller {
         })->whereNull('friends.student_id')
             ->whereNull('friends.friend_id')
             ->where('users.student_id', '!=', $myid)
-            ->where("graduation_year", "=", $user->graduation_year)->select('users.*')->limit(6)->get();
+            ->where("graduation_year", "=", $user->graduation_year)->where('profile_visibility', '=', '1')->where('ban_acc', '=', '0')->where('deleted_acc', '=', '0')->where('verified_at', '!=', null)->select('users.*')->limit(6)->get();
 
         $data = compact("user", "posts", "suggested_people");
 
@@ -45,7 +45,7 @@ class ViewsController extends Controller {
         })->whereNull('friends.student_id')
             ->whereNull('friends.friend_id')
             ->where('users.student_id', '!=', $myid)
-            ->where("graduation_year", "=", $user->graduation_year)->select('users.*')->limit(6)->get();
+            ->where("graduation_year", "=", $user->graduation_year)->where('profile_visibility', '=', '1')->where('ban_acc', '=', '0')->where('deleted_acc', '=', '0')->where('verified_at', '!=', null)->select('users.*')->limit(6)->get();
 
         $data = compact("user", "posts", "suggested_people");
 
@@ -63,7 +63,7 @@ class ViewsController extends Controller {
 
         $s_peoples = User::leftJoin('friends', function ($join) use ($id) {
             $join->on('users.student_id', '=', 'friends.student_id')->where('friends.friend_id', '=', $id)->orWhere('users.student_id', '=', 'friends.friend_id');
-        })->whereNull('friends.student_id')->whereNull('friends.friend_id')->where('users.student_id', '!=', $id)->where("graduation_year", "=", $user->graduation_year)->select('users.*')->limit(20)->get()->toArray();
+        })->whereNull('friends.student_id')->whereNull('friends.friend_id')->where('users.student_id', '!=', $id)->where("graduation_year", "=", $user->graduation_year)->where('profile_visibility', '=', '1')->where('ban_acc', '=', '0')->where('deleted_acc', '=', '0')->where('verified_at', '!=', null)->select('users.*')->limit(20)->get()->toArray();
 
         return view("friends")->with(compact('s_peoples', 'p_requests', 'user'));
     }
@@ -75,7 +75,7 @@ class ViewsController extends Controller {
 
         $suggested_people = User::leftJoin('friends', function ($join) use ($myid) {
             $join->on('users.student_id', '=', 'friends.student_id')->where('friends.friend_id', '=', $myid)->orWhere('users.student_id', '=', 'friends.friend_id');
-        })->whereNull('friends.student_id')->whereNull('friends.friend_id')->where('users.student_id', '!=', $myid)->where("graduation_year", "=", $mydata->graduation_year)->select('users.*')->limit(4)->get();
+        })->whereNull('friends.student_id')->whereNull('friends.friend_id')->where('users.student_id', '!=', $myid)->where("graduation_year", "=", $mydata->graduation_year)->where('profile_visibility', '=', '1')->where('ban_acc', '=', '0')->where('deleted_acc', '=', '0')->where('verified_at', '!=', null)->select('users.*')->limit(4)->get();
 
         $data = compact('suggested_people', 'myfriends');
 
@@ -87,11 +87,9 @@ class ViewsController extends Controller {
         // TODO: get the chats of the user
 
         if ($token != null) {
-            // TODO: get the chats by getting the token associated person and their corresponding data
+            
             // GETTING ALL THE USER'S DATA
             $user = User::where("remember_token", "=", $token)->first()->toArray();
-            // echo "<pre>";
-            // print_r($user);
 
             $user_id = session()->get('user_id');
 
@@ -103,9 +101,6 @@ class ViewsController extends Controller {
                 $query->where('chatted_by', $user['student_id'])
                     ->where('chatted_to', $user_id);
             })->get();
-            // $chats = Chat::where('chatted_by', '=', $user_id)->where('chatted_to', '=', $user['student_id'])->get();
-            // echo "Count ";
-            // echo count($chats);
 
             // creating a new chat if the count of the chat variable is 0
             if (count($chats) == 0) {
@@ -124,24 +119,14 @@ class ViewsController extends Controller {
                     ->where('chatted_to', $user_id);
             })->first()->toArray();
 
-            // echo "<pre>";
-            // print_r($chats);
-            // die;
-
             $allchats = Friend::where('is_pending', '=', '0')->where('student_id', '=', session()->get('user_id'))->get()->toArray();
-
 
             // get the messages
             $data = compact('token', 'chats', 'allchats');
             return view("messages")->with($data);
         }
         else {
-            // $allchats = Chat::where('chatted_by', '=', session()->get('user_id'))->get()->toArray();
             $allchats = Friend::where('is_pending', '=', '0')->where('student_id', '=', session()->get('user_id'))->get()->toArray();
-
-            // echo "<pre>";
-            // print_r($allchats);
-            // die;
 
             $data = compact('token', 'allchats');
             return view("messages")->with($data);
@@ -166,7 +151,7 @@ class ViewsController extends Controller {
 
         $suggested_people = User::leftJoin('friends', function ($join) use ($myid) {
             $join->on('users.student_id', '=', 'friends.student_id')->where('friends.friend_id', '=', $myid)->orWhere('users.student_id', '=', 'friends.friend_id');
-        })->whereNull('friends.student_id')->whereNull('friends.friend_id')->where('users.student_id', '!=', $myid)->where("graduation_year", "=", $mydata->graduation_year)->select('users.*')->limit(4)->get();
+        })->whereNull('friends.student_id')->whereNull('friends.friend_id')->where('users.student_id', '!=', $myid)->where("graduation_year", "=", $mydata->graduation_year)->where('profile_visibility', '=', '1')->where('ban_acc', '=', '0')->where('deleted_acc', '=', '0')->where('verified_at', '!=', null)->select('users.*')->limit(4)->get();
 
         // getting all the images posted by the user from the user_posts table and also filtering the non image posts
         $postedImages = Userpost::select('attachment')->where('posted_by', '=', $user->student_id)->where('attachment', '!=', null)->get()->toArray();
@@ -200,21 +185,23 @@ class ViewsController extends Controller {
     }
 
     public function view_search(Request $request) {
-        $search = $request->search;
+        $search = trim($request->search);
 
         $myid = session()->get('user_id');
         $mydata = User::find($myid);
 
-        $searchedData = User::where(function ($query) use ($search, $myid) {
+        $searchedData = User::with('getFriends', 'getAlterFriends')->where(function ($query) use ($search) {
             $query->where('name', 'LIKE', "%$search%")
                 ->orWhere('student_id', 'LIKE', "%$search%");
-        })->where('student_id', '!=', $myid)->get()->toArray();
+        })->where('student_id', '!=', $myid)->where('verified_at', '!=', null)->where('profile_visibility', '=', '1')->where('ban_acc', '=', '0')->where('deleted_acc', '=', '0')->get()->toArray();
 
         $suggested_people = User::leftJoin('friends', function ($join) use ($myid) {
             $join->on('users.student_id', '=', 'friends.student_id')->where('friends.friend_id', '=', $myid)->orWhere('users.student_id', '=', 'friends.friend_id');
-        })->whereNull('friends.student_id')->whereNull('friends.friend_id')->where('users.student_id', '!=', $myid)->where("graduation_year", "=", $mydata->graduation_year)->select('users.*')->limit(4)->get();
+        })->whereNull('friends.student_id')->whereNull('friends.friend_id')->where('users.student_id', '!=', $myid)->where("graduation_year", "=", $mydata->graduation_year)->select('users.*')->where('profile_visibility', '=', '1')->where('ban_acc', '=', '0')->where('deleted_acc', '=', '0')->where('verified_at', '!=', null)->limit(4)->get();
 
-        $data = compact("searchedData", "suggested_people");
+        $user = $mydata->toArray();
+
+        $data = compact("searchedData", "suggested_people", "user");
         return view("searchedprofile")->with($data);
     }
 

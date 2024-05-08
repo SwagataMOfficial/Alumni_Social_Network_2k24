@@ -61,7 +61,7 @@
         @if ($posts['post_type'] != 'post')
             <p class="text-gray-800">
                 <span class="font-semibold">Registration link: </span>
-                <a href="{{ $posts['registration_link'] }}"
+                <a href="{{ $posts['registration_link'] }}" target="_blank"
                     class="text-blue-500 hover:text-blue-800 underline underline-offset-2">
                     {{ $posts['registration_link'] }}
                 </a>

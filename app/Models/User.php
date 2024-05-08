@@ -15,7 +15,6 @@ class User extends Model {
         'email',
         'password',
         'remember_token',
-        'token_expire',
         'phone',
         'dob',
         'gender',
@@ -48,9 +47,16 @@ class User extends Model {
         'verification_document',
         'created_at',
         'updated_at',
-        'deleted_at',
         'verified_at',
         'forget_token',
         'forget_token_expire',
     ];
+
+    function getFriends(){
+        return $this->hasMany('App\Models\Friend','student_id','student_id');
+    }
+
+    function getAlterFriends(){
+        return $this->hasMany('App\Models\Friend','friend_id','student_id');
+    }
 }
