@@ -6,6 +6,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 
 class ProfileController extends Controller {
     /**
@@ -63,7 +64,7 @@ class ProfileController extends Controller {
             session()->put('user_profile_img', $filename);
         }
 
-        if(array_key_exists('name', $updateArr)){
+        if (array_key_exists('name', $updateArr)) {
             session()->put('user_name', $updateArr['name']);
         }
 
@@ -128,9 +129,8 @@ class ProfileController extends Controller {
         // return redirect(route('profile.edit'));
     }
 
-    public function toggleVisibility(Request $request)
-    {
-        $studentId =  session()->get('user_id');
+    public function toggleVisibility(Request $request) {
+        $studentId = session()->get('user_id');
         $visibility = $request->input('profile_visibility');
 
 
@@ -139,14 +139,14 @@ class ProfileController extends Controller {
         if ($user) {
             $user->profile_visibility = $visibility;
             $user->save();
-            return response()->json(['success' => true,'message' => 'Privacy Update']);//thi sis shobhan
-        } else {
+            return response()->json(['success' => true, 'message' => 'Privacy Update']);//thi sis shobhan
+        }
+        else {
             return response()->json(['success' => false, 'message' => 'User not found'], 404);//this is altab
         }
     }
 
-    public function changePassword(Request $request){
-        // TODO: implement change password system
+    public function changePassword(Request $request) {
 
         $request->validate([
             'c_old_password' => 'required',
@@ -162,11 +162,11 @@ class ProfileController extends Controller {
         ]);
 
 
-     // Retrieve the user's email from the session
-     $userEmail = session()->get('loggedInUser');
+        // Retrieve the user's email from the session
+        $userEmail = session()->get('loggedInUser');
 
-     // Retrieve the user based on the email stored in the session
-     $user = User::where('email', $userEmail)->first();
+        // Retrieve the user based on the email stored in the session
+        $user = User::where('email', $userEmail)->first();
 
         // Check if the user exists
         if (!$user) {
@@ -183,5 +183,50 @@ class ProfileController extends Controller {
         $user->save();
 
         return response()->json(['message' => 'Password changed successfully.']);
+    }
+
+    public function delete_account(Request $request) {
+        $request->validate([
+            'password' => 'required|string|min:6',
+            'delete_acc_id' => 'required'
+        ], [
+            'password.required' => 'Please enter the correct password!',
+            'delete_acc_id.required' => 'Please enter the password.',
+            'password.min' => 'Password must be at least :min characters long.'
+        ]);
+
+        // Retrieve the user based on the email stored in the session
+        $user = User::where("student_id", '=', $request->delete_acc_id)->first();
+
+        // Check if the user exists
+        if (!$user) {
+            return response()->json(['success' => false, 'message' => 'User not found.'], 404);
+        }
+
+        // Check if the provided current password matches the user's password
+        if (!Hash::check($request->password, $user->password)) {
+            return response()->json(['success' => false, 'message' => 'Password is incorrect!'], 422);
+        }
+
+        $folderPath = 'public/' . $request->delete_acc_id;
+
+        // Check if the folder exists before attempting to delete
+        if (Storage::exists($folderPath)) {
+            try {
+                // Attempt to delete the directory and all its contents recursively
+                Storage::deleteDirectory($folderPath);
+                $res = $user->delete();
+                if($res){
+                    return response()->json(['success' => true, 'message' => 'Account deleted successfully!'], 200);
+                }
+            }
+            catch (\Exception $e) {
+                // Handle other exceptions that may occur during deletion
+                return response()->json(['success' => false, 'message' => $e->getMessage()], 422);
+            }
+        }
+        else {
+            return response()->json(['success' => false, 'message' => "An error occured!"], 422);
+        }
     }
 }

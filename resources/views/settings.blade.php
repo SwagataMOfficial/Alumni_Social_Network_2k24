@@ -3,7 +3,6 @@
     <title>Settings | Alumni Junction</title>
 @endpush
 @section('main-section')
-    {{-- <div class="container"> --}}
     {{-- max-width container with left,right space --}}
     <div class="px-8 mx-auto pt-3 flex justify-center gap-10">
 
@@ -15,23 +14,6 @@
                     data-tabs-toggle="#default-styled-tab-content"
                     data-tabs-active-classes="bg-stone-200 border-l-[3px] border-l-sky-600"
                     data-tabs-inactive-classes="text-stone-600" role="tablist">
-
-                    {{-- tab-1 --}}
-                    <button class="flex items-center justify-start gap-3 w-full py-2 pl-6 hover:bg-slate-200 "
-                        id="profile-styled-tab" data-tabs-target="#styled-profile" type="button" role="tab"
-                        aria-controls="profile" aria-selected="false">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
-                            class="w-7 aspect-square text-stone-700">
-                            <path
-                                d="M13.024 9.25c.47 0 .827-.433.637-.863a4 4 0 0 0-4.094-2.364c-.468.05-.665.576-.43.984l1.08 1.868a.75.75 0 0 0 .649.375h2.158ZM7.84 7.758c-.236-.408-.79-.5-1.068-.12A3.982 3.982 0 0 0 6 10c0 .884.287 1.7.772 2.363.278.38.832.287 1.068-.12l1.078-1.868a.75.75 0 0 0 0-.75L7.839 7.758ZM9.138 12.993c-.235.408-.039.934.43.984a4 4 0 0 0 4.094-2.364c.19-.43-.168-.863-.638-.863h-2.158a.75.75 0 0 0-.65.375l-1.078 1.868Z" />
-                            <path fill-rule="evenodd"
-                                d="m14.13 4.347.644-1.117a.75.75 0 0 0-1.299-.75l-.644 1.116a6.954 6.954 0 0 0-2.081-.556V1.75a.75.75 0 0 0-1.5 0v1.29a6.954 6.954 0 0 0-2.081.556L6.525 2.48a.75.75 0 1 0-1.3.75l.645 1.117A7.04 7.04 0 0 0 4.347 5.87L3.23 5.225a.75.75 0 1 0-.75 1.3l1.116.644A6.954 6.954 0 0 0 3.04 9.25H1.75a.75.75 0 0 0 0 1.5h1.29c.078.733.27 1.433.556 2.081l-1.116.645a.75.75 0 1 0 .75 1.298l1.117-.644a7.04 7.04 0 0 0 1.523 1.523l-.645 1.117a.75.75 0 1 0 1.3.75l.644-1.116a6.954 6.954 0 0 0 2.081.556v1.29a.75.75 0 0 0 1.5 0v-1.29a6.954 6.954 0 0 0 2.081-.556l.645 1.116a.75.75 0 0 0 1.299-.75l-.645-1.117a7.042 7.042 0 0 0 1.523-1.523l1.117.644a.75.75 0 0 0 .75-1.298l-1.116-.645a6.954 6.954 0 0 0 .556-2.081h1.29a.75.75 0 0 0 0-1.5h-1.29a6.954 6.954 0 0 0-.556-2.081l1.116-.644a.75.75 0 0 0-.75-1.3l-1.117.645a7.04 7.04 0 0 0-1.524-1.523ZM10 4.5a5.475 5.475 0 0 0-2.781.754A5.527 5.527 0 0 0 5.22 7.277 5.475 5.475 0 0 0 4.5 10a5.475 5.475 0 0 0 .752 2.777 5.527 5.527 0 0 0 2.028 2.004c.802.458 1.73.719 2.72.719a5.474 5.474 0 0 0 2.78-.753 5.527 5.527 0 0 0 2.001-2.027c.458-.802.719-1.73.719-2.72a5.475 5.475 0 0 0-.753-2.78 5.528 5.528 0 0 0-2.028-2.002A5.475 5.475 0 0 0 10 4.5Z"
-                                clip-rule="evenodd" />
-                        </svg>
-                        <span class="text-lg font-semibold">
-                            General
-                        </span>
-                    </button>
 
                     {{-- tab-2 --}}
                     <button class="flex items-center justify-start gap-3 w-full py-2 pl-6 hover:bg-slate-200 "
@@ -45,21 +27,6 @@
                         </svg>
                         <span class="text-lg font-semibold">
                             Account
-                        </span>
-                    </button>
-
-                    {{-- tab-3 --}}
-                    <button class="flex items-center justify-start gap-3 w-full py-2 pl-6 hover:bg-slate-200 "
-                        id="settings-styled-tab" data-tabs-target="#styled-settings" type="button" role="tab"
-                        aria-controls="settings" aria-selected="false">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
-                            class="w-7 aspect-square text-stone-700">
-                            <path fill-rule="evenodd"
-                                d="M9.661 2.237a.531.531 0 0 1 .678 0 11.947 11.947 0 0 0 7.078 2.749.5.5 0 0 1 .479.425c.069.52.104 1.05.104 1.59 0 5.162-3.26 9.563-7.834 11.256a.48.48 0 0 1-.332 0C5.26 16.564 2 12.163 2 7c0-.538.035-1.069.104-1.589a.5.5 0 0 1 .48-.425 11.947 11.947 0 0 0 7.077-2.75Zm4.196 5.954a.75.75 0 0 0-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 1 0-1.06 1.061l2.5 2.5a.75.75 0 0 0 1.137-.089l4-5.5Z"
-                                clip-rule="evenodd" />
-                        </svg>
-                        <span class="text-lg font-semibold">
-                            Security & Privacy
                         </span>
                     </button>
 
@@ -93,98 +60,12 @@
                             Change Password
                         </span>
                     </button>
-
-                    {{-- tab-6 --}}
-                    <button class="flex items-center justify-start gap-3 w-full py-2 pl-6 hover:bg-slate-200 "
-                        id="new1-styled-tab" data-tabs-target="#new-item1" type="button" role="tab" aria-controls="new"
-                        aria-selected="false">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
-                            class="w-7 aspect-square text-stone-700">
-                            <path
-                                d="M4.214 3.227a.75.75 0 0 0-1.156-.955 8.97 8.97 0 0 0-1.856 3.825.75.75 0 0 0 1.466.316 7.47 7.47 0 0 1 1.546-3.186ZM16.942 2.272a.75.75 0 0 0-1.157.955 7.47 7.47 0 0 1 1.547 3.186.75.75 0 0 0 1.466-.316 8.971 8.971 0 0 0-1.856-3.825Z" />
-                            <path fill-rule="evenodd"
-                                d="M10 2a6 6 0 0 0-6 6c0 1.887-.454 3.665-1.257 5.234a.75.75 0 0 0 .515 1.076 32.91 32.91 0 0 0 3.256.508 3.5 3.5 0 0 0 6.972 0 32.903 32.903 0 0 0 3.256-.508.75.75 0 0 0 .515-1.076A11.448 11.448 0 0 1 16 8a6 6 0 0 0-6-6Zm0 14.5a2 2 0 0 1-1.95-1.557 33.54 33.54 0 0 0 3.9 0A2 2 0 0 1 10 16.5Z"
-                                clip-rule="evenodd" />
-                        </svg>
-                        <span class="text-lg font-semibold">
-                            Notifications
-                        </span>
-                    </button>
                 </nav>
             </div>
         </div>
 
         {{-- right main settings option --}}
         <div id="default-styled-tab-content" class="w-3/4 flex flex-col gap-3 mb-3">
-
-            {{-- general settings starts here --}}
-            <div class="hidden" id="styled-profile" role="tabpanel" aria-labelledby="profile-tab">
-                {{-- settings section here --}}
-                <section class="rounded-xl overflow-hidden bg-white px-6 py-2 mb-3">
-                    <h3 class="text-stone-600 font-bold text-xl mb-2">Preferences</h3>
-                    <div class="flex flex-col">
-                        <a href="#"
-                            class="w-full px-4 flex justify-between items-center py-2 hover:bg-slate-200 rounded-lg">
-                            <span>Language</span>
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
-                                class="w-5 h-5">
-                                <path fill-rule="evenodd"
-                                    d="M4.25 5.5a.75.75 0 0 0-.75.75v8.5c0 .414.336.75.75.75h8.5a.75.75 0 0 0 .75-.75v-4a.75.75 0 0 1 1.5 0v4A2.25 2.25 0 0 1 12.75 17h-8.5A2.25 2.25 0 0 1 2 14.75v-8.5A2.25 2.25 0 0 1 4.25 4h5a.75.75 0 0 1 0 1.5h-5Z"
-                                    clip-rule="evenodd" />
-                                <path fill-rule="evenodd"
-                                    d="M6.194 12.753a.75.75 0 0 0 1.06.053L16.5 4.44v2.81a.75.75 0 0 0 1.5 0v-4.5a.75.75 0 0 0-.75-.75h-4.5a.75.75 0 0 0 0 1.5h2.553l-9.056 8.194a.75.75 0 0 0-.053 1.06Z"
-                                    clip-rule="evenodd" />
-                            </svg>
-                        </a>
-                        <a href="#"
-                            class="w-full px-4 flex justify-between items-center py-2 hover:bg-slate-200 rounded-lg">
-                            <span>Theme color</span>
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
-                                class="w-5 h-5">
-                                <path fill-rule="evenodd"
-                                    d="M4.25 5.5a.75.75 0 0 0-.75.75v8.5c0 .414.336.75.75.75h8.5a.75.75 0 0 0 .75-.75v-4a.75.75 0 0 1 1.5 0v4A2.25 2.25 0 0 1 12.75 17h-8.5A2.25 2.25 0 0 1 2 14.75v-8.5A2.25 2.25 0 0 1 4.25 4h5a.75.75 0 0 1 0 1.5h-5Z"
-                                    clip-rule="evenodd" />
-                                <path fill-rule="evenodd"
-                                    d="M6.194 12.753a.75.75 0 0 0 1.06.053L16.5 4.44v2.81a.75.75 0 0 0 1.5 0v-4.5a.75.75 0 0 0-.75-.75h-4.5a.75.75 0 0 0 0 1.5h2.553l-9.056 8.194a.75.75 0 0 0-.053 1.06Z"
-                                    clip-rule="evenodd" />
-                            </svg>
-                        </a>
-                    </div>
-                </section>
-                {{-- settings section here --}}
-                <section class="rounded-xl overflow-hidden bg-white px-6 py-2">
-                    <h3 class="text-stone-600 font-bold text-xl mb-2">User Choice</h3>
-                    <div class="flex flex-col">
-                        <a href="#"
-                            class="w-full px-4 flex justify-between items-center py-2 hover:bg-slate-200 rounded-lg">
-                            <span>Data Usage and media quality</span>
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
-                                class="w-5 h-5">
-                                <path fill-rule="evenodd"
-                                    d="M4.25 5.5a.75.75 0 0 0-.75.75v8.5c0 .414.336.75.75.75h8.5a.75.75 0 0 0 .75-.75v-4a.75.75 0 0 1 1.5 0v4A2.25 2.25 0 0 1 12.75 17h-8.5A2.25 2.25 0 0 1 2 14.75v-8.5A2.25 2.25 0 0 1 4.25 4h5a.75.75 0 0 1 0 1.5h-5Z"
-                                    clip-rule="evenodd" />
-                                <path fill-rule="evenodd"
-                                    d="M6.194 12.753a.75.75 0 0 0 1.06.053L16.5 4.44v2.81a.75.75 0 0 0 1.5 0v-4.5a.75.75 0 0 0-.75-.75h-4.5a.75.75 0 0 0 0 1.5h2.553l-9.056 8.194a.75.75 0 0 0-.053 1.06Z"
-                                    clip-rule="evenodd" />
-                            </svg>
-                        </a>
-                        <a href="#"
-                            class="w-full px-4 flex justify-between items-center py-2 hover:bg-slate-200 rounded-lg">
-                            <span>Accessability</span>
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
-                                class="w-5 h-5">
-                                <path fill-rule="evenodd"
-                                    d="M4.25 5.5a.75.75 0 0 0-.75.75v8.5c0 .414.336.75.75.75h8.5a.75.75 0 0 0 .75-.75v-4a.75.75 0 0 1 1.5 0v4A2.25 2.25 0 0 1 12.75 17h-8.5A2.25 2.25 0 0 1 2 14.75v-8.5A2.25 2.25 0 0 1 4.25 4h5a.75.75 0 0 1 0 1.5h-5Z"
-                                    clip-rule="evenodd" />
-                                <path fill-rule="evenodd"
-                                    d="M6.194 12.753a.75.75 0 0 0 1.06.053L16.5 4.44v2.81a.75.75 0 0 0 1.5 0v-4.5a.75.75 0 0 0-.75-.75h-4.5a.75.75 0 0 0 0 1.5h2.553l-9.056 8.194a.75.75 0 0 0-.053 1.06Z"
-                                    clip-rule="evenodd" />
-                            </svg>
-                        </a>
-                    </div>
-                </section>
-            </div>
-            {{-- general settings ends here --}}
 
             {{-- account settings starts here --}}
             <div class="hidden" id="styled-dashboard" role="tabpanel" aria-labelledby="dashboard-tab">
@@ -195,8 +76,7 @@
                         <a href="#"
                             class="w-full px-4 flex justify-between items-center py-2 hover:bg-slate-200 rounded-lg">
                             <span>Name, About me, Location</span>
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
-                                class="w-5 h-5">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5">
                                 <path fill-rule="evenodd"
                                     d="M4.25 5.5a.75.75 0 0 0-.75.75v8.5c0 .414.336.75.75.75h8.5a.75.75 0 0 0 .75-.75v-4a.75.75 0 0 1 1.5 0v4A2.25 2.25 0 0 1 12.75 17h-8.5A2.25 2.25 0 0 1 2 14.75v-8.5A2.25 2.25 0 0 1 4.25 4h5a.75.75 0 0 1 0 1.5h-5Z"
                                     clip-rule="evenodd" />
@@ -208,8 +88,7 @@
                         <a href="#"
                             class="w-full px-4 flex justify-between items-center py-2 hover:bg-slate-200 rounded-lg">
                             <span>More personal Information</span>
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
-                                class="w-5 h-5">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5">
                                 <path fill-rule="evenodd"
                                     d="M4.25 5.5a.75.75 0 0 0-.75.75v8.5c0 .414.336.75.75.75h8.5a.75.75 0 0 0 .75-.75v-4a.75.75 0 0 1 1.5 0v4A2.25 2.25 0 0 1 12.75 17h-8.5A2.25 2.25 0 0 1 2 14.75v-8.5A2.25 2.25 0 0 1 4.25 4h5a.75.75 0 0 1 0 1.5h-5Z"
                                     clip-rule="evenodd" />
@@ -221,8 +100,7 @@
                         <a href="#"
                             class="w-full px-4 flex justify-between items-center py-2 hover:bg-slate-200 rounded-lg">
                             <span>Account verification</span>
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
-                                class="w-5 h-5">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5">
                                 <path fill-rule="evenodd"
                                     d="M4.25 5.5a.75.75 0 0 0-.75.75v8.5c0 .414.336.75.75.75h8.5a.75.75 0 0 0 .75-.75v-4a.75.75 0 0 1 1.5 0v4A2.25 2.25 0 0 1 12.75 17h-8.5A2.25 2.25 0 0 1 2 14.75v-8.5A2.25 2.25 0 0 1 4.25 4h5a.75.75 0 0 1 0 1.5h-5Z"
                                     clip-rule="evenodd" />
@@ -241,8 +119,7 @@
                         <a href="#"
                             class="w-full px-4 flex justify-between items-center py-2 hover:bg-slate-200 rounded-lg">
                             <span>Skills and expertise</span>
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
-                                class="w-5 h-5">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5">
                                 <path fill-rule="evenodd"
                                     d="M4.25 5.5a.75.75 0 0 0-.75.75v8.5c0 .414.336.75.75.75h8.5a.75.75 0 0 0 .75-.75v-4a.75.75 0 0 1 1.5 0v4A2.25 2.25 0 0 1 12.75 17h-8.5A2.25 2.25 0 0 1 2 14.75v-8.5A2.25 2.25 0 0 1 4.25 4h5a.75.75 0 0 1 0 1.5h-5Z"
                                     clip-rule="evenodd" />
@@ -297,20 +174,12 @@
                 <section class="rounded-xl overflow-hidden bg-white px-6 py-2">
                     <h3 class="text-stone-600 font-bold text-xl mb-2">Account Actions</h3>
                     <div class="flex flex-col">
-                        <a href="#"
-                            class="w-full px-4 flex justify-between items-center py-2 hover:bg-red-100 rounded-lg">
-                            <span class="text-red-500 font-semibold">Deactivate account</span>
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
-                                class="w-5 h-5">
-                                <path fill-rule="evenodd"
-                                    d="M4.25 5.5a.75.75 0 0 0-.75.75v8.5c0 .414.336.75.75.75h8.5a.75.75 0 0 0 .75-.75v-4a.75.75 0 0 1 1.5 0v4A2.25 2.25 0 0 1 12.75 17h-8.5A2.25 2.25 0 0 1 2 14.75v-8.5A2.25 2.25 0 0 1 4.25 4h5a.75.75 0 0 1 0 1.5h-5Z"
-                                    clip-rule="evenodd" />
-                                <path fill-rule="evenodd"
-                                    d="M6.194 12.753a.75.75 0 0 0 1.06.053L16.5 4.44v2.81a.75.75 0 0 0 1.5 0v-4.5a.75.75 0 0 0-.75-.75h-4.5a.75.75 0 0 0 0 1.5h2.553l-9.056 8.194a.75.75 0 0 0-.053 1.06Z"
-                                    clip-rule="evenodd" />
-                            </svg>
-                        </a>
-                        <a href="#"
+                        <form action="{{ route('profile.delete') }}" method="post" class="hidden" id="delete_acc_form">
+                            @csrf
+                            <input type="password" name="password" id="password_for_delete">
+                            <input type="hidden" name="delete_acc_id" value="{{ session()->get('user_id') }}" required>
+                        </form>
+                        <button type="submit" form="delete_acc_form"
                             class="w-full px-4 flex justify-between items-center py-2 hover:bg-red-100 rounded-lg">
                             <span class="text-red-500 font-bold">Delete account</span>
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
@@ -322,137 +191,11 @@
                                     d="M6.194 12.753a.75.75 0 0 0 1.06.053L16.5 4.44v2.81a.75.75 0 0 0 1.5 0v-4.5a.75.75 0 0 0-.75-.75h-4.5a.75.75 0 0 0 0 1.5h2.553l-9.056 8.194a.75.75 0 0 0-.053 1.06Z"
                                     clip-rule="evenodd" />
                             </svg>
-                        </a>
+                        </button>
                     </div>
                 </section>
             </div>
             {{-- account settings ends here --}}
-
-            {{-- security and privacy settings starts here --}}
-            <div class="hidden" id="styled-settings" role="tabpanel" aria-labelledby="settings-tab">
-                <section class="rounded-xl overflow-hidden bg-white px-6 py-2 mb-3">
-                    <h3 class="text-stone-600 font-bold text-xl mb-2">Account Security</h3>
-                    <div class="flex flex-col">
-                        <a href="#"
-                            class="w-full px-4 flex justify-between items-center py-2 hover:bg-slate-200 rounded-lg">
-                            <span>Two-step verification</span>
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
-                                class="w-5 h-5">
-                                <path fill-rule="evenodd"
-                                    d="M4.25 5.5a.75.75 0 0 0-.75.75v8.5c0 .414.336.75.75.75h8.5a.75.75 0 0 0 .75-.75v-4a.75.75 0 0 1 1.5 0v4A2.25 2.25 0 0 1 12.75 17h-8.5A2.25 2.25 0 0 1 2 14.75v-8.5A2.25 2.25 0 0 1 4.25 4h5a.75.75 0 0 1 0 1.5h-5Z"
-                                    clip-rule="evenodd" />
-                                <path fill-rule="evenodd"
-                                    d="M6.194 12.753a.75.75 0 0 0 1.06.053L16.5 4.44v2.81a.75.75 0 0 0 1.5 0v-4.5a.75.75 0 0 0-.75-.75h-4.5a.75.75 0 0 0 0 1.5h2.553l-9.056 8.194a.75.75 0 0 0-.053 1.06Z"
-                                    clip-rule="evenodd" />
-                            </svg>
-                        </a>
-                        <a href="#"
-                            class="w-full px-4 flex justify-between items-center py-2 hover:bg-slate-200 rounded-lg">
-                            <span>Remember this device</span>
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
-                                class="w-5 h-5">
-                                <path fill-rule="evenodd"
-                                    d="M4.25 5.5a.75.75 0 0 0-.75.75v8.5c0 .414.336.75.75.75h8.5a.75.75 0 0 0 .75-.75v-4a.75.75 0 0 1 1.5 0v4A2.25 2.25 0 0 1 12.75 17h-8.5A2.25 2.25 0 0 1 2 14.75v-8.5A2.25 2.25 0 0 1 4.25 4h5a.75.75 0 0 1 0 1.5h-5Z"
-                                    clip-rule="evenodd" />
-                                <path fill-rule="evenodd"
-                                    d="M6.194 12.753a.75.75 0 0 0 1.06.053L16.5 4.44v2.81a.75.75 0 0 0 1.5 0v-4.5a.75.75 0 0 0-.75-.75h-4.5a.75.75 0 0 0 0 1.5h2.553l-9.056 8.194a.75.75 0 0 0-.053 1.06Z"
-                                    clip-rule="evenodd" />
-                            </svg>
-                        </a>
-                    </div>
-                </section>
-
-                <section class="rounded-xl overflow-hidden bg-white px-6 py-2 mb-3">
-                    <h3 class="text-stone-600 font-bold text-xl mb-2">Credential manager</h3>
-                    <div class="flex flex-col">
-                        <a href="#"
-                            class="w-full px-4 flex justify-between items-center py-2 hover:bg-slate-200 rounded-lg">
-                            <span>Change login email</span>
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
-                                class="w-5 h-5">
-                                <path fill-rule="evenodd"
-                                    d="M4.25 5.5a.75.75 0 0 0-.75.75v8.5c0 .414.336.75.75.75h8.5a.75.75 0 0 0 .75-.75v-4a.75.75 0 0 1 1.5 0v4A2.25 2.25 0 0 1 12.75 17h-8.5A2.25 2.25 0 0 1 2 14.75v-8.5A2.25 2.25 0 0 1 4.25 4h5a.75.75 0 0 1 0 1.5h-5Z"
-                                    clip-rule="evenodd" />
-                                <path fill-rule="evenodd"
-                                    d="M6.194 12.753a.75.75 0 0 0 1.06.053L16.5 4.44v2.81a.75.75 0 0 0 1.5 0v-4.5a.75.75 0 0 0-.75-.75h-4.5a.75.75 0 0 0 0 1.5h2.553l-9.056 8.194a.75.75 0 0 0-.053 1.06Z"
-                                    clip-rule="evenodd" />
-                            </svg>
-                        </a>
-                        <a href="#"
-                            class="w-full px-4 flex justify-between items-center py-2 hover:bg-slate-200 rounded-lg">
-                            <span>Get 2FA tokens</span>
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
-                                class="w-5 h-5">
-                                <path fill-rule="evenodd"
-                                    d="M4.25 5.5a.75.75 0 0 0-.75.75v8.5c0 .414.336.75.75.75h8.5a.75.75 0 0 0 .75-.75v-4a.75.75 0 0 1 1.5 0v4A2.25 2.25 0 0 1 12.75 17h-8.5A2.25 2.25 0 0 1 2 14.75v-8.5A2.25 2.25 0 0 1 4.25 4h5a.75.75 0 0 1 0 1.5h-5Z"
-                                    clip-rule="evenodd" />
-                                <path fill-rule="evenodd"
-                                    d="M6.194 12.753a.75.75 0 0 0 1.06.053L16.5 4.44v2.81a.75.75 0 0 0 1.5 0v-4.5a.75.75 0 0 0-.75-.75h-4.5a.75.75 0 0 0 0 1.5h2.553l-9.056 8.194a.75.75 0 0 0-.053 1.06Z"
-                                    clip-rule="evenodd" />
-                            </svg>
-                        </a>
-                    </div>
-                </section>
-
-                <section class="rounded-xl overflow-hidden bg-white px-6 py-2">
-                    <h3 class="text-stone-600 font-bold text-xl mb-2">User Privacy</h3>
-                    <div class="flex flex-col">
-                        <a href="#"
-                            class="w-full px-4 flex justify-between items-center py-2 hover:bg-slate-200 rounded-lg">
-                            <span>Profile visibility</span>
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
-                                class="w-5 h-5">
-                                <path fill-rule="evenodd"
-                                    d="M4.25 5.5a.75.75 0 0 0-.75.75v8.5c0 .414.336.75.75.75h8.5a.75.75 0 0 0 .75-.75v-4a.75.75 0 0 1 1.5 0v4A2.25 2.25 0 0 1 12.75 17h-8.5A2.25 2.25 0 0 1 2 14.75v-8.5A2.25 2.25 0 0 1 4.25 4h5a.75.75 0 0 1 0 1.5h-5Z"
-                                    clip-rule="evenodd" />
-                                <path fill-rule="evenodd"
-                                    d="M6.194 12.753a.75.75 0 0 0 1.06.053L16.5 4.44v2.81a.75.75 0 0 0 1.5 0v-4.5a.75.75 0 0 0-.75-.75h-4.5a.75.75 0 0 0 0 1.5h2.553l-9.056 8.194a.75.75 0 0 0-.053 1.06Z"
-                                    clip-rule="evenodd" />
-                            </svg>
-                        </a>
-                        <a href="#"
-                            class="w-full px-4 flex justify-between items-center py-2 hover:bg-slate-200 rounded-lg">
-                            <span>Who can see my profile picture</span>
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
-                                class="w-5 h-5">
-                                <path fill-rule="evenodd"
-                                    d="M4.25 5.5a.75.75 0 0 0-.75.75v8.5c0 .414.336.75.75.75h8.5a.75.75 0 0 0 .75-.75v-4a.75.75 0 0 1 1.5 0v4A2.25 2.25 0 0 1 12.75 17h-8.5A2.25 2.25 0 0 1 2 14.75v-8.5A2.25 2.25 0 0 1 4.25 4h5a.75.75 0 0 1 0 1.5h-5Z"
-                                    clip-rule="evenodd" />
-                                <path fill-rule="evenodd"
-                                    d="M6.194 12.753a.75.75 0 0 0 1.06.053L16.5 4.44v2.81a.75.75 0 0 0 1.5 0v-4.5a.75.75 0 0 0-.75-.75h-4.5a.75.75 0 0 0 0 1.5h2.553l-9.056 8.194a.75.75 0 0 0-.053 1.06Z"
-                                    clip-rule="evenodd" />
-                            </svg>
-                        </a>
-                        <a href="#"
-                            class="w-full px-4 flex justify-between items-center py-2 hover:bg-slate-200 rounded-lg">
-                            <span>Who can see my cover picture</span>
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
-                                class="w-5 h-5">
-                                <path fill-rule="evenodd"
-                                    d="M4.25 5.5a.75.75 0 0 0-.75.75v8.5c0 .414.336.75.75.75h8.5a.75.75 0 0 0 .75-.75v-4a.75.75 0 0 1 1.5 0v4A2.25 2.25 0 0 1 12.75 17h-8.5A2.25 2.25 0 0 1 2 14.75v-8.5A2.25 2.25 0 0 1 4.25 4h5a.75.75 0 0 1 0 1.5h-5Z"
-                                    clip-rule="evenodd" />
-                                <path fill-rule="evenodd"
-                                    d="M6.194 12.753a.75.75 0 0 0 1.06.053L16.5 4.44v2.81a.75.75 0 0 0 1.5 0v-4.5a.75.75 0 0 0-.75-.75h-4.5a.75.75 0 0 0 0 1.5h2.553l-9.056 8.194a.75.75 0 0 0-.053 1.06Z"
-                                    clip-rule="evenodd" />
-                            </svg>
-                        </a>
-                        <a href="#"
-                            class="w-full px-4 flex justify-between items-center py-2 hover:bg-slate-200 rounded-lg">
-                            <span>Who can send me messages</span>
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
-                                class="w-5 h-5">
-                                <path fill-rule="evenodd"
-                                    d="M4.25 5.5a.75.75 0 0 0-.75.75v8.5c0 .414.336.75.75.75h8.5a.75.75 0 0 0 .75-.75v-4a.75.75 0 0 1 1.5 0v4A2.25 2.25 0 0 1 12.75 17h-8.5A2.25 2.25 0 0 1 2 14.75v-8.5A2.25 2.25 0 0 1 4.25 4h5a.75.75 0 0 1 0 1.5h-5Z"
-                                    clip-rule="evenodd" />
-                                <path fill-rule="evenodd"
-                                    d="M6.194 12.753a.75.75 0 0 0 1.06.053L16.5 4.44v2.81a.75.75 0 0 0 1.5 0v-4.5a.75.75 0 0 0-.75-.75h-4.5a.75.75 0 0 0 0 1.5h2.553l-9.056 8.194a.75.75 0 0 0-.053 1.06Z"
-                                    clip-rule="evenodd" />
-                            </svg>
-                        </a>
-                    </div>
-                </section>
-            </div>
-            {{-- security and privacy settings ends here --}}
 
             {{-- social links settings starts here --}}
             <div class="hidden" id="styled-contacts" role="tabpanel" aria-labelledby="contacts-tab">
@@ -487,7 +230,7 @@
                         </a>
                         <a href="#"
                             class="w-full px-4 flex justify-between items-center py-2 hover:bg-slate-200 rounded-lg">
-                            <span>Linkedin</span>
+                            <span>Github</span>
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
                                 class="w-5 h-5">
                                 <path fill-rule="evenodd"
@@ -500,7 +243,20 @@
                         </a>
                         <a href="#"
                             class="w-full px-4 flex justify-between items-center py-2 hover:bg-slate-200 rounded-lg">
-                            <span>Github</span>
+                            <span>Twitter</span>
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
+                                class="w-5 h-5">
+                                <path fill-rule="evenodd"
+                                    d="M4.25 5.5a.75.75 0 0 0-.75.75v8.5c0 .414.336.75.75.75h8.5a.75.75 0 0 0 .75-.75v-4a.75.75 0 0 1 1.5 0v4A2.25 2.25 0 0 1 12.75 17h-8.5A2.25 2.25 0 0 1 2 14.75v-8.5A2.25 2.25 0 0 1 4.25 4h5a.75.75 0 0 1 0 1.5h-5Z"
+                                    clip-rule="evenodd" />
+                                <path fill-rule="evenodd"
+                                    d="M6.194 12.753a.75.75 0 0 0 1.06.053L16.5 4.44v2.81a.75.75 0 0 0 1.5 0v-4.5a.75.75 0 0 0-.75-.75h-4.5a.75.75 0 0 0 0 1.5h2.553l-9.056 8.194a.75.75 0 0 0-.053 1.06Z"
+                                    clip-rule="evenodd" />
+                            </svg>
+                        </a>
+                        <a href="#"
+                            class="w-full px-4 flex justify-between items-center py-2 hover:bg-slate-200 rounded-lg">
+                            <span>Linkedin</span>
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
                                 class="w-5 h-5">
                                 <path fill-rule="evenodd"
@@ -524,57 +280,36 @@
                         @csrf
                         <div class="mb-4 w-3/4">
                             <input type="password" name="c_old_password" id="c_old_password"
-                                class="p-2 border-2 border-stone-500 rounded-xl w-full"
-                                placeholder="Enter Your Old Password">
+                                class="p-2 border-2 border-stone-500 rounded-xl w-full pl-4"
+                                placeholder="Enter Your Old Password" required>
                         </div>
                         <div class="mb-4 w-3/4">
                             <input type="password" name="c_new_password" id="c_c_new_password"
-                                class="p-2 border-2 border-stone-500 rounded-xl w-full"
-                                placeholder="Enter Your New Password">
+                                class="p-2 border-2 border-stone-500 rounded-xl w-full pl-4"
+                                placeholder="Enter Your New Password" required>
                         </div>
                         <div class="mb-5 w-3/4">
                             <input type="password" name="c_new_cpassword_again" id="c_c_new_cpassword_again"
-                                class="p-2 border-2 border-stone-500 rounded-xl w-full"
-                                placeholder="Confirm Your Password">
+                                class="p-2 border-2 border-stone-500 rounded-xl w-full pl-4"
+                                placeholder="Confirm Your Password" required>
                         </div>
                         <button type="submit"
-                            class="px-4 py-2 bg-sky-300 rounded-xl border-[3px] border-sky-700 hover:bg-sky-500 hover:text-white font-medium">Change
-                            Password</button>
+                            class="rounded-3xl px-6 py-2 font-semibold tracking-wide bg-blue-600 text-white hover:bg-blue-700 flex items-center gap-2 focus:ring-2 focus:outline-none focus:ring-blue-800">
+                            <span>Change Password</span>
+                        </button>
                     </form>
                 </section>
             </div>
             {{-- change password settings ends here --}}
-
-            {{-- notification settings starts here --}}
-            <div class="hidden" id="new-item1" role="tabpanel" aria-labelledby="new-tab">
-                <section class="rounded-xl overflow-hidden bg-white px-6 py-2">
-                    <h3 class="text-stone-600 font-bold text-xl mb-2">Notifications</h3>
-                    <div class="flex flex-col">
-                        <a href="#"
-                            class="w-full px-4 flex justify-between items-center py-2 hover:bg-slate-200 rounded-lg">
-                            <span>Set which notifications you want to receive</span>
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
-                                class="w-5 h-5">
-                                <path fill-rule="evenodd"
-                                    d="M4.25 5.5a.75.75 0 0 0-.75.75v8.5c0 .414.336.75.75.75h8.5a.75.75 0 0 0 .75-.75v-4a.75.75 0 0 1 1.5 0v4A2.25 2.25 0 0 1 12.75 17h-8.5A2.25 2.25 0 0 1 2 14.75v-8.5A2.25 2.25 0 0 1 4.25 4h5a.75.75 0 0 1 0 1.5h-5Z"
-                                    clip-rule="evenodd" />
-                                <path fill-rule="evenodd"
-                                    d="M6.194 12.753a.75.75 0 0 0 1.06.053L16.5 4.44v2.81a.75.75 0 0 0 1.5 0v-4.5a.75.75 0 0 0-.75-.75h-4.5a.75.75 0 0 0 0 1.5h2.553l-9.056 8.194a.75.75 0 0 0-.053 1.06Z"
-                                    clip-rule="evenodd" />
-                            </svg>
-                        </a>
-                    </div>
-                </section>
-            </div>
-            {{-- notification settings ends here --}}
         </div>
     </div>
-    {{-- </div> --}}
 @endsection
 @push('script')
     <script>
         //ajax request for change password
         $(document).ready(function() {
+
+            // HANDLING CHANGE PASSWORD
             $('#changePasswordForm').submit(function(e) {
                 e.preventDefault();
 
@@ -600,6 +335,87 @@
                             },
                             error: function(xhr) {
                                 swal("Error", xhr.responseJSON.message, "error");
+                            }
+                        });
+                    }
+                });
+            });
+
+            // HANDLING ACCOUNT DELETE
+            $("#delete_acc_form").submit(function(e) {
+                e.preventDefault();
+
+                Swal.fire({
+                    title: 'Do you really want to delete your account?',
+                    text: 'This action is irreversible! Press confirm to continue, cancel to exit..',
+                    icon: 'question',
+                    showCancelButton: true,
+                    confirmButtonText: 'Confirm',
+                    cancelButtonText: 'Cancel',
+                    reverseButtons: true
+                }).then(async (result) => {
+                    if (result.isConfirmed) {
+
+                        // asking for password before submitting the form
+                        const password = await Swal.fire({
+                            title: "Enter the password to continue",
+                            input: "password",
+                            inputLabel: "Password",
+                            inputPlaceholder: "Enter your password",
+                            inputAttributes: {
+                                minlength: "6",
+                                autocapitalize: "off",
+                                autocorrect: "off"
+                            },
+                            inputValidator: (password) => {
+                                if (!password) {
+                                    return "Please enter your password!";
+                                }
+                                if (password && password.length < 6) {
+                                    return "Password must be at least 6 characters long!";
+                                }
+                            }
+                        }).then((result) => {
+
+                            if (result.isConfirmed) {
+                                // submitting the form
+
+                                // adding the password field
+                                $("#password_for_delete").val(result.value);
+
+                                let formData = new FormData(this);
+
+                                $.ajax({
+                                    url: "{{ route('profile.delete') }}",
+                                    method: 'POST',
+                                    data: formData,
+                                    contentType: false, // Prevent jQuery from automatically setting the Content-Type header
+                                    processData: false,
+                                    success: function(response) {
+
+                                        // Handle the AJAX response here
+                                        Swal.fire({
+                                            icon: 'success',
+                                            title: 'Account Successfully deleted!',
+                                            showConfirmButton: false,
+                                            timer: 1500
+                                        }).then(function() {
+                                            location.href = "{{ route('auth.logout') }}";
+                                        });
+                                    },
+                                    error: function(xhr, status, error) {
+                                        // Handle errors
+                                        let errors = JSON.parse(xhr.responseText);
+
+                                        // Handle the AJAX response here
+                                        Swal.fire({
+                                            icon: 'error',
+                                            title: errors.message,
+                                            showConfirmButton: false,
+                                            timer: 2500
+                                        });
+                                    }
+                                });
                             }
                         });
                     }

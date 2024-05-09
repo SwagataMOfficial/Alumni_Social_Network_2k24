@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('user_posts', function (Blueprint $table) {
-            $table->unsignedInteger('delete_post')->default(0);
+            $table->boolean('delete_post')->default(false);
         });
     }
 

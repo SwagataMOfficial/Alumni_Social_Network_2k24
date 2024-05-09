@@ -12,8 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->unsignedInteger('deleted_acc')->default(0);
-            $table->unsignedInteger('ban_acc')->default(0);
+            $table->boolean('deleted_acc')->default(false);
+            $table->boolean('ban_acc')->default(false);
         });
     }
 

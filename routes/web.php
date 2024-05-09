@@ -52,7 +52,7 @@ Route::middleware([LoginCheck::class])->group(function () {
         Route::get('/users/search', [ViewsController::class, 'view_search'])->name('profile.search')->middleware('validacc');
         Route::get("/{user_token}", [ViewsController::class, "view_profiles"]);
         Route::post('/change-password', [ProfileController::class, 'changePassword'])->name('profile.changePassword');
-
+        Route::post('/account/delete', [ProfileController::class, 'delete_account'])->name('profile.delete');
     });
 
     // friend routes [grouped]
@@ -83,7 +83,7 @@ Route::post("/resset-password", [UserController::class, 'update_password'])->nam
 //_______________________super admin________________________
 Route::middleware([AdminAuth::class])->group(function () {
     Route::get('/admin/logout', [AdminController::class, 'logout'])->name('super.admin.logout');
-   
+
     Route::get('/admin/dashboard', [AdminController::class, 'super_admin_dashboard'])->name('sup.admin.dashboard');
     Route::get('/admin', [AdminController::class, 'admin_login']);
 
@@ -104,7 +104,7 @@ Route::middleware([AdminAuth::class])->group(function () {
     //user management END!!!
 
     Route::get('/admin/viewcontent', [AdminController::class, 'viewcontent'])->name('viewcontent');
-    
+
     // User Ban START---
     Route::get('/admin/ban', [AdminController::class, 'userban'])->name('userban');
     Route::get('/admin/ban/unban/{id}', [AdminController::class, 'userban_unban'])->name('userban_unban');
@@ -121,7 +121,7 @@ Route::middleware([AdminAuth::class])->group(function () {
     //CHANGE PASSWORD START---
     Route::get('/admin/cpassword', [AdminController::class, 'changepassword'])->name('changepass');
     Route::post('/admin/updatepassword', [AdminController::class, 'updatepassword'])->name('updatepassword');
-     //CHANGE PASSWORD ENDD !!
+    //CHANGE PASSWORD ENDD !!
 });
 Route::post("/admin/login", [AdminController::class, 'loginUser'])->name('admin.login');
 

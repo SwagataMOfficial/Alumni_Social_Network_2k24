@@ -110,10 +110,6 @@
                           Profile</a>
                   </li>
                   <li>
-                      <a href="{{route('settings')}}" class="block px-4 py-2 hover:bg-gray-100">Settings
-                          & Privacy</a>
-                  </li>
-                  <li>
                       <a href="#" class="block px-4 py-2 hover:bg-gray-100" id="openSupportModal">Help &
                           Support</a>
                   </li>
@@ -168,7 +164,7 @@
       <!-- Searchbar -->
       <form action="{{ route('profile.search') }}" method="get"
           class="w-full flex max-[425px]:flex-col justify-center items-center gap-2 min-[600px]:hidden">
-          <input type="text" required placeholder="Search by name or ID .." name="search" id="search"
+          <input type="text" required placeholder="Search by name or ID .." name="search" id="search_res"
               class="pl-4 pr-20 bg-blue-500 rounded-lg text-white focus:outline-none placeholder:text-white focus:ring-2 focus:ring-white w-9/12">
           <button type="submit"
               class="px-4 py-2 bg-gray-500 rounded-lg hover:bg-gray-600 focus:ring-2 focus:outline-none focus:ring-gray-800">Search</button>

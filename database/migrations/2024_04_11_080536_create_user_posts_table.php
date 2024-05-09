@@ -24,7 +24,6 @@ return new class extends Migration
             $table->enum('post_type', ["post", "job"])->default('post');
             $table->timestamp('reported_at')->nullable()->default(null);
             $table->timestamps();
-            $table->timestamp('deleted_at')->nullable()->default(null);
         });
     }
 

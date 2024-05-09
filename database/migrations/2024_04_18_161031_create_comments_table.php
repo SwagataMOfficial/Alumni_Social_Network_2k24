@@ -19,7 +19,6 @@ return new class extends Migration
             $table->foreign('posted_by')->references('student_id')->on('users')->cascadeOnDelete();
             $table->text('comment');
             $table->timestamps();
-            $table->softDeletes();
         });
     }
 
