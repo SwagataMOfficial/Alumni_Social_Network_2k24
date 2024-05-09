@@ -9,7 +9,12 @@
         <!-- Searchbar -->
         <form action="{{ route('profile.search') }}" method="get" class="hidden min-[600px]:block">
             <input type="text" required placeholder="Search by name or ID .." name="search" id="search"
-                class="pl-4 pr-16 bg-blue-500 rounded-lg text-white focus:outline-none placeholder:text-white focus:ring-2 focus:ring-white">
+                class="pl-4 pr-16 bg-blue-500 rounded-lg text-white focus:outline-none placeholder:text-white focus:ring-2 focus:ring-white"
+                
+                @isset($search)
+                    value="{{$search}}"
+                @endisset
+                >
         </form>
     </div>
     <!-- Right side: Navigation items -->
@@ -201,7 +206,7 @@
                     <div class="mb-3">
                         <textarea id="query" name="query" rows="4"
                             class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500"
-                            placeholder="Enter your query"></textarea>
+                            placeholder="Enter your query" required></textarea>
                     </div>
                     <button data-modal-hide="support-modal" type="submit"
                         class="text-white bg-blue-600 hover:bg-blue-800 focus:ring-2 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center">

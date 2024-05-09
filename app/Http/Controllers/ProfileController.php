@@ -216,17 +216,75 @@ class ProfileController extends Controller {
                 // Attempt to delete the directory and all its contents recursively
                 Storage::deleteDirectory($folderPath);
                 $res = $user->delete();
-                if($res){
+                if ($res) {
                     return response()->json(['success' => true, 'message' => 'Account deleted successfully!'], 200);
                 }
-            }
-            catch (\Exception $e) {
+            } catch (\Exception $e) {
                 // Handle other exceptions that may occur during deletion
                 return response()->json(['success' => false, 'message' => $e->getMessage()], 422);
             }
         }
         else {
             return response()->json(['success' => false, 'message' => "An error occured!"], 422);
+        }
+    }
+
+    public function delete_files($filename) {
+        $filepath = 'public/' . $filename;
+
+        $user = User::find(session()->get('user_id'));
+
+        // checking if resume file is being deleted or not for database upload
+        if (strpos($filename, "/resume/") !== false) {
+            // deleting resume file
+
+            if (Storage::exists($filepath)) {
+                try {
+                    // Attempt to delete the file
+                    Storage::delete($filepath);
+                    $user->resume = null;
+                    $res = $user->save();
+                    if ($res) {
+                        return response()->json(['success' => true, 'message' => 'File deleted successfully!'], 200);
+                    }
+                } catch (\Exception $e) {
+                    // Handle other exceptions that may occur during deletion
+                    return response()->json(['success' => false, 'message' => $e->getMessage()], 422);
+                }
+            }
+            else {
+                return response()->json(['success' => false, 'message' => "An error occured!"], 422);
+            }
+        }
+        else {
+            // deleting certificate file
+            
+            $existing_certificates = explode('||', $user->certificates);
+
+            $cer_array = array_filter($existing_certificates, function ($value) use($filename) {
+                return $value != $filename;
+            });
+            
+            $filesForDb = implode("||", $cer_array);
+
+            if (Storage::exists($filepath)) {
+                try {
+                    // Attempt to delete the file
+                    Storage::delete($filepath);
+                    $user->certificates = $filesForDb;
+                    $res = $user->save();
+                    if ($res) {
+                        return response()->json(['success' => true, 'message' => 'File deleted successfully!'], 200);
+                    }
+                } catch (\Exception $e) {
+                    // Handle other exceptions that may occur during deletion
+                    return response()->json(['success' => false, 'message' => $e->getMessage()], 422);
+                }
+            }
+            else {
+                return response()->json(['success' => false, 'message' => "An error occured!"], 422);
+            }
+            
         }
     }
 }

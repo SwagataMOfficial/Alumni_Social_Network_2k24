@@ -53,6 +53,7 @@ Route::middleware([LoginCheck::class])->group(function () {
         Route::get("/{user_token}", [ViewsController::class, "view_profiles"]);
         Route::post('/change-password', [ProfileController::class, 'changePassword'])->name('profile.changePassword');
         Route::post('/account/delete', [ProfileController::class, 'delete_account'])->name('profile.delete');
+        Route::get('/file/delete/{filename}', [ProfileController::class, 'delete_files'])->where('filename', '(.*)')->name('profile.deletefile');
     });
 
     // friend routes [grouped]

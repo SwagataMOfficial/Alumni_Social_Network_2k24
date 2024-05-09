@@ -345,6 +345,46 @@
                 });
             });
 
+            $("button[data-delete-filename]").each((index, element) => {
+
+                $(element).on('click', (e) => {
+                    const URL = $(element).attr("data-delete-filename");
+
+                    // Display confirmation alert
+                    displayConfirmationAlert('Are you sure?',
+                        'Do you really want to delete this file?',
+                        function() {
+                            // Perform AJAX request to unfriend
+                            $.ajax({
+                                url: URL,
+                                method: 'GET',
+                                success: function(response) {
+                                    // Handle the AJAX response here
+                                    Swal.fire({
+                                        icon: 'success',
+                                        title: 'File Successfully Deleted!',
+                                        showConfirmButton: false,
+                                        timer: 1500
+                                    }).then(function() {
+                                        location.reload();
+                                    });
+                                },
+                                error: function(xhr, status, error) {
+                                    // Handle errors
+                                    let errors = JSON.parse(xhr.responseText);
+                                    console.log(errors);
+
+                                    // Handle the AJAX response here
+                                    Swal.fire({
+                                        icon: 'error',
+                                        title: errors.message
+                                    });
+                                }
+                            });
+                        });
+                });
+            });
+
             $('#visibility_input').change(function() {
                 var visibility = $(this).prop('checked') ? 1 : 0;
                 $.ajax({

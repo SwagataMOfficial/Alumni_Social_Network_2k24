@@ -127,6 +127,7 @@
                                                     @php
                                                         $dateString = $message['created_at'];
                                                         $dateTime = new DateTime($dateString);
+                                                        $dateTime->setTimezone(new DateTimeZone('Asia/Kolkata'));
                                                         $formattedTime = $dateTime->format('h:i A');
                                                     @endphp
                                                     <p class="text-lg self-end">{{ $formattedTime }}</p>
@@ -151,6 +152,7 @@
                                                     @php
                                                         $dateString = $message['created_at'];
                                                         $dateTime = new DateTime($dateString);
+                                                        $dateTime->setTimezone(new DateTimeZone('Asia/Kolkata'));
                                                         $formattedTime = $dateTime->format('h:i A');
                                                     @endphp
                                                     <p class="text-lg self-end">{{ $formattedTime }}</p>
@@ -238,6 +240,7 @@
                                                     @php
                                                         $dateString = $message['created_at'];
                                                         $dateTime = new DateTime($dateString);
+                                                        $dateTime->setTimezone(new DateTimeZone('Asia/Kolkata'));
                                                         $formattedTime = $dateTime->format('h:i A');
                                                     @endphp
                                                     <p class="text-lg self-end">{{ $formattedTime }}</p>
@@ -262,9 +265,10 @@
                                                     @php
                                                         $dateString = $message['created_at'];
                                                         $dateTime = new DateTime($dateString);
+                                                        $dateTime->setTimezone(new DateTimeZone('Asia/Kolkata'));
                                                         $formattedTime = $dateTime->format('h:i A');
                                                     @endphp
-                                                    <p class="text-lg self-end">{{ $formattedTime }}</p>
+                                                    <p class="text-lg self-end"> {{ $formattedTime }} </p>
                                                 </div>
                                                 <span class="absolute -left-5 top-5 rotate-180">
                                                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
