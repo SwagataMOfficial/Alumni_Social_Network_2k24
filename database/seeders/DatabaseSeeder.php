@@ -15,4 +15,3 @@ class DatabaseSeeder extends Seeder
         $this->call(Superadmin::class);
     }
 }
-bbb
