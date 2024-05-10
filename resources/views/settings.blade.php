@@ -73,7 +73,7 @@
                 <section class="rounded-xl overflow-hidden bg-white px-6 py-2 mb-3">
                     <h3 class="text-stone-600 font-bold text-xl mb-2">Personal Information</h3>
                     <div class="flex flex-col">
-                        <a href="#"
+                        <a href="{{url('/')}}/profile/edit#name"
                             class="w-full px-4 flex justify-between items-center py-2 hover:bg-slate-200 rounded-lg">
                             <span>Name, About me, Location</span>
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5">
@@ -85,9 +85,9 @@
                                     clip-rule="evenodd" />
                             </svg>
                         </a>
-                        <a href="#"
+                        <a href="{{url('/')}}/profile/edit#phone"
                             class="w-full px-4 flex justify-between items-center py-2 hover:bg-slate-200 rounded-lg">
-                            <span>More personal Information</span>
+                            <span>Contact details</span>
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5">
                                 <path fill-rule="evenodd"
                                     d="M4.25 5.5a.75.75 0 0 0-.75.75v8.5c0 .414.336.75.75.75h8.5a.75.75 0 0 0 .75-.75v-4a.75.75 0 0 1 1.5 0v4A2.25 2.25 0 0 1 12.75 17h-8.5A2.25 2.25 0 0 1 2 14.75v-8.5A2.25 2.25 0 0 1 4.25 4h5a.75.75 0 0 1 0 1.5h-5Z"
@@ -97,7 +97,19 @@
                                     clip-rule="evenodd" />
                             </svg>
                         </a>
-                        <a href="#"
+                        <a href="{{url('/')}}/profile/edit#graduation_year"
+                            class="w-full px-4 flex justify-between items-center py-2 hover:bg-slate-200 rounded-lg">
+                            <span>Education details</span>
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5">
+                                <path fill-rule="evenodd"
+                                    d="M4.25 5.5a.75.75 0 0 0-.75.75v8.5c0 .414.336.75.75.75h8.5a.75.75 0 0 0 .75-.75v-4a.75.75 0 0 1 1.5 0v4A2.25 2.25 0 0 1 12.75 17h-8.5A2.25 2.25 0 0 1 2 14.75v-8.5A2.25 2.25 0 0 1 4.25 4h5a.75.75 0 0 1 0 1.5h-5Z"
+                                    clip-rule="evenodd" />
+                                <path fill-rule="evenodd"
+                                    d="M6.194 12.753a.75.75 0 0 0 1.06.053L16.5 4.44v2.81a.75.75 0 0 0 1.5 0v-4.5a.75.75 0 0 0-.75-.75h-4.5a.75.75 0 0 0 0 1.5h2.553l-9.056 8.194a.75.75 0 0 0-.053 1.06Z"
+                                    clip-rule="evenodd" />
+                            </svg>
+                        </a>
+                        <a href="{{url('/')}}/profile/edit#documents_upload_section"
                             class="w-full px-4 flex justify-between items-center py-2 hover:bg-slate-200 rounded-lg">
                             <span>Account verification</span>
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5">
@@ -116,7 +128,7 @@
                 <section class="rounded-xl overflow-hidden bg-white px-6 py-2 mb-3">
                     <h3 class="text-stone-600 font-bold text-xl mb-2">Highlights</h3>
                     <div class="flex flex-col">
-                        <a href="#"
+                        <a href="{{url('/')}}/profile/edit#skills"
                             class="w-full px-4 flex justify-between items-center py-2 hover:bg-slate-200 rounded-lg">
                             <span>Skills and expertise</span>
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5">
@@ -128,7 +140,7 @@
                                     clip-rule="evenodd" />
                             </svg>
                         </a>
-                        <a href="#"
+                        <a href="{{url('/')}}/profile/edit#career_history"
                             class="w-full px-4 flex justify-between items-center py-2 hover:bg-slate-200 rounded-lg">
                             <span>Education and career history</span>
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
@@ -141,7 +153,7 @@
                                     clip-rule="evenodd" />
                             </svg>
                         </a>
-                        <a href="#"
+                        <a href="{{url('/')}}/profile/edit#publications"
                             class="w-full px-4 flex justify-between items-center py-2 hover:bg-slate-200 rounded-lg">
                             <span>Projects and publications</span>
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
@@ -154,7 +166,7 @@
                                     clip-rule="evenodd" />
                             </svg>
                         </a>
-                        <a href="#"
+                        <a href="{{url('/')}}/profile/edit#first_company"
                             class="w-full px-4 flex justify-between items-center py-2 hover:bg-slate-200 rounded-lg">
                             <span>Work experience</span>
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
@@ -202,7 +214,7 @@
                 <section class="rounded-xl overflow-hidden bg-white px-6 py-2">
                     <h3 class="text-stone-600 font-bold text-xl mb-2">Social links</h3>
                     <div class="flex flex-col">
-                        <a href="#"
+                        <a href="{{url('/')}}/profile/edit#facebook_link"
                             class="w-full px-4 flex justify-between items-center py-2 hover:bg-slate-200 rounded-lg">
                             <span>Facebook</span>
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
@@ -215,7 +227,7 @@
                                     clip-rule="evenodd" />
                             </svg>
                         </a>
-                        <a href="#"
+                        <a href="{{url('/')}}/profile/edit#instagram_link"
                             class="w-full px-4 flex justify-between items-center py-2 hover:bg-slate-200 rounded-lg">
                             <span>Instagram</span>
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
@@ -228,7 +240,7 @@
                                     clip-rule="evenodd" />
                             </svg>
                         </a>
-                        <a href="#"
+                        <a href="{{url('/')}}/profile/edit#github_link"
                             class="w-full px-4 flex justify-between items-center py-2 hover:bg-slate-200 rounded-lg">
                             <span>Github</span>
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
@@ -241,7 +253,7 @@
                                     clip-rule="evenodd" />
                             </svg>
                         </a>
-                        <a href="#"
+                        <a href="{{url('/')}}/profile/edit#twitter_link"
                             class="w-full px-4 flex justify-between items-center py-2 hover:bg-slate-200 rounded-lg">
                             <span>Twitter</span>
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
@@ -254,7 +266,7 @@
                                     clip-rule="evenodd" />
                             </svg>
                         </a>
-                        <a href="#"
+                        <a href="{{url('/')}}/profile/edit#linkedin_link"
                             class="w-full px-4 flex justify-between items-center py-2 hover:bg-slate-200 rounded-lg">
                             <span>Linkedin</span>
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
