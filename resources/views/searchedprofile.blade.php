@@ -67,7 +67,7 @@
 
                                 @if ($am_i_friend && $is_user_my_friend)
                                     <a href="{{ route('messages', ['token' => $data['remember_token']]) }}"
-                                        class="text-sm px-3 py-2 mt-1 rounded-xl bg-lime-500 hover:bg-lime-600 border-[3px] border-green-800 mb-3 text-white">
+                                        class="text-sm px-3 py-2 mt-1 rounded-xl bg-green-500 hover:bg-green-600 border-[3px] border-green-800 mb-3 text-white">
                                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
                                             class="w-5 h-5">
                                             <path fill-rule="evenodd"

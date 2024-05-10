@@ -3,7 +3,9 @@
     <div class="flex flex-col items-start gap-3" id="highlights">
         <p class="text-4xl font-bold text-stone-600">{{ $details['name'] ? $details['name'] : '-- --' }}</p>
         {{-- <p class="text-4xl font-bold text-stone-600">Username</p> --}}
-        <p class="text-xl font-semibold text-stone-500">{{ $details['about'] ? $details['about'] : '-- --' }}</p>
+        <p class="text-xl font-semibold text-stone-500">
+            {{ $details['about'] ? $details['about'] : '-- --' }}
+        </p>
         <div>
             <p class="text-blue-700 font-bold">Friends: {{ $details['friends'] }}</p>
         </div>
@@ -45,7 +47,7 @@
                 @if ($friend[0]['is_pending'] == 0)
                     {{-- message and unfriend button will only appear if the user has that user as his/her friend --}}
                     <div class="flex gap-4">
-                        <a href="{{ route('messages', ['token' => $details['remember_token'] ]) }}"
+                        <a href="{{ route('messages', ['token' => $details['remember_token']]) }}"
                             class="rounded-3xl px-6 py-2 font-bold tracking-wide bg-green-600 text-white hover:bg-green-700 flex items-center gap-2 focus:ring-2 focus:outline-none focus:ring-green-800">
                             <span>Message</span>
                             <span>
@@ -57,7 +59,8 @@
                                 </svg>
                             </span>
                         </a>
-                        <a href="javascript:void(0);" data-remove-friend-link="{{ route('friend.remove', ['id' => $details['student_id']]) }}"
+                        <a href="javascript:void(0);"
+                            data-remove-friend-link="{{ route('friend.remove', ['id' => $details['student_id']]) }}"
                             class="rounded-3xl px-6 py-2 font-bold tracking-wide bg-red-600 text-white hover:bg-red-700 flex items-center gap-2 focus:ring-2 focus:outline-none focus:ring-red-800">
                             <span>Unfriend</span>
                             <span>
@@ -81,7 +84,8 @@
                     </div>
                 @endif
             @else
-                <a href="javascript:void(0);" data-send-link="{{ route('friend.request', ['token' => $details['remember_token']]) }}"
+                <a href="javascript:void(0);"
+                    data-send-link="{{ route('friend.request', ['token' => $details['remember_token']]) }}"
                     class="rounded-3xl px-6 py-2 font-bold tracking-wide bg-blue-600 text-white hover:bg-blue-700 flex items-center gap-2 focus:ring-2 focus:outline-none focus:ring-blue-800">
                     <span>Add Friend</span>
                     <span>
@@ -108,8 +112,13 @@
                             clip-rule="evenodd" />
                     </svg>
 
-                    <span
-                        class="ml-3 text-sm font-semibold">{{ $details['phone'] ? $details['phone'] : '-- --' }}</span>
+                    <span class="ml-3 text-sm font-semibold">
+                        @if ($details['profile_visibility'] || $details['student_id'] == session()->get('user_id'))
+                            {{ $details['phone'] ? $details['phone'] : '-- --' }}
+                        @else
+                            {{ '--- ---' }}
+                        @endif
+                    </span>
                 </div>
             </div>
             {{-- card-2 --}}
@@ -123,8 +132,13 @@
                             d="m19 8.839-7.77 3.885a2.75 2.75 0 0 1-2.46 0L1 8.839V14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V8.839Z" />
                     </svg>
 
-                    <span
-                        class="ml-3 text-sm font-semibold">{{ $details['email'] ? $details['email'] : '-- --' }}</span>
+                    <span class="ml-3 text-sm font-semibold">
+                        @if ($details['profile_visibility'] || $details['student_id'] == session()->get('user_id'))
+                            {{ $details['email'] ? $details['email'] : '-- --' }}
+                        @else
+                            {{ '--- ---' }}
+                        @endif
+                    </span>
                 </div>
             </div>
             {{-- card-3 --}}
@@ -137,8 +151,13 @@
                             clip-rule="evenodd" />
                     </svg>
 
-                    <span
-                        class="ml-3 text-sm font-semibold">{{ $details['address'] ? $details['address'] : '-- --' }}</span>
+                    <span class="ml-3 text-sm font-semibold">
+                        @if ($details['profile_visibility'] || $details['student_id'] == session()->get('user_id'))
+                            {{ $details['address'] ? $details['address'] : '-- --' }}
+                        @else
+                            {{ '--- ---' }}
+                        @endif
+                    </span>
                 </div>
             </div>
         </div>

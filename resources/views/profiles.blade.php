@@ -16,31 +16,31 @@
                 <x-profilesection :details="$user" :friend="$friendStatus" />
             </div>
             <div class="rounded-xl overflow-hidden bg-white pb-4 pt-2">
-                <nav class="pl-12 mt-4 flex gap-4" id="default-styled-tab" data-tabs-toggle="#default-styled-tab-content"
-                    data-tabs-active-classes="bg-sky-200 hover:bg-lime-200 hover:border-green-500 border-cyan-500"
-                    data-tabs-inactive-classes="bg-lime-200 border-green-500 hover:bg-sky-200 hover:border-cyan-500"
-                    role="tablist">
+                @if ($user['profile_visibility'] || $user['student_id'] == session()->get('user_id'))
+                
+                    <nav class="pl-12 mt-4 flex gap-4" id="default-styled-tab"
+                        data-tabs-toggle="#default-styled-tab-content"
+                        data-tabs-active-classes="bg-sky-200 hover:bg-lime-200 hover:border-green-500 border-cyan-500"
+                        data-tabs-inactive-classes="bg-lime-200 border-green-500 hover:bg-sky-200 hover:border-cyan-500"
+                        role="tablist">
 
-                    <button class="rounded-3xl border-2 font-semibold px-6 py-1" id="profile-styled-tab"
-                        data-tabs-target="#styled-profile" type="button" role="tab" aria-controls="profile"
-                        aria-selected="false">About</button>
+                        <button class="rounded-3xl border-2 font-semibold px-6 py-1" id="profile-styled-tab"
+                            data-tabs-target="#styled-profile" type="button" role="tab" aria-controls="profile"
+                            aria-selected="false">About</button>
+                            
+                        <button class="rounded-3xl border-2 font-semibold px-6 py-1" id="dashboard-styled-tab"
+                            data-tabs-target="#styled-dashboard" type="button" role="tab" aria-controls="dashboard"
+                            aria-selected="false">Posts</button>
 
+                        <button class="rounded-3xl border-2 font-semibold px-6 py-1" id="settings-styled-tab"
+                            data-tabs-target="#styled-settings" type="button" role="tab" aria-controls="settings"
+                            aria-selected="false">Images</button>
 
-                    <button class="rounded-3xl border-2 font-semibold px-6 py-1" id="dashboard-styled-tab"
-                        data-tabs-target="#styled-dashboard" type="button" role="tab" aria-controls="dashboard"
-                        aria-selected="false">Posts</button>
-
-
-                    <button class="rounded-3xl border-2 font-semibold px-6 py-1" id="settings-styled-tab"
-                        data-tabs-target="#styled-settings" type="button" role="tab" aria-controls="settings"
-                        aria-selected="false">Images</button>
-
-
-                    <button class="rounded-3xl border-2 font-semibold px-6 py-1" id="contacts-styled-tab"
-                        data-tabs-target="#styled-contacts" type="button" role="tab" aria-controls="contacts"
-                        aria-selected="false">Jobs</button>
-
-                </nav>
+                        <button class="rounded-3xl border-2 font-semibold px-6 py-1" id="contacts-styled-tab"
+                            data-tabs-target="#styled-contacts" type="button" role="tab" aria-controls="contacts"
+                            aria-selected="false">Jobs</button>
+                    </nav>
+                @endif
 
                 @if ($user['profile_visibility'] || $user['student_id'] == session()->get('user_id'))
                     <div id="default-styled-tab-content">

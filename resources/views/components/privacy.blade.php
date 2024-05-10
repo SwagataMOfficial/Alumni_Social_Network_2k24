@@ -1,1 +1,1 @@
-<p class="text-4xl text-center font-bold text-red-600 pt-5 pb-1">This is a Private Profile</p>
+<p class="text-4xl text-center font-bold text-red-600 py-12">This is a Private Profile</p>
