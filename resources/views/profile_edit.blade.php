@@ -437,7 +437,7 @@
                 </form>
             </section>
             {{-- edit documents --}}
-            <section class="bg-white w-full rounded-xl">
+            <section class="bg-white w-full rounded-xl" id="documents_upload_section">
                 <h1 class="text-stone-600 font-bold text-xl mx-5 my-2">Edit Documents</h1>
                 <form id="edit_documents_form" method="post" enctype="multipart/form-data"
                     action="{{ route('profile.savechanges') }}">

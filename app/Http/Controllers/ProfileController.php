@@ -185,50 +185,6 @@ class ProfileController extends Controller {
         return response()->json(['message' => 'Password changed successfully.']);
     }
 
-    public function delete_account(Request $request) {
-        $request->validate([
-            'password' => 'required|string|min:6',
-            'delete_acc_id' => 'required'
-        ], [
-            'password.required' => 'Please enter the correct password!',
-            'delete_acc_id.required' => 'Please enter the password.',
-            'password.min' => 'Password must be at least :min characters long.'
-        ]);
-
-        // Retrieve the user based on the email stored in the session
-        $user = User::where("student_id", '=', $request->delete_acc_id)->first();
-
-        // Check if the user exists
-        if (!$user) {
-            return response()->json(['success' => false, 'message' => 'User not found.'], 404);
-        }
-
-        // Check if the provided current password matches the user's password
-        if (!Hash::check($request->password, $user->password)) {
-            return response()->json(['success' => false, 'message' => 'Password is incorrect!'], 422);
-        }
-
-        $folderPath = 'public/' . $request->delete_acc_id;
-
-        // Check if the folder exists before attempting to delete
-        if (Storage::exists($folderPath)) {
-            try {
-                // Attempt to delete the directory and all its contents recursively
-                Storage::deleteDirectory($folderPath);
-                $res = $user->delete();
-                if ($res) {
-                    return response()->json(['success' => true, 'message' => 'Account deleted successfully!'], 200);
-                }
-            } catch (\Exception $e) {
-                // Handle other exceptions that may occur during deletion
-                return response()->json(['success' => false, 'message' => $e->getMessage()], 422);
-            }
-        }
-        else {
-            return response()->json(['success' => false, 'message' => "An error occured!"], 422);
-        }
-    }
-
     public function delete_files($filename) {
         $filepath = 'public/' . $filename;
 
