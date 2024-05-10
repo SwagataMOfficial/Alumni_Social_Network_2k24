@@ -18,6 +18,8 @@ use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\Session;
+use App\Mail\AccountVerifiedMail;
+use App\Mail\VerificationDocumentRejectedMail;
 
 use Symfony\Component\HttpKernel\Event\RequestEvent;
 
@@ -827,6 +829,9 @@ class AdminController extends Controller
         } else {
             $user->verified_at = Carbon::now();
             $user->save();
+              // Send email notification to the user
+        Mail::to($user->email)->send(new AccountVerifiedMail($user));
+
             Notification::create([
                 'notified_to' => $user->student_id,
                 'n_description' => 'We are pleased to inform you that your verification document has been approved by our admin team. You are now verified and can enjoy full access to all features of our platform.',
@@ -835,7 +840,7 @@ class AdminController extends Controller
                 'created_at' => now(),
                 'updated_at' => now()
             ]);
-            return redirect('/subadmin/userverification')->with('message', 'Doocument is verified !');
+            return redirect('/subadmin/userverification')->with('message', 'Doocument is verified ! and an emails has been sent ');
         }
     }
     public function sub_admin_verification_view_reject($id)
@@ -848,6 +853,8 @@ class AdminController extends Controller
             $user->verification_document = "reject";
             $user->verified_at = null;
             $user->save();
+            // Send email notification to the user
+        Mail::to($user->email)->send(new VerificationDocumentRejectedMail($user));
             Notification::create([
                 'notified_to' => $user->student_id,
                 'n_description' => 'We regret to inform you that your verification document has been rejected by our admin team. We kindly ask you to re-upload the document according to the provided guidelines.',
@@ -856,7 +863,7 @@ class AdminController extends Controller
                 'created_at' => now(),
                 'updated_at' => now()
             ]);
-            return redirect('/subadmin/userverification')->with('message', 'Document is rejected !');
+            return redirect('/subadmin/userverification')->with('message', 'Document is rejected ! and an email has been sent');
         }
     }
     //SUB admin user verification END---
