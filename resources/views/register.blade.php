@@ -69,6 +69,16 @@
                                         class="border border-gray-600 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                         required>
                                         <option value="" disabled selected>Choose Year</option>
+                                        <option value="2020">2010</option>
+                                        <option value="2021">2011</option>
+                                        <option value="2022">2012</option>
+                                        <option value="2023">2013</option>
+                                        <option value="2024">2014</option>
+                                        <option value="2020">2015</option>
+                                        <option value="2021">2016</option>
+                                        <option value="2022">2017</option>
+                                        <option value="2023">2018</option>
+                                        <option value="2024">2019</option>
                                         <option value="2020">2020</option>
                                         <option value="2021">2021</option>
                                         <option value="2022">2022</option>
