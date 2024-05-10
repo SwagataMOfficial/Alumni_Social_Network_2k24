@@ -19,7 +19,7 @@
             </li>
             @if (session()->get('user_id') == $details['student_id'])
                 <li>
-                    <a href="#" class="block px-4 py-2 hover:bg-gray-100">Delete</a>
+                    <a href="{{route('post.delete', ['id' => $posts['post_id']])}}" class="block px-4 py-2 hover:bg-gray-100">Delete</a>
                 </li>
             @endif
         </ul>

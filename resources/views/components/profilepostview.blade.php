@@ -42,7 +42,7 @@
 
             // Get the time difference in a human-readable format
             $timeAgo = $givenDate->diffForHumans($currentDate);
-            str_replace('before', 'ago', $timeAgo);
+            $timeAgo = str_replace('before', 'ago', $timeAgo);
         @endphp
 
         <div class="px-2">

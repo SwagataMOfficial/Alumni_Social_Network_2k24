@@ -3,6 +3,22 @@
     <title>{{ $user['name'] }} | Alumni Junction</title>
 @endpush
 @section('main-section')
+
+    {{-- checking if the visitor is the friend of the profile holder --}}
+    {{-- initialization --}}
+    @php
+        $am_i_the_users_friend = false;
+    @endphp
+    @foreach ($user->toArray()['get_friends'] as $friend)
+        {{-- filtering friend request cases --}}
+        @if ($user['is_pending'] != '1')
+            @if ($friend['friend_id'] == session()->get('user_id'))
+                @php
+                    $am_i_the_users_friend = true;
+                @endphp
+            @endif
+        @endif
+    @endforeach
     <div class="px-8 mx-auto pt-3 flex justify-center gap-10">
         <div class="w-3/4 pb-3">
             <div class="rounded-xl overflow-hidden relative mb-3">
@@ -16,8 +32,7 @@
                 <x-profilesection :details="$user" :friend="$friendStatus" />
             </div>
             <div class="rounded-xl overflow-hidden bg-white pb-4 pt-2">
-                @if ($user['profile_visibility'] || $user['student_id'] == session()->get('user_id'))
-                
+                @if ($user['profile_visibility'] || $am_i_the_users_friend || $user['student_id'] == session()->get('user_id'))
                     <nav class="pl-12 mt-4 flex gap-4" id="default-styled-tab"
                         data-tabs-toggle="#default-styled-tab-content"
                         data-tabs-active-classes="bg-sky-200 hover:bg-lime-200 hover:border-green-500 border-cyan-500"
@@ -27,7 +42,7 @@
                         <button class="rounded-3xl border-2 font-semibold px-6 py-1" id="profile-styled-tab"
                             data-tabs-target="#styled-profile" type="button" role="tab" aria-controls="profile"
                             aria-selected="false">About</button>
-                            
+
                         <button class="rounded-3xl border-2 font-semibold px-6 py-1" id="dashboard-styled-tab"
                             data-tabs-target="#styled-dashboard" type="button" role="tab" aria-controls="dashboard"
                             aria-selected="false">Posts</button>
@@ -42,7 +57,7 @@
                     </nav>
                 @endif
 
-                @if ($user['profile_visibility'] || $user['student_id'] == session()->get('user_id'))
+                @if ($user['profile_visibility'] || $am_i_the_users_friend || $user['student_id'] == session()->get('user_id'))
                     <div id="default-styled-tab-content">
                         <div class="hidden" id="styled-profile" role="tabpanel" aria-labelledby="profile-tab">
                             <x-aboutprofile :details="$user" />
@@ -203,12 +218,6 @@
                                     <input type="url" id="website" name="registration_link"
                                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                                         placeholder="Enter Registration Link" required />
-                                </div>
-                                <div class="flex items-center mt-4">
-                                    <input id="private_job" type="checkbox" value="0" name="visibility"
-                                        class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 focus:ring-2">
-                                    <label for="private_job" class="ms-2 text-sm font-medium text-gray-900">Private
-                                        ?</label>
                                 </div>
                                 <button type="submit"
                                     class="mt-6 w-full text-white text-md bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg px-5 py-2.5 text-center">

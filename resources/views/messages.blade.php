@@ -3,6 +3,13 @@
     <title>Message | Alumni Junction</title>
 @endpush
 @section('main-section')
+    @php
+        $today = date('Y-m-d');
+        $yesterday = date('Y-m-d', strtotime('-1 day'));
+        $olddate = '';
+        $newDate = '';
+        $isdaychanged = false;
+    @endphp
     <div class="px-8 mx-auto pt-3 flex justify-center gap-10">
         {{-- left navigation panel --}}
         <div class="w-1/4 rounded-xl h-fit bg-white pt-3">
@@ -111,12 +118,43 @@
                                 </svg>
                             </button>
                         </div>
-                        <div class="bg-white min-h-[63.2vh] max-h-[63.2vh] overflow-y-auto flex flex-col gap-3 p-4"
+                        <div class="bg-white min-h-[63.2vh] max-h-[63.2vh] overflow-y-auto flex flex-col gap-3 p-4 relative"
                             id="messageContainer">
 
                             {{-- generating messages --}}
                             @if (count($chats['get_messages']) != 0)
                                 @foreach ($chats['get_messages'] as $message)
+                                    {{-- getting the message sending time group --}}
+                                    @php
+                                        $dateString = $message['created_at'];
+                                        $dateTime = new DateTime($dateString);
+                                        $dateTime->setTimezone(new DateTimeZone('Asia/Kolkata'));
+                                        $formattedDate = $dateTime->format('Y-m-d');
+
+                                        // Grouping messages by date
+                                        if ($formattedDate == $today) {
+                                            $newDate = 'Today';
+                                        } elseif ($formattedDate == $yesterday) {
+                                            $newDate = 'Yesterday';
+                                        } else {
+                                            $newDate = $formattedDate;
+                                        }
+
+                                        // checking if the date group has different date or not. if yes then change the group
+                                        if ($newDate != $olddate) {
+                                            $isdaychanged = true;
+                                            $olddate = $newDate;
+                                        } else {
+                                            $isdaychanged = false;
+                                        }
+                                    @endphp
+                                    <!-- floating time -->
+                                    @if ($olddate && $isdaychanged)
+                                        <div
+                                            class="top-2 self-center px-4 py-2 text-center font-semibold bg-gray-400 text-gray-800 w-fit rounded-3xl">
+                                            {{ $olddate }}
+                                        </div>
+                                    @endif
                                     @if ($message['my_message'] != null)
                                         <!-- my messages -->
                                         <div class="flex items-end justify-end relative">
@@ -230,6 +268,38 @@
                             {{-- generating messages --}}
                             @if (count($chats['get_messages']) != 0)
                                 @foreach ($chats['get_messages'] as $message)
+                                    {{-- getting the message sending time group --}}
+                                    @php
+                                        $dateString = $message['created_at'];
+                                        $dateTime = new DateTime($dateString);
+                                        $dateTime->setTimezone(new DateTimeZone('Asia/Kolkata'));
+                                        $formattedDate = $dateTime->format('Y-m-d');
+
+                                        // Grouping messages by date
+                                        if ($formattedDate == $today) {
+                                            $newDate = 'Today';
+                                        } elseif ($formattedDate == $yesterday) {
+                                            $newDate = 'Yesterday';
+                                        } else {
+                                            $newDate = $formattedDate;
+                                        }
+
+                                        // checking if the date group has different date or not. if yes then change the group
+                                        if ($newDate != $olddate) {
+                                            $isdaychanged = true;
+                                            $olddate = $newDate;
+                                        } else {
+                                            $isdaychanged = false;
+                                        }
+                                    @endphp
+                                    <!-- floating time -->
+                                    @if ($isdaychanged && $olddate)
+                                        <div
+                                            class="top-2 self-center px-4 py-2 text-center font-semibold bg-gray-400 text-gray-800 w-fit rounded-3xl">
+                                            {{ $olddate }}
+                                        </div>
+                                    @endif
+
                                     @if ($message['user_message'] != null)
                                         <!-- my messages -->
                                         <div class="flex items-end justify-end relative">

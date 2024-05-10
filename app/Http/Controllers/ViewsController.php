@@ -154,7 +154,7 @@ class ViewsController extends Controller {
     public function view_profiles($id) {
 
         // getting all the user data from users table
-        $user = User::where("remember_token", "=", $id)->first();
+        $user = User::with('getFriends')->where("remember_token", "=", $id)->first();
 
         // getting suggested people data
         $myid = session()->get('user_id');
@@ -165,13 +165,13 @@ class ViewsController extends Controller {
         })->whereNull('friends.student_id')->whereNull('friends.friend_id')->where('users.student_id', '!=', $myid)->where("graduation_year", "=", $mydata->graduation_year)->where('profile_visibility', '=', '1')->where('ban_acc', '=', '0')->where('deleted_acc', '=', '0')->where('verified_at', '!=', null)->select('users.*')->limit(4)->get()->toArray();
 
         // getting all the images posted by the user from the user_posts table and also filtering the non image posts
-        $postedImages = Userpost::select('attachment')->where('posted_by', '=', $user->student_id)->where('attachment', '!=', null)->get()->toArray();
+        $postedImages = Userpost::select('attachment')->where('posted_by', '=', $user->student_id)->where('attachment', '!=', null)->where('delete_post', '=', '0')->get()->toArray();
 
         // getting all the posts of the user to display it in the profile page
 
-        $posts = Userpost::with('getUser')->with("getLikedUser")->where('posted_by', '=', $user->student_id)->where('post_type', '!=', 'job')->where('delete_post', '=', '0')->orderBy('created_at', 'desc')->get()->toArray();
+        $posts = Userpost::where('posted_by', '=', $user->student_id)->where('post_type', '!=', 'job')->where('delete_post', '=', '0')->orderBy('created_at', 'desc')->get()->toArray();
 
-        $jobs = Userpost::with('getUser')->with("getLikedUser")->where('posted_by', '=', $user->student_id)->where('post_type', '=', 'job')->where('delete_post', '=', '0')->orderBy('created_at', 'desc')->get()->toArray();
+        $jobs = Userpost::where('posted_by', '=', $user->student_id)->where('post_type', '=', 'job')->where('delete_post', '=', '0')->orderBy('created_at', 'desc')->get()->toArray();
 
         $friendStatus = Friend::where('student_id', '=', session()->get('user_id'))->where('friend_id', '=', $user['student_id'])->get()->toArray();
 

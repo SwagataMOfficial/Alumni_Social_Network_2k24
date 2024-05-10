@@ -94,8 +94,6 @@ class PostController extends Controller {
                 $likedPost->delete();
             }
         }
-
-        // TODO: return response instead of return to an url;
         return redirect()->back();
     }
 
@@ -117,12 +115,6 @@ class PostController extends Controller {
         $res1 = $post->save();
         $res2 = $comment->delete();
         return redirect()->back();
-        // if($res1 && $res2){
-        //     return response()->json(['success'=> true, 'message' => 'Comment deleted successfully'], 200);
-        // }
-        // else{
-        //     return response()->json(['success'=> false, 'message' => 'Unable to delete'], 422);
-        // }
     }
 
     public function report_post(Userpost $id){
