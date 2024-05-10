@@ -8,9 +8,10 @@
         <div class="flex flex-col items-center gap-3 relative" id="section-container">
 
             {{-- floating area to show the user ID --}}
-        <p class="border border-gray-600 text-gray-900 text-lg rounded-lg focus:ring-blue-500 focus:border-blue-500 px-4 py-2 w-fit fixed top-[22] z-[70]">
-            <span class="font-semibold text-xl">Your ID: </span>{{ $user['student_id'] }}
-        </p>
+            <p
+                class="border border-gray-600 text-gray-900 text-lg rounded-lg focus:ring-blue-500 focus:border-blue-500 px-4 py-2 w-fit fixed top-[22] z-[70]">
+                <span class="font-semibold text-xl">Your ID: </span>{{ $user['student_id'] }}
+            </p>
             <section class="bg-white w-full rounded-xl">
                 <h1 class="text-stone-600 font-bold text-xl mx-5 my-2">Edit Profile and Cover Image</h1>
                 <form id="cover_and_profile_pic_edit_form" method="post" class="mx-12"
@@ -445,7 +446,7 @@
                         @if (!$user['verified_at'])
                             <div class="px-4 py-2 w-full">
                                 <h3 class="font-semibold text-sm text-center">Upload Verification Document</h3>
-                                <div class="w-full flex items-center justify-center h-1/2 my-2">
+                                <div class="w-full flex flex-col items-center justify-center h-1/2 my-2">
                                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
                                         class="w-12 h-12 fill-blue-600">
                                         <path
@@ -453,6 +454,7 @@
                                         <path
                                             d="M3.5 12.75a.75.75 0 0 0-1.5 0v2.5A2.75 2.75 0 0 0 4.75 18h10.5A2.75 2.75 0 0 0 18 15.25v-2.5a.75.75 0 0 0-1.5 0v2.5c0 .69-.56 1.25-1.25 1.25H4.75c-.69 0-1.25-.56-1.25-1.25v-2.5Z" />
                                     </svg>
+                                    <p class="font-semibold" id="verification_file_show"></p>
                                 </div>
                                 <div class="w-full flex items-center justify-center h-1/2">
                                     <label for="verification_document"
@@ -467,7 +469,7 @@
 
                         <div class="px-4 py-2 w-full">
                             <h3 class="font-semibold text-sm text-center">Upload Your Resume</h3>
-                            <div class="w-full flex items-center justify-center h-1/2 my-2">
+                            <div class="w-full flex flex-col items-center justify-center h-1/2 my-2">
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
                                     class="w-12 h-12 fill-blue-600">
                                     <path
@@ -475,6 +477,7 @@
                                     <path
                                         d="M3.5 12.75a.75.75 0 0 0-1.5 0v2.5A2.75 2.75 0 0 0 4.75 18h10.5A2.75 2.75 0 0 0 18 15.25v-2.5a.75.75 0 0 0-1.5 0v2.5c0 .69-.56 1.25-1.25 1.25H4.75c-.69 0-1.25-.56-1.25-1.25v-2.5Z" />
                                 </svg>
+                                <p class="font-semibold" id="resume_file_show"></p>
                             </div>
                             <div class="w-full flex items-center justify-center h-1/2">
                                 <label for="resume"
@@ -488,7 +491,7 @@
 
                         <div class="px-4 py-2 w-full">
                             <h3 class="font-semibold text-sm text-center">Upload Your Certificates</h3>
-                            <div class="w-full flex items-center justify-center h-1/2 my-2">
+                            <div class="w-full flex flex-col items-center justify-center h-1/2 my-2">
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
                                     class="w-12 h-12 fill-blue-600">
                                     <path
@@ -496,6 +499,7 @@
                                     <path
                                         d="M3.5 12.75a.75.75 0 0 0-1.5 0v2.5A2.75 2.75 0 0 0 4.75 18h10.5A2.75 2.75 0 0 0 18 15.25v-2.5a.75.75 0 0 0-1.5 0v2.5c0 .69-.56 1.25-1.25 1.25H4.75c-.69 0-1.25-.56-1.25-1.25v-2.5Z" />
                                 </svg>
+                                <p class="font-semibold" id="certificate_file_show"></p>
                             </div>
                             <div class="w-full flex items-center justify-center h-1/2">
                                 <label for="certificates"
@@ -522,6 +526,58 @@
 @push('script')
     <script>
         $(document).ready(function() {
+
+            // tracking if files are selected for upload or not [if uploaded then show the uploaded file names into the label area]
+            $('#resume').change(function() {
+                if (this.files && this.files.length > 0) {
+                    let filenames = [];
+                    for (var i = 0; i < this.files.length; i++) {
+                        filenames.push(this.files[i].name);
+                    }
+                    var files = filenames.join(', ');
+                    // slicing the string if the length is bigger than 50
+                    if (files.length > 34) {
+                        files = files.slice(0, 30) + "....";
+                    }
+                    // adding the result into the dropbox area to show that the files are selected properly
+                    $('#resume_file_show').text("Selected files: " + files);
+                }
+            });
+
+            @if (!$user['verified_at'])
+                $('#verification_document').change(function() {
+                    if (this.files && this.files.length > 0) {
+                        let filenames = [];
+                        for (var i = 0; i < this.files.length; i++) {
+                            filenames.push(this.files[i].name);
+                        }
+                        var files = filenames.join(', ');
+                        // slicing the string if the length is bigger than 50
+                        if (files.length > 34) {
+                            files = files.slice(0, 30) + "....";
+                        }
+                        // adding the result into the dropbox area to show that the files are selected properly
+                        $('#verification_file_show').text("Selected files: " + files);
+                    }
+                });
+            @endif
+
+            $('#certificates').change(function() {
+                if (this.files && this.files.length > 0) {
+                    let filenames = [];
+                    for (var i = 0; i < this.files.length; i++) {
+                        filenames.push(this.files[i].name);
+                    }
+                    var files = filenames.join(', ');
+                    // slicing the string if the length is bigger than 50
+                    if (files.length > 34) {
+                        files = files.slice(0, 30) + "....";
+                    }
+                    // adding the result into the dropbox area to show that the files are selected properly
+                    $('#certificate_file_show').text("Selected files: " + files);
+                }
+            });
+
             // Add event listener to the form submit event
             $('#cover_and_profile_pic_edit_form').submit(function(event) {
                 event.preventDefault(); // Prevent the default form submission
