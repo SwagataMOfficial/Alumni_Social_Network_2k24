@@ -182,7 +182,7 @@
                     </div>
                 </section>
 
-                {{-- settings section here --}}
+                {{-- settings delete account section here --}}
                 <section class="rounded-xl overflow-hidden bg-white px-6 py-2">
                     <h3 class="text-stone-600 font-bold text-xl mb-2">Account Actions</h3>
                     <div class="flex flex-col">
