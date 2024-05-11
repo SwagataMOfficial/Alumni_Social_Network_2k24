@@ -165,7 +165,7 @@ class ViewsController extends Controller {
         })->whereNull('friends.student_id')->whereNull('friends.friend_id')->where('users.student_id', '!=', $myid)->where("graduation_year", "=", $mydata->graduation_year)->where('profile_visibility', '=', '1')->where('ban_acc', '=', '0')->where('deleted_acc', '=', '0')->where('verified_at', '!=', null)->select('users.*')->limit(4)->get()->toArray();
 
         // getting all the images posted by the user from the user_posts table and also filtering the non image posts
-        $postedImages = Userpost::select('attachment')->where('posted_by', '=', $user->student_id)->where('attachment', '!=', null)->where('delete_post', '=', '0')->get()->toArray();
+        $postedImages = Userpost::where('posted_by', '=', $user->student_id)->where('attachment', '!=', null)->where('delete_post', '=', '0')->get()->toArray();
 
         // getting all the posts of the user to display it in the profile page
 
@@ -177,23 +177,53 @@ class ViewsController extends Controller {
 
         // generating an array for the images only
         $imgArr = [];
+        $am_i_the_users_friend = false;
+        foreach ($user->toArray()['get_friends'] as $friend) {
+            // filtering friend request cases
+            if ($user['is_pending'] != '1') {
+                if ($friend['friend_id'] == session()->get('user_id')) {
+                    $am_i_the_users_friend = true;
+                }
+            }
+        }
 
         foreach ($postedImages as $img) {
 
-            // if multi post found then the below if-else block will run and prepare the array
-            if (strpos($img['attachment'], "||") != false) {
-                foreach (explode("||", $img['attachment']) as $item) {
-                    array_push($imgArr, $item);
+            if ($img['visibility'] == 0) {
+                if ($am_i_the_users_friend || $img['posted_by'] == session()->get('user_id')) {
+                    // if multi post found then the below if-else block will run and prepare the array
+                    if (strpos($img['attachment'], "||") != false) {
+                        // for multiple images posts
+                        foreach (explode("||", $img['attachment']) as $item) {
+                            array_push($imgArr, $item);
+                        }
+                    }
+                    else {
+                        // for single image post
+                        array_push($imgArr, $img['attachment']);
+                    }
                 }
             }
             else {
-                array_push($imgArr, $img['attachment']);
+
+                // if multi post found then the below if-else block will run and prepare the array
+                if (strpos($img['attachment'], "||") != false) {
+                    // for multiple images posts
+                    foreach (explode("||", $img['attachment']) as $item) {
+                        array_push($imgArr, $item);
+                    }
+                }
+                else {
+                    // for single image post
+                    array_push($imgArr, $img['attachment']);
+                }
             }
+
         }
 
         shuffle($suggested_people);
 
-        $data = compact("user", "imgArr", "posts", "suggested_people", "jobs", "friendStatus");
+        $data = compact("user", "imgArr", "posts", "suggested_people", "jobs", "friendStatus", "am_i_the_users_friend");
         return view('profiles')->with($data);
     }
 
@@ -206,7 +236,7 @@ class ViewsController extends Controller {
         $searchedData = User::with('getFriends', 'getAlterFriends')->where(function ($query) use ($search) {
             $query->where('name', 'LIKE', "%$search%")
                 ->orWhere('student_id', 'LIKE', "%$search%");
-        })->where('student_id', '!=', $myid)->where('verified_at', '!=', null)->where('profile_visibility', '=', '1')->where('ban_acc', '=', '0')->where('deleted_acc', '=', '0')->get()->toArray();
+        })->where('student_id', '!=', $myid)->where('verified_at', '!=', null)->where('ban_acc', '=', '0')->where('deleted_acc', '=', '0')->get()->toArray();
 
         $suggested_people = User::leftJoin('friends', function ($join) use ($myid) {
             $join->on('users.student_id', '=', 'friends.student_id')->where('friends.friend_id', '=', $myid)->orWhere('users.student_id', '=', 'friends.friend_id');

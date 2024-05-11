@@ -60,11 +60,35 @@
         @endif
     @endif
 
+    @php
+        $privatePostCount = 0;
+        $publicPostCount = 0;
+    @endphp
     @if (count($posts) != 0)
         @foreach ($posts as $index => $post)
-            <x-profilepostview :details="$post['get_user']" :likeduser="$post['get_liked_user']" :posts="$post" :comments="$post['get_comments']"
-                :key="$index" />
+            @if ($post['visibility'] == 0)
+                @php
+                    $privatePostCount += 1;
+                @endphp
+                @if ($iamfriend || session()->get('user_id') == $post['posted_by'])
+                    <x-profilepostview :details="$post['get_user']" :likeduser="$post['get_liked_user']" :posts="$post" :comments="$post['get_comments']"
+                        :key="$index" />
+                @endif
+            @else
+                @php
+                    $publicPostCount += 1;
+                @endphp
+                <x-profilepostview :details="$post['get_user']" :likeduser="$post['get_liked_user']" :posts="$post" :comments="$post['get_comments']"
+                    :key="$index" />
+            @endif
         @endforeach
+        @if ($publicPostCount == 0 && $privatePostCount != 0)
+            @if (session()->get('user_id') != $post['posted_by'])
+                <div class="rounded-lg overflow-hidden mx-auto mb-4">
+                    <h1 class="text-center text-red-500 font-semibold text-3xl mt-6 mb-2">No Posts Are Available</h1>
+                </div>
+            @endif
+        @endif
     @else
         <div class="rounded-lg overflow-hidden mx-auto mb-4">
             <h1 class="text-center text-red-500 font-semibold text-3xl mt-6 mb-2">No Posts Are Available</h1>

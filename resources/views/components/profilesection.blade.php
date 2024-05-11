@@ -113,7 +113,7 @@
                     </svg>
 
                     <span class="ml-3 text-sm font-semibold">
-                        @if ($details['profile_visibility'] || $details['student_id'] == session()->get('user_id'))
+                        @if ($details['profile_visibility'] || $details['student_id'] == session()->get('user_id') || $amifrind)
                             {{ $details['phone'] ? $details['phone'] : '-- --' }}
                         @else
                             {{ '--- ---' }}
@@ -133,7 +133,7 @@
                     </svg>
 
                     <span class="ml-3 text-sm font-semibold">
-                        @if ($details['profile_visibility'] || $details['student_id'] == session()->get('user_id'))
+                        @if ($details['profile_visibility'] || $details['student_id'] == session()->get('user_id') || $amifrind)
                             {{ $details['email'] ? $details['email'] : '-- --' }}
                         @else
                             {{ '--- ---' }}
@@ -152,7 +152,7 @@
                     </svg>
 
                     <span class="ml-3 text-sm font-semibold">
-                        @if ($details['profile_visibility'] || $details['student_id'] == session()->get('user_id'))
+                        @if ($details['profile_visibility'] || $details['student_id'] == session()->get('user_id') || $amifrind)
                             {{ $details['address'] ? $details['address'] : '-- --' }}
                         @else
                             {{ '--- ---' }}
