@@ -10,13 +10,15 @@ class Posts extends Component
 {
     public $details;
     public $posts;
+    public $iamfriend;
     /**
      * Create a new component instance.
      */
-    public function __construct($details, $posts)
+    public function __construct($details, $posts, $iamfriend)
     {
         $this->details = $details;
         $this->posts = $posts;
+        $this->iamfriend = $iamfriend;
     }
 
     /**

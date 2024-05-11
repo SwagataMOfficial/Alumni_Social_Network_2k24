@@ -40,5 +40,7 @@
         @endforeach
     </div>
 @else
-    <h1 class="text-center text-red-500 font-semibold text-3xl mt-6 mb-2">User haven't posted anything yet</h1>
+    <div class="rounded-lg overflow-hidden mx-auto my-4">
+        <h1 class="text-center text-red-500 font-semibold text-3xl mt-6 mb-2">No Images Are Available</h1>
+    </div>
 @endif

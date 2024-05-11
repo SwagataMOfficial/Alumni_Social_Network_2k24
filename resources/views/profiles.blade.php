@@ -4,21 +4,6 @@
 @endpush
 @section('main-section')
 
-    {{-- checking if the visitor is the friend of the profile holder --}}
-    {{-- initialization --}}
-    @php
-        $am_i_the_users_friend = false;
-    @endphp
-    @foreach ($user->toArray()['get_friends'] as $friend)
-        {{-- filtering friend request cases --}}
-        @if ($user['is_pending'] != '1')
-            @if ($friend['friend_id'] == session()->get('user_id'))
-                @php
-                    $am_i_the_users_friend = true;
-                @endphp
-            @endif
-        @endif
-    @endforeach
     <div class="px-8 mx-auto pt-3 flex justify-center gap-10">
         <div class="w-3/4 pb-3">
             <div class="rounded-xl overflow-hidden relative mb-3">
@@ -29,7 +14,7 @@
                 <img class="absolute top-16 left-8 z-10 w-32 aspect-square rounded-[50%] object-cover outline outline-white"
                     src="{{ asset('/storage/' . $user['profile_picture']) }}" alt="profile picture" id="profile-picture">
 
-                <x-profilesection :details="$user" :friend="$friendStatus" />
+                <x-profilesection :details="$user" :friend="$friendStatus" :amifrind="$am_i_the_users_friend"/>
             </div>
             <div class="rounded-xl overflow-hidden bg-white pb-4 pt-2">
                 @if ($user['profile_visibility'] || $am_i_the_users_friend || $user['student_id'] == session()->get('user_id'))
@@ -63,7 +48,7 @@
                             <x-aboutprofile :details="$user" />
                         </div>
                         <div class="hidden" id="styled-dashboard" role="tabpanel" aria-labelledby="dashboard-tab">
-                            <x-posts :details="$user" :posts="$posts" />
+                            <x-posts :details="$user" :posts="$posts" :iamfriend="$am_i_the_users_friend"/>
                         </div>
                         <div class="hidden" id="styled-settings" role="tabpanel" aria-labelledby="settings-tab">
                             <x-postgallery :details="$imgArr" />
