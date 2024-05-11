@@ -46,7 +46,7 @@ class AdminController extends Controller
     //user management START---
     public function usermanagement()
     {
-        $users = User::where('ban_acc', 0)->get();
+        $users = User::where('ban_acc', 0)->whereNotNull('verified_at')->get();
 
         $data = compact('users');
 
@@ -505,7 +505,7 @@ class AdminController extends Controller
         $recentUsers = User::orderBy('created_at', 'desc')->take(5)->get();
 
         //count the total user from user table
-        $totalUser = User::where('ban_acc', 0)->count();
+        $totalUser = User::where('ban_acc', 0)->whereNotNull('verified_at')->count();
 
         //count the total posts from user_posts table
         $totalPost = Userpost::count();
@@ -573,7 +573,10 @@ class AdminController extends Controller
     //user Management start---
     public function subadmin_usermanagement()
     {
-        $users = User::where('ban_acc', 0)->get();
+        // $users = User::where('ban_acc', 0)->get();
+        $users = User::where('ban_acc', 0)
+        ->whereNotNull('verified_at')
+        ->get();
 
         $data = compact('users');
         return view('sub_admin.Sub_usermanagement')->with($data);
@@ -981,7 +984,7 @@ class AdminController extends Controller
         $recentUsers = User::orderBy('created_at', 'desc')->take(5)->get();
 
         //count the total user from user table
-        $totalUser = User::where('ban_acc', 0)->count();
+        $totalUser = User::where('ban_acc', 0)->whereNotNull('verified_at')->count();
 
         //count the total posts from user_posts table
         $totalPost = Userpost::count();
