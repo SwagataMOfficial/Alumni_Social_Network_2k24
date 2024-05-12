@@ -79,6 +79,8 @@ Route::post("/register", [UserController::class, 'saveUser'])->name('auth.regist
 Route::post("/login", [UserController::class, 'loginUser'])->name('auth.login');
 Route::post("/forgot", [UserController::class, 'forgotPassword'])->name('auth.forgot');
 Route::post("/resset-password", [UserController::class, 'update_password'])->name('auth.reset');
+Route::post("/send-otp", [UserController::class, 'sendOTP'])->name('send.otp');
+Route::post("/verify-otp", [UserController::class, 'verifyOTP'])->name('verify.otp');
 
 //__________________________admin start________________________
 //_______________________super admin________________________

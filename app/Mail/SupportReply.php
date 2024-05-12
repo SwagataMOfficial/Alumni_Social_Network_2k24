@@ -35,6 +35,6 @@ class SupportReply extends Mailable
      */
     public function build()
     {
-        return $this->subject('Support Reply')->view('mails.support_reply');
+        return $this->subject('AlumniJunction:Support Reply')->view('mails.support_reply');
     }
 }

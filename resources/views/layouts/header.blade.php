@@ -9,7 +9,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.css" rel="stylesheet" />
 
-
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     @stack('title')
     @vite('resources/css/app.css')
     <style>

@@ -34,6 +34,6 @@ class AccountBanned extends Mailable
      */
     public function build()
     {
-        return $this->subject('Account Banned')->view('mails.account_banned');
+        return $this->subject('AlumniJunction:Account Banned')->view('mails.account_banned');
     }
 }

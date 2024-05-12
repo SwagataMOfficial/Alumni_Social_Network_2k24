@@ -5,7 +5,6 @@
 @endpush
 
 @section('main-section')
-
     <!-- Body Background Image  -->
 
     <div class="max-h-screen"
@@ -38,11 +37,24 @@
                             <!-- E-mail Section  -->
                             <div class="mb-5">
                                 <label for="email" class="block mb-2 text-sm font-medium text-gray-500">E-mail</label>
-                                <input name="u_mail" type="email" id="mail"
-                                    class="border border-gray-600 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                    placeholder="name@gmail.com" required />
+                                <div class="flex">
+                                    <input name="u_mail" type="email" id="mail"
+                                        class="border border-gray-600 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                        placeholder="name@gmail.com" required />
+                                    <button type="button" id="sendOTPBtn"
+                                        class="ml-3 px-4 py-2 bg-blue-500 text-white rounded">Send OTP</button>
+                                </div>
                             </div>
-
+                            <div class="mb-5">
+                                <label for="otp" class="block mb-2 text-sm font-medium text-gray-500">OTP</label>
+                                <div class="flex">
+                                    <input name="otp" type="text" id="otp"
+                                        class="border border-gray-600 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                        placeholder="Enter OTP" required />
+                                    <button type="button" id="verifyOTPBtn" style="display: none;"
+                                        class="ml-3 px-4 py-2 bg-blue-500 text-white rounded">Verify OTP</button>
+                                </div>
+                            </div>
                             <!-- Password Section and Confirm Password Section  -->
                             <div class="grid grid-cols-2 gap-5">
                                 <div class="mb-5">
@@ -146,42 +158,112 @@
 @push('script')
     <script>
         $(document).ready(function() {
-
-            $('#register_form').submit(function(e) {
-
-                e.preventDefault();
-
-                $("#reg_btn").text("Please Wait......");
-                var formData = new FormData(this);
+            // Variable to track OTP validation status
+            var otpValidated = false;
+            // Send OTP
+            $('#sendOTPBtn').click(function() {
+                var email = $('#mail').val();
+                if (email.trim() === '') {
+                    showAlert('error', 'Please enter your email.');
+                    return; // Stop execution if email field is empty
+                }
+                $(this).prop('disabled', true).text('Sending...');
+                var csrf_token = $('meta[name="csrf-token"]').attr('content'); // Get CSRF token
                 $.ajax({
-                    url: "{{ route('auth.register') }}", // Replace 'auth.register' with your actual route name
+                    url: "{{ route('send.otp') }}", // Replace with your route
                     method: "POST",
-                    data: formData,
-                    contentType: false, // Prevent jQuery from automatically setting the Content-Type header
-                    processData: false,
+                    data: {
+                        email: email,
+                        _token: csrf_token
+                    },
                     success: function(response) {
-
-                        showAlert('success', 'User registered successfully');
-                        // Reset the form
-                        $('#register_form')[0].reset();
-                        // Reset the button text
-                        $("#reg_btn").text("Register");
-                        setTimeout(() => {
-                            window.location.href = "{{ url('/') }}";
-                        }, 2000);
+                        showAlert('success', 'OTP sent to your email.');
+                        $('#mail').prop('readonly', true);
+                        $('#sendOTPBtn').prop('disabled', false).text('Send OTP');
+                        $('#sendOTPBtn').hide(); // Hide the Send OTP button
+                        $('#verifyOTPBtn').show(); // Show the Verify OTP button
                     },
                     error: function(xhr, status, error) {
-                        console.error(xhr.responseText);
-                        // Parse the error response JSON
-                        var errors = JSON.parse(xhr.responseText).errors;
-                        // Show error alerts
-                        Object.keys(errors).forEach(function(key) {
-                            showAlert('error', errors[key][0]);
-                        });
-                        // Reset the button text
-                        $("#reg_btn").text("Register");
+                        var errorMessage = xhr.responseJSON.error;
+                        showAlert('error',
+                        errorMessage); // Assuming showAlert is a function to display alerts
+                        $('#sendOTPBtn').prop('disabled', false).text('Send OTP');
                     }
                 });
+            });
+
+            // Verify OTP
+            $('#verifyOTPBtn').click(function() {
+                var otp = $('#otp').val();
+                if (otp.trim() === '') {
+                    showAlert('error', 'Please enter the OTP.');
+                    return; // Stop execution if OTP field is empty
+                }
+                var csrf_token = $('meta[name="csrf-token"]').attr('content');
+                $.ajax({
+                    url: "{{ route('verify.otp') }}", // Replace with your route
+                    method: "POST",
+                    data: {
+                        otp: otp,
+                        _token: csrf_token
+                    },
+                    success: function(response) {
+                        showAlert('success', 'OTP verified successfully.');
+                        $('#sendOTPBtn, #verifyOTPBtn')
+                    .hide(); // Hide both Send OTP and Verify OTP buttons
+                        otpValidated = true;
+                        $('#otp').prop('readonly', true);
+                        // Enable registration form here
+                    },
+                    error: function(xhr, status, error) {
+                        showAlert('error', 'Invalid OTP. Please try again.');
+                        $('#sendOTPBtn').show(); 
+                        $('#verifyOTPBtn').hide();// Show the Send OTP button again
+                    }
+                });
+            });
+
+            // Registration form submission
+            $('#register_form').submit(function(e) {
+                // Prevent default form submission
+                e.preventDefault();
+                // Check if OTP is validated
+                if (otpValidated) {
+                    // Proceed with form submission
+                    $("#reg_btn").text("Please Wait......");
+                    var formData = new FormData(this);
+                    $.ajax({
+                        url: "{{ route('auth.register') }}", // Replace 'auth.register' with your actual route name
+                        method: "POST",
+                        data: formData,
+                        contentType: false, // Prevent jQuery from automatically setting the Content-Type header
+                        processData: false,
+                        success: function(response) {
+                            showAlert('success', 'User registered successfully');
+                            // Reset the form
+                            $('#register_form')[0].reset();
+                            // Reset the button text
+                            $("#reg_btn").text("Register");
+                            setTimeout(() => {
+                                window.location.href = "{{ url('/') }}";
+                            }, 2000);
+                        },
+                        error: function(xhr, status, error) {
+                            console.error(xhr.responseText);
+                            // Parse the error response JSON
+                            var errors = JSON.parse(xhr.responseText).errors;
+                            // Show error alerts
+                            Object.keys(errors).forEach(function(key) {
+                                showAlert('error', errors[key][0]);
+                            });
+                            // Reset the button text
+                            $("#reg_btn").text("Register");
+                        }
+                    });
+                } else {
+                    // Show an error message indicating that OTP validation is required
+                    showAlert('error', 'Please verify OTP before submitting the form.');
+                }
             });
 
             function showAlert(type, message) {

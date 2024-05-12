@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Mail;
 use App\Mail\ForgotPassword;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
-
+use App\Mail\SendOTPMail;
 
 class UserController extends Controller
 {
@@ -61,7 +61,7 @@ class UserController extends Controller
     }
     //handle register user ajax request
     public function saveUser(Request $request)
-    {// Define custom error messages
+    {
         $customErrorMessages = [
             'u_fname.required' => 'Full Name is required.',
             'u_mail.required' => 'Email is required.',
@@ -174,17 +174,30 @@ class UserController extends Controller
             ->orWhere('student_id', $request->identifier)
             ->first();
 
-        // Check if the user exists and the provided password matches
-        if ($user && Hash::check($request->password, $user->password)) {
-            session()->put("loggedInUser", $user->email);
-            session()->put("loggedin", true);
-            session()->put("token", $user->remember_token);
-            session()->put("user_id", $user->student_id);
-            session()->put("user_name", $user->name);
-            session()->put("user_profile_img", $user->profile_picture);
-            return response()->json(['message' => 'Login successful'], 200);
+        // Check if the user exists
+        if ($user) {
+            // Check if the user is banned
+            if ($user->deleted_acc == 1) {
+                // User is banned, show alert
+                return response()->json(['errors' => ['identifier' => ['This user is banned from the platform.']]], 422);
+            }
+
+            // Check if the provided password matches
+            if (Hash::check($request->password, $user->password)) {
+                // Password matches, log in the user
+                session()->put("loggedInUser", $user->email);
+                session()->put("loggedin", true);
+                session()->put("token", $user->remember_token);
+                session()->put("user_id", $user->student_id);
+                session()->put("user_name", $user->name);
+                session()->put("user_profile_img", $user->profile_picture);
+                return response()->json(['message' => 'Login successful'], 200);
+            } else {
+                // Password does not match, authentication failed
+                return response()->json(['errors' => ['identifier' => ['Invalid email, student ID, or password.']]], 422);
+            }
         } else {
-            // Authentication failed
+            // User does not exist, authentication failed
             return response()->json(['errors' => ['identifier' => ['Invalid email, student ID, or password.']]], 422);
         }
     }
@@ -269,7 +282,8 @@ class UserController extends Controller
         }
     }
 
-    public function delete_account(Request $request) {
+    public function delete_account(Request $request)
+    {
         $request->validate([
             'password' => 'required|string|min:6',
             'delete_acc_id' => 'required'
@@ -283,13 +297,13 @@ class UserController extends Controller
         $user = User::with('getFriends')->where("student_id", '=', $request->delete_acc_id)->first();
 
         foreach ($user->toArray()['get_friends'] as $key => $value) {
-            
+
             // pending requests don't need to decrease the count of friend
-            if($value['is_pending'] != 1){
+            if ($value['is_pending'] != 1) {
                 $friend = User::find($value['friend_id']);
 
                 // user friend count can't be less than 0
-                if($friend->friends > 0){
+                if ($friend->friends > 0) {
                     $friend->friends -= 1;
                 }
                 $friend->save();
@@ -321,9 +335,55 @@ class UserController extends Controller
                 // Handle other exceptions that may occur during deletion
                 return response()->json(['success' => false, 'message' => $e->getMessage()], 422);
             }
-        }
-        else {
+        } else {
             return response()->json(['success' => false, 'message' => "An error occured!"], 422);
         }
     }
+
+
+
+
+
+    // Generate and send OTP
+    public function sendOTP(Request $request)
+    {    // Send OTP to the provided email address
+        $email = $request->input('email');
+        // Check if the email is already registered
+        $existingUser = User::where('email', $email)->first();
+        if ($existingUser) {
+            return response()->json(['error' => 'Email is already registered.'], 422);
+        }
+        // Generate a random OTP
+        $otp = mt_rand(100000, 999999);
+
+        // Store the OTP in session
+        $request->session()->put('otp', $otp);
+
+
+        Mail::to($email)->send(new SendOTPMail($otp));
+
+        return response()->json(['message' => 'OTP sent successfully'], 200);
+    }
+
+    // Validate OTP
+    public function verifyOTP(Request $request)
+    {
+        // Get the OTP from the request
+        $otp = $request->input('otp');
+
+        // Get the stored OTP from session
+        $storedOtp = $request->session()->pull('otp');
+
+        // Compare the OTPs
+        if ($otp == $storedOtp) {
+            // OTP is valid
+            return response()->json(['message' => 'OTP validated successfully'], 200);
+        } else {
+            // Invalid OTP
+            return response()->json(['error' => 'Invalid OTP'], 400);
+        }
+    }
 }
+
+
+

@@ -30,7 +30,7 @@ class VerificationDocumentRejectedMail extends Mailable
      */
     public function build()
     {
-         return $this->subject('Your Verification Document has been Rejected')
+         return $this->subject('AlumniJunction:Your Verification Document has been Rejected')
                     ->view('mails.account_reject')
                     ->with('user', $this->user);
     }

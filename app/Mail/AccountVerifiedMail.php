@@ -31,6 +31,6 @@ class AccountVerifiedMail extends Mailable
      */
     public function build()
     {
-        return $this->subject('Account Verification')->view('mails.account_verify')->with('user', $this->user);;
+        return $this->subject('AlumniJunction:Account Verification')->view('mails.account_verify')->with('user', $this->user);;
     }
 }
