@@ -118,14 +118,21 @@ class PostController extends Controller {
     }
 
     public function report_post(Userpost $id){
-        $id->reported_at = now();
-        if($id->save()){
-            return response()->json(['success' => true, 'message' => 'Content reported successfully'], 200);
+        if($id->posted_by == session()->get('user_id')){
+            return response()->json(['success' => false, 'message' => 'You can\'t report your own post!'], 422);
+        }
+        elseif($id->check_report){
+            return response()->json(['success' => false, 'message' => 'This post is already checked by admin and is not reportable'], 422);
         }
         else{
-            return response()->json(['success' => false, 'message' => 'Failed to report the content'], 422);
+            $id->reported_at = now();
+            if($id->save()){
+                return response()->json(['success' => true, 'message' => 'Content reported successfully'], 200);
+            }
+            else{
+                return response()->json(['success' => false, 'message' => 'Failed to report the content'], 422);
+            }
         }
-
     }
     //for user suppor query to submit in supports database
     public function saveSupportQuery(Request $request)

@@ -46,7 +46,7 @@
                     <path
                         d="M3 18.4v-2.796a4.3 4.3 0 0 0 .713.31A26.226 26.226 0 0 0 12 17.25c2.892 0 5.68-.468 8.287-1.335.252-.084.49-.189.713-.311V18.4c0 1.452-1.047 2.728-2.523 2.923-2.12.282-4.282.427-6.477.427a49.19 49.19 0 0 1-6.477-.427C4.047 21.128 3 19.852 3 18.4Z" />
                 </svg>
-                <span class="">Get jobs</span>
+                <span class="">Jobs</span>
             </span>
         </a>
         <!-- Friends section  -->
@@ -165,7 +165,7 @@
             class="px-4 py-2 bg-gray-500 rounded-lg hover:bg-gray-600 focus:ring-2 focus:outline-none focus:ring-gray-800">Search</button>
     </form>
     <a href="{{ route('feed') }}" class="block px-4 py-2 max-[600px]:mt-2 hover:bg-blue-700">Home</a>
-    <a href="{{ route('jobs') }}" class="block px-4 py-2 hover:bg-blue-700">Get jobs</a>
+    <a href="{{ route('jobs') }}" class="block px-4 py-2 hover:bg-blue-700">Jobs</a>
     <a href="{{ route('friends') }}" class="block px-4 py-2 hover:bg-blue-700">Friends</a>
     <a href="{{ route('messages') }}" class="block px-4 py-2 hover:bg-blue-700">Message</a>
     <a href="{{ route('notifications') }}" class="block px-4 py-2 hover:bg-blue-700">Notification</a>
