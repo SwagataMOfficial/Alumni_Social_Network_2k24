@@ -11,6 +11,7 @@ use App\Mail\SupportReply;
 use App\Mail\AccountBanned;
 use App\Models\Notification;
 use Illuminate\Http\Request;
+use App\Mail\AccountVerifiedMail;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Hash;
@@ -18,7 +19,6 @@ use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\Session;
-use App\Mail\AccountVerifiedMail;
 use App\Mail\VerificationDocumentRejectedMail;
 
 use Symfony\Component\HttpKernel\Event\RequestEvent;
@@ -793,6 +793,7 @@ class AdminController extends Controller
             return redirect()->back()->with('error', 'Post not found.');
         }
         $post->reported_at = null;
+        $post->check_report = true;
         $post->save();
 
         return redirect()->back();
