@@ -7,7 +7,7 @@
 @section('main-section')
     <!-- Body Background Image  -->
 
-    <div class="max-h-screen"
+    <div class="min-h-screen"
         style="background-image: url('{{ asset('images/reg_background_img.png') }}');
     background-size: cover;
     background-position: center;
@@ -17,7 +17,7 @@
             <div id="signUpFormContainer">
                 <!-- Brand logo  -->
                 <img src="{{ asset('images/reg_brand_logo.png') }}" alt="Logo"
-                    class="absolute top-0 left-0  h-16 mt-3 ml-3" />
+                    class="absolute top-0 left-0 h-16 mt-3 ml-3 hidden lg:block" />
                 <!-- row  -->
                 <div class="bg-gray-100 p-5 flex rounded-2xl shadow-lg max-w-3xl">
                     <!-- Left portion  -->
@@ -28,44 +28,64 @@
                         <form class="max-w-sm mx-auto" action="" method="post" id="register_form">
                             @csrf
                             <!-- First Name Section  -->
-                            <div class="mb-5">
-                                <label for="FullName" class="block mb-2 text-sm font-medium text-gray-500">Full Name</label>
+                            <div class="mb-3">
+                                <label for="fname" class="block mb-2 text-sm font-medium text-gray-500">Full Name</label>
                                 <input name="u_fname" type="text" id="fname"
                                     class="border border-gray-600 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                     required />
                             </div>
                             <!-- E-mail Section  -->
-                            <div class="mb-5">
-                                <label for="email" class="block mb-2 text-sm font-medium text-gray-500">E-mail</label>
-                                <div class="flex">
+                            <div class="mb-3">
+                                <label for="mail" class="block mb-2 text-sm font-medium text-gray-500">E-mail</label>
+                                <div class="relative flex items-center">
                                     <input name="u_mail" type="email" id="mail"
                                         class="border border-gray-600 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                         placeholder="name@gmail.com" required />
-                                    <button type="button" id="sendOTPBtn"
-                                        class="ml-3 px-4 py-2 bg-blue-500 text-white rounded">Send OTP</button>
+                                    <span class="text-green-600 absolute right-3" style="display: none;"
+                                        id="email_verified_tick">
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
+                                            class="w-5 h-5">
+                                            <path fill-rule="evenodd"
+                                                d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z"
+                                                clip-rule="evenodd" />
+                                        </svg>
+                                    </span>
                                 </div>
                             </div>
-                            <div class="mb-5">
+                            <div class="mb-3">
                                 <label for="otp" class="block mb-2 text-sm font-medium text-gray-500">OTP</label>
-                                <div class="flex">
+                                <div class="relative flex items-center">
                                     <input name="otp" type="text" id="otp"
-                                        class="border border-gray-600 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                        class="border border-gray-600 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block flex-1 p-2.5 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                         placeholder="Enter OTP" required />
+                                    <span class="text-green-600 absolute right-3" style="display: none;"
+                                        id="otp_verified_tick">
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
+                                            class="w-5 h-5">
+                                            <path fill-rule="evenodd"
+                                                d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z"
+                                                clip-rule="evenodd" />
+                                        </svg>
+                                    </span>
+                                    <button type="button" id="sendOTPBtn"
+                                        class="ml-3 px-3 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg hover:scale-95 duration-300 focus:ring-4 focus:outline-none focus:ring-blue-800">Send
+                                        OTP</button>
                                     <button type="button" id="verifyOTPBtn" style="display: none;"
-                                        class="ml-3 px-4 py-2 bg-blue-500 text-white rounded">Verify OTP</button>
+                                        class="ml-3 px-3 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg hover:scale-95 duration-300 focus:ring-4 focus:outline-none focus:ring-blue-800">Verify
+                                        OTP</button>
                                 </div>
                             </div>
                             <!-- Password Section and Confirm Password Section  -->
                             <div class="grid grid-cols-2 gap-5">
-                                <div class="mb-5">
-                                    <label for="Password"
+                                <div class="mb-3">
+                                    <label for="u_password"
                                         class="block mb-2 text-sm font-medium text-gray-500">Password</label>
                                     <input name="u_password" type="password" id="u_password"
                                         class="border border-gray-600 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                         required />
                                 </div>
-                                <div class="mb-5">
-                                    <label for="Password" class="block mb-2 text-sm font-medium text-gray-500">Confirm
+                                <div class="mb-3">
+                                    <label for="u_conpassword" class="block mb-2 text-sm font-medium text-gray-500">Confirm
                                         Password</label>
                                     <input name="u_conpassword" type="password" id="u_conpassword"
                                         class="border border-gray-600 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500"
@@ -73,7 +93,7 @@
                                 </div>
                             </div>
                             {{-- dropdown --}}
-                            <div class="grid grid-cols-2 gap-5 mb-5">
+                            <div class="grid grid-cols-2 gap-5 mb-3">
                                 <div>
                                     <label for="dropdown1" class="block mb-2 text-sm font-medium text-gray-500">Graduation
                                         Year</label>
@@ -113,7 +133,7 @@
                             </div>
 
                             <!-- student id -->
-                            <div class="mb-5">
+                            <div class="mb-3">
                                 <label for="student_id" class="block mb-2 text-sm font-medium text-gray-500">Student
                                     ID</label>
                                 <input name="student_id" type="text" id="student_id"
@@ -121,7 +141,7 @@
                                     required />
                             </div>
                             <!-- File input option  -->
-                            <div class="mb-5 flex items-center">
+                            <div class="mb-3 flex items-center">
                                 <label for="verify_doc" class="mr-3 text-sm font-medium text-gray-500">Upload Student
                                     ID</label>
                                 <input type="file" name="verify_doc" id="verify_doc"
@@ -136,7 +156,7 @@
                                 value="Register">Register</button>
 
                             <!-- Already have an account? Section -->
-                            <div class="text-center mt-3 mb-1">
+                            <div class="text-center mt-2 mb-1">
                                 <p class="text-gray-500 text-sm">Already have an account? <a href="/"
                                         class="text-blue-500 hover:underline">Sign in</a></p>
                             </div>
@@ -186,7 +206,7 @@
                     error: function(xhr, status, error) {
                         var errorMessage = xhr.responseJSON.error;
                         showAlert('error',
-                        errorMessage); // Assuming showAlert is a function to display alerts
+                            errorMessage); // Assuming showAlert is a function to display alerts
                         $('#sendOTPBtn').prop('disabled', false).text('Send OTP');
                     }
                 });
@@ -210,15 +230,17 @@
                     success: function(response) {
                         showAlert('success', 'OTP verified successfully.');
                         $('#sendOTPBtn, #verifyOTPBtn')
-                    .hide(); // Hide both Send OTP and Verify OTP buttons
+                            .hide(); // Hide both Send OTP and Verify OTP buttons
                         otpValidated = true;
                         $('#otp').prop('readonly', true);
+                        $('#email_verified_tick').show(); // Show the email verified tickmark
+                        $('#otp_verified_tick').show(); // Show the email verified tickmark
                         // Enable registration form here
                     },
                     error: function(xhr, status, error) {
                         showAlert('error', 'Invalid OTP. Please try again.');
-                        $('#sendOTPBtn').show(); 
-                        $('#verifyOTPBtn').hide();// Show the Send OTP button again
+                        $('#sendOTPBtn').show();
+                        $('#verifyOTPBtn').hide(); // Show the Send OTP button again
                     }
                 });
             });
