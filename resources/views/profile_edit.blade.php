@@ -61,7 +61,7 @@
                     <div class="flex">
                         <div class="mb-2 mx-10 w-full">
                             <label for="name" class="block mb-2 text-sm font-medium text-gray-500">Name</label>
-                            <input type="text" name="name" id="name"
+                            <input type="text" name="name" id="name" style="scroll-margin-top: 11rem;"
                                 class="border border-gray-600 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500 mx-3"
                                 placeholder="Edit Your Name" value="{{ $user['name'] }}">
                         </div>
@@ -124,7 +124,7 @@
                     <div class="flex">
                         <div class="mb-2 mx-10 w-full">
                             <label for="phone" class="block mb-2 text-sm font-medium text-gray-500">Phone</label>
-                            <input type="tel" name="phone" id="phone"
+                            <input type="tel" name="phone" id="phone" style="scroll-margin-top: 11rem;"
                                 class="border border-gray-600 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500 mx-3"
                                 placeholder="Edit Your Phone Number" value="{{ $user['phone'] }}">
                         </div>
@@ -158,7 +158,7 @@
                             <label for="graduation_year" class="block mb-2 text-sm font-medium text-gray-500">Edit
                                 Graduation
                                 Year</label>
-                            <select name="graduation_year" id="graduation_year"
+                            <select name="graduation_year" id="graduation_year" style="scroll-margin-top: 11rem;"
                                 class="border border-gray-600 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500 mx-3"
                                 required>
                                 <option value="" disabled selected>Choose Year</option>
@@ -214,7 +214,7 @@
                     @csrf
                     <div class="mb-2 mx-10">
                         <label for="skills" class="block mb-2 text-sm font-medium text-gray-500">Skills</label>
-                        <input type="text" name="skills" id="skills"
+                        <input type="text" name="skills" id="skills" style="scroll-margin-top: 11rem;"
                             class="border border-gray-600 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500 mx-3"
                             placeholder="Ex: skills-1, skills-2, skills-3, skills-4, ..." value="{{ $user['skills'] }}">
                     </div>
@@ -240,7 +240,7 @@
                     <div class="mb-2 mx-10">
                         <label for="career_history" class="block mb-2 text-sm font-medium text-gray-500">Your Career
                             History</label>
-                        <input type="text" name="career_history" id="career_history"
+                        <input type="text" name="career_history" id="career_history" style="scroll-margin-top: 11rem;"
                             class="border border-gray-600 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500 mx-3"
                             placeholder="Ex: story 1, story 2, ...." value="{{ $user['career_history'] }}">
                     </div>
@@ -256,7 +256,7 @@
                         <div class="mb-2 mx-10 w-full">
                             <label for="first_company" class="block mb-2 text-sm font-medium text-gray-500">Your First
                                 Company</label>
-                            <input type="text" name="first_company" id="first_company"
+                            <input type="text" name="first_company" id="first_company" style="scroll-margin-top: 20rem;"
                                 class="border border-gray-600 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500 mx-3"
                                 placeholder="Edit your first company" value="{{ $user['first_company'] }}">
                         </div>
@@ -271,7 +271,7 @@
                     <div class="mb-2 mx-10">
                         <label for="publications" class="block mb-2 text-sm font-medium text-gray-500">Your
                             Publications</label>
-                        <input type="text" name="publications" id="publications"
+                        <input type="text" name="publications" id="publications" style="scroll-margin-top: 25rem;"
                             class="border border-gray-600 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500 mx-3"
                             placeholder="Ex: publication-1, publication-2, publication-3, publication-4, ..."
                             value="{{ $user['publications'] }}">
@@ -315,7 +315,7 @@
                                 </g>
                             </svg>
                         </label>
-                        <input type="text" name="facebook_link" id="facebook_link"
+                        <input type="text" name="facebook_link" id="facebook_link" style="scroll-margin-top: 9rem;"
                             class="border border-gray-600 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500 mx-3"
                             placeholder="Facebook link" value="{{ $user['facebook_link'] }}">
                     </div>
@@ -367,7 +367,7 @@
                                 </g>
                             </svg>
                         </label>
-                        <input type="text" name="instagram_link" id="instagram_link"
+                        <input type="text" name="instagram_link" id="instagram_link" style="scroll-margin-top: 12rem;"
                             class="border border-gray-600 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500 mx-3"
                             placeholder="Instagram link"value="{{ $user['instagram_link'] }}">
                     </div>
@@ -392,7 +392,7 @@
                                 </g>
                             </svg>
                         </label>
-                        <input type="text" name="github_link" id="github_link"
+                        <input type="text" name="github_link" id="github_link" style="scroll-margin-top: 15rem;"
                             class="border border-gray-600 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500 mx-3"
                             placeholder="Github link"value="{{ $user['github_link'] }}">
                     </div>
@@ -409,7 +409,7 @@
                                 </g>
                             </svg>
                         </label>
-                        <input type="text" name="twitter_link" id="twitter_link"
+                        <input type="text" name="twitter_link" id="twitter_link" style="scroll-margin-top: 18rem;"
                             class="border border-gray-600 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500 mx-3"
                             placeholder="Twitter link"value="{{ $user['twitter_link'] }}">
                     </div>
@@ -425,7 +425,7 @@
                                 </g>
                             </svg>
                         </label>
-                        <input type="text" name="linkedin_link" id="linkedin_link"
+                        <input type="text" name="linkedin_link" id="linkedin_link" style="scroll-margin-top: 21rem;"
                             class="border border-gray-600 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500 mx-3"
                             placeholder="Linkedin link"value="{{ $user['linkedin_link'] }}">
                     </div>
