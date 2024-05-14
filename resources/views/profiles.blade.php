@@ -6,7 +6,7 @@
 
     <div class="px-8 mx-auto pt-3 flex justify-center gap-10">
         <div class="w-3/4 pb-3">
-            <div class="rounded-xl overflow-hidden relative mb-3">
+            <div class="rounded-xl overflow-hidden relative mb-3 bg-white">
 
                 <img class="w-full h-40 object-cover" src="{{ asset('/storage/' . $user['cover_picture']) }}"
                     alt="background image" id="profile-cover">
@@ -157,7 +157,7 @@
                         <div id="default-styled-tab-content-profile-page">
 
                             {{-- only text post --}}
-                            <form action="{{ route('post.add') }}" method="POST" class="hidden rounded-lg bg-gray-50"
+                            <form action="{{ route('post.add') }}" method="POST" class="hidden rounded-lg"
                                 id="styled-profile-page" role="tabpanel" aria-labelledby="profile-tab">
                                 @csrf
                                 <div class="mt-2">
@@ -180,7 +180,7 @@
                             </form>
 
                             {{-- jop post area --}}
-                            <form action="{{ route('post.addjob') }}" method="POST" class="hidden rounded-lg bg-gray-50"
+                            <form action="{{ route('post.addjob') }}" method="POST" class="hidden rounded-lg"
                                 id="styled-dashboard-profile-page" role="tabpanel" aria-labelledby="dashboard-tab">
                                 @csrf
                                 <input type="hidden" name="post_type" value="job">

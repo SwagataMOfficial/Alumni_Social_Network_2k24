@@ -52,7 +52,7 @@
                         <div id="default-styled-tab-content">
 
                             {{-- only text post --}}
-                            <form action="{{ route('post.add') }}" method="POST" class="hidden rounded-lg bg-gray-50"
+                            <form action="{{ route('post.add') }}" method="POST" class="hidden rounded-lg"
                                 id="styled-profile" role="tabpanel" aria-labelledby="profile-tab">
                                 @csrf
                                 <div class="mt-2">
@@ -75,7 +75,7 @@
                             </form>
 
                             {{-- jop post area --}}
-                            <form action="{{ route('post.addjob') }}" method="POST" class="hidden rounded-lg bg-gray-50"
+                            <form action="{{ route('post.addjob') }}" method="POST" class="hidden rounded-lg"
                                 id="styled-dashboard" role="tabpanel" aria-labelledby="dashboard-tab">
                                 @csrf
                                 <input type="hidden" name="post_type" value="job">

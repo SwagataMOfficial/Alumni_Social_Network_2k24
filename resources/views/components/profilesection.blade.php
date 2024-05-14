@@ -1,4 +1,4 @@
-<div class="flex justify-between pt-10 pb-8 px-8 bg-white" id="user-details">
+<div class="flex justify-between pt-10 pb-8 px-8" id="user-details">
     {{-- main user details --}}
     <div class="flex flex-col items-start gap-3" id="highlights">
         <p class="text-4xl font-bold text-stone-600">{{ $details['name'] ? $details['name'] : '-- --' }}</p>

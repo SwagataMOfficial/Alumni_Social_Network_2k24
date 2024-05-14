@@ -52,7 +52,7 @@
                     <div id="default-styled-tab-content">
 
                         {{-- only text post --}}
-                        <form action="{{ route('post.add') }}" method="POST" class="hidden rounded-lg bg-gray-50"
+                        <form action="{{ route('post.add') }}" method="POST" class="hidden rounded-lg"
                             id="styled-profile" role="tabpanel" aria-labelledby="profile-tab">
                             @csrf
                             <div class="mt-2">
@@ -74,7 +74,7 @@
                         </form>
 
                         {{-- jop post area --}}
-                        <form action="{{ route('post.addjob') }}" method="POST" class="hidden rounded-lg bg-gray-50"
+                        <form action="{{ route('post.addjob') }}" method="POST" class="hidden rounded-lg"
                             id="styled-dashboard" role="tabpanel" aria-labelledby="dashboard-tab">
                             @csrf
                             <input type="hidden" name="post_type" value="job">
@@ -94,11 +94,6 @@
                                 <input type="url" id="website" name="registration_link"
                                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                                     placeholder="Enter Registration Link" required />
-                            </div>
-                            <div class="flex items-center mt-4">
-                                <input id="private_job" type="checkbox" value="0" name="visibility"
-                                    class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 focus:ring-2">
-                                <label for="private_job" class="ms-2 text-sm font-medium text-gray-900">Private ?</label>
                             </div>
                             <button type="submit"
                                 class="mt-6 w-full text-white text-md bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg px-5 py-2.5 text-center">
