@@ -340,6 +340,11 @@ class AdminController extends Controller
         // Ban the user's account
         $user->deleted_acc = 1;
         $user->save();
+        Session::forget('loggedInUser');
+        Session::forget('loggedin');
+        Session::forget('token');
+        Session::forget('user_id');
+        Session::forget('user_name');
 
         // Send ban notification email
         Mail::to($user->email)->send(new AccountBanned($user));
