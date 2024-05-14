@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Friend;
 use Carbon\Carbon;
 use App\Models\User;
 use App\Models\Admin;
@@ -62,7 +63,7 @@ class AdminController extends Controller
         }
 
         // Retrieve user's posts (excluding deleted posts)
-        $userPosts = UserPost::where('posted_by', $id)->where('delete_post', '!=', 1)->get();
+        $userPosts = Userpost::where('posted_by', $id)->where('delete_post', '!=', 1)->get();
 
         if ($userPosts->isEmpty()) {
             return redirect()->back()->with('message', 'No posts found for this user.');
@@ -120,7 +121,7 @@ class AdminController extends Controller
 
     public function usermanagementview_suspend($id)
     {
-        $post = UserPost::find($id);
+        $post = Userpost::find($id);
         if (!$post) {
             return redirect()->back()->with('error', 'Post not found.');
         }
@@ -324,6 +325,21 @@ class AdminController extends Controller
     {
         $user = User::find($id);
 
+        // Delete all friends of that user
+        $friends = Friend::where('student_id','=', $user->student_id)->where('is_pending','=', '0')->get();
+        
+        if(!$friends){
+            return redirect()->back()->with('error', 'Failed to delete the user.');
+        }
+
+        // Decrementing friend count of each friend of the user
+        foreach ($friends as $value) {
+            $value->getFriend->friends -= 1;
+            $value->getFriend->save();
+        }
+
+        $friends = Friend::where('student_id','=', $user->student_id)->where('is_pending','=', '0')->delete();
+
         if (!$user) {
             return redirect()->back()->with('error', 'User not found.');
         }
@@ -335,16 +351,20 @@ class AdminController extends Controller
         }
 
         // Delete all records associated with the user from the user_posts table
-        UserPost::where('posted_by', $id)->delete();
+        Userpost::where('posted_by', $id)->delete();
+
+        // Delete all friends of that user
 
         // Ban the user's account
         $user->deleted_acc = 1;
+        $user->friends = 0;
         $user->save();
         Session::forget('loggedInUser');
         Session::forget('loggedin');
         Session::forget('token');
         Session::forget('user_id');
         Session::forget('user_name');
+        Session::forget('user_profile_img');
 
         // Send ban notification email
         Mail::to($user->email)->send(new AccountBanned($user));
@@ -360,7 +380,7 @@ class AdminController extends Controller
         if (is_null($user)) {
             return redirect()->back();
         } else {
-            $userPosts = UserPost::where('posted_by', $id)
+            $userPosts = Userpost::where('posted_by', $id)
                 ->where('delete_post', 1)
                 ->get();
 
@@ -595,7 +615,7 @@ class AdminController extends Controller
         }
 
         // Retrieve user's posts (excluding deleted posts)
-        $userPosts = UserPost::where('posted_by', $id)->where('delete_post', '!=', 1)->get();
+        $userPosts = Userpost::where('posted_by', $id)->where('delete_post', '!=', 1)->get();
 
         if ($userPosts->isEmpty()) {
             return redirect()->back()->with('message', 'No posts found for this user.');
@@ -653,7 +673,7 @@ class AdminController extends Controller
 
     public function subadmin_profileview_suspend($id)
     {
-        $post = UserPost::find($id);
+        $post = Userpost::find($id);
         if (!$post) {
             return redirect()->back()->with('error', 'Post not found.');
         }
@@ -710,7 +730,7 @@ class AdminController extends Controller
             return redirect('/subadmin/usermanagement');
         } else {
             // Retrieve user's reported posts
-            $userPosts = UserPost::where('posted_by', $id)
+            $userPosts = Userpost::where('posted_by', $id)
                 ->where('delete_post', '!=', 1)
                 ->whereNotNull('reported_at')
                 ->get();
@@ -765,7 +785,7 @@ class AdminController extends Controller
     }
     public function subadmin_reportedContent_view_suspend($id)
     {
-        $post = UserPost::find($id);
+        $post = Userpost::find($id);
         if (!$post) {
             return redirect()->back()->with('error', 'Post not found.');
         }
@@ -793,7 +813,7 @@ class AdminController extends Controller
     }
     public function subadmin_reportedContent_view_removeFromReport($id)
     {
-        $post = UserPost::find($id);
+        $post = Userpost::find($id);
         if (!$post) {
             return redirect()->back()->with('error', 'Post not found.');
         }
