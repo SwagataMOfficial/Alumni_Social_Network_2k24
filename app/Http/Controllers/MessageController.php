@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Friend;
 use App\Models\Message;
 use Illuminate\Http\Request;
 
@@ -14,8 +13,24 @@ class MessageController extends Controller {
             unset($createMsgArr['_token']);
         }
 
+        if (array_key_exists('my_message', $createMsgArr)) {
+            // message send event broadcast
+            event(new \App\Events\Message(
+                session()->get('user_id'),
+                $request->input('my_message'),
+            ));
+        }
+        else{
+            event(new \App\Events\Message(
+                session()->get('user_id'),
+                $request->input('user_message'),
+            ));
+        }
+
+
         Message::create($createMsgArr);
 
-        return redirect()->back();
+        // return redirect()->back();
+        return response()->json(['success' => true], 200);
     }
 }

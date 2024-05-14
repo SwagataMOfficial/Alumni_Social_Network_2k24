@@ -1,6 +1,16 @@
 @extends('layouts.main')
 @push('title')
     <title>Message | Alumni Junction</title>
+    <script src="https://js.pusher.com/8.2.0/pusher.min.js"></script>
+    <script>
+        // Pusher.logToConsole = true;
+
+        var pusher = new Pusher('ad9ce0f5c69a1bfc27a7', {
+            cluster: 'ap2'
+        });
+
+        const CHANNEL = pusher.subscribe('alumni-network');
+    </script>
 @endpush
 @section('main-section')
     @php
@@ -212,7 +222,7 @@
                             @endif
                         </div>
 
-                        <form method="POST" action="{{ route('message.send') }}">
+                        <form method="POST" action="{{ route('message.send') }}" id="my-send-message-form">
                             @csrf
                             <input type="hidden" name="chat_id" value="{{ $chats['chat_id'] }}">
                             <label for="chat" class="sr-only">Your message</label>
@@ -357,7 +367,7 @@
                             @endif
                         </div>
 
-                        <form method="POST" action="{{ route('message.send') }}">
+                        <form method="POST" action="{{ route('message.send') }}" id="user-send-message-form">
                             @csrf
                             <input type="hidden" name="chat_id" value="{{ $chats['chat_id'] }}">
                             <label for="chat" class="sr-only">Your message</label>
@@ -396,6 +406,59 @@
             // Initial scroll to bottom
             scrollToBottom();
 
+            // SENDING MY MESSAGE
+            $("#my-send-message-form").submit(function(event) {
+                event.preventDefault();
+
+                if ($("#chat").val() != '') {
+                    let formData = new FormData(this);
+                    $.ajax({
+                        url: $(this).attr('action'),
+                        type: "POST",
+                        data: formData,
+                        processData: false,
+                        contentType: false,
+                        success: function(response) {
+                            $('#my-send-message-form')[0].reset();
+                            console.log(response);
+                        },
+                        error: function(xhr, status, error) {
+                            let errors = JSON.parse(xhr.responseText).errors;
+                            console.error(errors);
+                        }
+                    });
+                } else {
+                    console.warn('type a message');
+                }
+            });
+
+            // SENDING USER MESSAGE
+            $("#user-send-message-form").submit(function(event) {
+                event.preventDefault();
+
+                if ($("#chat").val() != '') {
+                    let formData = new FormData(this);
+                    $.ajax({
+                        url: $(this).attr('action'),
+                        type: "POST",
+                        data: formData,
+                        processData: false,
+                        contentType: false,
+                        success: function(response) {
+                            $('#user-send-message-form')[0].reset();
+                            console.log(response);
+                        },
+                        error: function(xhr, status, error) {
+                            let errors = JSON.parse(xhr.responseText).errors;
+                            console.error(errors);
+                        }
+                    });
+                } else {
+                    console.warn('type a message');
+                }
+            });
+
+
             // SEARCHING FOR SPECIFIC ACCOUNT
             $('#profile_search').on('input', function() {
                 var searchText = $(this).val().toLowerCase();
@@ -418,6 +481,39 @@
                     );
                 } else {
                     $('#noResultsMessage').remove();
+                }
+            });
+
+            CHANNEL.bind('message', function(e) {
+
+                // Get the current date
+                var currentDate = new Date();
+
+                // Get the hour in 12-hour format
+                var hour = currentDate.getHours() % 12;
+                hour = hour ? hour : 12; // Handle midnight (0) as 12
+
+                // Get the minutes
+                var minutes = currentDate.getMinutes();
+
+                // Determine if it's AM or PM
+                var amOrPm = currentDate.getHours() >= 12 ? 'PM' : 'AM';
+
+                // Format the hour and minutes with leading zeros if necessary
+                hour = hour < 10 ? '0' + hour : hour;
+                minutes = minutes < 10 ? '0' + minutes : minutes;
+
+                // Concatenate all parts to form the desired format
+                var formattedTime = hour + ':' + minutes + ' ' + amOrPm;
+
+                if (e.userid == {{session()->get('user_id')}}) {
+                    let mymessage = `<div class="flex items-end justify-end relative"><div class="relative mr-2"><div class="bg-blue-500 text-white rounded-lg px-3 py-2 flex flex-col max-w-[30rem]"><p class="text-lg pr-10 text-wrap">${e.message}</p><p class="text-lg self-end">${formattedTime}</p></div><span class="absolute -right-5 top-5"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-8 h-8 text-blue-500"><path fill-rule="evenodd" d="M4.5 5.653c0-1.427 1.529-2.33 2.779-1.643l11.54 6.347c1.295.712 1.295 2.573 0 3.286L7.28 19.99c-1.25.687-2.779-.217-2.779-1.643V5.653Z" clip-rule="evenodd" /></svg></span></div></div>`;
+                    $("#messageContainer").append(mymessage);
+                    scrollToBottom();
+                } else {
+                    let usermessage = `<div class="flex items-start relative ml-2"><div class="relative flex items-center justify-center"><div class="bg-gray-500 text-white rounded-lg px-3 py-2 flex flex-col max-w-[30rem]"><p class="text-lg pr-10 text-wrap">${e.message}</p><p class="text-lg self-end">${formattedTime}</p></div><span class="absolute -left-5 top-5 rotate-180"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-8 h-8 text-gray-500"><path fill-rule="evenodd" d="M4.5 5.653c0-1.427 1.529-2.33 2.779-1.643l11.54 6.347c1.295.712 1.295 2.573 0 3.286L7.28 19.99c-1.25.687-2.779-.217-2.779-1.643V5.653Z" clip-rule="evenodd" /></svg></span></div></div>`;
+                    $("#messageContainer").append(usermessage);
+                    scrollToBottom();
                 }
             });
         });
