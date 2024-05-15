@@ -8,7 +8,7 @@
 
         {{-- left navigation panel --}}
         <div class="w-1/4 rounded-xl h-fit bg-white px-4 py-4 hidden lg:block">
-            <h1 class="text-stone-700 font-semibold text-2xl mb-2 ml-1">My connections</h1>
+            <h1 class="text-stone-700 font-semibold text-xl xl:text-2xl mb-2 ml-1">My connections</h1>
             <div class="flex flex-col items-start justify-center">
                 <a href="{{ route('myfriends') }}"
                     class="px-2 rounded-lg w-full py-2 text-lg flex items-center justify-between hover:bg-stone-200">
@@ -25,23 +25,23 @@
         </div>
         {{-- right main friends option --}}
         <div class="w-full flex flex-col gap-3 mb-3 xl:w-3/4">
-            <section class="rounded-xl overflow-hidden bg-white px-6 py-4">
-                <h1 class="text-stone-700 font-semibold text-2xl mb-2">Pending requests</h3>
+            <section class="rounded-xl overflow-hidden bg-white px-4 sm:px-6 py-4">
+                <h1 class="text-stone-700 font-semibold max-[320px]:text-xl text-2xl mb-2">Pending requests</h3>
 
                     {{-- displaying all pending friend requests --}}
                     @if (count($p_requests) > 0)
                         @foreach ($p_requests as $frequest)
                             {{-- pending request peoples will appear here --}}
-                            <div class="flex items-center justify-between mb-3 px-4">
+                            <div class="flex max-[420px]:flex-col max-sm:flex-wrap items-center justify-between mb-3 sm:px-4 max-[420px]:gap-2">
                                 <div class="flex justify-center items-center gap-4">
-                                    <a href="/profile/{{ $frequest['get_student']['remember_token'] }}" class="">
+                                    <a href="/profile/{{ $frequest['get_student']['remember_token'] }}" class="flex-grow-0 flex-shrink-0">
                                         <img src="{{ asset('/storage/' . $frequest['get_student']['profile_picture']) }}"
                                             alt="profile image"
-                                            class="w-14 object-cover aspect-square rounded-[50%] border-2 border-slate-800">
+                                            class="max-[320px]:w-12 w-14 object-cover object-center aspect-square rounded-[50%] border-2 border-slate-800">
                                     </a>
                                     <div class="flex flex-col">
-                                        <span class="text-xl font-bold">{{ $frequest['get_student']['name'] }}</span>
-                                        <span class="text-md">{{ $frequest['get_student']['about'] }}</span>
+                                        <span class="text-xl max-[375px]:text-base font-bold">{{ $frequest['get_student']['name'] }}</span>
+                                        <span class="max-[375px]:text-sm text-lg">{{ $frequest['get_student']['about'] }}</span>
                                     </div>
                                 </div>
                                 <div class="flex items-center gap-2">
@@ -77,7 +77,7 @@
                     @endif
             </section>
             <section class="rounded-xl overflow-hidden bg-white px-0 min-[510px]:px-6 py-4">
-                <h1 class="text-stone-700 font-semibold text-2xl mb-4 max-[510px]:px-6">Suggested people</h3>
+                <h1 class="text-stone-700 font-semibold max-[320px]:text-xl text-2xl mb-4 max-[510px]:px-6">Suggested people</h3>
 
                     {{-- suggested people cards will appear here --}}
                     @if (count($s_peoples) > 0)
@@ -88,9 +88,9 @@
                                 <div
                                     class="rounded-xl bg-slate-200 overflow-hidden relative flex flex-col justify-start items-center">
                                     <img src="{{ asset('/storage/' . $people['cover_picture']) }}" alt="cover photo"
-                                        class="object-cover max-h-16 w-full">
+                                        class="object-cover object-center max-h-16 w-full">
                                     <a href="/profile/{{ $people['remember_token'] }}"
-                                        class="absolute top-7 w-20 aspect-square object-cover rounded-[50%] border-2 border-slate-600 overflow-hidden">
+                                        class="absolute top-7 w-20 aspect-square object-cover object-center rounded-[50%] border-2 border-slate-600 overflow-hidden">
                                         <img src="{{ asset('/storage/' . $people['profile_picture']) }}"
                                             alt="profile photo" class="w-full h-full">
                                     </a>

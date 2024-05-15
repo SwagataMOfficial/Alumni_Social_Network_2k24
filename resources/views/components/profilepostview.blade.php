@@ -1,4 +1,4 @@
-<div class="relative bg-white rounded-lg overflow-hidden mx-8 shadow mb-2">
+<div class="relative bg-white rounded-lg overflow-hidden md:mx-8 shadow mb-2">
 
     <!-- Three-dot button -->
     <button id="btn_{{ $key }}" data-dropdown-toggle="dropdown_{{ $key }}"
@@ -26,10 +26,10 @@
     </div>
 
     <!-- Header -->
-    <div class="flex items-center space-x-4 pr-4 pl-2">
+    <div class="flex items-center space-x-4 pr-4 pl-2 max-[425px]:pt-2 pt-4">
         <a href="/profile/{{ $details['remember_token'] }}">
             <img src="{{ asset('/storage/' . $details['profile_picture']) }}" alt="Profile Picture"
-                class="h-16 aspect-square rounded-full object-cover">
+                class="max-[425px]:h-12 h-16 aspect-square rounded-full object-cover object-center">
         </a>
 
         @php
@@ -46,8 +46,8 @@
         @endphp
 
         <div class="px-2">
-            <h3 class="font-semibold text-gray-700 text-3xl">{{ $details['name'] }}</h3>
-            <p class="text-gray-500 text-lg">Posted {{ $timeAgo }}</p>
+            <h3 class="font-semibold text-gray-700 max-[425px]:text-xl text-2xl sm:text-3xl">{{ $details['name'] }}</h3>
+            <p class="text-gray-500 text-base sm:text-lg">Posted {{ $timeAgo }}</p>
         </div>
     </div>
 
@@ -68,7 +68,7 @@
                 {{-- carousel --}}
                 <div id="indicators-carousel" class="relative w-full mt-4" data-carousel="static">
                     <!-- Carousel wrapper -->
-                    <div class="relative h-56 overflow-hidden rounded-lg md:h-[36rem]">
+                    <div class="relative w-full aspect-video overflow-hidden rounded-lg">
                         <!-- Item 1 -->
                         @foreach ($imgArr as $index => $img)
                             <div class="hidden duration-700 ease-in-out" data-carousel-item="active">
@@ -84,7 +84,7 @@
                         data-carousel-prev>
                         <span
                             class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/30 group-hover:bg-white/50  group-focus:ring-4 group-focus:ring-white group-focus:outline-none">
-                            <svg class="w-4 h-4 text-white rtl:rotate-180" aria-hidden="true"
+                            <svg class="w-4 h-4 text-black rtl:rotate-180" aria-hidden="true"
                                 xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
                                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
                                     stroke-width="2" d="M5 1 1 5l4 4" />
@@ -97,7 +97,7 @@
                         data-carousel-next>
                         <span
                             class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/30  group-hover:bg-white/50  group-focus:ring-4 group-focus:ring-white  group-focus:outline-none">
-                            <svg class="w-4 h-4 text-white  rtl:rotate-180" aria-hidden="true"
+                            <svg class="w-4 h-4 text-black  rtl:rotate-180" aria-hidden="true"
                                 xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
                                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
                                     stroke-width="2" d="m1 9 4-4-4-4" />
@@ -109,7 +109,7 @@
             @else
                 {{-- not carousel --}}
                 <img src="{{ asset('/storage/' . $posts['attachment']) }}" alt="Posted Picture"
-                    class="mt-4 rounded-lg h-[36rem] w-full">
+                    class="mt-4 rounded-lg w-full aspect-video">
             @endif
         @endif
     </div>
@@ -202,7 +202,7 @@
             @csrf
             <div class="flex items-center px-3 py-2 bg-gray-50">
                 <img src="{{ asset('/storage/' . session()->get('user_profile_img')) }}" alt="profile"
-                    class="w-8 h-8 object-cover rounded-[50%]">
+                    class="w-8 h-8 object-cover object-center rounded-[50%]">
                 <label for="chat_{{ $key }}" class="sr-only">Your comment</label>
                 <input type="hidden" name="post_id" value="{{ $posts['post_id'] }}">
                 <textarea id="chat_{{ $key }}" rows="1"

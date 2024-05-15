@@ -3,30 +3,29 @@
     {{-- only show the post modal if the profile is my and all checks are met --}}
     @if ($details['verified_at'] != null && $details['deleted_acc'] == 0 && $details['ban_acc'] == 0)
         @if ($details['student_id'] == session()->get('user_id'))
-            <div class="flex items-center justify-center">
-                <div
-                    class="inline-flex items-center justify-center p-4 bg-white rounded-full drop-shadow-xl border border-gray-300 mb-5">
-                    <!-- Profile picture -->
-                    <a href="/profile/{{ $details['remember_token'] }}"
-                        class="rounded-full bg-gray-300 h-12 w-12 flex items-center justify-center overflow-hidden">
-                        <img src="{{ asset('/storage/' . $details['profile_picture']) }}" alt="image"
-                            class="w-full h-full object-cover">
-                    </a>
+            <div class="flex justify-center md:min-w-[70vw] lg:min-w-[50vw] xl:min-w-[45vw] max-[425px]:px-2 px-6 sm:px-16">
+                <div class="flex items-center justify-center flex-col gap-3 md:flex-row p-4 bg-white rounded-2xl md:rounded-full w-full drop-shadow-xl border border-gray-300 mb-5">
+                    <div class="flex justify-around w-full">
+                        <a href="/profile/{{ $details['remember_token'] }}"
+                            class="rounded-[50%] bg-gray-300 h-12 w-12 flex items-center justify-center overflow-hidden">
+                            <img src="{{ asset('/storage/' . $details['profile_picture']) }}" alt="image"
+                                class="w-full h-full object-cover object-center">
+                        </a>
 
-                    <!-- Input box -->
-                    <input type="text" name="post_description"
-                        class="rounded-full border-gray-500 border h-12 pl-6 pr-14 ml-4 mr-10 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                        placeholder="Add a post" id="post_modal_opener_profile_page">
-
+                        <!-- Input box -->
+                        <input type="text" name="post_description"
+                            class="rounded-full border-gray-500 border h-12 focus:outline-none focus:ring-2 focus:ring-blue-500 w-[80%]"
+                            placeholder="Add a post" id="post_modal_opener_profile_page">
+                    </div>
                     <!-- Icons -->
-                    <div class="ml-4 flex items-center space-x-14 mr-4">
+                    <div class="flex items-center justify-around w-full md:w-3/5">
 
                         <!-- three icons -->
 
                         <!-- text_job_modal toggle -->
                         <button data-modal-target="text_job_modal_profile_page"
-                            data-modal-toggle="text_job_modal_profile_page" type="button"
-                            id="text_or_job_post_btn_profile_page">
+                        data-modal-toggle="text_job_modal_profile_page" type="button"
+                        id="text_or_job_post_btn_profile_page">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                 stroke-width="1.5" stroke="currentColor"
                                 class="w-6 h-6 cursor-pointer hover:text-stone-600">
@@ -45,8 +44,7 @@
                         </svg>
 
                         <!-- Modal toggle -->
-                        <button data-modal-target="post_modal_profile_page" data-modal-toggle="post_modal_profile_page"
-                            type="button">
+                        <button data-modal-target="post_modal_profile_page" data-modal-toggle="post_modal_profile_page" type="button">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                 stroke-width="1.5" stroke="currentColor"
                                 class="w-6 h-6 cursor-pointer hover:text-stone-600">

@@ -2,7 +2,7 @@
     <div class="flex gap-4">
         <a href="/profile/{{ $people['remember_token'] }}"
             class="w-12 border-2 border-stone-500 aspect-square rounded-[50%] overflow-hidden">
-            <img class="w-full h-full object-cover" src="{{ asset('/storage/' . $people['profile_picture']) }}"
+            <img class="w-full h-full object-cover object-center" src="{{ asset('/storage/' . $people['profile_picture']) }}"
                 alt="profile image">
         </a>
         <div class="flex flex-col justify-center select-none">

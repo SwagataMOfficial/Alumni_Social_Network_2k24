@@ -9,7 +9,7 @@
     <div class="flex items-start mb-2">
         <div class="flex-shrink-0 mt-1">
             <a href="/profile/{{ $userdetails['remember_token'] }}" class="block h-10 w-10 rounded-full overflow-hidden">
-                <img class="w-full h-full object-cover" src="{{ asset('/storage/' . $userdetails['profile_picture']) }}"
+                <img class="w-full h-full object-cover object-center" src="{{ asset('/storage/' . $userdetails['profile_picture']) }}"
                     alt="user profile">
             </a>
         </div>

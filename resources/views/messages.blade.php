@@ -60,7 +60,7 @@
                                 <a href="{{ route('messages', ['token' => $chat['get_friend']['remember_token']]) }}"
                                     class="px-4 flex items-center justify-between py-2 hover:bg-gray-300 cursor-pointer border-l-[3px] border-l-blue-500 bg-gray-200">
                                     <div class="flex items-center">
-                                        <img class="w-12 aspect-square object-cover rounded-[50%]"
+                                        <img class="w-12 aspect-square object-cover object-center rounded-[50%]"
                                             src="{{ asset('/storage/' . $chat['get_friend']['profile_picture']) }}"
                                             alt="profile image">
                                         <div class="ml-3">
@@ -72,7 +72,7 @@
                                 <a href="{{ route('messages', ['token' => $chat['get_friend']['remember_token']]) }}"
                                     class="px-4 flex items-center justify-between py-2 hover:bg-gray-300 cursor-pointer">
                                     <div class="flex items-center">
-                                        <img class="w-12 aspect-square object-cover rounded-[50%]"
+                                        <img class="w-12 aspect-square object-cover object-center rounded-[50%]"
                                             src="{{ asset('/storage/' . $chat['get_friend']['profile_picture']) }}"
                                             alt="profile image">
                                         <div class="ml-3">
@@ -110,7 +110,7 @@
                         {{-- header --}}
                         <div class="flex justify-between items-center border-b border-b-gray-300 px-8 pb-3">
                             <div class="flex items-center gap-5">
-                                <img class="w-12 aspect-square object-cover rounded-[50%]"
+                                <img class="w-12 aspect-square object-cover object-center rounded-[50%]"
                                     src=" {{ asset('/storage/' . $chats['get_chatted_to']['profile_picture']) }}"
                                     alt="profile image">
                                 <p class="text-2xl font-semibold">{{ $chats['get_chatted_to']['name'] }}</p>
@@ -254,7 +254,7 @@
                         {{-- header --}}
                         <div class="flex justify-between items-center border-b border-b-gray-300 px-8 pb-3">
                             <div class="flex items-center gap-5">
-                                <img class="w-12 aspect-square object-cover rounded-[50%]"
+                                <img class="w-12 aspect-square object-cover object-center rounded-[50%]"
                                     src=" {{ asset('/storage/' . $chats['get_chatted_by']['profile_picture']) }}"
                                     alt="profile image">
                                 <p class="text-2xl font-semibold">{{ $chats['get_chatted_by']['name'] }}</p>

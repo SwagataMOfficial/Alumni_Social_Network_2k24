@@ -4,39 +4,39 @@
 @endpush
 @section('main-section')
 
-    <div class="px-8 mx-auto pt-3 flex justify-center gap-10">
-        <div class="w-3/4 pb-3">
-            <div class="rounded-xl overflow-hidden relative mb-3 bg-white">
+    <div class="px-1 sm:px-8 mx-auto pt-3 flex justify-center gap-6 xl:gap-10">
+        <div class="w-full lg:w-3/4 pb-3">
+            <div class="rounded-xl overflow-hidden relative mb-3 bg-white flex flex-col md:block">
 
-                <img class="w-full h-40 object-cover" src="{{ asset('/storage/' . $user['cover_picture']) }}"
+                <img class="w-full h-36 md:h-40 object-cover object-center" src="{{ asset('/storage/' . $user['cover_picture']) }}"
                     alt="background image" id="profile-cover">
 
-                <img class="absolute top-16 left-8 z-10 w-32 aspect-square rounded-[50%] object-cover outline outline-white"
+                <img class="absolute top-16 max-[768px]:self-center md:left-8 z-10 w-32 aspect-square rounded-[50%] object-cover object-center outline outline-white"
                     src="{{ asset('/storage/' . $user['profile_picture']) }}" alt="profile picture" id="profile-picture">
 
                 <x-profilesection :details="$user" :friend="$friendStatus" :amifrind="$am_i_the_users_friend"/>
             </div>
             <div class="rounded-xl overflow-hidden bg-white pb-4 pt-2">
                 @if ($user['profile_visibility'] || $am_i_the_users_friend || $user['student_id'] == session()->get('user_id'))
-                    <nav class="pl-12 mt-4 flex gap-4" id="default-styled-tab"
+                    <nav class="px-4 sm:pl-12 mt-4 flex flex-wrap gap-4" id="default-styled-tab"
                         data-tabs-toggle="#default-styled-tab-content"
                         data-tabs-active-classes="bg-sky-200 hover:bg-lime-200 hover:border-green-500 border-cyan-500"
                         data-tabs-inactive-classes="bg-lime-200 border-green-500 hover:bg-sky-200 hover:border-cyan-500"
                         role="tablist">
 
-                        <button class="rounded-3xl border-2 font-semibold px-6 py-1" id="profile-styled-tab"
+                        <button class="rounded-3xl border-2 font-semibold px-4 sm:px-6 py-1 text-sm sm:text-base" id="profile-styled-tab"
                             data-tabs-target="#styled-profile" type="button" role="tab" aria-controls="profile"
                             aria-selected="false">About</button>
 
-                        <button class="rounded-3xl border-2 font-semibold px-6 py-1" id="dashboard-styled-tab"
+                        <button class="rounded-3xl border-2 font-semibold px-4 sm:px-6 py-1 text-sm sm:text-base" id="dashboard-styled-tab"
                             data-tabs-target="#styled-dashboard" type="button" role="tab" aria-controls="dashboard"
                             aria-selected="false">Posts</button>
 
-                        <button class="rounded-3xl border-2 font-semibold px-6 py-1" id="settings-styled-tab"
+                        <button class="rounded-3xl border-2 font-semibold px-4 sm:px-6 py-1 text-sm sm:text-base" id="settings-styled-tab"
                             data-tabs-target="#styled-settings" type="button" role="tab" aria-controls="settings"
                             aria-selected="false">Images</button>
 
-                        <button class="rounded-3xl border-2 font-semibold px-6 py-1" id="contacts-styled-tab"
+                        <button class="rounded-3xl border-2 font-semibold px-4 sm:px-6 py-1 text-sm sm:text-base" id="contacts-styled-tab"
                             data-tabs-target="#styled-contacts" type="button" role="tab" aria-controls="contacts"
                             aria-selected="false">Jobs</button>
                     </nav>
@@ -64,7 +64,7 @@
         </div>
 
         {{-- more peoples to follow section --}}
-        <div class="w-1/4 rounded-xl h-fit bg-white px-4 py-3">
+        <div class="w-1/4 rounded-xl h-fit bg-white px-4 py-3 hidden lg:block">
 
             {{-- adding common validation before showing the actual content --}}
             @if ($user['verified_at'] == null)

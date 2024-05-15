@@ -1,4 +1,4 @@
-<div class="relative bg-white rounded-lg overflow-hidden mx-8 shadow mb-2">
+<div class="relative bg-white rounded-lg overflow-hidden md:mx-8 shadow mb-2">
 
     <!-- Three-dot button -->
     <button id="btn_{{ $key }}" data-dropdown-toggle="dropdown_job_{{ $key }}"
@@ -27,10 +27,10 @@
     </div>
 
     <!-- Header -->
-    <div class="flex items-center space-x-4 pr-4 pl-2">
+    <div class="flex items-center space-x-4 pr-4 pl-2 max-[425px]:pt-2 pt-4">
         <a href="/profile/{{ $details['remember_token'] }}">
             <img src="{{ asset('/storage/' . $details['profile_picture']) }}" alt="Profile Picture"
-                class="h-16 aspect-square rounded-full object-cover">
+                class="max-[425px]:h-12 h-16 aspect-square rounded-full object-cover object-center">
         </a>
 
         @php
@@ -47,8 +47,8 @@
         @endphp
 
         <div class="px-2">
-            <h3 class="font-semibold text-gray-700 text-3xl">{{ $details['name'] }}</h3>
-            <p class="text-gray-500 text-lg">Posted {{ $timeAgo }}</p>
+            <h3 class="font-semibold text-gray-700 max-[425px]:text-xl text-2xl sm:text-3xl">{{ $details['name'] }}</h3>
+            <p class="text-gray-500 text-base sm:text-lg">Posted {{ $timeAgo }}</p>
         </div>
     </div>
 
@@ -146,7 +146,7 @@
             @csrf
             <div class="flex items-center px-3 py-2 bg-gray-50">
                 <img src="{{ asset('/storage/' . session()->get('user_profile_img')) }}" alt="profile"
-                    class="w-8 h-8 object-cover rounded-[50%]">
+                    class="w-8 h-8 object-cover object-center rounded-[50%]">
                 <label for="chat_{{ $key }}" class="sr-only">Your comment</label>
                 <input type="hidden" name="post_id" value="{{ $posts['post_id'] }}">
                 <textarea id="chat_{{ $key }}" rows="1"

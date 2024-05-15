@@ -1,9 +1,9 @@
 @if (count($details) != 0)
-    <div class="mx-16 mt-4 gap-6 grid grid-cols-4">
+    <div class="mx-4 lg:mx-16 mt-4 gap-6 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4">
         @foreach ($details as $index => $img)
             <button type="button" class="hover:opacity-90" data-modal-target="uploaded-image-modal-{{ $index }}"
                 data-modal-toggle="uploaded-image-modal-{{ $index }}">
-                <img class="w-auto aspect-square rounded-2xl object-cover" src="{{ asset('/storage/' . $img) }}"
+                <img class="w-auto aspect-square rounded-2xl object-cover object-center hover:object-contain" src="{{ asset('/storage/' . $img) }}"
                     alt="posted image">
             </button>
 
@@ -32,7 +32,7 @@
                         <!-- Modal body -->
                         <div class="p-4 md:p-5">
                             <img src="{{ asset('/storage/' . $img) }}" alt="uploaded image"
-                                class="object-cover w-[56rem] h-[32rem] rounded-lg">
+                                class="object-cover object-center w-[56rem] h-[32rem] rounded-lg">
                         </div>
                     </div>
                 </div>

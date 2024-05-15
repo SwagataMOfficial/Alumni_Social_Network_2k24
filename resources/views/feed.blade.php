@@ -196,11 +196,11 @@
                 <div class="relative rounded-lg flex justify-center">
                     <!-- Cover image  -->
                     <img src="{{ asset('/storage/' . $user['cover_picture']) }}" alt="cover"
-                        class="object-cover rounded-lg h-28 w-full">
+                        class="object-cover object-center rounded-lg h-28 w-full">
                     <a href="/profile/{{ $user['remember_token'] }}"
                         class="block w-28 aspect-square rounded-full absolute top-10 z-20 border-4 border-white">
                         <img src="{{ asset('/storage/' . $user['profile_picture']) }}" alt="Profile Picture"
-                            class="w-full h-full rounded-[50%] object-cover">
+                            class="w-full h-full rounded-[50%] object-cover object-center">
                     </a>
                 </div>
                 <!-- Texts -->
@@ -246,7 +246,7 @@
                         <a href="/profile/{{ $user['remember_token'] }}"
                             class="rounded-[50%] bg-gray-300 h-12 w-12 flex items-center justify-center overflow-hidden">
                             <img src="{{ asset('/storage/' . $user['profile_picture']) }}" alt="image"
-                                class="w-full h-full object-cover">
+                                class="w-full h-full object-cover object-center">
                         </a>
 
                         <!-- Input box -->
@@ -350,7 +350,7 @@
                                 <div class="flex gap-4">
                                     <a href="/profile/{{ $people['remember_token'] }}"
                                         class="w-12 border-2 border-stone-500 aspect-square rounded-[50%] overflow-hidden">
-                                        <img class="w-full h-full object-cover"
+                                        <img class="w-full h-full object-cover object-center"
                                             src="{{ asset('/storage/' . $people['profile_picture']) }}"
                                             alt="profile image">
                                     </a>

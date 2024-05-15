@@ -29,7 +29,7 @@
     <div class="flex items-center space-x-4 p-4">
         <a href="/profile/{{ $details['remember_token'] }}">
             <img src="{{ asset('/storage/' . $details['profile_picture']) }}" alt="Profile Picture"
-                class="h-10 w-10 rounded-full object-cover">
+                class="h-10 w-10 rounded-full object-cover object-center">
         </a>
 
         @php
@@ -98,7 +98,7 @@
                         data-carousel-prev>
                         <span
                             class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/30 group-hover:bg-white/50  group-focus:ring-4 group-focus:ring-white group-focus:outline-none">
-                            <svg class="w-4 h-4 text-white rtl:rotate-180" aria-hidden="true"
+                            <svg class="w-4 h-4 text-black rtl:rotate-180" aria-hidden="true"
                                 xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
                                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
                                     stroke-width="2" d="M5 1 1 5l4 4" />
@@ -111,7 +111,7 @@
                         data-carousel-next>
                         <span
                             class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/30  group-hover:bg-white/50  group-focus:ring-4 group-focus:ring-white  group-focus:outline-none">
-                            <svg class="w-4 h-4 text-white  rtl:rotate-180" aria-hidden="true"
+                            <svg class="w-4 h-4 text-black  rtl:rotate-180" aria-hidden="true"
                                 xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
                                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
                                     stroke-width="2" d="m1 9 4-4-4-4" />
@@ -217,7 +217,7 @@
             @csrf
             <div class="flex items-center px-3 py-2 bg-gray-50">
                 <img src="{{ asset('/storage/' . session()->get('user_profile_img')) }}" alt="profile"
-                    class="w-8 h-8 object-cover rounded-[50%]">
+                    class="w-8 h-8 object-cover object-center rounded-[50%]">
                 <label for="chat_{{ $key }}" class="sr-only">Your comment</label>
                 <input type="hidden" name="post_id" value="{{ $posts['post_id'] }}">
                 <textarea id="chat_{{ $key }}" rows="1"

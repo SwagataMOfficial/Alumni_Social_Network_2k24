@@ -18,9 +18,9 @@
                             <div
                                 class="rounded-xl bg-slate-200 overflow-hidden relative flex flex-col justify-start items-center">
                                 <img src="{{ asset('/storage/' . $data['cover_picture']) }}" alt="cover photo"
-                                    class="object-cover max-h-16 w-full">
+                                    class="object-cover object-center max-h-16 w-full">
                                 <a href="/profile/{{ $data['remember_token'] }}"
-                                    class="absolute top-7 w-20 aspect-square object-cover rounded-[50%] border-2 border-slate-600 overflow-hidden">
+                                    class="absolute top-7 w-20 aspect-square object-cover object-center rounded-[50%] outline outline-white overflow-hidden">
                                     <img src="{{ asset('/storage/' . $data['profile_picture']) }}" alt="profile photo"
                                         class="w-full h-full">
                                 </a>

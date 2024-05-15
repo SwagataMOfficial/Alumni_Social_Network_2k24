@@ -10,11 +10,9 @@
         <form action="{{ route('profile.search') }}" method="get" class="hidden min-[600px]:block">
             <input type="text" required placeholder="Search by name or ID .." name="search" id="search"
                 class="pl-4 pr-16 bg-blue-500 rounded-lg text-white focus:outline-none placeholder:text-white focus:ring-2 focus:ring-white"
-                
                 @isset($search)
-                    value="{{$search}}"
-                @endisset
-                >
+                    value="{{ $search }}"
+                @endisset>
         </form>
     </div>
     <!-- Right side: Navigation items -->
@@ -99,7 +97,7 @@
                 <div class="md:flex md:flex-col md:items-center">
                     <!-- Image  -->
                     <img src="{{ asset('/storage/' . session()->get('user_profile_img')) }}" alt="Profile Picture"
-                        class="rounded-full h-2 md:w-6 md:h-6">
+                        class="rounded-full h-2 md:w-6 md:h-6 object-cover object-center">
                     <span
                         class="block text-white hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-100 md:p-0">Profile</span>
                 </div>
@@ -160,18 +158,25 @@
     <form action="{{ route('profile.search') }}" method="get"
         class="w-full flex max-[425px]:flex-col justify-center items-center gap-2 min-[600px]:hidden">
         <input type="text" required placeholder="Search by name or ID .." name="search" id="search_res"
-            class="pl-4 pr-20 bg-blue-500 rounded-lg text-white focus:outline-none placeholder:text-white focus:ring-2 focus:ring-white w-9/12">
+            class="text-sm pl-4 pr-20 bg-blue-500 rounded-lg text-white focus:outline-none placeholder:text-white focus:ring-2 focus:ring-white w-9/12"
+            @isset($search)
+            value="{{ $search }}"
+        @endisset>
         <button type="submit"
             class="px-4 py-2 bg-gray-500 rounded-lg hover:bg-gray-600 focus:ring-2 focus:outline-none focus:ring-gray-800">Search</button>
     </form>
     <a href="{{ route('feed') }}" class="block px-4 py-2 max-[600px]:mt-2 hover:bg-blue-700">Home</a>
     <a href="{{ route('jobs') }}" class="block px-4 py-2 hover:bg-blue-700">Jobs</a>
     <a href="{{ route('friends') }}" class="block px-4 py-2 hover:bg-blue-700">Friends</a>
+    <a href="{{ route('myfriends') }}" class="block px-4 py-2 hover:bg-blue-700">Myfriends</a>
     <a href="{{ route('messages') }}" class="block px-4 py-2 hover:bg-blue-700">Message</a>
     <a href="{{ route('notifications') }}" class="block px-4 py-2 hover:bg-blue-700">Notification</a>
     <a href="{{ url('/') }}/profile/{{ session()->get('token') }}"
         class="block px-4 py-2 hover:bg-blue-700">Profile</a>
     <a href="{{ route('settings') }}" class="block px-4 py-2 hover:bg-blue-700">Settings</a>
+    <button data-modal-target="support-modal" data-modal-toggle="support-modal" id="help-and-support-responsive"
+        class="block px-4 py-2 hover:bg-blue-700 w-full text-center" type="button">Help & Support</button>
+    <a href="{{ route('auth.logout') }}" class="block px-4 py-2 hover:bg-blue-700">Logout</a>
 </div>
 <!-- Navbar End  -->
 

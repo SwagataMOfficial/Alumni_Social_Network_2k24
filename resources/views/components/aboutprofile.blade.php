@@ -1,9 +1,9 @@
-<div class="mt-4 mx-8 pb-2">
+<div class="mt-4 mx-3 sm:mx-8 pb-2">
     <h3 class="text-xl font-semibold mb-1">About Me</h3>
     <p class="text-md px-4">{{ $details['about'] != null ? $details['about'] : '-- --' }}</p>
 </div>
 
-<div class="mt-3 mx-8 py-2 border-t border-t-gray-400">
+<div class="mt-3 mx-3 sm:mx-8 py-2 border-t border-t-gray-400">
     <h3 class="text-xl font-semibold mb-1">Personal Information</h3>
     <p class="text-md px-4"><span class="font-medium">Date of Birth:
         </span>{{ $details['dob'] != null ? $details['dob'] : '-- --' }}</p>
@@ -22,7 +22,7 @@
     </p>
 </div>
 
-<div class="mt-3 mx-8 py-2 border-t border-t-gray-400">
+<div class="mt-3 mx-3 sm:mx-8 py-2 border-t border-t-gray-400">
     <h3 class="text-xl font-semibold mb-1">Academics</h3>
     <p class="text-md px-4"><span class="font-medium">College name:
         </span>{{ $details['education'] != null ? $details['education'] : '-- --' }}</p>
@@ -37,7 +37,7 @@
 </div>
 
 @if ($details['career_history'] != null)
-    <div class="mt-3 mx-8 py-2 border-t border-t-gray-400">
+    <div class="mt-3 mx-3 sm:mx-8 py-2 border-t border-t-gray-400">
         <h3 class="text-xl font-semibold mb-1">Academic history</h3>
         @php
             $histories = explode(',', $details['career_history']);
@@ -55,7 +55,7 @@
 @endif
 
 @if ($details['skills'] != null)
-    <div class="mx-8 py-2 border-t border-t-gray-400">
+    <div class="mx-3 sm:mx-8 py-2 border-t border-t-gray-400">
         <h3 class="text-xl font-semibold mb-1">Skills</h3>
         @php
             $skills = explode(',', $details['skills']);
@@ -68,7 +68,7 @@
     </div>
 @endif
 @if ($details['expertise'] != null)
-    <div class="mt-3 mx-8 py-2 border-t border-t-gray-400">
+    <div class="mt-3 mx-3 sm:mx-8 py-2 border-t border-t-gray-400">
         <h3 class="text-xl font-semibold mb-1">Expertise</h3>
         @php
             $expertise = explode(',', $details['expertise']);
@@ -82,7 +82,7 @@
 @endif
 
 @if ($details['first_company'] && $details['current_company'])
-    <div class="mt-3 mx-8 py-2 border-t border-t-gray-400">
+    <div class="mt-3 mx-3 sm:mx-8 py-2 border-t border-t-gray-400">
         <h3 class="text-xl font-semibold mb-1">Career Journey</h3>
 
         <ol class="relative border-s border-gray-600 mx-4 mt-3">
@@ -103,7 +103,7 @@
 @endif
 
 @if ($details['projects'] != null)
-    <div class="mt-3 mx-8 py-2 border-t border-t-gray-400">
+    <div class="mt-3 mx-3 sm:mx-8 py-2 border-t border-t-gray-400">
         <h3 class="text-xl font-semibold mb-1">Projects</h3>
         @php
             $projects = explode(',', $details['projects']);
@@ -117,7 +117,7 @@
 @endif
 
 @if ($details['publications'] != null)
-    <div class="mt-3 mx-8 py-2 border-t border-t-gray-400">
+    <div class="mt-3 mx-3 sm:mx-8 py-2 border-t border-t-gray-400">
         <h3 class="text-xl font-semibold mb-1">Publication</h3>
         @php
             $publications = explode(',', $details['publications']);
@@ -131,7 +131,7 @@
 @endif
 
 @if ($details['languages'] != null)
-    <div class="mt-3 mx-8 py-2 border-t border-t-gray-400">
+    <div class="mt-3 mx-3 sm:mx-8 py-2 border-t border-t-gray-400">
         <h3 class="text-xl font-semibold mb-1">Languages</h3>
         @php
             $languages = explode(',', $details['languages']);
@@ -152,11 +152,11 @@
         $details['linkedin_link']
 )
 
-    <div class="mt-3 mx-8 py-2 border-t border-t-gray-400">
+    <div class="mt-3 mx-3 sm:mx-8 py-2 border-t border-t-gray-400">
         <h3 class="text-xl font-semibold">Social Links</h3>
         <div class="flex gap-3 items-center pt-2 px-4">
             @if ($details['facebook_link'] != null)
-                <a href="{{ $details['facebook_link'] }}" target="_blank">
+                <a href="{{ $details['facebook_link'] }}" target="_blank" class="hover:opacity-70">
                     <svg viewBox="0 0 48 48" version="1.1" xmlns="http://www.w3.org/2000/svg" class="w-8 h-8"
                         xmlns:xlink="http://www.w3.org/1999/xlink" fill="#000000">
                         <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
@@ -178,7 +178,7 @@
             @endif
 
             @if ($details['instagram_link'] != null)
-                <a href="{{ $details['instagram_link'] }}" target="_blank">
+                <a href="{{ $details['instagram_link'] }}" target="_blank" class="hover:opacity-70">
                     <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-8 h-8">
                         <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
                         <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
@@ -231,7 +231,7 @@
             @endif
 
             @if ($details['github_link'] != null)
-                <a href="{{ $details['github_link'] }}" target="_blank">
+                <a href="{{ $details['github_link'] }}" target="_blank" class="hover:opacity-70">
                     <svg viewBox="0 -0.5 48 48" version="1.1" xmlns="http://www.w3.org/2000/svg"
                         xmlns:xlink="http://www.w3.org/1999/xlink" fill="#000000" class="w-8 h-8">
                         <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
@@ -253,7 +253,7 @@
             @endif
 
             @if ($details['twitter_link'] != null)
-                <a href="{{ $details['twitter_link'] }}" target="_blank">
+                <a href="{{ $details['twitter_link'] }}" target="_blank" class="hover:opacity-70">
                     <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-9 h-9">
                         <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
                         <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
@@ -268,7 +268,7 @@
             @endif
 
             @if ($details['linkedin_link'] != null)
-                <a href="{{ $details['linkedin_link'] }}" target="_blank">
+                <a href="{{ $details['linkedin_link'] }}" target="_blank" class="hover:opacity-70">
                     <svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" fill="none" class="w-9 h-9">
                         <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
                         <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
@@ -285,14 +285,14 @@
 @endif
 
 @if ($details['resume'] != null)
-    <div class="mt-3 mx-8 py-2 border-t border-t-gray-400">
+    <div class="mt-3 mx-3 sm:mx-8 py-2 border-t border-t-gray-400">
         <h3 class="text-xl font-semibold mb-3">Resume</h3>
         <div class="relative w-max">
             <button type="button"
                 class="rounded-xl overflow-hidden w-56 h-72 mx-4 focus:ring-2 focus:outline-none focus:ring-blue-800"
                 data-modal-target="resume-modal" data-modal-toggle="resume-modal">
                 <img src="{{ asset('/storage/' . $details['resume']) }}" alt="resume"
-                    class="object-cover w-full h-full hover:opacity-90">
+                    class="object-cover object-center hover:object-contain w-full h-full hover:opacity-90">
             </button>
             @if ($details['student_id'] == session()->get('user_id'))
                 <button type="button"
@@ -333,7 +333,7 @@
                 <!-- Modal body -->
                 <div class="p-4 md:p-5">
                     <img src="{{ asset('/storage/' . $details['resume']) }}" alt="resume"
-                        class="object-cover w-[30rem] h-[32rem] rounded-lg">
+                        class="object-cover object-center w-[30rem] h-[32rem] rounded-lg">
                 </div>
             </div>
         </div>
@@ -345,9 +345,9 @@
         $certificates = explode('||', $details['certificates']);
     @endphp
 
-    <div class="mt-3 mx-8 py-2 border-t border-t-gray-400">
+    <div class="mt-3 mx-3 sm:mx-8 py-2 border-t border-t-gray-400">
         <h3 class="text-xl font-semibold mb-3">Certificates</h3>
-        <div class="grid grid-cols-4 gap-4 px-4">
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 px-4">
             @foreach ($certificates as $index => $item)
                 <div class="rounded-xl relative">
                     <button type="button"
@@ -355,7 +355,7 @@
                         data-modal-target="certificate-modal-{{ $index }}"
                         data-modal-toggle="certificate-modal-{{ $index }}">
                         <img src="{{ asset('/storage/' . $item) }}" alt="certificate"
-                            class="object-cover w-full h-full rounded-xl hover:opacity-95">
+                            class="object-cover object-center hover:object-contain w-full h-full rounded-xl hover:opacity-95">
                     </button>
                     @if ($details['student_id'] == session()->get('user_id'))
                         <button type="button"
@@ -383,7 +383,7 @@
                     <!-- Modal header -->
                     <div class="flex items-center justify-between px-4 py-2 border-b rounded-t">
                         <h3 class="text-xl font-medium text-gray-900">
-                            Resume
+                            Certificate
                         </h3>
                         <button type="button"
                             class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center"
@@ -399,7 +399,7 @@
                     <!-- Modal body -->
                     <div class="p-4 md:p-5">
                         <img src="{{ asset('/storage/' . $item) }}" alt="resume"
-                            class="object-cover w-[56rem] h-[32rem] rounded-lg">
+                            class="object-cover object-center w-[56rem] h-[32rem] rounded-lg">
                     </div>
                 </div>
             </div>

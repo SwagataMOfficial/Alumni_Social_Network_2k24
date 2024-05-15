@@ -1,21 +1,27 @@
-<div class="flex justify-between pt-10 pb-8 px-8" id="user-details">
+<div class="flex flex-col md:flex-row gap-2 sm:gap-4 md:gap-0 justify-between pt-14 md:pt-10 pb-8 px-8" id="user-details">
     {{-- main user details --}}
     <div class="flex flex-col items-start gap-3" id="highlights">
-        <p class="text-4xl font-bold text-stone-600">{{ $details['name'] ? $details['name'] : '-- --' }}</p>
+        <p class="text-xl max-sm:text-center max-sm:w-full sm:text-3xl md:text-4xl font-bold text-stone-600">{{ $details['name'] ? $details['name'] : '-- --' }}</p>
         {{-- <p class="text-4xl font-bold text-stone-600">Username</p> --}}
         <p class="text-xl font-semibold text-stone-500">
             {{ $details['about'] ? $details['about'] : '-- --' }}
         </p>
         <div>
-            <p class="text-blue-700 font-bold">Friends: {{ $details['friends'] }}</p>
+            @if ($details['remember_token'] == session()->get('token'))
+                <a href="{{ route('myfriends') }}"
+                    class="text-xl text-blue-700 font-bold hover:underline hover:underline-offset-2">Friends:
+                    {{ $details['friends'] }}</a>
+            @else
+                <p class="text-xl text-blue-700 font-bold">Friends: {{ $details['friends'] }}</p>
+            @endif
         </div>
 
         {{-- if the profile is mine then don't show the buttons like add friend, etc --}}
         @if ($details['remember_token'] == session()->get('token'))
             <div class="flex gap-4">
                 <a href="{{ route('profile.edit') }}"
-                    class="rounded-3xl px-6 py-2 font-bold tracking-wide bg-blue-600 text-white hover:bg-blue-700 flex items-center gap-2 focus:ring-2 focus:outline-none focus:ring-blue-800">
-                    <span>Edit Profile</span>
+                    class="rounded-3xl px-4 sm:px-6 py-2 font-bold tracking-wide bg-blue-600 text-white hover:bg-blue-700 flex items-center gap-2 focus:ring-2 focus:outline-none focus:ring-blue-800">
+                    <span class="hidden sm:inline">Edit Profile</span>
                     <span>
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5">
                             <path
@@ -48,8 +54,8 @@
                     {{-- message and unfriend button will only appear if the user has that user as his/her friend --}}
                     <div class="flex gap-4">
                         <a href="{{ route('messages', ['token' => $details['remember_token']]) }}"
-                            class="rounded-3xl px-6 py-2 font-bold tracking-wide bg-green-600 text-white hover:bg-green-700 flex items-center gap-2 focus:ring-2 focus:outline-none focus:ring-green-800">
-                            <span>Message</span>
+                            class="rounded-3xl px-4 sm:px-6 py-2 font-bold tracking-wide bg-green-600 text-white hover:bg-green-700 flex items-center gap-2 focus:ring-2 focus:outline-none focus:ring-green-800">
+                            <span class="hidden sm:inline">Message</span>
                             <span>
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
                                     class="w-5 h-5">
@@ -61,8 +67,8 @@
                         </a>
                         <a href="javascript:void(0);"
                             data-remove-friend-link="{{ route('friend.remove', ['id' => $details['student_id']]) }}"
-                            class="rounded-3xl px-6 py-2 font-bold tracking-wide bg-red-600 text-white hover:bg-red-700 flex items-center gap-2 focus:ring-2 focus:outline-none focus:ring-red-800">
-                            <span>Unfriend</span>
+                            class="rounded-3xl px-4 sm:px-6 py-2 font-bold tracking-wide bg-red-600 text-white hover:bg-red-700 flex items-center gap-2 focus:ring-2 focus:outline-none focus:ring-red-800">
+                            <span class="hidden sm:inline">Unfriend</span>
                             <span>
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
                                     class="w-5 h-5">
@@ -74,8 +80,8 @@
                     </div>
                 @else
                     <div
-                        class="rounded-3xl px-6 py-2 font-bold tracking-wide bg-gray-400 text-gray-800 flex items-center gap-2">
-                        <span>Pending</span>
+                        class="rounded-3xl px-4 sm:px-6 py-2 font-bold tracking-wide bg-gray-400 text-gray-800 flex items-center gap-2">
+                        <span class="hidden sm:inline">Pending</span>
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5">
                             <path fill-rule="evenodd"
                                 d="M10 18a8 8 0 1 0 0-16 8 8 0 0 0 0 16Zm.75-13a.75.75 0 0 0-1.5 0v5c0 .414.336.75.75.75h4a.75.75 0 0 0 0-1.5h-3.25V5Z"
@@ -86,8 +92,8 @@
             @else
                 <a href="javascript:void(0);"
                     data-send-link="{{ route('friend.request', ['token' => $details['remember_token']]) }}"
-                    class="rounded-3xl px-6 py-2 font-bold tracking-wide bg-blue-600 text-white hover:bg-blue-700 flex items-center gap-2 focus:ring-2 focus:outline-none focus:ring-blue-800">
-                    <span>Add Friend</span>
+                    class="rounded-3xl px-4 sm:px-6 py-2 font-bold tracking-wide bg-blue-600 text-white hover:bg-blue-700 flex items-center gap-2 focus:ring-2 focus:outline-none focus:ring-blue-800">
+                    <span class="hidden sm:inline">Add Friend</span>
                     <span>
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5">
                             <path
@@ -99,20 +105,20 @@
         @endif
     </div>
     {{-- contact details --}}
-    <div class="pr-4" id="contact">
-        <p class="text-center text-stone-700 font-bold">Contact Information</p>
+    <div class="pr-4 md:w-2/5" id="contact">
+        <p class="text-center text-stone-700 font-bold text-xl max-[320px]:text-lg md:text-base">Contact Information</p>
         <div class="flex flex-col gap-4 mt-2 text-stone-600">
             {{-- card-1 --}}
             <div>
                 <div class="flex items-center justify-start">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
-                        class="w-5 h-5 text-xl">
+                        class="w-5 h-5 text-xl flex-grow-0 flex-shrink-0">
                         <path fill-rule="evenodd"
                             d="M2 3.5A1.5 1.5 0 0 1 3.5 2h1.148a1.5 1.5 0 0 1 1.465 1.175l.716 3.223a1.5 1.5 0 0 1-1.052 1.767l-.933.267c-.41.117-.643.555-.48.95a11.542 11.542 0 0 0 6.254 6.254c.395.163.833-.07.95-.48l.267-.933a1.5 1.5 0 0 1 1.767-1.052l3.223.716A1.5 1.5 0 0 1 18 15.352V16.5a1.5 1.5 0 0 1-1.5 1.5H15c-1.149 0-2.263-.15-3.326-.43A13.022 13.022 0 0 1 2.43 8.326 13.019 13.019 0 0 1 2 5V3.5Z"
                             clip-rule="evenodd" />
                     </svg>
 
-                    <span class="ml-3 text-sm font-semibold">
+                    <span class="ml-3 text-sm flex-1 font-semibold">
                         @if ($details['profile_visibility'] || $details['student_id'] == session()->get('user_id') || $amifrind)
                             {{ $details['phone'] ? $details['phone'] : '-- --' }}
                         @else
@@ -125,14 +131,14 @@
             <div>
                 <div class="flex items-center justify-start">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
-                        class="w-5 h-5 text-xl">
+                        class="w-5 h-5 text-xl flex-grow-0 flex-shrink-0">
                         <path
                             d="M3 4a2 2 0 0 0-2 2v1.161l8.441 4.221a1.25 1.25 0 0 0 1.118 0L19 7.162V6a2 2 0 0 0-2-2H3Z" />
                         <path
                             d="m19 8.839-7.77 3.885a2.75 2.75 0 0 1-2.46 0L1 8.839V14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V8.839Z" />
                     </svg>
 
-                    <span class="ml-3 text-sm font-semibold">
+                    <span class="ml-3 text-sm flex-1 font-semibold text-wrap">
                         @if ($details['profile_visibility'] || $details['student_id'] == session()->get('user_id') || $amifrind)
                             {{ $details['email'] ? $details['email'] : '-- --' }}
                         @else
@@ -145,13 +151,13 @@
             <div>
                 <div class="flex items-center justify-start">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
-                        class="w-5 h-5 text-xl">
+                        class="w-5 h-5 text-xl flex-grow-0 flex-shrink-0">
                         <path fill-rule="evenodd"
                             d="M9.293 2.293a1 1 0 0 1 1.414 0l7 7A1 1 0 0 1 17 11h-1v6a1 1 0 0 1-1 1h-2a1 1 0 0 1-1-1v-3a1 1 0 0 0-1-1H9a1 1 0 0 0-1 1v3a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-6H3a1 1 0 0 1-.707-1.707l7-7Z"
                             clip-rule="evenodd" />
                     </svg>
 
-                    <span class="ml-3 text-sm font-semibold">
+                    <span class="ml-3 text-sm flex-1 font-semibold">
                         @if ($details['profile_visibility'] || $details['student_id'] == session()->get('user_id') || $amifrind)
                             {{ $details['address'] ? $details['address'] : '-- --' }}
                         @else

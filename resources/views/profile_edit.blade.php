@@ -4,31 +4,33 @@
 @endpush
 @section('main-section')
     {{-- max-width container with left,right space --}}
-    <div class="px-8 mx-auto py-3">
-        <div class="flex flex-col items-center gap-3 relative" id="section-container">
+    <div class="px-4 sm:px-8 mx-auto py-3">
+        <div class="flex flex-col items-center gap-3" id="section-container">
 
             {{-- floating area to show the user ID --}}
-            <p
-                class="border border-gray-600 text-gray-900 text-lg rounded-lg focus:ring-blue-500 focus:border-blue-500 px-4 py-2 w-fit fixed top-[22] z-[70]">
-                <span class="font-semibold text-xl">Your ID: </span>{{ $user['student_id'] }}
-            </p>
+            <section class="bg-white w-full rounded-xl">
+                <p
+                    class="text-center text-gray-900 text-lg rounded-lg focus:ring-blue-500 focus:border-blue-500 px-4 py-2">
+                    <span class="font-semibold text-xl">Your ID: </span>{{ $user['student_id'] }}
+                </p>
+            </section>
             <section class="bg-white w-full rounded-xl">
                 <h1 class="text-stone-600 font-bold text-xl mx-5 my-2">Edit Profile and Cover Image</h1>
-                <form id="cover_and_profile_pic_edit_form" method="post" class="mx-12"
+                <form id="cover_and_profile_pic_edit_form" method="post" class="mx-6 sm:mx-12"
                     action="{{ route('profile.savechanges') }}" enctype="multipart/form-data">
                     @csrf
                     <div class="mb-5 flex items-center justify-center gap-10">
-                        <div class="flex items-center justify-center w-full h-40 rounded-xl relative"
+                        <div class="flex items-center justify-center w-full h-24 sm:h-40 rounded-xl relative"
                             style="background: url('/storage/{{ $user['cover_picture'] }}') no-repeat center center/cover;">
-                            <div class="relative w-36 aspect-square">
+                            <div class="relative w-20 sm:w-36 aspect-square">
                                 <img src="/storage/{{ $user['profile_picture'] }}" alt="profile"
                                     class="w-full h-full rounded-[50%] border-[3px] border-white">
                                 <input type="file" name="cover_picture" id="cover_picture" class="hidden"
                                     accept="image/jpeg,image/jpg,image/png,image/svg+xml">
                                 <label for="profile_picture"
-                                    class="bg-blue-600 p-3 rounded-xl text-white cursor-pointer absolute bottom-0 right-0 hover:scale-95 hover:bg-blue-800 duration-300">
+                                    class="bg-blue-600 p-2 sm:p-3 rounded-xl text-white cursor-pointer absolute bottom-0 right-0 hover:scale-95 hover:bg-blue-800 duration-300">
                                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
-                                        class="w-5 h-5">
+                                        class="w-4 sm:w-5 h-4 sm:h-5">
                                         <path fill-rule="evenodd"
                                             d="M1 8a2 2 0 0 1 2-2h.93a2 2 0 0 0 1.664-.89l.812-1.22A2 2 0 0 1 8.07 3h3.86a2 2 0 0 1 1.664.89l.812 1.22A2 2 0 0 0 16.07 6H17a2 2 0 0 1 2 2v7a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8Zm13.5 3a4.5 4.5 0 1 1-9 0 4.5 4.5 0 0 1 9 0ZM10 14a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z"
                                             clip-rule="evenodd" />
@@ -38,9 +40,9 @@
                             <input type="file" name="profile_picture" id="profile_picture" class="hidden"
                                 accept="image/jpeg,image/jpg,image/png,image/svg+xml">
                             <label for="cover_picture"
-                                class="bg-blue-600 p-3 rounded-xl text-white cursor-pointer absolute -bottom-4 -right-4 hover:scale-95 hover:bg-blue-800 duration-300">
+                                class="bg-blue-600 p-2 sm:p-3 rounded-xl text-white cursor-pointer absolute -bottom-4 -right-4 hover:scale-95 hover:bg-blue-800 duration-300">
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
-                                    class="w-5 h-5">
+                                    class="w-4 sm:w-5 h-4 sm:h-5">
                                     <path fill-rule="evenodd"
                                         d="M1 8a2 2 0 0 1 2-2h.93a2 2 0 0 0 1.664-.89l.812-1.22A2 2 0 0 1 8.07 3h3.86a2 2 0 0 1 1.664.89l.812 1.22A2 2 0 0 0 16.07 6H17a2 2 0 0 1 2 2v7a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8Zm13.5 3a4.5 4.5 0 1 1-9 0 4.5 4.5 0 0 1 9 0ZM10 14a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z"
                                         clip-rule="evenodd" />
@@ -59,27 +61,27 @@
                 <form id="edit_common_details_form" method="post" action="{{ route('profile.savechanges') }}">
                     @csrf
                     <div class="flex">
-                        <div class="mb-2 mx-10 w-full">
+                        <div class="mb-2 max-sm:mx-4 sm:mx-10 w-full">
                             <label for="name" class="block mb-2 text-sm font-medium text-gray-500">Name</label>
                             <input type="text" name="name" id="name" style="scroll-margin-top: 11rem;"
                                 class="border border-gray-600 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500 mx-3"
                                 placeholder="Edit Your Name" value="{{ $user['name'] }}">
                         </div>
-                        <div class="mb-2 mx-10 w-full">
+                        <div class="mb-2 max-sm:mx-4 max-sm:mr-8 sm:mx-10 w-full">
                             <label for="nickname" class="block mb-2 text-sm font-medium text-gray-500">Nickname</label>
                             <input type="text" name="nickname" id="nickname"
                                 class="border border-gray-600 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500 mx-3"
                                 value="{{ $user['nickname'] }}" placeholder="Edit Your Nickname">
                         </div>
                     </div>
-                    <div class="mb-2 mx-10">
+                    <div class="mb-2 ml-4 max-sm:mr-8 sm:mx-10">
                         <label for="about" class="block mb-2 text-sm font-medium text-gray-500">About me</label>
                         <textarea type="text" name="about" id="about"
                             class="border border-gray-600 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500 mx-3"
                             placeholder="Edit Your About">{{ $user['about'] }}</textarea>
                     </div>
 
-                    <div class="mb-2 mx-10">
+                    <div class="mb-2 ml-4 max-sm:mr-8 sm:mx-10">
                         <label for="dob" class="block mb-2 text-sm font-medium text-gray-500">Date of
                             Birth</label>
                         <input type="date" name="dob" id="dob"
@@ -122,20 +124,20 @@
                 <form id="edit_contact_details_form" method="post" action="{{ route('profile.savechanges') }}">
                     @csrf
                     <div class="flex">
-                        <div class="mb-2 mx-10 w-full">
+                        <div class="mb-2 max-sm:mx-4 sm:mx-10 w-full">
                             <label for="phone" class="block mb-2 text-sm font-medium text-gray-500">Phone</label>
                             <input type="tel" name="phone" id="phone" style="scroll-margin-top: 11rem;"
                                 class="border border-gray-600 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500 mx-3"
                                 placeholder="Edit Your Phone Number" value="{{ $user['phone'] }}">
                         </div>
-                        <div class="mb-2 mx-10 w-full">
+                        <div class="mb-2 max-sm:mx-4 max-sm:mr-8 sm:mx-10 w-full">
                             <label for="email" class="block mb-2 text-sm font-medium text-gray-500">Email</label>
                             <input type="email" name="email" id="email"
                                 class="border border-gray-600 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500 mx-3"
                                 placeholder="Edit Your Email" value="{{ $user['email'] }}" readonly>
                         </div>
                     </div>
-                    <div class="mb-2 mx-10">
+                    <div class="mb-2 ml-4 max-sm:mr-8 sm:mx-10">
                         <label for="address" class="block mb-2 text-sm font-medium text-gray-500">Address</label>
                         <textarea name="address" id="address" rows="3"
                             class="border border-gray-600 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500 mx-3"
@@ -154,7 +156,7 @@
                 <form id="edit_education_details_form" method="post" action="{{ route('profile.savechanges') }}">
                     @csrf
                     <div class="flex">
-                        <div class="mb-2 mx-10 w-full">
+                        <div class="mb-2 max-sm:mx-4 sm:mx-10 w-full">
                             <label for="graduation_year" class="block mb-2 text-sm font-medium text-gray-500">Edit
                                 Graduation
                                 Year</label>
@@ -174,7 +176,7 @@
                                 </option>
                             </select>
                         </div>
-                        <div class="mb-2 mx-10 w-full">
+                        <div class="mb-2 max-sm:mx-4 max-sm:mr-8 sm:mx-10 w-full">
                             <label for="degree" class="block mb-2 text-sm font-medium text-gray-500">Edit
                                 Degree</label>
                             <select name="degree" id="degree"
@@ -187,13 +189,13 @@
                             </select>
                         </div>
                     </div>
-                    <div class="mb-2 mx-10">
+                    <div class="mb-2 ml-4 max-sm:mr-8 sm:mx-10">
                         <label for="education" class="block mb-2 text-sm font-medium text-gray-500">Education</label>
                         <input type="text" name="education" id="education"
                             class="border border-gray-600 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500 mx-3"
                             placeholder="Edit School" value="{{ $user['education'] }}">
                     </div>
-                    <div class="mb-2 mx-10">
+                    <div class="mb-2 ml-4 max-sm:mr-8 sm:mx-10">
                         <label for="languages" class="block mb-2 text-sm font-medium text-gray-500">Languages</label>
                         <input type="text" name="languages" id="languages"
                             class="border border-gray-600 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500 mx-3"
@@ -212,13 +214,13 @@
                 <h1 class="text-stone-600 font-bold text-xl mx-5 my-2">Edit Skills</h1>
                 <form id="Edit_skills_form" method="post" action="{{ route('profile.savechanges') }}">
                     @csrf
-                    <div class="mb-2 mx-10">
+                    <div class="mb-2 ml-4 max-sm:mr-8 sm:mx-10">
                         <label for="skills" class="block mb-2 text-sm font-medium text-gray-500">Skills</label>
                         <input type="text" name="skills" id="skills" style="scroll-margin-top: 11rem;"
                             class="border border-gray-600 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500 mx-3"
                             placeholder="Ex: skills-1, skills-2, skills-3, skills-4, ..." value="{{ $user['skills'] }}">
                     </div>
-                    <div class="mb-2 mx-10">
+                    <div class="mb-2 ml-4 max-sm:mr-8 sm:mx-10">
                         <label for="expertise" class="block mb-2 text-sm font-medium text-gray-500">Expertise</label>
                         <input type="text" name="expertise" id="expertise"
                             class="border border-gray-600 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500 mx-3"
@@ -237,14 +239,14 @@
                 <h1 class="text-stone-600 font-bold text-xl mx-5 my-2">Edit Your Career</h1>
                 <form id="edit_your_career_form" method="post" action="{{ route('profile.savechanges') }}">
                     @csrf
-                    <div class="mb-2 mx-10">
+                    <div class="mb-2 ml-4 max-sm:mr-8 sm:mx-10">
                         <label for="career_history" class="block mb-2 text-sm font-medium text-gray-500">Your Career
                             History</label>
                         <input type="text" name="career_history" id="career_history" style="scroll-margin-top: 11rem;"
                             class="border border-gray-600 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500 mx-3"
                             placeholder="Ex: story 1, story 2, ...." value="{{ $user['career_history'] }}">
                     </div>
-                    <div class="mb-2 mx-10">
+                    <div class="mb-2 ml-4 max-sm:mr-8 sm:mx-10">
                         <label for="projects" class="block mb-2 text-sm font-medium text-gray-500">Your
                             Projects</label>
                         <input type="text" name="projects" id="projects"
@@ -253,14 +255,14 @@
                             value="{{ $user['projects'] }}">
                     </div>
                     <div class="flex">
-                        <div class="mb-2 mx-10 w-full">
+                        <div class="mb-2 max-sm:mx-4 sm:mx-10 w-full">
                             <label for="first_company" class="block mb-2 text-sm font-medium text-gray-500">Your First
                                 Company</label>
                             <input type="text" name="first_company" id="first_company" style="scroll-margin-top: 20rem;"
                                 class="border border-gray-600 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500 mx-3"
                                 placeholder="Edit your first company" value="{{ $user['first_company'] }}">
                         </div>
-                        <div class="mb-2 mx-10 w-full">
+                        <div class="mb-2 max-sm:mx-4 max-sm:mr-8 sm:mx-10 w-full">
                             <label for="current_company" class="block mb-2 text-sm font-medium text-gray-500">Your
                                 Current Company</label>
                             <input type="text" name="current_company" id="current_company"
@@ -268,7 +270,7 @@
                                 placeholder="Edit your current company" value="{{ $user['current_company'] }}">
                         </div>
                     </div>
-                    <div class="mb-2 mx-10">
+                    <div class="mb-2 ml-4 max-sm:mr-8 sm:mx-10">
                         <label for="publications" class="block mb-2 text-sm font-medium text-gray-500">Your
                             Publications</label>
                         <input type="text" name="publications" id="publications" style="scroll-margin-top: 25rem;"
@@ -276,7 +278,7 @@
                             placeholder="Ex: publication-1, publication-2, publication-3, publication-4, ..."
                             value="{{ $user['publications'] }}">
                     </div>
-                    <div class="mb-2 mx-10">
+                    <div class="mb-2 ml-4 max-sm:mr-8 sm:mx-10">
                         <label for="hostel" class="block mb-2 text-sm font-medium text-gray-500">Hostel</label>
                         <input type="text" name="hostel" id="hostel"
                             class="border border-gray-600 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500 mx-3"
@@ -294,7 +296,7 @@
                 <h1 class="text-stone-600 font-bold text-xl mx-5 my-2">Edit Links</h1>
                 <form id="edit_links_form" method="post" action="{{ route('profile.savechanges') }}">
                     @csrf
-                    <div class="mb-2 mx-10 flex items-center gap-1">
+                    <div class="mb-2 max-sm:ml-10 max-sm:mr-2 sm:mx-10 flex items-center gap-1">
                         <label for="facebook_link" class="block text-sm font-medium text-gray-500">
                             <svg viewBox="0 0 48 48" version="1.1" xmlns="http://www.w3.org/2000/svg" class="w-8 h-8"
                                 xmlns:xlink="http://www.w3.org/1999/xlink" fill="#000000">
@@ -319,7 +321,7 @@
                             class="border border-gray-600 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500 mx-3"
                             placeholder="Facebook link" value="{{ $user['facebook_link'] }}">
                     </div>
-                    <div class="mb-2 mx-10 flex items-center gap-1">
+                    <div class="mb-2 max-sm:ml-10 max-sm:mr-2 sm:mx-10 flex items-center gap-1">
                         <label for="instagram_link" class="block text-sm font-medium text-gray-500">
                             <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-8 h-8">
                                 <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
@@ -371,7 +373,7 @@
                             class="border border-gray-600 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500 mx-3"
                             placeholder="Instagram link"value="{{ $user['instagram_link'] }}">
                     </div>
-                    <div class="mb-2 mx-10 flex items-center gap-1">
+                    <div class="mb-2 max-sm:ml-10 max-sm:mr-2 sm:mx-10 flex items-center gap-1">
                         <label for="github_link" class="block text-sm font-medium text-gray-500">
                             <svg viewBox="0 -0.5 48 48" version="1.1" xmlns="http://www.w3.org/2000/svg"
                                 xmlns:xlink="http://www.w3.org/1999/xlink" fill="#000000" class="w-8 h-8">
@@ -396,7 +398,7 @@
                             class="border border-gray-600 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500 mx-3"
                             placeholder="Github link"value="{{ $user['github_link'] }}">
                     </div>
-                    <div class="mb-2 mx-10 flex items-center gap-1">
+                    <div class="mb-2 max-sm:ml-10 max-sm:mr-2 sm:mx-10 flex items-center gap-1">
                         <label for="twitter_link" class="block text-sm font-medium text-gray-500">
                             <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-9 h-9">
                                 <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
@@ -413,7 +415,7 @@
                             class="border border-gray-600 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500 mx-3"
                             placeholder="Twitter link"value="{{ $user['twitter_link'] }}">
                     </div>
-                    <div class="mb-2 mx-10 flex items-center gap-1">
+                    <div class="mb-2 max-sm:ml-10 max-sm:mr-2 sm:mx-10 flex items-center gap-1">
                         <label for="linkedin_link" class="block text-sm font-medium text-gray-500">
                             <svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" fill="none" class="w-9 h-9">
                                 <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
@@ -442,7 +444,7 @@
                 <form id="edit_documents_form" method="post" enctype="multipart/form-data"
                     action="{{ route('profile.savechanges') }}">
                     @csrf
-                    <div class="flex items-center justify-center px-32">
+                    <div class="flex items-center flex-col sm:flex-row sm:justify-evenly md:px-32">
                         @if (!$user['verified_at'])
                             <div class="px-4 py-2 w-full">
                                 <h3 class="font-semibold text-sm text-center">Upload Verification Document</h3>
