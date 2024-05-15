@@ -338,7 +338,7 @@ class AdminController extends Controller
             $value->getFriend->save();
         }
 
-        $friends = Friend::where('student_id','=', $user->student_id)->where('is_pending','=', '0')->delete();
+        $friends = Friend::where('student_id','=', $user->student_id)->orWhere('friend_id','=', $user->student_id)->delete();
 
         if (!$user) {
             return redirect()->back()->with('error', 'User not found.');
