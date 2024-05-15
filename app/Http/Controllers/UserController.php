@@ -204,47 +204,50 @@ class UserController extends Controller
 
     //forgot password ajax request
     public function forgotPassword(Request $request)
-    {
-        // Validate the request data
-        $request->validate([
-            'email' => 'required|email',
-        ], [
-            'email.required' => 'A valid email is required.',
-            'email.email' => 'A valid email is required.',
+{
+    // Validate the request data
+    $request->validate([
+        'email' => 'required|email',
+    ], [
+        'email.required' => 'A valid email is required.',
+        'email.email' => 'A valid email is required.',
+    ]);
+
+    // Check if the user with the provided email exists
+    $user = User::where('email', $request->email)->first();
+
+    if ($user) {
+        if ($user->deleted_acc == 1) {
+            // Return a specific error message if the user is banned
+            return response()->json(['error' => 'This user is banned from the platform and cannot receive a password reset link.'], 422);
+        }
+
+        // Generate a token for password reset (you might have your own logic for this)
+        $token = Str::random(60);
+
+        // Set expiration time for the token (e.g., 10 minutes)
+        $expiration = Carbon::now()->addMinutes(10)->toDateTimeString();
+
+        // Save the token and expiration time in the database for the user
+        $user->update([
+            'forget_token' => $token,
+            'forget_token_expire' => $expiration,
         ]);
 
-        // Check if the user with the provided email exists
-        $user = User::where('email', $request->email)->first();
+        $details = [
+            'body' => route('Reset_Password', ['email' => $request->email, 'token' => $token])
+        ];
 
-        if ($user) {
-            // Generate a token for password reset (you might have your own logic for this)
-            $token = Str::random(60);
+        // Send the password reset email
+        Mail::to($user->email)->send(new ForgotPassword($details));
 
-            // Set expiration time for the token (e.g., 10 minutes)
-            $expiration = Carbon::now()->addMinutes(10)->toDateTimeString();
-
-            // Save the token and expiration time in the database for the user
-            $user->update([
-                'forget_token' => $token,
-                'forget_token_expire' => $expiration,
-            ], ['student_id' => $user->student_id]);
-
-
-
-            $details = [
-                'body' => route('Reset_Password', ['email' => $request->email, 'token' => $token])
-            ];
-
-            // Send the password reset email
-            Mail::to($user->email)->send(new ForgotPassword($details));
-
-            // Return a success response
-            return response()->json(['message' => 'Password reset email sent successfully'], 200);
-        } else {
-            // If user with provided email does not exist, return an error response
-            return response()->json(['error' => 'User not found'], 404);
-        }
+        // Return a success response
+        return response()->json(['message' => 'Password reset email sent successfully'], 200);
+    } else {
+        // If user with provided email does not exist, return an error response
+        return response()->json(['error' => 'User not found'], 404);
     }
+}
     //reset/update password ajax request
     public function update_password(Request $request)
     {
@@ -346,22 +349,33 @@ class UserController extends Controller
 
     // Generate and send OTP
     public function sendOTP(Request $request)
-    {    // Send OTP to the provided email address
+    {
+        // Retrieve the email from the request
         $email = $request->input('email');
+    
         // Check if the email is already registered
         $existingUser = User::where('email', $email)->first();
+    
         if ($existingUser) {
-            return response()->json(['error' => 'Email is already registered.'], 422);
+            if ($existingUser->deleted_acc == 1) {
+                // Return a specific error message if the user is banned
+                return response()->json(['error' => 'User is banned from the platform.'], 422);
+            } else {
+                // Return an error message if the email is already registered
+                return response()->json(['error' => 'Email is already registered.'], 422);
+            }
         }
+    
         // Generate a random OTP
         $otp = mt_rand(100000, 999999);
-
+    
         // Store the OTP in session
         $request->session()->put('otp', $otp);
-
-
+    
+        // Send the OTP via email
         Mail::to($email)->send(new SendOTPMail($otp));
-
+    
+        // Return a success response
         return response()->json(['message' => 'OTP sent successfully'], 200);
     }
 
