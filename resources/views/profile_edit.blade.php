@@ -1,6 +1,16 @@
 @extends('layouts.main')
 @push('title')
     <title>{{ $user['name'] }} - Edit | Alumni Junction</title>
+    <style>
+        input[type=number]::-webkit-inner-spin-button, 
+        input[type=number]::-webkit-outer-spin-button { 
+            -webkit-appearance: none; 
+            margin: 0; 
+        }
+        input[type=number] {
+            -moz-appearance: textfield;
+        }
+    </style>
 @endpush
 @section('main-section')
     {{-- max-width container with left,right space --}}
@@ -126,7 +136,7 @@
                     <div class="flex">
                         <div class="mb-2 max-sm:mx-4 sm:mx-10 w-full">
                             <label for="phone" class="block mb-2 text-sm font-medium text-gray-500">Phone</label>
-                            <input type="tel" name="phone" id="phone" style="scroll-margin-top: 11rem;"
+                            <input type="number" name="phone" id="phone" style="scroll-margin-top: 11rem;"
                                 class="border border-gray-600 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500 mx-3"
                                 placeholder="Edit Your Phone Number" value="{{ $user['phone'] }}">
                         </div>
@@ -717,18 +727,18 @@
                             });
                         }
                     },
-                    error: function() {
+                    error: function(xhr, status, error) {
+                        let errors = JSON.parse(xhr.responseText);
                         Swal.fire({
                             icon: 'error',
-                            title: 'Failed to update contact details',
-                            text: 'Please try again later',
+                            title: errors.message,
                             showConfirmButton: false,
                             timer: 2000
                         });
                     },
                     complete: function() {
                         // Reset button text after AJAX request is complete
-
+                        $('#contact_details_btn').text('Save Changes');
                     }
                 });
             });

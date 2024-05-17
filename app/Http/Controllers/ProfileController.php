@@ -14,6 +14,15 @@ class ProfileController extends Controller {
      */
 
     public function save_changes(Request $request) {
+        // validating the request
+        if (array_key_exists('_token', $request->all())) {
+            $request->validate([
+                'phone' => 'regex:/^[0-9]{10}$/',
+            ], [
+                'phone.regex' => 'The phone number must be a 10-digit numeric value.',
+            ]);
+        }
+
         // creating an array to update
         $updateArr = $request->all();
 
@@ -118,7 +127,6 @@ class ProfileController extends Controller {
         $result = User::find(session()->get('user_id'))->update($updateArr);
 
         // preparating json response
-        // TODO: uncomment this lines
         if ($result) {
             return response()->json(['success' => true, 'message' => 'Profile Updated Successfully'], 200);
         }
