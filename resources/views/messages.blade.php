@@ -20,11 +20,11 @@
         $newDate = '';
         $isdaychanged = false;
     @endphp
-    <div class="px-8 mx-auto pt-3 flex justify-center gap-10">
+    <div class="px-2 sm:px-4 lg:px-8 mx-auto pt-3 flex justify-center gap-1 sm:gap-3 lg:gap-10">
         {{-- left navigation panel --}}
-        <div class="w-1/4 rounded-xl h-fit bg-white pt-3">
+        <div class="w-2/5 lg:w-1/4 rounded-xl h-fit bg-white pt-3">
             <h1 class="text-stone-700 font-semibold text-xl pb-2 px-5">Your Chats</h1>
-            <div class="max-w-md mx-auto border-b border-b-gray-300 px-5 pb-3 mb-3">
+            <div class="max-w-md mx-auto border-b border-b-gray-300 px-2 sm:px-4 lg:px-5 pb-3 mb-3">
                 <label for="profile_search" class="mb-2 text-sm font-medium text-gray-900 sr-only">Search</label>
                 <div class="relative">
                     <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
@@ -35,7 +35,7 @@
                         </svg>
                     </div>
                     <input type="search" id="profile_search" name="profile_search"
-                        class="block w-full ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500"
+                        class="block w-full ps-10 text-xs sm:text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500"
                         placeholder="Search your chats" required />
                 </div>
             </div>
@@ -58,25 +58,25 @@
                         @foreach ($allchats as $key => $chat)
                             @if ($chat['get_friend']['remember_token'] == $token)
                                 <a href="{{ route('messages', ['token' => $chat['get_friend']['remember_token']]) }}"
-                                    class="px-4 flex items-center justify-between py-2 hover:bg-gray-300 cursor-pointer border-l-[3px] border-l-blue-500 bg-gray-200">
+                                    class="px-2 md:px-4 flex items-center justify-between py-2 hover:bg-gray-300 cursor-pointer border-l-[3px] border-l-blue-500 bg-gray-200">
                                     <div class="flex items-center">
-                                        <img class="w-12 aspect-square object-cover object-center rounded-[50%]"
+                                        <img class="w-7 sm:w-9 lg:w-12 aspect-square object-cover object-center rounded-[50%]"
                                             src="{{ asset('/storage/' . $chat['get_friend']['profile_picture']) }}"
                                             alt="profile image">
                                         <div class="ml-3">
-                                            <p class="font-semibold text-lg">{{ $chat['get_friend']['name'] }}</p>
+                                            <p class="font-semibold text-sm sm:text-base lg:text-lg">{{ $chat['get_friend']['name'] }}</p>
                                         </div>
                                     </div>
                                 </a>
                             @else
                                 <a href="{{ route('messages', ['token' => $chat['get_friend']['remember_token']]) }}"
-                                    class="px-4 flex items-center justify-between py-2 hover:bg-gray-300 cursor-pointer">
+                                    class="px-2 md:px-4 flex items-center justify-between py-2 hover:bg-gray-300 cursor-pointer">
                                     <div class="flex items-center">
-                                        <img class="w-12 aspect-square object-cover object-center rounded-[50%]"
+                                        <img class="w-7 sm:w-9 lg:w-12 aspect-square object-cover object-center rounded-[50%]"
                                             src="{{ asset('/storage/' . $chat['get_friend']['profile_picture']) }}"
                                             alt="profile image">
                                         <div class="ml-3">
-                                            <p class="font-semibold text-lg">{{ $chat['get_friend']['name'] }}</p>
+                                            <p class="font-semibold text-sm sm:text-base lg:text-lg">{{ $chat['get_friend']['name'] }}</p>
                                         </div>
                                     </div>
                                 </a>
@@ -90,10 +90,10 @@
         </div>
 
         {{-- right main settings option --}}
-        <div class="w-3/4">
+        <div class="lg:w-3/4">
             @if ($token == null)
                 <section class="rounded-xl overflow-hidden bg-white h-[85dvh] pt-4 flex items-center justify-center">
-                    <p class="text-5xl font-semibold">Select a chat to continue...</p>
+                    <p class="text-5xl font-semibold text-center">Select a chat to continue...</p>
                 </section>
             @else
                 <section class="rounded-xl overflow-hidden bg-gray-100 pt-4">
@@ -113,7 +113,7 @@
                                 <img class="w-12 aspect-square object-cover object-center rounded-[50%]"
                                     src=" {{ asset('/storage/' . $chats['get_chatted_to']['profile_picture']) }}"
                                     alt="profile image">
-                                <p class="text-2xl font-semibold">{{ $chats['get_chatted_to']['name'] }}</p>
+                                <p class="text-lg sm:text-xl lg:text-2xl font-semibold">{{ $chats['get_chatted_to']['name'] }}</p>
                             </div>
 
                             {{-- options icon --}}
@@ -167,7 +167,7 @@
                                     @endif
                                     @if ($message['my_message'] != null)
                                         <!-- my messages -->
-                                        <div class="flex items-end justify-end relative">
+                                        <div class="flex items-end justify-end relative pl-8">
                                             <div class="relative mr-2">
                                                 <div
                                                     class="bg-blue-500 text-white rounded-lg px-3 py-2 flex flex-col max-w-[30rem]">
@@ -192,7 +192,7 @@
                                         </div>
                                     @else
                                         <!-- Recipient's messages -->
-                                        <div class="flex items-start relative ml-2">
+                                        <div class="flex items-start relative ml-2 pr-8">
                                             <div class="relative flex items-center justify-center">
                                                 <div
                                                     class="bg-gray-500 text-white rounded-lg px-3 py-2 flex flex-col max-w-[30rem]">
@@ -257,7 +257,7 @@
                                 <img class="w-12 aspect-square object-cover object-center rounded-[50%]"
                                     src=" {{ asset('/storage/' . $chats['get_chatted_by']['profile_picture']) }}"
                                     alt="profile image">
-                                <p class="text-2xl font-semibold">{{ $chats['get_chatted_by']['name'] }}</p>
+                                <p class="text-lg sm:text-xl lg:text-2xl font-semibold">{{ $chats['get_chatted_by']['name'] }}</p>
                             </div>
 
                             {{-- options icon --}}
@@ -312,7 +312,7 @@
 
                                     @if ($message['user_message'] != null)
                                         <!-- my messages -->
-                                        <div class="flex items-end justify-end relative">
+                                        <div class="flex items-end justify-end relative pl-8">
                                             <div class="relative mr-2">
                                                 <div
                                                     class="bg-blue-500 text-white rounded-lg px-3 py-2 flex flex-col max-w-[30rem]">
@@ -337,7 +337,7 @@
                                         </div>
                                     @else
                                         <!-- Recipient's messages -->
-                                        <div class="flex items-start relative ml-2">
+                                        <div class="flex items-start relative ml-2 pr-8">
                                             <div class="relative flex items-center justify-center">
                                                 <div
                                                     class="bg-gray-500 text-white rounded-lg px-3 py-2 flex flex-col max-w-[30rem]">
@@ -507,11 +507,11 @@
                 var formattedTime = hour + ':' + minutes + ' ' + amOrPm;
 
                 if (e.userid == {{session()->get('user_id')}}) {
-                    let mymessage = `<div class="flex items-end justify-end relative"><div class="relative mr-2"><div class="bg-blue-500 text-white rounded-lg px-3 py-2 flex flex-col max-w-[30rem]"><p class="text-lg pr-10 text-wrap">${e.message}</p><p class="text-lg self-end">${formattedTime}</p></div><span class="absolute -right-5 top-5"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-8 h-8 text-blue-500"><path fill-rule="evenodd" d="M4.5 5.653c0-1.427 1.529-2.33 2.779-1.643l11.54 6.347c1.295.712 1.295 2.573 0 3.286L7.28 19.99c-1.25.687-2.779-.217-2.779-1.643V5.653Z" clip-rule="evenodd" /></svg></span></div></div>`;
+                    let mymessage = `<div class="flex items-end justify-end relative pl-8"><div class="relative mr-2"><div class="bg-blue-500 text-white rounded-lg px-3 py-2 flex flex-col max-w-[30rem]"><p class="text-lg pr-10 text-wrap">${e.message}</p><p class="text-lg self-end">${formattedTime}</p></div><span class="absolute -right-5 top-5"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-8 h-8 text-blue-500"><path fill-rule="evenodd" d="M4.5 5.653c0-1.427 1.529-2.33 2.779-1.643l11.54 6.347c1.295.712 1.295 2.573 0 3.286L7.28 19.99c-1.25.687-2.779-.217-2.779-1.643V5.653Z" clip-rule="evenodd" /></svg></span></div></div>`;
                     $("#messageContainer").append(mymessage);
                     scrollToBottom();
                 } else {
-                    let usermessage = `<div class="flex items-start relative ml-2"><div class="relative flex items-center justify-center"><div class="bg-gray-500 text-white rounded-lg px-3 py-2 flex flex-col max-w-[30rem]"><p class="text-lg pr-10 text-wrap">${e.message}</p><p class="text-lg self-end">${formattedTime}</p></div><span class="absolute -left-5 top-5 rotate-180"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-8 h-8 text-gray-500"><path fill-rule="evenodd" d="M4.5 5.653c0-1.427 1.529-2.33 2.779-1.643l11.54 6.347c1.295.712 1.295 2.573 0 3.286L7.28 19.99c-1.25.687-2.779-.217-2.779-1.643V5.653Z" clip-rule="evenodd" /></svg></span></div></div>`;
+                    let usermessage = `<div class="flex items-start relative ml-2 pr-8"><div class="relative flex items-center justify-center"><div class="bg-gray-500 text-white rounded-lg px-3 py-2 flex flex-col max-w-[30rem]"><p class="text-lg pr-10 text-wrap">${e.message}</p><p class="text-lg self-end">${formattedTime}</p></div><span class="absolute -left-5 top-5 rotate-180"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-8 h-8 text-gray-500"><path fill-rule="evenodd" d="M4.5 5.653c0-1.427 1.529-2.33 2.779-1.643l11.54 6.347c1.295.712 1.295 2.573 0 3.286L7.28 19.99c-1.25.687-2.779-.217-2.779-1.643V5.653Z" clip-rule="evenodd" /></svg></span></div></div>`;
                     $("#messageContainer").append(usermessage);
                     scrollToBottom();
                 }
