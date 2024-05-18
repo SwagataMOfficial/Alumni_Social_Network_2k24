@@ -359,8 +359,8 @@
                                         <p class="text-xs font-medium text-stone-500">
                                             {{-- Student at techno idnia hooghly --}}
                                             @if ($people['about'] != null)
-                                                @if (strlen($people['about']) > 35)
-                                                    {{ substr($people['about'], 0, 35) }}{{ '....' }}
+                                                @if (strlen($people['about']) > 25)
+                                                    {{ substr($people['about'], 0, 25) }}{{ '....' }}
                                                 @else
                                                     {{ $people['about'] }}
                                                 @endif

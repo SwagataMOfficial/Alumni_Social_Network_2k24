@@ -12,36 +12,51 @@ class UserSeeder extends Seeder {
      * Run the database seeds.
      */
     public function run(): void {
-        $faker = Faker::create();
+        $faker = Faker::create("en_IN");
 
-        // User::create([
-        //     'student_id' => '2115230110',
-        //     'name' => 'Swagata Mukherjee',
-        //     'email' => 'attendancesystem24x66@gmail.com',
-        //     'password' => bcrypt('attendance'),
-        //     'graduation_year' => '2024',
-        //     'degree' => 'BCA',
-        //     'profile_picture' => "default/avatar.jpg",
-        //     'cover_picture' => 'default/cover.png',
-        //     'verification_document' => 'v_doc.img',
-        //     'remember_token' => md5('2115230110' . 'attendancesystem24x66@gmail.com')
-        // ]);
+        $years = array('2020', '2021', '2022', '2023', '2024');
+        $degrees = array('BCA', 'BBA', 'MCA');
+        $genders = array('M', 'F', 'O');
 
-        for ($i = 1; $i <= 5; $i++) {
-            $id = '15201221' . $faker->numberBetween(100, 999);
+        $y = count($years);
+        $d = count($degrees);
+        $g = count($genders);
+
+        for ($i = 1; $i <= 100; $i++) {
             User::create([
-                'student_id' => $id,
+                'student_id' => $i,
                 'name' => $faker->name,
                 'email' => 'alumni20x' . $i . '@gmail.com',
+                'phone' => $faker->numberBetween(1000000000, 9999999999),
+                'dob' => $faker->date($format = 'Y-m-d', $max = 'now'),
+                'gender' => $genders[$i % $g],
+                'address' => $faker->address,
                 'password' => bcrypt('123456'),
-                'graduation_year' => '2020',
-                'degree' => 'BCA',
+                'graduation_year' => $years[$i % $y],
+                'degree' => $degrees[$i % $d],
                 'profile_picture' => "default/avatar.jpg",
                 'cover_picture' => 'default/cover.png',
+                'about' => "Student at Techno India Hooghly",
+                'languages' => "Bengali, English, Hindi",
+                'skills' => "Communication skills, writing skills, coding skills, public speaking skills",
+                'expertise' => "C, Java, Python, PHP, Javascript",
+                'education' => "Harvard University",
+                'career_history' => "4 month internship at TCS, spent 2 years at Deloitte, Now working at Microsoft",
+                'projects' => "Minor project, Major project",
+                'publications' => "Publication1, Publication2, Publication3, Publication4",
+                'hostel' => "My hostel",
+                'first_company' => $faker->company,
+                'current_company' => $faker->company,
+                'facebook_link' => $faker->url,
+                'instagram_link' => $faker->url,
+                'twitter_link' => $faker->url,
+                'github_link' => $faker->url,
+                'linkedin_link' => $faker->url,
+                'nickname' => $faker->firstName,
                 'verification_document' => 'default/v_doc.jpg',
-                'remember_token' => md5($id . 'alumni20x'. $i .'@gmail.com')
+                'remember_token' => md5($i . 'alumni20x' . $i . '@gmail.com'),
+                'verified_at' => now()
             ]);
         }
-
     }
 }
