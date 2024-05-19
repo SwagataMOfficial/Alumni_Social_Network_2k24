@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Friend;
 use Carbon\Carbon;
 use App\Models\User;
 use App\Models\Admin;
+use App\Models\Friend;
 use App\Models\Support;
 use App\Models\Userpost;
 use App\Mail\SupportReply;
@@ -397,7 +397,7 @@ class AdminController extends Controller
             ->join('users', 'supports.student_id', '=', 'users.student_id')
             ->whereNotNull('supports.query')
             ->whereNull('supports.reply')
-            ->where('ban_acc', '=', '0')
+            //->where('ban_acc', '=', '0')
             ->distinct()
             ->get();
 
@@ -905,7 +905,7 @@ class AdminController extends Controller
             ->join('users', 'supports.student_id', '=', 'users.student_id')
             ->whereNotNull('supports.query')
             ->whereNull('supports.reply')
-            ->where('ban_acc', '=', '0')
+            //->where('ban_acc', '=', '0')
             ->distinct()
             ->get();
 
