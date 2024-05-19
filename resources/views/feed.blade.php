@@ -85,7 +85,7 @@
                                     <textarea id="description" rows="4" name="post_description"
                                         class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500"
                                         placeholder="Write Job Description Here...." required></textarea>
-                                    <p class="mt-2 text-xs text-gray-400"><span class="font-bold">Note: </span>Please do not
+                                    <p class="mt-2 text-xs text-gray-500"><span class="font-bold">Note: </span>Please do not
                                         enter the registration link in the description field. Enter the registration link in
                                         the
                                         link field.</p>

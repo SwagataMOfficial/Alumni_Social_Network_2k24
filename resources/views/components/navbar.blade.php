@@ -19,9 +19,9 @@
     <div class="hidden lg:flex items-center gap-6 xl:gap-8">
         <!-- Navigation items -->
         <!-- Home section  -->
-        <a href="{{ route('feed') }}" class="text-white hover:text-gray-300 focus:outline-none">
+        <a href="{{ route('feed') }}" class="focus:outline-none {{Request::is('feed') ? "underline underline-offset-8 decoration-4 decoration-yellow-400 hover:decoration-blue-200" : ""}}">
             <span
-                class="flex flex-col items-center justify-center py-2 px-3 text-white rounded md:bg-transparent md:p-0 hover:text-blue-100"
+                class="flex flex-col items-center justify-center py-2 px-3 {{Request::is('feed') ? "text-yellow-400" : "text-white"}} rounded md:bg-transparent md:p-0 hover:text-blue-200"
                 aria-current="page">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
                     <path
@@ -32,10 +32,10 @@
                 <span class="">Home</span>
             </span>
         </a>
-        <!-- jpb section  -->
-        <a href="{{ route('jobs') }}" class="text-white hover:text-gray-300 focus:outline-none">
+        <!-- job section  -->
+        <a href="{{ route('jobs') }}" class="focus:outline-none {{Request::is('jobs') ? "underline underline-offset-8 decoration-4 decoration-yellow-400 hover:decoration-blue-200" : ""}}">
             <span
-                class="flex flex-col items-center justify-center py-2 px-3 text-white rounded md:bg-transparent md:p-0 hover:text-blue-100"
+                class="flex flex-col items-center justify-center py-2 px-3 {{Request::is('jobs') ? "text-yellow-400" : "text-white"}} rounded md:bg-transparent md:p-0 hover:text-blue-200"
                 aria-current="page">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
                     <path fill-rule="evenodd"
@@ -48,9 +48,9 @@
             </span>
         </a>
         <!-- Friends section  -->
-        <a href="{{ route('friends') }}" class="text-white hover:text-gray-300 focus:outline-none">
+        <a href="{{ route('friends') }}" class="focus:outline-none {{Request::is('friends') ? "underline underline-offset-8 decoration-4 decoration-yellow-400 hover:decoration-blue-200" : ""}}">
             <span
-                class="flex flex-col items-center justify-center py-2 px-3 text-white rounded md:bg-transparent md:p-0 hover:text-blue-100"
+                class="flex flex-col items-center justify-center py-2 px-3 {{Request::is('friends') ? "text-yellow-400" : "text-white"}} rounded md:bg-transparent md:p-0 hover:text-blue-200"
                 aria-current="page">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
                     <path fill-rule="evenodd"
@@ -61,9 +61,9 @@
             </span>
         </a>
         <!-- Message section  -->
-        <a href="{{ route('messages') }}" class="text-white hover:text-gray-300 focus:outline-none">
+        <a href="{{ route('messages') }}" class="focus:outline-none {{Request::is('messages') || Request::is('messages/*') ? "underline underline-offset-8 decoration-4 decoration-yellow-400 hover:decoration-blue-200" : ""}}">
             <span
-                class="flex flex-col items-center justify-center py-2 px-3 text-white rounded md:bg-transparent md:p-0 hover:text-blue-100"
+                class="flex flex-col items-center justify-center py-2 px-3 {{Request::is('messages') || Request::is('messages/*') ? "text-yellow-400" : "text-white"}} rounded md:bg-transparent md:p-0 hover:text-blue-200"
                 aria-current="page">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
                     <path fill-rule="evenodd"
@@ -74,9 +74,9 @@
             </span>
         </a>
         <!-- Notification section -->
-        <a href="{{ route('notifications') }}" class="text-white hover:text-gray-300 focus:outline-none">
+        <a href="{{ route('notifications') }}" class="focus:outline-none {{Request::is('notifications') ? "underline underline-offset-8 decoration-4 decoration-yellow-400 hover:decoration-blue-200" : ""}}">
             <span
-                class="relative flex flex-col items-center justify-center py-2 px-3 text-white rounded md:bg-transparent md:p-0 hover:text-blue-100"
+                class="relative flex flex-col items-center justify-center py-2 px-3 {{Request::is('notifications') ? "text-yellow-400" : "text-white"}} rounded md:bg-transparent md:p-0 hover:text-blue-200"
                 aria-current="page">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
                     <path
@@ -92,14 +92,14 @@
         </a>
 
         <button id="profileBtn" data-dropdown-toggle="dropdownOptions"
-            class="text-white hover:text-gray-300 focus:outline-none">
+            class="{{Request::is('profile/*') &&!Request::is('profile/users/*') ? "text-yellow-400" : "text-white"}} hover:text-gray-300 focus:outline-none {{Request::is('profile/*') &&!Request::is('profile/users/*')  ? "underline underline-offset-8 decoration-4 decoration-yellow-400 hover:decoration-blue-200" : ""}}">
             <div class="md:flex md:flex-col md:items-center" type="button">
                 <div class="md:flex md:flex-col md:items-center">
                     <!-- Image  -->
                     <img src="{{ asset('/storage/' . session()->get('user_profile_img')) }}" alt="Profile Picture"
                         class="rounded-full h-2 md:w-6 md:h-6 object-cover object-center">
                     <span
-                        class="block text-white hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-100 md:p-0">Profile</span>
+                        class="block hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-200 md:p-0">Profile</span>
                 </div>
         </button>
 
@@ -129,9 +129,9 @@
         </div>
 
         <!-- Settings section -->
-        <a href="{{ route('settings') }}" class="text-white hover:text-gray-300 focus:outline-none">
+        <a href="{{ route('settings') }}" class="focus:outline-none {{Request::is('settings') ? "underline underline-offset-8 decoration-4 decoration-yellow-400 hover:decoration-blue-200" : ""}}">
             <span
-                class="flex flex-col items-center justify-center py-2 px-3 text-white rounded md:bg-transparent md:p-0 hover:text-blue-100"
+                class="flex flex-col items-center justify-center py-2 px-3 {{Request::is('settings') ? "text-yellow-400" : "text-white"}} rounded md:bg-transparent md:p-0 hover:text-blue-200"
                 aria-current="page">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
                     <path fill-rule="evenodd"
