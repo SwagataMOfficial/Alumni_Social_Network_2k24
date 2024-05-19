@@ -888,7 +888,7 @@ class AdminController extends Controller
                 'notified_to' => $user->student_id,
                 'n_description' => 'We regret to inform you that your verification document has been rejected by our admin team. We kindly ask you to re-upload the document according to the provided guidelines.',
                 'type' => 'verification_doc',
-                'url' => route('notifications'), // Adjust the URL as needed
+                'url' => "http://127.0.0.1:8000/profile/edit#documents_upload_section", // Adjust the URL as needed
                 'created_at' => now(),
                 'updated_at' => now()
             ]);
