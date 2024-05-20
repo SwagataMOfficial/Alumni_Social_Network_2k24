@@ -180,7 +180,7 @@ class ViewsController extends Controller {
         $am_i_the_users_friend = false;
         foreach ($user->toArray()['get_friends'] as $friend) {
             // filtering friend request cases
-            if ($user['is_pending'] != '1') {
+            if ($friend['is_pending'] != 1) {
                 if ($friend['friend_id'] == session()->get('user_id')) {
                     $am_i_the_users_friend = true;
                 }
