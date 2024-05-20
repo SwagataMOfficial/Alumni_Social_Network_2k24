@@ -90,7 +90,7 @@
         </div>
 
         {{-- right main settings option --}}
-        <div class="lg:w-3/4">
+        <div class="w-3/5 lg:w-3/4">
             @if ($token == null)
                 <section class="rounded-xl overflow-hidden bg-white h-[85dvh] pt-4 flex items-center justify-center">
                     <p class="text-5xl font-semibold text-center">Select a chat to continue...</p>
