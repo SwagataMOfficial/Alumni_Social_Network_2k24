@@ -60,12 +60,13 @@
                                                             <div class="position-relative">
                                                                 <!-- Assuming $user['profile_picture'] exists -->
                                                                 <img src="{{ asset('/storage/' . $user['profile_picture']) }}"
-                                                                    alt="Profile Pic" class="rounded-circle mr-1"
-                                                                    width="50">
+                                                                    alt="Profile Pic" class="rounded-circle mr-2"
+                                                                    width="50" height="50"
+                                                                    style="object-fit: cover; object-position: center;">
                                                             </div>
                                                             <!-- Display post content -->
                                                             <span class="card-text"
-                                                                style="font-size: 16px">{{ $post->post_description }}</span>
+                                                                style="font-size: 20px">{{ $post->post_description }}</span>
                                                         </div>
                                                         <!-- Additional post details based on post type -->
                                                         @if ($post->post_type == 'post' && $post->attachment)

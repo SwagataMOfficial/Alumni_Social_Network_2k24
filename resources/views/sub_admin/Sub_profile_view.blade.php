@@ -55,12 +55,13 @@
                                                     <div class="d-flex align-items-center mb-3">
                                                         <div class="position-relative">
                                                             <img src="{{ asset('/storage/' . $user['profile_picture']) }}"
-                                                                alt="Profile Pic" class="rounded-circle mr-1"
-                                                                width="50">
+                                                                alt="Profile Pic" class="rounded-circle mr-2"
+                                                                width="50" height="50"
+                                                                style="object-fit: cover; object-position: center;">
                                                         </div>
                                                         <!-- contents written -->
                                                         <span class="card-text"
-                                                            style="font-size: 16px">{{ $post->post_description }}</span>
+                                                            style="font-size: 20px">{{ $post->post_description }}</span>
                                                     </div>
                                                     @if ($post->post_type == 'post')
                                                         @if ($post->attachment)
