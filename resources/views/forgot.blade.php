@@ -11,6 +11,8 @@
     background-position: center;
     background-repeat: no-repeat;
     backdrop-filter: blur(1px);">
+     <img src="{{ asset('images/reg_brand_logo.png') }}" alt="Logo"
+     class="absolute top-0 left-0 h-16 mt-3 ml-3 hidden lg:block" />
         <div id="forgotFormContainer" class="bg-gray-100 p-5 flex rounded-2xl shadow-lg max-w-3xl">
             <div class="w-1/2 md:block hidden ">
                 <img src="{{ asset('images/forget_pass_g.png') }}" alt="" class="mt-12">
